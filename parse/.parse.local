@@ -1,9 +1,9 @@
 {
   "applications": {
     "_default": {
-      "link": "es6-templates"
+      "link": "emaileditor"
     },
-    "es6-templates": {
+    "emaileditor": {
       "applicationId": "HrMPFQFNyOPjq8cR9i67xSyAzAggfJYwTetpDUwB"
     }
   }

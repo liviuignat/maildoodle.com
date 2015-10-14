@@ -1,4 +1,4 @@
-/// <reference path='./../defs/tsd.d.ts' />
+/// <reference path='./../../defs/tsd.d.ts' />
 
 interface ICurrentUser {
   getIsLoggedIn(): boolean;

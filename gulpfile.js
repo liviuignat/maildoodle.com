@@ -19,9 +19,12 @@ const url = require('url');
 require('harmonize')();
 
 const paths = {
+  server: './src/server',
+  client: './src/app',
   tsc: '.tmp/tsc',
   dist: '.tmp/dist',
-  deploy: './parse-cloud/public'
+  parse: './parse',
+  deployPublic: './parse/public'
 };
 
 const bundler = {
@@ -35,8 +38,8 @@ const bundler = {
     });
 
     b.add([
-      './app/app.tsx',
-      './app/interfaces.d.ts',
+      paths.client + '/app.tsx',
+      paths.client + '/interfaces.d.ts',
      ])
     .plugin('tsify', {
       typescript: require('typescript'),
@@ -60,7 +63,7 @@ const bundler = {
       .on('error', $.util.log.bind($.util, 'Browserify Error'))
       .pipe($.wait(3000))
       .pipe($.plumber())
-      .pipe(source('app.js', './app'))
+      .pipe(source('app.js', paths.client))
       .pipe(buffer())
       .pipe($.sourcemaps.init({loadMaps: true}))
       .pipe($.sourcemaps.write('./'))
@@ -78,7 +81,7 @@ const bundler = {
 };
 
 gulp.task('tsc', function() {
-  const tsResult = gulp.src(['./app/**/*.ts', './app/**/*.tsx'])
+  const tsResult = gulp.src([paths.client + '/**/*.ts', paths.client + '/**/*.tsx'])
     .pipe($.plumber())
     .pipe($.typescript({
       isolatedModules: true,
@@ -99,10 +102,10 @@ gulp.task('scripts', [], function () {
 });
 
 gulp.task('styles', function () {
-  const mainFile = './app/styles/main.less';
+  const mainFile = paths.client + '/styles/main.less';
 
   const injectFiles = gulp.src([
-    './app/**/*.less',
+    paths.client + '/**/*.less',
     '!' + mainFile
   ], {
     read: false
@@ -111,7 +114,7 @@ gulp.task('styles', function () {
   const injectOptions = {
     transform: function (filePath) {
       console.log('path: ', filePath);
-      filePath = filePath.replace('app/', '../');
+      filePath = filePath.replace('app/', '../../');
       return '@import \'' + filePath + '\';';
     },
     starttag: '// injector',
@@ -129,7 +132,7 @@ gulp.task('styles', function () {
 });
 
 gulp.task('images', function () {
-  return gulp.src('app/images/**/*')
+  return gulp.src(paths.client + '/images/**/*')
     .pipe($.plumber())
     .pipe($.cache($.imagemin({
       optimizationLevel: 3,
@@ -141,19 +144,19 @@ gulp.task('images', function () {
 });
 
 gulp.task('extras', function () {
-  return gulp.src(['app/*.txt', 'app/*.ico'])
+  return gulp.src([paths.client + '/*.txt', paths.client + '/*.ico'])
     .pipe(gulp.dest(paths.dist))
     .pipe($.size());
 });
 
 gulp.task('clean-tsc', del.bind(null, paths.tsc));
 gulp.task('clean-dist', del.bind(null, paths.dist));
-gulp.task('clean-deploy', del.bind(null, paths.deploy));
+gulp.task('clean-deploy', del.bind(null, paths.deployPublic));
 gulp.task('clean', ['clean-tsc', 'clean-dist']);
 
 gulp.task('html', function () {
   var assets = $.useref.assets();
-  return gulp.src('app/*.html')
+  return gulp.src(paths.client + '/*.html')
     .pipe($.plumber())
     .pipe(assets)
     .pipe(assets.restore())
@@ -169,7 +172,7 @@ gulp.task('serve', function () {
       livereload: true,
       port: 9000,
       middleware: function (req, res, next) {
-        let fileName = url.parse(req.url);
+        let fileName = urlparse(req.url);
         fileName = fileName.href.split(fileName.search).join("");
         const fileExtension = path.extname(fileName);
         const hasExtension = !!fileExtension;
@@ -183,7 +186,7 @@ gulp.task('serve', function () {
 });
 
 gulp.task('tslint', function(){
-  return gulp.src(['./app/**/*.ts', './app/**/*.tsx'])
+  return gulp.src([paths.client + '/**/*.ts', paths.client + '/**/*.tsx'])
     .pipe($.plumber())
     .pipe($.tslint())
     .pipe($.tslint.report('verbose'));
@@ -215,18 +218,31 @@ gulp.task('build', ['clean'], function (callback) {
   return runSequence('tslint', 'tsc', 'test', ['scripts', 'styles', 'html'], callback);
 });
 
-gulp.task('deploy', ['clean-deploy', 'build'], function (callback) {
+gulp.task('deploy-prev', function (callback) {
+  return runSequence('clean-deploy', 'build', callback);
+});
+
+gulp.task('deploy', ['deploy-prev'], function (callback) {
   var jsFilter = $.filter(['**/*.js'], {restore: true});
   var cssFilter = $.filter(['**/*.css'], {restore: true});
+  var revFilter = $.filter(['**/*.js', '**/*.map', '**/*.css'], {restore: true});
 
   return gulp.src(paths.dist + '/**/*')
     .pipe(jsFilter)
     .pipe($.uglify())
     .pipe(jsFilter.restore)
+    
     .pipe(cssFilter)
     .pipe($.minifyCss())
     .pipe(cssFilter.restore)
-    .pipe(gulp.dest(paths.deploy));
+    
+    .pipe(revFilter)
+    .pipe($.rev())
+    .pipe(revFilter.restore)
+
+    .pipe($.revReplace())
+    .pipe(gulp.dest(paths.deployPublic))
+    .pipe($.size());
 });
 
 gulp.task('watch', ['build'], function (callback) {

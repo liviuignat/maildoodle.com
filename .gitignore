@@ -3,4 +3,4 @@ bower_components
 node_modules
 npm-debug.log
 parse.exe
-parse-cloud/public
+parse/public
