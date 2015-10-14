@@ -4,8 +4,7 @@
   "description": "",
   "main": "gulp",
   "scripts": {
-    "test": "jest",
-    "build": "browserify src/server/server.js -t babelify -o .parse/cloud/server.js"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
