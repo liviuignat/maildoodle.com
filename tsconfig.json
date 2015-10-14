@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "isolatedModules": true,
+    "target": "ES6",
+    "jsx": "react",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true
+  },
+  "exclude": [
+    ".tmp",
+    "node_modules",
+    "defs"
+  ]
+}
