@@ -19,9 +19,12 @@ const url = require('url');
 require('harmonize')();
 
 const paths = {
+  server: './src/server',
+  client: './src/app',
   tsc: '.tmp/tsc',
   dist: '.tmp/dist',
-  deploy: './parse-cloud/public'
+  parse: './.parse',
+  deployPublic: './.parse/public'
 };
 
 const bundler = {
@@ -35,8 +38,8 @@ const bundler = {
     });
 
     b.add([
-      './app/app.tsx',
-      './app/interfaces.d.ts',
+      paths.client + '/app.tsx',
+      paths.client + '/interfaces.d.ts',
      ])
     .plugin('tsify', {
       typescript: require('typescript'),
@@ -60,7 +63,7 @@ const bundler = {
       .on('error', $.util.log.bind($.util, 'Browserify Error'))
       .pipe($.wait(3000))
       .pipe($.plumber())
-      .pipe(source('app.js', './app'))
+      .pipe(source('app.js', paths.client))
       .pipe(buffer())
       .pipe($.sourcemaps.init({loadMaps: true}))
       .pipe($.sourcemaps.write('./'))
@@ -78,7 +81,7 @@ const bundler = {
 };
 
 gulp.task('tsc', function() {
-  const tsResult = gulp.src(['./app/**/*.ts', './app/**/*.tsx'])
+  const tsResult = gulp.src([paths.client + '/**/*.ts', paths.client + '/**/*.tsx'])
     .pipe($.plumber())
     .pipe($.typescript({
       isolatedModules: true,
@@ -99,10 +102,10 @@ gulp.task('scripts', [], function () {
 });
 
 gulp.task('styles', function () {
-  const mainFile = './app/styles/main.less';
+  const mainFile = paths.client + '/styles/main.less';
 
   const injectFiles = gulp.src([
-    './app/**/*.less',
+    paths.client + '/**/*.less',
     '!' + mainFile
   ], {
     read: false
@@ -111,7 +114,7 @@ gulp.task('styles', function () {
   const injectOptions = {
     transform: function (filePath) {
       console.log('path: ', filePath);
-      filePath = filePath.replace('app/', '../');
+      filePath = filePath.replace('app/', '../../');
       return '@import \'' + filePath + '\';';
     },
     starttag: '// injector',
@@ -183,7 +186,7 @@ gulp.task('serve', function () {
 });
 
 gulp.task('tslint', function(){
-  return gulp.src(['./app/**/*.ts', './app/**/*.tsx'])
+  return gulp.src([paths.client + '/**/*.ts', paths.client + '/**/*.tsx'])
     .pipe($.plumber())
     .pipe($.tslint())
     .pipe($.tslint.report('verbose'));
@@ -215,7 +218,7 @@ gulp.task('build', ['clean'], function (callback) {
   return runSequence('tslint', 'tsc', 'test', ['scripts', 'styles', 'html'], callback);
 });
 
-gulp.task('deploy', ['clean-deploy', 'build'], function (callback) {
+gulp.task('deploy-public', ['clean-deploy', 'build'], function (callback) {
   var jsFilter = $.filter(['**/*.js'], {restore: true});
   var cssFilter = $.filter(['**/*.css'], {restore: true});
 
@@ -226,7 +229,22 @@ gulp.task('deploy', ['clean-deploy', 'build'], function (callback) {
     .pipe(cssFilter)
     .pipe($.minifyCss())
     .pipe(cssFilter.restore)
-    .pipe(gulp.dest(paths.deploy));
+    .pipe(gulp.dest(paths.deployPublic));
+});
+
+gulp.task('deploy-server', function (callback) {
+  var brsfy = browserify();
+  brsfy.add('./src/server/server.js')
+    .on('error', $.util.log.bind($.util, 'Browserify Error'))
+    .on('end', () => {
+      $.util.log(`server scripts bundle finish`);
+    });
+
+  brsfy
+    .bundle()
+    .pipe(source('app-server.js'))
+    .pipe(gulp.dest('./.parse/cloud'));
+    ;
 });
 
 gulp.task('watch', ['build'], function (callback) {
