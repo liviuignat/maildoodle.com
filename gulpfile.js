@@ -19,41 +19,72 @@ const url = require('url');
 require('harmonize')();
 
 const paths = {
-  server: './src/server',
   client: './src/app',
-  tsc: '.tmp/tsc',
-  dist: '.tmp/dist',
-  parse: './parse',
-  deployPublic: './parse/public'
+  dist: '.tmp/dist'
 };
 
-const bundler = {
+// const bundler = {
+//   w: null,
+//   init: function () {
+//     const b = browserify({
+//       cache: {},
+//       packageCache: {},
+//       insertGlobals: true,
+//       debug: true
+//     });
+
+//     b.add([
+//       paths.client + '/app.tsx',
+//       paths.client + '/interfaces.d.ts',
+//      ])
+//     .plugin('tsify', {
+//       typescript: require('typescript'),
+//       isolatedModules: true,
+//       target: 'ES6',
+//       jsx: 'react',
+//       noImplicitAny: true,
+//       removeComments: true,
+//       preserveConstEnums: true,
+//       sourceMap: true
+//     })
+//     .transform(babelify.configure({extensions: [".ts",".js", ".tsx"]}));
+
+//     this.w = watchify(b);
+//   },
+//   bundle: function () {
+//     console.log('scripts bundler start');
+//     const from = Date.now();
+
+//     return this.w && this.w.bundle()
+//       .on('error', $.util.log.bind($.util, 'Browserify Error'))
+//       .pipe($.wait(3000))
+//       .pipe($.plumber())
+//       .pipe(source('app.js', paths.client))
+//       .pipe(buffer())
+//       .pipe($.sourcemaps.init({loadMaps: true}))
+//       .pipe($.sourcemaps.write('./'))
+//       .pipe(gulp.dest(paths.dist))
+//       .on('end', () => {
+//         $.util.log(`scripts bundle finish after ${(Date.now() - from) / 1000} s`);
+//       });
+//   },
+//   watch: function () {
+//     this.w && this.w.on('update', this.bundle.bind(this));
+//   },
+//   stop: function () {
+//     this.w && this.w.close();
+//   }
+// };
+
+var bundler = {
   w: null,
   init: function () {
-    const b = browserify({
-      cache: {},
-      packageCache: {},
+    this.w = watchify(browserify({
+      entries: [paths.client + '/app.js'],
       insertGlobals: true,
-      debug: true
-    });
-
-    b.add([
-      paths.client + '/app.tsx',
-      paths.client + '/interfaces.d.ts',
-     ])
-    .plugin('tsify', {
-      typescript: require('typescript'),
-      isolatedModules: true,
-      target: 'ES6',
-      jsx: 'react',
-      noImplicitAny: true,
-      removeComments: true,
-      preserveConstEnums: true,
-      sourceMap: true
-    })
-    .transform(babelify.configure({extensions: [".ts",".js", ".tsx"]}));
-
-    this.w = watchify(b);
+      cache: {},
+      packageCache: {}
+    }));
   },
   bundle: function () {
     console.log('scripts bundler start');
@@ -61,7 +92,6 @@ const bundler = {
 
     return this.w && this.w.bundle()
       .on('error', $.util.log.bind($.util, 'Browserify Error'))
-      .pipe($.wait(3000))
       .pipe($.plumber())
       .pipe(source('app.js', paths.client))
       .pipe(buffer())
@@ -79,22 +109,6 @@ const bundler = {
     this.w && this.w.close();
   }
 };
-
-gulp.task('tsc', function() {
-  const tsResult = gulp.src([paths.client + '/**/*.ts', paths.client + '/**/*.tsx'])
-    .pipe($.plumber())
-    .pipe($.typescript({
-      isolatedModules: true,
-      target: 'ES6',
-      jsx: 'react',
-      noImplicitAny: false,
-      removeComments: true,
-      preserveConstEnums: true,
-      sourceMap: true
-    }));
-
-   return tsResult.js.pipe(gulp.dest(paths.tsc));
-});
 
 gulp.task('scripts', [], function () {
   bundler.init();
@@ -149,10 +163,7 @@ gulp.task('extras', function () {
     .pipe($.size());
 });
 
-gulp.task('clean-tsc', del.bind(null, paths.tsc));
-gulp.task('clean-dist', del.bind(null, paths.dist));
-gulp.task('clean-deploy', del.bind(null, paths.deployPublic));
-gulp.task('clean', ['clean-tsc', 'clean-dist']);
+gulp.task('clean', del.bind(null, paths.dist));
 
 gulp.task('html', function () {
   var assets = $.useref.assets();
@@ -172,7 +183,7 @@ gulp.task('serve', function () {
       livereload: true,
       port: 9000,
       middleware: function (req, res, next) {
-        let fileName = urlparse(req.url);
+        let fileName = url.parse(req.url);
         fileName = fileName.href.split(fileName.search).join("");
         const fileExtension = path.extname(fileName);
         const hasExtension = !!fileExtension;
@@ -185,17 +196,20 @@ gulp.task('serve', function () {
     }));
 });
 
-gulp.task('tslint', function(){
-  return gulp.src([paths.client + '/**/*.ts', paths.client + '/**/*.tsx'])
-    .pipe($.plumber())
-    .pipe($.tslint())
-    .pipe($.tslint.report('verbose'));
+gulp.task('eslint', function () {
+  return gulp.src([
+      paths.client + '/**/*.js',
+      '!' + paths.client + '/bower_components/**/*.js'
+    ])
+    .pipe($.eslint())
+    .pipe($.eslint.format())
+    .pipe($.eslint.failAfterError());
 });
 
 gulp.task('test', function () {
   var nodeModules = path.resolve('./node_modules');
   var options = {
-    testDirectoryName: 'tsc',
+    testDirectoryName: 'app',
     testFileExtensions: ['spec.js'],
     scriptPreprocessor: nodeModules + '/babel-jest',
     unmockedModulePathPatterns: [
@@ -208,18 +222,18 @@ gulp.task('test', function () {
     verbose: true
   };
 
-  return gulp.src(paths.tsc)
+  return gulp.src(paths.client)
     .pipe($.plumber())
     .pipe($.wait(1000))
     .pipe(gulpJest(options));
 });
 
 gulp.task('build', ['clean'], function (callback) {
-  return runSequence('tslint', 'tsc', 'test', ['scripts', 'styles', 'html'], callback);
+  return runSequence('eslint', 'test', ['scripts', 'styles', 'html'], callback);
 });
 
 gulp.task('deploy-prev', function (callback) {
-  return runSequence('clean-deploy', 'build', callback);
+  return runSequence('clean', 'build', callback);
 });
 
 gulp.task('deploy', ['deploy-prev'], function (callback) {
@@ -231,11 +245,11 @@ gulp.task('deploy', ['deploy-prev'], function (callback) {
     .pipe(jsFilter)
     .pipe($.uglify())
     .pipe(jsFilter.restore)
-    
+
     .pipe(cssFilter)
     .pipe($.minifyCss())
     .pipe(cssFilter.restore)
-    
+
     .pipe(revFilter)
     .pipe($.rev())
     .pipe(revFilter.restore)
@@ -246,13 +260,12 @@ gulp.task('deploy', ['deploy-prev'], function (callback) {
 });
 
 gulp.task('watch', ['build'], function (callback) {
-  gulp.watch(['app/**/*.ts', 'app/**/*.tsx'], ['tslint', 'tsc']);
-  gulp.watch('app/*.html', ['html']);
-  gulp.watch('app/**/*.less', ['styles']);
-  gulp.watch('app/images/**/*', ['images']);
+  gulp.watch(paths.client + '/*.html', ['html']);
+  gulp.watch(paths.client + '/**/*.less', ['styles']);
+  gulp.watch(paths.client + '/images/**/*', ['images']);
 
   bundler.watch();
-  gulp.watch(paths.tsc + '/**/*.js', ['test']);
+  gulp.watch(paths.client + '/**/*.js', ['eslint', 'test']);
 
   runSequence('serve', callback);
 });
