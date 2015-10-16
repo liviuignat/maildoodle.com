@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { RouteHandler } from 'react-router';
 import ComponentBase from './ComponentBase';
+import Layout from './Layout';
 import { AppHeader, AppLeftNav } from './common/index';
 
 class AppComponent extends ComponentBase {
@@ -17,7 +19,7 @@ class AppComponent extends ComponentBase {
 
   render() {
     return (
-      <div>
+      <Layout>
         <AppLeftNav
           ref='leftNav'
           location={this.props.location}
@@ -26,10 +28,9 @@ class AppComponent extends ComponentBase {
         <AppHeader onLeftIconButtonTouchTap={this.handleClick.bind(this)} />
 
         <section className='AppContainer'>
-          {this.props.children}
+          <RouteHandler {...this.props} />
         </section>
-
-      </div>
+      </Layout>
     );
   }
 }

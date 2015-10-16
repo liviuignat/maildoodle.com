@@ -64,8 +64,9 @@
     "parse": "^1.6.4",
     "react": "^0.13.3",
     "react-dom": "^0.14.0-rc1",
+    "react-engine": "^2.3.0",
     "react-mixin": "^2.0.2",
-    "react-router": "^1.0.0-rc1",
+    "react-router": "^0.13.4",
     "react-tap-event-plugin": "^0.1.8",
     "react-tools": "^0.13.3",
     "serve-static": "^1.10.0"

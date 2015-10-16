@@ -20,61 +20,8 @@ require('harmonize')();
 
 const paths = {
   client: './src/app',
-  dist: '.tmp/dist'
+  dist: '.dist'
 };
-
-// const bundler = {
-//   w: null,
-//   init: function () {
-//     const b = browserify({
-//       cache: {},
-//       packageCache: {},
-//       insertGlobals: true,
-//       debug: true
-//     });
-
-//     b.add([
-//       paths.client + '/app.tsx',
-//       paths.client + '/interfaces.d.ts',
-//      ])
-//     .plugin('tsify', {
-//       typescript: require('typescript'),
-//       isolatedModules: true,
-//       target: 'ES6',
-//       jsx: 'react',
-//       noImplicitAny: true,
-//       removeComments: true,
-//       preserveConstEnums: true,
-//       sourceMap: true
-//     })
-//     .transform(babelify.configure({extensions: [".ts",".js", ".tsx"]}));
-
-//     this.w = watchify(b);
-//   },
-//   bundle: function () {
-//     console.log('scripts bundler start');
-//     const from = Date.now();
-
-//     return this.w && this.w.bundle()
-//       .on('error', $.util.log.bind($.util, 'Browserify Error'))
-//       .pipe($.wait(3000))
-//       .pipe($.plumber())
-//       .pipe(source('app.js', paths.client))
-//       .pipe(buffer())
-//       .pipe($.sourcemaps.init({loadMaps: true}))
-//       .pipe($.sourcemaps.write('./'))
-//       .pipe(gulp.dest(paths.dist))
-//       .on('end', () => {
-//         $.util.log(`scripts bundle finish after ${(Date.now() - from) / 1000} s`);
-//       });
-//   },
-//   watch: function () {
-//     this.w && this.w.on('update', this.bundle.bind(this));
-//   },
-//   stop: function () {
-//     this.w && this.w.close();
-//   }
-// };
 
 var bundler = {
   w: null,
