@@ -9,6 +9,7 @@ import { getCurrentUserAction } from './actions/index';
 const appNode = window.document.getElementById('app');
 const render = () => {
   Router.run(routes, Router.HistoryLocation, (Handler) => {
+    console.log('routes initialized');
     React.render(<Handler />, appNode);
   });
 };

@@ -59477,6 +59477,7 @@ var _actionsIndex = require('./actions/index');
 var appNode = window.document.getElementById('app');
 var render = function render() {
   Router.run(_componentsRoutes.routes, Router.HistoryLocation, function (Handler) {
+    console.log('routes initialized');
     React.render(React.createElement(Handler, null), appNode);
   });
 };
@@ -59494,7 +59495,7 @@ if (_storesIndex.currentUserStore.getIsLoggedIn()) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\app.js","/src\\app")
-},{"./actions/index":468,"./components/routes":488,"./stores/index":493,"_process":7,"buffer":2,"parse":172,"react":461,"react-router":271,"react-tap-event-plugin":288}],472:[function(require,module,exports){
+},{"./actions/index":468,"./components/routes":489,"./stores/index":494,"_process":7,"buffer":2,"parse":172,"react":461,"react-router":271,"react-tap-event-plugin":288}],472:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -59588,6 +59589,10 @@ var _ComponentBase2 = require('./ComponentBase');
 
 var _ComponentBase3 = _interopRequireDefault(_ComponentBase2);
 
+var _Layout = require('./Layout');
+
+var _Layout2 = _interopRequireDefault(_Layout);
+
 var _commonIndex = require('./common/index');
 
 var AppComponent = (function (_ComponentBase) {
@@ -59611,7 +59616,7 @@ var AppComponent = (function (_ComponentBase) {
     key: 'render',
     value: function render() {
       return React.createElement(
-        'div',
+        _Layout2['default'],
         null,
         React.createElement(_commonIndex.AppLeftNav, {
           ref: 'leftNav',
@@ -59638,7 +59643,7 @@ exports['default'] = AppComponent;
 module.exports = exports['default'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\AppComponent.js","/src\\app\\components")
-},{"./ComponentBase":474,"./common/index":476,"_process":7,"buffer":2,"react":461,"react-router":271}],474:[function(require,module,exports){
+},{"./ComponentBase":474,"./Layout":475,"./common/index":477,"_process":7,"buffer":2,"react":461,"react-router":271}],474:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -59675,6 +59680,116 @@ module.exports = exports['default'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\ComponentBase.js","/src\\app\\components")
 },{"_process":7,"buffer":2,"react":461}],475:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var React = _interopRequireWildcard(_react);
+
+var _reactRouter = require('react-router');
+
+var _ComponentBase2 = require('./ComponentBase');
+
+var _ComponentBase3 = _interopRequireDefault(_ComponentBase2);
+
+var _commonIndex = require('./common/index');
+
+var AppComponent = (function (_ComponentBase) {
+  _inherits(AppComponent, _ComponentBase);
+
+  function AppComponent(props, context) {
+    _classCallCheck(this, AppComponent);
+
+    _get(Object.getPrototypeOf(AppComponent.prototype), 'constructor', this).call(this, props, context);
+  }
+
+  _createClass(AppComponent, [{
+    key: 'handleClick',
+    value: function handleClick(e) {
+      e.preventDefault();
+
+      var leftNav = this.refs['leftNav'];
+      leftNav.toggle();
+    }
+  }, {
+    key: 'isNode',
+    value: function isNode() {
+      return typeof window === 'undefined';
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      if (this.isNode()) {
+        return React.createElement(
+          'html',
+          { lang: 'en' },
+          React.createElement(
+            'head',
+            null,
+            React.createElement('meta', { charset: 'utf-8' }),
+            React.createElement(
+              'title',
+              null,
+              'c24 reactes6'
+            ),
+            React.createElement('meta', { name: 'description', content: '' }),
+            React.createElement('meta', { name: 'viewport', content: 'width=device-width' }),
+            React.createElement('link', { href: 'https://fonts.googleapis.com/icon?family=Material+Icons', rel: 'stylesheet' }),
+            React.createElement('link', { href: 'https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,500,500italic', rel: 'stylesheet', type: 'text/css' }),
+            React.createElement('link', { rel: 'stylesheet', href: '/styles/main.css' }),
+            React.createElement('script', { src: '/scripts/vendor/modernizr.js' })
+          ),
+          React.createElement(
+            'body',
+            null,
+            React.createElement(
+              'div',
+              { id: 'app' },
+              this.props.children
+            ),
+            React.createElement('script', { src: '/scripts/vendor.js' }),
+            React.createElement('script', { src: '/app.js' })
+          )
+        );
+      } else {
+        return React.createElement(
+          'div',
+          null,
+          this.props.children
+        );
+      }
+    }
+  }]);
+
+  return AppComponent;
+})(_ComponentBase3['default']);
+
+AppComponent.contextTypes = {
+  router: React.PropTypes.func.isRequired
+};
+
+exports['default'] = AppComponent;
+module.exports = exports['default'];
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\Layout.js","/src\\app\\components")
+},{"./ComponentBase":474,"./common/index":477,"_process":7,"buffer":2,"react":461,"react-router":271}],476:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -59794,7 +59909,7 @@ exports['default'] = AppHeader;
 module.exports = exports['default'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\common\\app-header\\AppHeader.js","/src\\app\\components\\common\\app-header")
-},{"./../../../actions/index":468,"./../../../app.config":470,"./../../../history":490,"./../../../stores/index":493,"./../../ComponentBase":474,"./../material-ui/index":480,"_process":7,"buffer":2,"react":461,"react-router":271}],476:[function(require,module,exports){
+},{"./../../../actions/index":468,"./../../../app.config":470,"./../../../history":491,"./../../../stores/index":494,"./../../ComponentBase":474,"./../material-ui/index":481,"_process":7,"buffer":2,"react":461,"react-router":271}],477:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -59826,7 +59941,7 @@ var _materialUiIndex = require('./material-ui/index');
 _defaults(exports, _interopExportWildcard(_materialUiIndex, _defaults));
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\common\\index.js","/src\\app\\components\\common")
-},{"./app-header/AppHeader":475,"./left-nav/AppLeftNav":477,"./material-ui/index":480,"_process":7,"buffer":2}],477:[function(require,module,exports){
+},{"./app-header/AppHeader":476,"./left-nav/AppLeftNav":478,"./material-ui/index":481,"_process":7,"buffer":2}],478:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -59943,7 +60058,7 @@ exports['default'] = AppLeftNav;
 module.exports = exports['default'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\common\\left-nav\\AppLeftNav.js","/src\\app\\components\\common\\left-nav")
-},{"./../../../actions/index":468,"./../../ComponentBase":474,"./../material-ui/index":480,"_process":7,"buffer":2,"react":461}],478:[function(require,module,exports){
+},{"./../../../actions/index":468,"./../../ComponentBase":474,"./../material-ui/index":481,"_process":7,"buffer":2,"react":461}],479:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -59985,7 +60100,7 @@ exports['default'] = AppRaisedButton;
 module.exports = exports['default'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\common\\material-ui\\RaisedButton.js","/src\\app\\components\\common\\material-ui")
-},{"./../../styles":489,"./utils":481,"_process":7,"buffer":2,"material-ui":66}],479:[function(require,module,exports){
+},{"./../../styles":490,"./utils":482,"_process":7,"buffer":2,"material-ui":66}],480:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -60027,7 +60142,7 @@ exports['default'] = AppRaisedButton;
 module.exports = exports['default'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\common\\material-ui\\TextField.js","/src\\app\\components\\common\\material-ui")
-},{"./../../styles":489,"./utils":481,"_process":7,"buffer":2,"material-ui":66}],480:[function(require,module,exports){
+},{"./../../styles":490,"./utils":482,"_process":7,"buffer":2,"material-ui":66}],481:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -60063,7 +60178,7 @@ var RaisedButton = _RaisedButton2['default'];
 exports.RaisedButton = RaisedButton;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\common\\material-ui\\index.js","/src\\app\\components\\common\\material-ui")
-},{"./RaisedButton":478,"./TextField":479,"_process":7,"buffer":2,"material-ui":66,"material-ui/lib/styles/":102}],481:[function(require,module,exports){
+},{"./RaisedButton":479,"./TextField":480,"_process":7,"buffer":2,"material-ui":66,"material-ui/lib/styles/":102}],482:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 
@@ -60076,7 +60191,7 @@ var extend = function extend(obj, newObj) {
 exports.extend = extend;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\common\\material-ui\\utils.js","/src\\app\\components\\common\\material-ui")
-},{"_process":7,"buffer":2}],482:[function(require,module,exports){
+},{"_process":7,"buffer":2}],483:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -60145,7 +60260,7 @@ exports['default'] = AppHomePage;
 module.exports = exports['default'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\pages\\app\\home\\AppHomePage.js","/src\\app\\components\\pages\\app\\home")
-},{"./../../../../stores/index":493,"./../../../ComponentBase":474,"_process":7,"buffer":2,"react":461}],483:[function(require,module,exports){
+},{"./../../../../stores/index":494,"./../../../ComponentBase":474,"_process":7,"buffer":2,"react":461}],484:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -60326,7 +60441,7 @@ exports['default'] = MyAccountPage;
 module.exports = exports['default'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\pages\\app\\my-account\\MyAccountPage.js","/src\\app\\components\\pages\\app\\my-account")
-},{"./../../../../actions/index":468,"./../../../../stores/index":493,"./../../../../utils/FormFieldData/index":495,"./../../../../utils/Validators/index":500,"./../../../ComponentBase":474,"./../../../common/index":476,"_process":7,"buffer":2,"react":461}],484:[function(require,module,exports){
+},{"./../../../../actions/index":468,"./../../../../stores/index":494,"./../../../../utils/FormFieldData/index":496,"./../../../../utils/Validators/index":501,"./../../../ComponentBase":474,"./../../../common/index":477,"_process":7,"buffer":2,"react":461}],485:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -60511,7 +60626,7 @@ exports['default'] = CreateUserPage;
 module.exports = exports['default'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\pages\\auth\\create-user\\CreateUserPage.js","/src\\app\\components\\pages\\auth\\create-user")
-},{"./../../../../actions/index":468,"./../../../../utils/FormFieldData/index":495,"./../../../../utils/Validators/index":500,"./../../../ComponentBase":474,"./../../../common/index":476,"_process":7,"buffer":2,"react":461,"react-router":271}],485:[function(require,module,exports){
+},{"./../../../../actions/index":468,"./../../../../utils/FormFieldData/index":496,"./../../../../utils/Validators/index":501,"./../../../ComponentBase":474,"./../../../common/index":477,"_process":7,"buffer":2,"react":461,"react-router":271}],486:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -60572,6 +60687,7 @@ var LoginPage = (function (_ComponentBase) {
     value: function onFormSubmit(e) {
       var _this = this;
 
+      console.log('submit');
       var user = this.state;
       var validatorResponse = _utilsValidatorsIndex.formValidator.validate(user);
       var formData = validatorResponse.formData;
@@ -60638,7 +60754,7 @@ var LoginPage = (function (_ComponentBase) {
               React.createElement(
                 'div',
                 null,
-                React.createElement(_commonIndex.TextField, {
+                React.createElement('input', {
                   value: this.state.email.value,
                   errorText: this.state.email.error,
                   onChange: this.handleEmailChange.bind(this),
@@ -60649,7 +60765,7 @@ var LoginPage = (function (_ComponentBase) {
               React.createElement(
                 'div',
                 null,
-                React.createElement(_commonIndex.TextField, {
+                React.createElement('input', {
                   value: this.state.password.value,
                   errorText: this.state.password.error,
                   onChange: this.handlePasswordChange.bind(this),
@@ -60660,7 +60776,7 @@ var LoginPage = (function (_ComponentBase) {
               React.createElement(
                 'div',
                 { className: 'LoginPage-loginButtonContainer' },
-                React.createElement(_commonIndex.RaisedButton, {
+                React.createElement('button', {
                   primary: true,
                   type: 'submit',
                   label: 'Login' })
@@ -60698,7 +60814,7 @@ exports['default'] = LoginPage;
 module.exports = exports['default'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\pages\\auth\\login\\LoginPage.js","/src\\app\\components\\pages\\auth\\login")
-},{"./../../../../actions/index":468,"./../../../../utils/FormFieldData/index":495,"./../../../../utils/Validators/index":500,"./../../../ComponentBase":474,"./../../../common/index":476,"_process":7,"buffer":2,"react":461,"react-router":271}],486:[function(require,module,exports){
+},{"./../../../../actions/index":468,"./../../../../utils/FormFieldData/index":496,"./../../../../utils/Validators/index":501,"./../../../ComponentBase":474,"./../../../common/index":477,"_process":7,"buffer":2,"react":461,"react-router":271}],487:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -60851,7 +60967,7 @@ exports['default'] = ResetPasswordPage;
 module.exports = exports['default'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\pages\\auth\\reset-password\\ResetPasswordPage.js","/src\\app\\components\\pages\\auth\\reset-password")
-},{"./../../../../actions/index":468,"./../../../../utils/FormFieldData/index":495,"./../../../../utils/Validators/index":500,"./../../../ComponentBase":474,"./../../../common/index":476,"_process":7,"buffer":2,"react":461,"react-router":271}],487:[function(require,module,exports){
+},{"./../../../../actions/index":468,"./../../../../utils/FormFieldData/index":496,"./../../../../utils/Validators/index":501,"./../../../ComponentBase":474,"./../../../common/index":477,"_process":7,"buffer":2,"react":461,"react-router":271}],488:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -60919,7 +61035,7 @@ exports['default'] = HomePage;
 module.exports = exports['default'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\pages\\home\\HomePage.js","/src\\app\\components\\pages\\home")
-},{"./../../../app.config":470,"./../../ComponentBase":474,"_process":7,"buffer":2,"react":461}],488:[function(require,module,exports){
+},{"./../../../app.config":470,"./../../ComponentBase":474,"_process":7,"buffer":2,"react":461}],489:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -60979,7 +61095,7 @@ var routes = React.createElement(
 exports.routes = routes;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\routes.js","/src\\app\\components")
-},{"./AppComponent":473,"./pages/app/home/AppHomePage":482,"./pages/app/my-account/MyAccountPage":483,"./pages/auth/create-user/CreateUserPage":484,"./pages/auth/login/LoginPage":485,"./pages/auth/reset-password/ResetPasswordPage":486,"./pages/home/HomePage":487,"_process":7,"buffer":2,"react":461,"react-router":271}],489:[function(require,module,exports){
+},{"./AppComponent":473,"./pages/app/home/AppHomePage":483,"./pages/app/my-account/MyAccountPage":484,"./pages/auth/create-user/CreateUserPage":485,"./pages/auth/login/LoginPage":486,"./pages/auth/reset-password/ResetPasswordPage":487,"./pages/home/HomePage":488,"_process":7,"buffer":2,"react":461,"react-router":271}],490:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -61001,7 +61117,7 @@ var raisedButton = {
 exports.raisedButton = raisedButton;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\components\\styles.js","/src\\app\\components")
-},{"_process":7,"buffer":2}],490:[function(require,module,exports){
+},{"_process":7,"buffer":2}],491:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -61030,7 +61146,7 @@ var history = currentHistory;
 exports.history = history;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\history.js","/src\\app")
-},{"_process":7,"buffer":2,"history/lib/createBrowserHistory":17,"history/lib/createMemoryHistory":21}],491:[function(require,module,exports){
+},{"_process":7,"buffer":2,"history/lib/createBrowserHistory":17,"history/lib/createMemoryHistory":21}],492:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -61217,7 +61333,7 @@ var currentUserStore = new CurrentUserStore();
 exports.currentUserStore = currentUserStore;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\stores\\auth\\currentUserStore.js","/src\\app\\stores\\auth")
-},{"./../../actions/index":468,"./../../appDispatcher":472,"./../eventTypes.constant":492,"_process":7,"blueimp-md5":1,"buffer":2,"events":6,"parse":172}],492:[function(require,module,exports){
+},{"./../../actions/index":468,"./../../appDispatcher":472,"./../eventTypes.constant":493,"_process":7,"blueimp-md5":1,"buffer":2,"events":6,"parse":172}],493:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -61232,7 +61348,7 @@ var EVENT_TYPES = {
 exports.EVENT_TYPES = EVENT_TYPES;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\stores\\eventTypes.constant.js","/src\\app\\stores")
-},{"_process":7,"buffer":2}],493:[function(require,module,exports){
+},{"_process":7,"buffer":2}],494:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -61253,7 +61369,7 @@ var _eventTypesConstant = require('./eventTypes.constant');
 _defaults(exports, _interopExportWildcard(_eventTypesConstant, _defaults));
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\stores\\index.js","/src\\app\\stores")
-},{"./auth/currentUserStore":491,"./eventTypes.constant":492,"_process":7,"buffer":2}],494:[function(require,module,exports){
+},{"./auth/currentUserStore":492,"./eventTypes.constant":493,"_process":7,"buffer":2}],495:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -61309,7 +61425,7 @@ var TextFieldData = (function () {
 exports.TextFieldData = TextFieldData;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\utils\\FormFieldData\\TextFieldData.js","/src\\app\\utils\\FormFieldData")
-},{"_process":7,"buffer":2}],495:[function(require,module,exports){
+},{"_process":7,"buffer":2}],496:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -61326,7 +61442,7 @@ var _TextFieldData = require('./TextFieldData');
 _defaults(exports, _interopExportWildcard(_TextFieldData, _defaults));
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\utils\\FormFieldData\\index.js","/src\\app\\utils\\FormFieldData")
-},{"./TextFieldData":494,"_process":7,"buffer":2}],496:[function(require,module,exports){
+},{"./TextFieldData":495,"_process":7,"buffer":2}],497:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -61370,7 +61486,7 @@ var EmailValidator = (function (_RegexValidator) {
 exports.EmailValidator = EmailValidator;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\utils\\Validators\\EmailValidator.js","/src\\app\\utils\\Validators")
-},{"./RegexValidator":498,"_process":7,"buffer":2}],497:[function(require,module,exports){
+},{"./RegexValidator":499,"_process":7,"buffer":2}],498:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -61417,7 +61533,7 @@ var PasswordValidator = (function () {
 exports.PasswordValidator = PasswordValidator;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\utils\\Validators\\PasswordValidator.js","/src\\app\\utils\\Validators")
-},{"./RequiredStringValidator":499,"_process":7,"buffer":2}],498:[function(require,module,exports){
+},{"./RequiredStringValidator":500,"_process":7,"buffer":2}],499:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -61452,7 +61568,7 @@ var RegexValidator = (function () {
 exports.RegexValidator = RegexValidator;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\utils\\Validators\\RegexValidator.js","/src\\app\\utils\\Validators")
-},{"_process":7,"buffer":2}],499:[function(require,module,exports){
+},{"_process":7,"buffer":2}],500:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -61486,7 +61602,7 @@ var RequiredStringValidator = (function () {
 exports.RequiredStringValidator = RequiredStringValidator;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\utils\\Validators\\RequiredStringValidator.js","/src\\app\\utils\\Validators")
-},{"_process":7,"buffer":2}],500:[function(require,module,exports){
+},{"_process":7,"buffer":2}],501:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -61566,6 +61682,6 @@ var formValidator = new FormValidator();
 exports.formValidator = formValidator;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/src\\app\\utils\\Validators\\index.js","/src\\app\\utils\\Validators")
-},{"./EmailValidator":496,"./PasswordValidator":497,"./RegexValidator":498,"./RequiredStringValidator":499,"_process":7,"buffer":2}]},{},[471]);
+},{"./EmailValidator":497,"./PasswordValidator":498,"./RegexValidator":499,"./RequiredStringValidator":500,"_process":7,"buffer":2}]},{},[471]);
 
 //# sourceMappingURL=app.js.map
