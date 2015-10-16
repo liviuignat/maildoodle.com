@@ -97,6 +97,7 @@ var bundler = {
       .pipe(buffer())
       .pipe($.sourcemaps.init({loadMaps: true}))
       .pipe($.sourcemaps.write('./'))
+      .pipe(gulp.dest(paths.dist))
       .on('end', () => {
         $.util.log(`scripts bundle finish after ${(Date.now() - from) / 1000} s`);
       });
@@ -196,7 +197,10 @@ gulp.task('serve', function () {
 });
 
 gulp.task('eslint', function () {
-  return gulp.src(paths.client + '/**/*.js')
+  return gulp.src([
+      paths.client + '/**/*.js',
+      '!' + paths.client + '/bower_components/**/*.js'
+    ])
     .pipe($.eslint())
     .pipe($.eslint.format())
     .pipe($.eslint.failAfterError());
@@ -225,7 +229,7 @@ gulp.task('test', function () {
 });
 
 gulp.task('build', ['clean'], function (callback) {
-  return runSequence('eslint', 'tsc', 'test', ['scripts', 'styles', 'html'], callback);
+  return runSequence('eslint', 'test', ['scripts', 'styles', 'html'], callback);
 });
 
 gulp.task('deploy-prev', function (callback) {
