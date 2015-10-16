@@ -4,6 +4,8 @@
   "description": "",
   "main": "gulp",
   "scripts": {
+    "babel-node": "babel-node --stage 0",
+    "start": "nodemon --exec npm run babel-node -- app-server",
     "test": "jest"
   },
   "author": "",
@@ -49,17 +51,24 @@
   },
   "dependencies": {
     "blueimp-md5": "^1.1.1",
+    "body-parser": "^1.14.1",
+    "compression": "^1.6.0",
+    "cookie-parser": "^1.4.0",
+    "errorhandler": "^1.4.2",
+    "express": "^4.13.3",
     "fbjs": "^0.2.1",
     "flux": "^2.1.1",
     "history": "^1.12.1",
     "material-ui": "^0.12.1",
+    "node-parse-api": "^0.3.8",
     "parse": "^1.6.4",
     "react": "^0.13.3",
     "react-dom": "^0.14.0-rc1",
     "react-mixin": "^2.0.2",
     "react-router": "^1.0.0-rc1",
     "react-tap-event-plugin": "^0.1.8",
-    "react-tools": "^0.13.3"
+    "react-tools": "^0.13.3",
+    "serve-static": "^1.10.0"
   },
   "jest": {
     "scriptPreprocessor": "babel-jest",

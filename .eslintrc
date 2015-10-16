@@ -17,7 +17,8 @@
     "except": false,
     "expect": false,
     "fetch": false,
-    "console": false
+    "console": false,
+    "__dirname": false
   },
 
   "ecmaFeatures": {
