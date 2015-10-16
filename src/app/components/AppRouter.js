@@ -16,11 +16,6 @@ import AppHomePage from './pages/app/home/AppHomePage';
 import MyAccountPage from './pages/app/my-account/MyAccountPage';
 
 class AppRouter extends React.Component {
-
-  static childContextTypes: React.ValidationMap = {
-    muiTheme: React.PropTypes.object
-  };
-
   constructor(props, context) {
     super(props, context);
   }
@@ -64,5 +59,9 @@ class AppRouter extends React.Component {
     );
   }
 }
+
+AppRouter.childContextTypes = {
+  muiTheme: React.PropTypes.object
+};
 
 export default AppRouter;

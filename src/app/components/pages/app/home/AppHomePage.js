@@ -3,15 +3,13 @@ import ComponentBase from './../../../ComponentBase';
 import { currentUserStore } from './../../../../stores/index';
 
 class AppHomePage extends ComponentBase {
-  react = React;
-
   constructor(props) {
     super(props);
 
     this.props.menuStyle = {
-       width: '100px',
-       marginLeft: '-16px',
-       marginTop: '-13px'
+      width: '100px',
+      marginLeft: '-16px',
+      marginTop: '-13px'
     };
   }
 

@@ -7,7 +7,7 @@ class DispatcherPayload {
   }
 }
 
-class AppDispatcher extends Dispatcher<any> {
+class AppDispatcher extends Dispatcher {
   constructor() {
     super();
   }

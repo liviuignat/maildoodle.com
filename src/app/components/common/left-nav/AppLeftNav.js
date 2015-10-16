@@ -4,21 +4,17 @@ import { LeftNav } from './../material-ui/index';
 import { logoutAction } from './../../../actions/index';
 
 class AppLeftNav extends ComponentBase {
-  static contextTypes: React.ValidationMap = {
-    router: React.PropTypes.func.isRequired
-  };
-
-  menuItems = [
-    { text: 'My account', route: '/app/my-account'},
-    { text: 'Dashboard', route: '/app' },
-    { text: 'Logout', action: () => this.logout() }
-  ];
-
   constructor(props, context) {
     super(props, context);
+
+    this.menuItems = [
+      { text: 'My account', route: '/app/my-account' },
+      { text: 'Dashboard', route: '/app' },
+      { text: 'Logout', action: () => this.logout() }
+    ];
   }
 
-  toggle(e) {
+  toggle() {
     const leftNav = this.refs['leftNav'];
     leftNav.toggle();
   }
@@ -71,5 +67,9 @@ class AppLeftNav extends ComponentBase {
     );
   }
 }
+
+AppLeftNav.contextTypes = {
+  router: React.PropTypes.func.isRequired
+};
 
 export default AppLeftNav;

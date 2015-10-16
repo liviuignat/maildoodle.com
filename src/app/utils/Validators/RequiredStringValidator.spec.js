@@ -1,6 +1,6 @@
- jest.dontMock('./RequiredStringValidator');
+jest.dontMock('./RequiredStringValidator');
 
- const { RequiredStringValidator } = require('./RequiredStringValidator');
+const { RequiredStringValidator } = require('./RequiredStringValidator');
 
 describe('Required string validator', () => {
   let validator;

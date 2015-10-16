@@ -3,11 +3,6 @@ import config from './../../../app.config';
 import ComponentBase from './../../ComponentBase';
 
 class HomePage extends ComponentBase {
-
-  static contextTypes: React.ValidationMap = {
-    router: React.PropTypes.func.isRequired
-  };
-
   constructor(props) {
     super(props);
   }
@@ -20,5 +15,9 @@ class HomePage extends ComponentBase {
     );
   }
 }
+
+HomePage.contextTypes = {
+  router: React.PropTypes.func.isRequired
+};
 
 export default HomePage;

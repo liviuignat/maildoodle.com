@@ -1,6 +1,6 @@
 import { RequiredStringValidator } from './RequiredStringValidator';
 
-export  class PasswordValidator {
+export class PasswordValidator {
   constructor(message = 'Password is required') {
     this.message = message;
   }

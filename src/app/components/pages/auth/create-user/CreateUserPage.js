@@ -13,10 +13,6 @@ import {
 import { createUserAction } from './../../../../actions/index';
 
 class CreateUserPage extends ComponentBase {
-  static contextTypes: React.ValidationMap = {
-    router: React.PropTypes.func.isRequired
-  };
-
   constructor(props, context) {
     super(props, context);
 
@@ -121,5 +117,9 @@ class CreateUserPage extends ComponentBase {
     );
   }
 }
+
+CreateUserPage.contextTypes = {
+  router: React.PropTypes.func.isRequired
+};
 
 export default CreateUserPage;

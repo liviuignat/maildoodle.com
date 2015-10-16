@@ -3,7 +3,7 @@ import ComponentBase from './../../../ComponentBase';
 import { RaisedButton, TextField, Card } from './../../../common/index';
 import { Link } from 'react-router';
 import { TextFieldData } from './../../../../utils/FormFieldData/index';
-import { RequiredStringValidator, EmailValidator, formValidator} from './../../../../utils/Validators/index';
+import { RequiredStringValidator, EmailValidator, formValidator } from './../../../../utils/Validators/index';
 
 import { resetPasswordAction } from './../../../../actions/index';
 

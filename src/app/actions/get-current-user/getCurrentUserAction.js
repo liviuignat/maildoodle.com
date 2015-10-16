@@ -7,7 +7,7 @@ class GetCurrentUserAction {
     const currentUser = Parse.User.current();
 
     return new Promise((resolve, reject) => {
-     currentUser.fetch().then(() => {
+      currentUser.fetch().then(() => {
         appDispatcher.dispatch(GET_CURRENT_USER.GET_CURRENT_USER_SUCCESS);
         return resolve();
       }, (err) => {

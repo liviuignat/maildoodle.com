@@ -8,11 +8,6 @@ import { RequiredStringValidator, EmailValidator, formValidator } from './../../
 import { loginAction } from './../../../../actions/index';
 
 class LoginPage extends ComponentBase {
-
-  static contextTypes: React.ValidationMap = {
-    router: React.PropTypes.func.isRequired
-  };
-
   constructor(props, context) {
     super(props, context);
 
@@ -119,5 +114,9 @@ class LoginPage extends ComponentBase {
     );
   }
 }
+
+LoginPage.contextTypes = {
+  router: React.PropTypes.func.isRequired
+};
 
 export default LoginPage;

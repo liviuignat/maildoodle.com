@@ -2,7 +2,7 @@ import { Colors } from './common/index';
 import { ColorManipulator } from 'material-ui/lib/utils/';
 import { Spacing } from 'material-ui/lib/styles/';
 
- export default {
+export default {
   spacing: Spacing,
   fontFamily: 'Roboto, sans-serif',
   palette: {

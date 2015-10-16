@@ -8,9 +8,6 @@ import { myAccountUpdateAction } from './../../../../actions/index';
 import { currentUserStore } from './../../../../stores/index';
 
 class MyAccountPage extends ComponentBase {
-  static contextTypes: React.ValidationMap = {
-    router: React.PropTypes.func.isRequired
-  };
 
   constructor(props, context) {
     super(props, context);
@@ -116,5 +113,9 @@ class MyAccountPage extends ComponentBase {
     );
   }
 }
+
+MyAccountPage.contextTypes = {
+  router: React.PropTypes.func.isRequired
+};
 
 export default MyAccountPage;
