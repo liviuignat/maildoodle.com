@@ -1,6 +1,5 @@
 import * as React from 'react';
 import ComponentBase from './../../ComponentBase';
-import { LeftNav } from './../material-ui/index';
 import { logoutAction } from './../../../actions/index';
 
 class AppLeftNav extends ComponentBase {
@@ -57,12 +56,7 @@ class AppLeftNav extends ComponentBase {
   render() {
     return (
       <div>
-        <LeftNav
-            ref='leftNav'
-            docked={false}
-            menuItems={this.menuItems}
-            selectedIndex={this.getSelectedIndex.bind(this)()}
-            onChange={this.onLeftNavChange.bind(this)} />
+        left-nav
       </div>
     );
   }

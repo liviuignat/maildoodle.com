@@ -23,7 +23,7 @@ class AppComponent extends ComponentBase {
     return (
       <html lang="en">
         <head>
-          <meta charset="utf-8" />
+          <meta charSet="utf-8" />
           <title>c24 reactes6</title>
           <meta name="description" content="" />
           <meta name="viewport" content="width=device-width" />

@@ -2,7 +2,6 @@ import * as React from 'react';
 import config from './../../../app.config';
 import ComponentBase from './../../ComponentBase';
 import { Link } from 'react-router';
-import { AppBar, Avatar } from './../material-ui/index';
 import { history } from './../../../history';
 import { logoutAction } from './../../../actions/index';
 import { currentUserStore } from './../../../stores/index';
@@ -38,12 +37,7 @@ class AppHeader extends ComponentBase {
   render() {
     return (
       <header>
-        <AppBar
-          title={<Link className='AppHeader-homeLink' to='/'>{ config.title }</Link>}
-          showMenuIconButton={this.state.isLoggedIn}
-          iconElementRight={this.renderButtonsRight()}
-          onLeftIconButtonTouchTap={this.props.onLeftIconButtonTouchTap}
-          />
+        header
       </header>
     );
   }

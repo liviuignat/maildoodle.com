@@ -20,11 +20,6 @@ class AppComponent extends ComponentBase {
   render() {
     return (
       <Layout>
-        <AppLeftNav
-          ref='leftNav'
-          location={this.props.location}
-          history={this.props.history}/>
-
         <AppHeader onLeftIconButtonTouchTap={this.handleClick.bind(this)} />
 
         <section className='AppContainer'>

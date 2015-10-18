@@ -2,10 +2,10 @@
   "name": "email-templates",
   "version": "0.0.1",
   "description": "",
-  "main": "gulp",
+  "main": "app-server",
   "scripts": {
     "babel-node": "babel-node --stage 0",
-    "start": "nodemon --exec npm run babel-node -- app-server",
+    "start": "nodemon --exec babel-node --stage 0 -- app-server",
     "test": "jest"
   },
   "author": "",
