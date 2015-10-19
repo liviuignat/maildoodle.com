@@ -2,7 +2,6 @@ import * as React from 'react';
 import config from './../../../app.config';
 import ComponentBase from './../../ComponentBase';
 import { Link } from 'react-router';
-import { AppBar, Avatar } from './../material-ui/index';
 import { history } from './../../../history';
 import { logoutAction } from './../../../actions/index';
 import { currentUserStore } from './../../../stores/index';
@@ -14,17 +13,27 @@ class AppHeader extends ComponentBase {
     this.state = {
       isLoggedIn: currentUserStore.getIsLoggedIn()
     };
+  }
 
-    currentUserStore.addLoginListener(() => {
-      this.setState({
-        isLoggedIn: currentUserStore.getIsLoggedIn()
-      });
+  componentDidMount() {
+    currentUserStore.addLoginListener(this.onLogin.bind(this));
+    currentUserStore.addLoginListener(this.onLogout.bind(this));
+  }
+
+  componentWillUnmount() {
+    currentUserStore.removeChangeListener(this.onLogin.bind(this));
+    currentUserStore.removeChangeListener(this.onLogout.bind(this));
+  }
+
+  onLogin() {
+    this.setState({
+      isLoggedIn: currentUserStore.getIsLoggedIn()
     });
+  }
 
-    currentUserStore.addLogoutListener(() => {
-      this.setState({
-        isLoggedIn: currentUserStore.getIsLoggedIn()
-      });
+  onLogout() {
+    this.setState({
+      isLoggedIn: currentUserStore.getIsLoggedIn()
     });
   }
 
@@ -38,12 +47,7 @@ class AppHeader extends ComponentBase {
   render() {
     return (
       <header>
-        <AppBar
-          title={<Link className='AppHeader-homeLink' to='/'>{ config.title }</Link>}
-          showMenuIconButton={this.state.isLoggedIn}
-          iconElementRight={this.renderButtonsRight()}
-          onLeftIconButtonTouchTap={this.props.onLeftIconButtonTouchTap}
-          />
+        header
       </header>
     );
   }

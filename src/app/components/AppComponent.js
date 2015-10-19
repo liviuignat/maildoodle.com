@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { RouteHandler } from 'react-router';
 import ComponentBase from './ComponentBase';
-import { AppHeader, AppLeftNav } from './common/index';
+import Layout from './Layout';
+import { AppHeader } from './common/index';
 
 class AppComponent extends ComponentBase {
 
@@ -17,19 +19,13 @@ class AppComponent extends ComponentBase {
 
   render() {
     return (
-      <div>
-        <AppLeftNav
-          ref='leftNav'
-          location={this.props.location}
-          history={this.props.history}/>
-
+      <Layout>
         <AppHeader onLeftIconButtonTouchTap={this.handleClick.bind(this)} />
 
         <section className='AppContainer'>
-          {this.props.children}
+          <RouteHandler {...this.props} />
         </section>
-
-      </div>
+      </Layout>
     );
   }
 }

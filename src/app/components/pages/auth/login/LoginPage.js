@@ -1,6 +1,5 @@
 import * as React from 'react';
 import ComponentBase from './../../../ComponentBase';
-import { RaisedButton, TextField, Card } from './../../../common/index';
 import { Link } from 'react-router';
 import { TextFieldData } from './../../../../utils/FormFieldData/index';
 import { RequiredStringValidator, EmailValidator, formValidator } from './../../../../utils/Validators/index';
@@ -22,6 +21,7 @@ class LoginPage extends ComponentBase {
   }
 
   onFormSubmit(e) {
+    console.log('submit');
     const user = this.state;
     const validatorResponse = formValidator.validate(user);
     const formData = validatorResponse.formData;
@@ -71,12 +71,11 @@ class LoginPage extends ComponentBase {
     return (
       <div className='LoginPage'>
         <div>
-          <Card>
             <form noValidate className='LoginPage-content' onSubmit={this.onFormSubmit.bind(this)}>
               <span className='LoginPage-title'>Login</span>
 
               <div>
-                <TextField
+                <input
                   value={this.state.email.value}
                   errorText={this.state.email.error}
                   onChange={this.handleEmailChange.bind(this)}
@@ -86,7 +85,7 @@ class LoginPage extends ComponentBase {
               </div>
 
               <div>
-                <TextField
+                <input
                   value={this.state.password.value}
                   errorText={this.state.password.error}
                   onChange={this.handlePasswordChange.bind(this)}
@@ -96,8 +95,7 @@ class LoginPage extends ComponentBase {
               </div>
 
               <div className='LoginPage-loginButtonContainer'>
-                <RaisedButton
-                  primary={true}
+                <button
                   type='submit'
                   label='Login' />
               </div>
@@ -108,7 +106,6 @@ class LoginPage extends ComponentBase {
                 <div className='clearfix'/>
               </div>
             </form>
-          </Card>
         </div>
       </div>
     );

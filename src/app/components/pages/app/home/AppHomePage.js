@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ComponentBase from './../../../ComponentBase';
-import { currentUserStore } from './../../../../stores/index';
+import { currentUserStore } from './../../../../stores';
 
 class AppHomePage extends ComponentBase {
   constructor(props) {
