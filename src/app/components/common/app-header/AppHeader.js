@@ -60,22 +60,6 @@ class AppHeader extends ComponentBase {
       </header>
     );
   }
-
-  renderButtonsRight() {
-    if (this.state.isLoggedIn) {
-      return (
-        <div>
-          <Avatar src={ currentUserStore.getUserPhoto() } />
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Link className='AppHeader-navigationLink' to='/auth/login'>Login</Link>
-        </div>
-      );
-    }
-  }
 }
 
 export default AppHeader;
