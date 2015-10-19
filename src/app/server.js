@@ -31,8 +31,8 @@ class Server {
     app.use(serveStatic(path.join(DIR, '..', '..', '.dist')));
 
     app.use((req, res) => {
-      var theUrl = url.parse(req.url).pathname.replace(/\.+/g, "")
-      return res.render(theUrl)
+      const theUrl = url.parse(req.url).pathname.replace(/\.+/g, '');
+      return res.render(theUrl);
     });
 
     app.get('*', (req, res) => {

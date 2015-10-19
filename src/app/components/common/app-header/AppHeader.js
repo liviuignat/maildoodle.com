@@ -13,17 +13,27 @@ class AppHeader extends ComponentBase {
     this.state = {
       isLoggedIn: currentUserStore.getIsLoggedIn()
     };
+  }
 
-    currentUserStore.addLoginListener(() => {
-      this.setState({
-        isLoggedIn: currentUserStore.getIsLoggedIn()
-      });
+  componentDidMount() {
+    currentUserStore.addLoginListener(this.onLogin.bind(this));
+    currentUserStore.addLoginListener(this.onLogout.bind(this));
+  }
+
+  componentWillUnmount() {
+    currentUserStore.removeChangeListener(this.onLogin.bind(this));
+    currentUserStore.removeChangeListener(this.onLogout.bind(this));
+  }
+
+  onLogin() {
+    this.setState({
+      isLoggedIn: currentUserStore.getIsLoggedIn()
     });
+  }
 
-    currentUserStore.addLogoutListener(() => {
-      this.setState({
-        isLoggedIn: currentUserStore.getIsLoggedIn()
-      });
+  onLogout() {
+    this.setState({
+      isLoggedIn: currentUserStore.getIsLoggedIn()
     });
   }
 

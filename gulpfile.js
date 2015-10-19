@@ -10,6 +10,7 @@ const tsify = require('tsify');
 const babelify = require('babelify');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
+const vinylPaths = require('vinyl-paths');
 const merge = require('merge2');
 const runSequence = require('run-sequence');
 const del = require('del');
@@ -112,16 +113,29 @@ gulp.task('extras', function () {
 
 gulp.task('clean', del.bind(null, paths.dist));
 
-gulp.task('html', function () {
+gulp.task('generate-html', function () {
   var assets = $.useref.assets();
-  return gulp.src(paths.client + '/*.html')
+  return gulp.src(paths.client + '/index.html')
     .pipe($.plumber())
     .pipe(assets)
     .pipe(assets.restore())
     .pipe($.useref())
+    .pipe(gulp.dest(paths.dist))
+    .pipe($.size());
+});
+
+gulp.task('rename-html', function () {
+  var assets = $.useref.assets();
+  return gulp.src(paths.dist + '/index.html')
+    .pipe($.plumber())
+    .pipe(vinylPaths(del))
     .pipe($.rename('index-processed.html'))
     .pipe(gulp.dest(paths.dist))
     .pipe($.size());
+});
+
+gulp.task('html', function (callback) {
+  return runSequence('generate-html', 'rename-html', callback);
 });
 
 gulp.task('serve', function () {
