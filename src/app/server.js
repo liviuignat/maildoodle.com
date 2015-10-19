@@ -1,8 +1,9 @@
+import url from 'url';
+import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import serveStatic from 'serve-static';
-import path from 'path';
 import ReactEngine from 'react-engine';
 import { routes } from './components/routes';
 
@@ -28,6 +29,11 @@ class Server {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(serveStatic(path.join(DIR, '..', '..', '.dist')));
+
+    app.use((req, res) => {
+      var theUrl = url.parse(req.url).pathname.replace(/\.+/g, "")
+      return res.render(theUrl)
+    });
 
     app.get('*', (req, res) => {
       res.render(req.url, {
