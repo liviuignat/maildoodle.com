@@ -2,7 +2,7 @@ import * as React from 'react';
 import { RouteHandler } from 'react-router';
 import ComponentBase from './ComponentBase';
 import Layout from './Layout';
-import { AppHeader, AppLeftNav } from './common/index';
+import { AppHeader } from './common/index';
 
 class AppComponent extends ComponentBase {
 

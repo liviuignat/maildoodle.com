@@ -119,6 +119,7 @@ gulp.task('html', function () {
     .pipe(assets)
     .pipe(assets.restore())
     .pipe($.useref())
+    .pipe($.rename('index-processed.html'))
     .pipe(gulp.dest(paths.dist))
     .pipe($.size());
 });

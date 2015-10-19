@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { RouteHandler } from 'react-router';
 import ComponentBase from './ComponentBase';
-import { AppHeader, AppLeftNav } from './common/index';
 
 class AppComponent extends ComponentBase {
   constructor(props, context) {
@@ -30,7 +28,7 @@ class AppComponent extends ComponentBase {
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,500,500italic" rel="stylesheet" type="text/css" />
           <link rel="stylesheet" href="/styles/main.css" />
-          <script src="/scripts/vendor/modernizr.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
         </head>
         <body>
           { this.props.children }
