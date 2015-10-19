@@ -90,7 +90,7 @@ class CreateUserPage extends ComponentBase {
                 errorText={this.state.password.error}
                 onChange={this.handlePasswordChange.bind(this)}
                 type='password'
-                labelText='Your new password' />
+                labelText='Your password' />
             </div>
 
             <div className='CreateUserPage-buttonContainer'>

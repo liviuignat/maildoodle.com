@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ComponentBase from './../../../ComponentBase';
+import { Button, TextField } from './../../../common';
 import { Link } from 'react-router';
 import { TextFieldData } from './../../../../utils/FormFieldData/index';
 import { RequiredStringValidator, EmailValidator, formValidator } from './../../../../utils/Validators/index';
@@ -56,19 +57,18 @@ class ResetPasswordPage extends ComponentBase {
             <span className='PasswordReset-title'>Forgot your password?</span>
 
              <div>
-              <input
+              <TextField
                 onChange={this.onEmailChange.bind(this)}
                 value={this.state.email.value}
                 errorText={this.state.email.error}
                 type='email'
-                hintText='Your email'
-                floatingLabelText='Your email' />
+                labelText='Your email' />
              </div>
 
              <div className='PasswordReset-buttonContainer'>
-              <button
+              <Button
                 type='submit'
-                label='Request Reset' />
+                value='Request Reset' />
 
                 <span className='PasswordReset-infoMessage'>{ this.state.showInfoMessage ? `We have sent you an email with password reset instructions.` : `` }</span>
              </div>

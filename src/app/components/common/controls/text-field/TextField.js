@@ -8,11 +8,23 @@ export class TextField extends ControlBase {
     this.defaultClasses = 'mdl-textfield__input';
   }
 
+  getLabelClassName() {
+    let css = 'mdl-textfield__label';
+    if (this.props.errorText) {
+      css += ' is-invalid';
+    }
+    return css;
+  }
+
   render() {
     return (
-      <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input {...this.props} className={ this.getClassName.call(this) } />
-        <label className="mdl-textfield__label">{ this.props.labelText }</label>
+      <div className="TextField mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+        <input {...this.props}
+          className={ this.getClassName.call(this) } />
+
+        <label className={this.getLabelClassName.call(this)}>{ this.props.labelText }</label>
+
         <span
           className="mdl-textfield__error"
           style={{
