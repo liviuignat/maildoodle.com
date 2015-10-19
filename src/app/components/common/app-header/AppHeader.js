@@ -46,8 +46,17 @@ class AppHeader extends ComponentBase {
 
   render() {
     return (
-      <header>
-        header
+      <header className="AppHeader mdl-layout__header">
+        <div className="mdl-layout__header-row">
+          <Link className="AppHeader-homeLink mdl-layout-title" to="/">Home</Link>
+          <div className="AppHeader-navigationContainer">
+            <nav className="mdl-navigation">
+              <Link className="AppHeader-navigationLink mdl-navigation__link"
+                to="/auth/login">Login</Link>
+            </nav>
+          </div>
+          <div className="mdl-layout-spacer"></div>
+        </div>
       </header>
     );
   }
@@ -60,7 +69,11 @@ class AppHeader extends ComponentBase {
         </div>
       );
     } else {
-      return <Link className='AppHeader-navigationLink' to='/auth/login'>Login</Link>;
+      return (
+        <div>
+          <Link className='AppHeader-navigationLink' to='/auth/login'>Login</Link>
+        </div>
+      );
     }
   }
 }

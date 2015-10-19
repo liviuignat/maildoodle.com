@@ -20,11 +20,13 @@ class AppComponent extends ComponentBase {
   render() {
     return (
       <Layout>
-        <AppHeader onLeftIconButtonTouchTap={this.handleClick.bind(this)} />
+        <div className="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+          <AppHeader />
 
-        <section className='AppContainer'>
-          <RouteHandler {...this.props} />
-        </section>
+          <section className='AppContainer'>
+            <RouteHandler {...this.props} />
+          </section>
+        </div>
       </Layout>
     );
   }
