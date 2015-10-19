@@ -1,5 +1,7 @@
 .TextField {
-  .mdl-textfield__label.is-invalid{
-    color: $color-error;
+  &.is-dirty {
+    .mdl-textfield__label.is-invalid {
+      color: $color-error;
+    }
   }
 }

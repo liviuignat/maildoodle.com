@@ -5,6 +5,11 @@ export default class ControlBase extends React.Component {
     super(props, context);
   }
 
+  componentDidMount() {
+    const domNode = React.findDOMNode(this);
+    componentHandler.upgradeElement(domNode);
+  }
+
   getClassName() {
     const className = this.props.className || '';
     const defaultClasses = this.defaultClasses || '';

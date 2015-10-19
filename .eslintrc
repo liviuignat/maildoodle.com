@@ -8,6 +8,7 @@
     "window": false,
     "$": false,
     "fetch": false,
+    "componentHandler": false,
 
     "jest": false,
     "describe": false,
