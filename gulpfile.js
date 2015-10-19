@@ -63,7 +63,7 @@ gulp.task('scripts', [], function () {
   return bundler.bundle();
 });
 
-gulp.task('styles', function () {
+gulp.task('less', function () {
   const mainFile = paths.client + '/styles/main.less';
 
   const injectFiles = gulp.src([
@@ -88,6 +88,37 @@ gulp.task('styles', function () {
     .pipe($.plumber())
     .pipe($.inject(injectFiles, injectOptions))
     .pipe($.less())
+    .pipe($.autoprefixer('last 1 version'))
+    .pipe(gulp.dest(paths.dist + '/styles'))
+    .pipe($.size());
+});
+
+gulp.task('sass', function () {
+  const mainFile = paths.client + '/styles/main.scss';
+
+  const injectFiles = gulp.src([
+    paths.client + '/styles/variables/*.scss',
+    paths.client + '/**/*.scss',
+    '!' + mainFile
+  ], {
+    read: false
+  });
+
+  const injectOptions = {
+    transform: function (filePath) {
+      console.log('path: ', filePath);
+      filePath = filePath.replace('src/app/', '../');
+      return '@import \'' + filePath + '\';';
+    },
+    starttag: '// injector',
+    endtag: '// endinjector',
+    addRootSlash: false
+  };
+
+  return gulp.src(mainFile)
+    .pipe($.plumber())
+    .pipe($.inject(injectFiles, injectOptions))
+    .pipe($.sass())
     .pipe($.autoprefixer('last 1 version'))
     .pipe(gulp.dest(paths.dist + '/styles'))
     .pipe($.size());
@@ -191,7 +222,7 @@ gulp.task('test', function () {
 });
 
 gulp.task('build', ['clean'], function (callback) {
-  return runSequence('eslint', 'test', ['scripts', 'styles', 'html'], callback);
+  return runSequence('eslint', 'test', ['scripts', 'sass', 'html'], callback);
 });
 
 gulp.task('deploy-prev', function (callback) {
@@ -223,7 +254,7 @@ gulp.task('deploy', ['deploy-prev'], function (callback) {
 
 gulp.task('watch', ['build'], function (callback) {
   gulp.watch(paths.client + '/*.html', ['html']);
-  gulp.watch(paths.client + '/**/*.less', ['styles']);
+  gulp.watch(paths.client + '/**/*.scss', ['sass']);
   gulp.watch(paths.client + '/images/**/*', ['images']);
 
   bundler.watch();
