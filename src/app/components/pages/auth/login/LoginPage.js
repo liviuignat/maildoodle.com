@@ -1,8 +1,9 @@
 import * as React from 'react';
 import ComponentBase from './../../../ComponentBase';
 import { Link } from 'react-router';
-import { TextFieldData } from './../../../../utils/FormFieldData/index';
-import { RequiredStringValidator, EmailValidator, formValidator } from './../../../../utils/Validators/index';
+import { Button, TextField } from './../../../common';
+import { TextFieldData } from './../../../../utils/FormFieldData';
+import { RequiredStringValidator, EmailValidator, formValidator } from './../../../../utils/Validators';
 
 import { loginAction } from './../../../../actions/index';
 
@@ -21,7 +22,6 @@ class LoginPage extends ComponentBase {
   }
 
   onFormSubmit(e) {
-    console.log('submit');
     const user = this.state;
     const validatorResponse = formValidator.validate(user);
     const formData = validatorResponse.formData;
@@ -75,29 +75,26 @@ class LoginPage extends ComponentBase {
               <span className='LoginPage-title'>Login</span>
 
               <div>
-                <input
+                <TextField
                   value={this.state.email.value}
                   errorText={this.state.email.error}
                   onChange={this.handleEmailChange.bind(this)}
                   type='email'
-                  hintText='Your email'
-                  floatingLabelText='Your email' />
+                  labelText='Your email' />
               </div>
 
               <div>
-                <input
+                <TextField
                   value={this.state.password.value}
                   errorText={this.state.password.error}
                   onChange={this.handlePasswordChange.bind(this)}
                   type='password'
-                  hintText='Your password'
-                  floatingLabelText='Your password' />
+                  labelText='Your password' />
               </div>
 
               <div className='LoginPage-loginButtonContainer'>
-                <button
-                  type='submit'
-                  label='Login' />
+                <Button type="submit"
+                  value="Login" />
               </div>
 
               <div>
