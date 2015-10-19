@@ -1,6 +1,5 @@
 import * as React from 'react';
 import ComponentBase from './../../../ComponentBase';
-import { RaisedButton, TextField, Card } from './../../../common/index';
 import { Link } from 'react-router';
 import { TextFieldData } from './../../../../utils/FormFieldData/index';
 import { RequiredStringValidator, EmailValidator, formValidator } from './../../../../utils/Validators/index';
@@ -53,35 +52,32 @@ class ResetPasswordPage extends ComponentBase {
     return (
       <div className='PasswordResetPage'>
         <div>
-          <Card>
-            <form noValidate className='PasswordReset-content' onSubmit={this.onFormSubmit.bind(this)}>
-              <span className='PasswordReset-title'>Forgot your password?</span>
+          <form noValidate className='PasswordReset-content' onSubmit={this.onFormSubmit.bind(this)}>
+            <span className='PasswordReset-title'>Forgot your password?</span>
 
-               <div>
-                <TextField
-                  onChange={this.onEmailChange.bind(this)}
-                  value={this.state.email.value}
-                  errorText={this.state.email.error}
-                  type='email'
-                  hintText='Your email'
-                  floatingLabelText='Your email' />
-               </div>
+             <div>
+              <input
+                onChange={this.onEmailChange.bind(this)}
+                value={this.state.email.value}
+                errorText={this.state.email.error}
+                type='email'
+                hintText='Your email'
+                floatingLabelText='Your email' />
+             </div>
 
-               <div className='PasswordReset-buttonContainer'>
-                <RaisedButton
-                  primary={true}
-                  type='submit'
-                  label='Request Reset' />
+             <div className='PasswordReset-buttonContainer'>
+              <button
+                type='submit'
+                label='Request Reset' />
 
-                  <span className='PasswordReset-infoMessage'>{ this.state.showInfoMessage ? `We have sent you an email with password reset instructions.` : `` }</span>
-               </div>
+                <span className='PasswordReset-infoMessage'>{ this.state.showInfoMessage ? `We have sent you an email with password reset instructions.` : `` }</span>
+             </div>
 
-               <div>
-                  <Link className='PasswordReset-loginLink' to={`/auth/login`}>Already have an account? Login</Link>
-                  <div className='clearfix'/>
-               </div>
-            </form>
-          </Card>
+             <div>
+                <Link className='PasswordReset-loginLink' to={`/auth/login`}>Already have an account? Login</Link>
+                <div className='clearfix'/>
+             </div>
+          </form>
       </div>
     </div>
     );

@@ -1,11 +1,10 @@
 import * as React from 'react';
 import ComponentBase from './../../../ComponentBase';
-import { TextFieldData } from './../../../../utils/FormFieldData/index';
-import { RequiredStringValidator, formValidator } from './../../../../utils/Validators/index';
-import { TextField, RaisedButton } from './../../../common/index';
+import { TextFieldData } from './../../../../utils/FormFieldData';
+import { RequiredStringValidator, formValidator } from './../../../../utils/Validators';
 
-import { myAccountUpdateAction } from './../../../../actions/index';
-import { currentUserStore } from './../../../../stores/index';
+import { myAccountUpdateAction } from './../../../../actions';
+import { currentUserStore } from './../../../../stores';
 
 class MyAccountPage extends ComponentBase {
 
@@ -83,7 +82,7 @@ class MyAccountPage extends ComponentBase {
           <h2>Hi, {this.state.displayName}</h2>
 
           <div>
-            <TextField
+            <input
               value={this.state.firstName.value}
               errorText={this.state.firstName.error}
               onChange={this.handleChange('firstName').bind(this)}
@@ -93,7 +92,7 @@ class MyAccountPage extends ComponentBase {
           </div>
 
           <div>
-            <TextField
+            <input
               value={this.state.lastName.value}
               errorText={this.state.lastName.error}
               onChange={this.handleChange('lastName').bind(this)}
@@ -103,8 +102,7 @@ class MyAccountPage extends ComponentBase {
           </div>
 
           <div>
-            <RaisedButton
-              primary={true}
+            <button
               type='submit'
               label='Save' />
           </div>

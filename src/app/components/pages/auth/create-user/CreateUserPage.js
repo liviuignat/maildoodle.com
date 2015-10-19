@@ -1,6 +1,5 @@
 import * as React from 'react';
 import ComponentBase from './../../../ComponentBase';
-import { RaisedButton, TextField, Card } from './../../../common/index';
 import { Link } from 'react-router';
 import { TextFieldData } from './../../../../utils/FormFieldData/index';
 import {
@@ -72,46 +71,43 @@ class CreateUserPage extends ComponentBase {
     return (
       <div className='CreateUserPage'>
         <div>
-          <Card>
-            <form noValidate className='CreateUserPage-content' onSubmit={this.onFormSubmit.bind(this)}>
-              <span className='CreateUserPage-title'>Sign up</span>
+          <form noValidate className='CreateUserPage-content' onSubmit={this.onFormSubmit.bind(this)}>
+            <span className='CreateUserPage-title'>Sign up</span>
 
-              <div>
-                <TextField
-                  value={this.state.email.value}
-                  errorText={this.state.email.error}
-                  onChange={this.handleEmailChange.bind(this)}
-                  type='email'
-                  hintText='Your email'
-                  floatingLabelText='Your email'
-                />
-              </div>
+            <div>
+              <input
+                value={this.state.email.value}
+                errorText={this.state.email.error}
+                onChange={this.handleEmailChange.bind(this)}
+                type='email'
+                hintText='Your email'
+                floatingLabelText='Your email'
+              />
+            </div>
 
-              <div>
-                <TextField
-                  value={this.state.password.value}
-                  errorText={this.state.password.error}
-                  onChange={this.handlePasswordChange.bind(this)}
-                  type='password'
-                  hintText='Your new password'
-                  floatingLabelText='Your new password'
-                />
-              </div>
+            <div>
+              <input
+                value={this.state.password.value}
+                errorText={this.state.password.error}
+                onChange={this.handlePasswordChange.bind(this)}
+                type='password'
+                hintText='Your new password'
+                floatingLabelText='Your new password'
+              />
+            </div>
 
-              <div className='CreateUserPage-buttonContainer'>
-                <RaisedButton
-                  primary={true}
-                  type='submit'
-                  label='Create new account' />
-              </div>
+            <div className='CreateUserPage-buttonContainer'>
+              <button
+                type='submit'
+                label='Create new account' />
+            </div>
 
-              <div>
-                  <Link className='CreateUserPage-loginLink' to={`/auth/login`}>Already have an account? Login</Link>
-                  <Link className='CreateUserPage-resetPasswordLink' to={`/auth/resetpassword`}>I forgot my password</Link>
-                  <div className='clearfix'/>
-              </div>
-            </form>
-          </Card>
+            <div>
+                <Link className='CreateUserPage-loginLink' to={`/auth/login`}>Already have an account? Login</Link>
+                <Link className='CreateUserPage-resetPasswordLink' to={`/auth/resetpassword`}>I forgot my password</Link>
+                <div className='clearfix'/>
+            </div>
+          </form>
         </div>
       </div>
     );

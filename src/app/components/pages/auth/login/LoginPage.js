@@ -1,6 +1,5 @@
 import * as React from 'react';
 import ComponentBase from './../../../ComponentBase';
-import { RaisedButton, TextField, Card } from './../../../common/index';
 import { Link } from 'react-router';
 import { TextFieldData } from './../../../../utils/FormFieldData/index';
 import { RequiredStringValidator, EmailValidator, formValidator } from './../../../../utils/Validators/index';
@@ -72,7 +71,6 @@ class LoginPage extends ComponentBase {
     return (
       <div className='LoginPage'>
         <div>
-          <Card>
             <form noValidate className='LoginPage-content' onSubmit={this.onFormSubmit.bind(this)}>
               <span className='LoginPage-title'>Login</span>
 
@@ -98,7 +96,6 @@ class LoginPage extends ComponentBase {
 
               <div className='LoginPage-loginButtonContainer'>
                 <button
-                  primary={true}
                   type='submit'
                   label='Login' />
               </div>
@@ -109,7 +106,6 @@ class LoginPage extends ComponentBase {
                 <div className='clearfix'/>
               </div>
             </form>
-          </Card>
         </div>
       </div>
     );

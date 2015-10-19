@@ -61,7 +61,6 @@
     "fbjs": "^0.2.1",
     "flux": "^2.1.1",
     "history": "^1.12.1",
-    "material-ui": "^0.12.1",
     "node-parse-api": "^0.3.8",
     "parse": "^1.6.4",
     "react": "^0.13.3",
