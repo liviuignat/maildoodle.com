@@ -13,7 +13,11 @@ export class TextField extends ControlBase {
       <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input {...this.props} className={ this.getClassName.call(this) } />
         <label className="mdl-textfield__label">{ this.props.labelText }</label>
-        <span className="mdl-textfield__error">{ this.props.errorText }</span>
+        <span
+          className="mdl-textfield__error"
+          style={{
+            visibility: this.props.errorText ? 'visible' : 'hidden'
+          }}>{ this.props.errorText }</span>
       </div>
     );
   }
