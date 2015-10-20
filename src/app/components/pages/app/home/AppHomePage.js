@@ -1,12 +1,9 @@
 import * as React from 'react';
 import ComponentBase from './../../../ComponentBase';
-import { currentUserStore } from './../../../../stores';
 
 class AppHomePage extends ComponentBase {
   constructor(props, context) {
     super(props, context);
-
-    console.log(context);
 
     this.state = {
       currentUser: context.user
@@ -16,7 +13,7 @@ class AppHomePage extends ComponentBase {
   render() {
     return (
       <div>
-        <h1>Hi { this.state.currentUser.firstName }, you are now logged in. Please use the menu on the left corner.</h1>
+        <h1>Hi { this.state.currentUser.getDisplayName() }, you are now logged in. Please use the menu on the left corner.</h1>
       </div>
     );
   }

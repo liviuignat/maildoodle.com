@@ -4,16 +4,19 @@ import ComponentBase from './ComponentBase';
 import Layout from './Layout';
 import { AppHeader, AppLeftNav } from './common';
 import { currentUserStore } from './../stores';
+import { CurrentUser } from './../models';
 
 class AppComponent extends ComponentBase {
 
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      user: this.props.user || currentUserStore.getUserData(),
-      isLoggedIn: this.props.isLoggedIn || currentUserStore.getIsLoggedIn()
+    const currentState = {
+      user: new CurrentUser(this.props.user),
+      isLoggedIn: this.props.isLoggedIn
     };
+
+    this.state = currentState;
   }
 
   getChildContext() {

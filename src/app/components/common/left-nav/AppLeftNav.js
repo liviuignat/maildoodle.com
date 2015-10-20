@@ -6,6 +6,10 @@ import { logoutAction } from './../../../actions/index';
 class AppLeftNav extends ComponentBase {
   constructor(props, context) {
     super(props, context);
+
+    this.state = {
+      currentUser: context.user
+    };
   }
 
   logout() {
@@ -24,11 +28,11 @@ class AppLeftNav extends ComponentBase {
 
   renderLoggedIn() {
     return (
-      <div className="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-        <header className="demo-drawer-header">
-          <img src="images/user.jpg" className="demo-avatar" />
-          <div className="demo-avatar-dropdown">
-            <span>hello@example.com</span>
+      <div className="AppLeftNav mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <header className="AppLeftNav-header">
+          <img src={ this.state.currentUser.getUserPhoto() } className="AppLeftNav-avatar" />
+          <div className="AppLeftNav-dropdown">
+            <span>{ this.state.currentUser.getDisplayName() }</span>
             <div className="mdl-layout-spacer"></div>
             <button id="accbtn" className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
               <i className="material-icons" role="presentation">arrow_drop_down</i>
@@ -41,12 +45,21 @@ class AppLeftNav extends ComponentBase {
             </ul>
           </div>
         </header>
-        <nav className="mdl-navigation mdl-color--blue-grey-800">
-          <Link className="mdl-navigation__link" to="/"><i className="mdl-color-text--blue-grey-100 material-icons" role="presentation">home</i>Home</Link>
-          <Link className="mdl-navigation__link" to="/"><i className="mdl-color-text--blue-grey-100 material-icons" role="presentation">inbox</i>Inbox</Link>
-          <Link className="mdl-navigation__link" to="/"><i className="mdl-color-text--blue-grey-100 material-icons" role="presentation">delete</i>Trash</Link>
+        <nav className="AppLeftNav-navigation mdl-navigation mdl-color--blue-grey-800">
+          <Link className="AppLeftNav-navigationLink mdl-navigation__link" to="/app">
+            <i className="AppLeftNav-navigationIcon material-icons" role="presentation">home</i>Dashboard
+          </Link>
+          <Link className="AppLeftNav-navigationLink mdl-navigation__link" to="/app/my-account">
+            <i className="AppLeftNav-navigationIcon material-icons" role="presentation">inbox</i>My Account
+          </Link>
+          <Link className="AppLeftNav-navigationLink mdl-navigation__link" to="/app">
+            <i className="AppLeftNav-navigationIcon material-icons" role="presentation">delete</i>Trash
+          </Link>
           <div className="mdl-layout-spacer"></div>
-          <span className="mdl-navigation__link" onClick={this.logout.bind(this)} ><i className="mdl-color-text--blue-grey-100 material-icons" role="presentation">delete</i>logout</span>
+
+          <span className="AppLeftNav-logout mdl-navigation__link" onClick={this.logout.bind(this)} >
+            <i className="AppLeftNav-navigationIcon material-icons" role="presentation">delete</i>Logout
+          </span>
         </nav>
       </div>
     );

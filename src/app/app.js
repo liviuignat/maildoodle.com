@@ -3,7 +3,6 @@ import * as Parse from 'parse';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { routes } from './components/routes';
 import { currentUserStore } from './stores/index';
-import { getCurrentUserAction } from './actions/index';
 import { cookieService } from './services';
 
 import client from 'react-engine/lib/client';
@@ -29,7 +28,7 @@ const initialize = () => {
   if (authToken) {
     Parse.User.become(authToken).then((user) => {
       render(user);
-    }, (error) => {
+    }, () => {
       render();
     });
   } else {
@@ -39,11 +38,4 @@ const initialize = () => {
 
 window.document.addEventListener('DOMContentLoaded', () => {
   initialize();
-  // if (currentUserStore.getIsLoggedIn()) {
-  //   getCurrentUserAction.execute().then(() => {
-  //     render();
-  //   });
-  // } else {
-  //   render();
-  // }
 });

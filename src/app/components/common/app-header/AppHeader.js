@@ -9,7 +9,7 @@ class AppHeader extends ComponentBase {
     super(props, context);
 
     this.state = {
-      isLoggedIn: currentUserStore.getIsLoggedIn()
+      isLoggedIn: this.context.isLoggedIn
     };
   }
 
@@ -39,18 +39,29 @@ class AppHeader extends ComponentBase {
     return (
       <header className="AppHeader mdl-layout__header">
         <div className="mdl-layout__header-row">
-          <Link className="AppHeader-homeLink mdl-layout-title" to="/">Home</Link>
+          <Link className="AppHeader-homeLink mdl-layout-title" to="/">{ config.title }</Link>
           <div className="AppHeader-navigationContainer">
-            <nav className="mdl-navigation">
-              <Link className="AppHeader-navigationLink mdl-navigation__link"
-                to="/auth/login">Login</Link>
-            </nav>
+            { this.state.isLoggedIn ? <span /> : this.getNav() }
           </div>
           <div className="mdl-layout-spacer"></div>
         </div>
       </header>
     );
   }
+
+  getNav() {
+    return (
+      <nav className="mdl-navigation">
+        <Link className="AppHeader-navigationLink mdl-navigation__link"
+          to="/auth/login">Login</Link>
+      </nav>
+    );
+  }
 }
+
+AppHeader.contextTypes = {
+  user: React.PropTypes.object,
+  isLoggedIn: React.PropTypes.bool
+};
 
 export default AppHeader;

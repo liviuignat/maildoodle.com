@@ -1,20 +1,13 @@
 import * as Parse from 'parse';
-import { md5 } from 'blueimp-md5';
 import { EventEmitter } from 'events';
 import { appDispatcher } from './../../appDispatcher';
 import { EVENT_TYPES } from './../eventTypes.constant';
+import { CurrentUser } from './../../models';
 import { AUTH_ACTION_TYPES, MY_ACCOUNT_ACTION_TYPES, GET_CURRENT_USER } from './../../actions/index';
 
 const getUserFromParseUser = (user) => {
   const attr = user.attributes;
-  return {
-    email: attr.email,
-    sessionToken: attr.sessionToken,
-    emailVerified: attr.emailVerified,
-    updatedAt: attr.updatedAt,
-    firstName: attr.firstName,
-    lastName: attr.lastName
-  };
+  return new CurrentUser(attr);
 };
 
 class CurrentUserStore extends EventEmitter {
@@ -23,20 +16,16 @@ class CurrentUserStore extends EventEmitter {
 
     this.user = null;
     this.isLoggedIn = false;
-    this.parseUser = null;
 
     appDispatcher.register(this.onAppDispatch.bind(this));
   }
 
-  initializeClient(user) {
-    this.parseUser = user;
-
-    if (this.parseUser && this.parseUser.authenticated()) {
+  initializeClient(parseUser) {
+    if (parseUser && parseUser.authenticated()) {
       this.isLoggedIn = true;
-      this.user = getUserFromParseUser(this.parseUser);
+      this.user = getUserFromParseUser(parseUser);
     } else {
       this.isLoggedIn = false;
-      this.parseUser = null;
       this.user = null;
     }
   }
@@ -45,38 +34,8 @@ class CurrentUserStore extends EventEmitter {
     return this.isLoggedIn;
   }
 
-  getUserData() {
+  getUser() {
     return this.user;
-  }
-
-  getEmail() {
-    if (this.getIsLoggedIn()) {
-      return this.getUserData().email;
-    }
-  }
-
-  getUserPhoto() {
-    if (this.getIsLoggedIn()) {
-      const emailMd5 = md5(this.getEmail());
-      return `http://www.gravatar.com/avatar/${emailMd5}.jpg?s=200`;
-    }
-  }
-
-  getDisplayName() {
-    if (this.isLoggedIn) {
-      const user = this.getUserData();
-      let displayName = user.email;
-
-      if (user.firstName && user.lastName) {
-        displayName = `${user.firstName} ${user.lastName}`;
-      } else if (user.firstName) {
-        displayName = user.firstName;
-      } else if (user.lastName) {
-        displayName = user.lastName;
-      }
-
-      return displayName;
-    }
   }
 
   addLoginListener(callback) {

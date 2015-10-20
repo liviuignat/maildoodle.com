@@ -1,6 +1,6 @@
 class CookieService {
   setCookie(options) {
-    const { name, value, expires, path, domain, secure } = options;
+    const { name, value, expires, path } = options;
 
     const d = new Date();
     const pathString = 'path=' + (path || '/');
@@ -30,7 +30,6 @@ class CookieService {
 
   deleteCookie(cookieName) {
     const cookie = this.getCookie(cookieName);
-    console.log(cookie);
 
     if (cookie) {
       window.document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
