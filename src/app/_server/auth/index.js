@@ -26,7 +26,14 @@ const getUserFromSession = (sessionToken) => {
 };
 
 export const requestAuthTokenMiddleware = (req, res, next) => {
-  req.authToken = req.session.authToken;
+  const fromSession = req.session.authToken;
+  const fromCookie = req.cookies.auth_token;
+  const fromUrl = req.query.auth_token;
+  const authHeader = req.get('Authorization');
+  const fromHeader = authHeader ? authHeader.replace('Bearer ', '') : '';
+
+  req.authToken = fromSession || fromCookie || fromUrl || fromHeader;
+
   next();
 };
 
@@ -37,19 +44,21 @@ export const userFromParseMiddleware = (req, res, next) => {
       req.user = user;
     }).catch(() => {
     }).then(() => {
-      next();
+      return next();
     });
-  } else {
-    login('liviu@ignat.email', 'test123').then((response) => {
-      req.session.authToken = response.sessionToken;
-      req.authToken = response.sessionToken;
+  }
+  else {
+    return next();
+    // login('liviu@ignat.email', 'test123').then((response) => {
+    //   req.session.authToken = response.sessionToken;
+    //   req.authToken = response.sessionToken;
 
-      return getUserFromSession(req.authToken).then((user) => {
-        req.user = user;
-      });
-    }).catch(() => {
-    }).then(() => {
-      next();
-    });
+    //   return getUserFromSession(req.authToken).then((user) => {
+    //     req.user = user;
+    //   });
+    // }).catch(() => {
+    // }).then(() => {
+    //   next();
+    // });
   }
 };

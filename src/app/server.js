@@ -37,12 +37,13 @@ class Server {
     app.use(serveStatic(path.join(DIR, '..', '..', '.dist')));
 
     app.use(session({
+      name: 'httpsession',
       secret: 'secretify',
-      saveUninitialized: false,
-      resave: false,
+      saveUninitialized: true,
+      resave: true,
       cookie: {
         maxAge: 60 * 60 * 1000,
-        httpOnly: false
+        httpOnly: true
       }
     }));
 
