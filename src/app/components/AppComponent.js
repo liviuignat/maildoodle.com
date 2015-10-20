@@ -11,12 +11,14 @@ class AppComponent extends ComponentBase {
     super(props, context);
 
     this.state = {
+      user: this.props.user || currentUserStore.getUserData(),
       isLoggedIn: this.props.isLoggedIn || currentUserStore.getIsLoggedIn()
     };
   }
 
   getChildContext() {
     return {
+      user: this.state.user,
       isLoggedIn: this.state.isLoggedIn
     };
   }
@@ -71,6 +73,7 @@ class AppComponent extends ComponentBase {
 }
 
 AppComponent.childContextTypes = {
+  user: React.PropTypes.object,
   isLoggedIn: React.PropTypes.bool
 };
 

@@ -3,23 +3,28 @@ import ComponentBase from './../../../ComponentBase';
 import { currentUserStore } from './../../../../stores';
 
 class AppHomePage extends ComponentBase {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
-    this.props.menuStyle = {
-      width: '100px',
-      marginLeft: '-16px',
-      marginTop: '-13px'
+    console.log(context);
+
+    this.state = {
+      currentUser: context.user
     };
   }
 
   render() {
     return (
       <div>
-        <h1>Hi {currentUserStore.getDisplayName()}, you are now logged in. Please use the menu on the left corner.</h1>
+        <h1>Hi { this.state.currentUser.firstName }, you are now logged in. Please use the menu on the left corner.</h1>
       </div>
     );
   }
 }
+
+AppHomePage.contextTypes = {
+  user: React.PropTypes.object,
+  isLoggedIn: React.PropTypes.bool
+};
 
 export default AppHomePage;

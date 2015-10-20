@@ -40,7 +40,7 @@ class LoginPage extends ComponentBase {
             email: this.state.email.reset()
           });
 
-          this.props.history.pushState(null, '/app');
+          this.context.router.transitionTo('/app');
         })
         .catch((error) => {
           this.setState({
@@ -109,7 +109,8 @@ class LoginPage extends ComponentBase {
 }
 
 LoginPage.contextTypes = {
-  router: React.PropTypes.func.isRequired
+  router: React.PropTypes.func,
+  location: React.PropTypes.object
 };
 
 export default LoginPage;

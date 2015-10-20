@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router';
 import ComponentBase from './../../ComponentBase';
 import { logoutAction } from './../../../actions/index';
 
@@ -7,9 +8,13 @@ class AppLeftNav extends ComponentBase {
     super(props, context);
   }
 
+  logout() {
+    logoutAction.execute();
+  }
+
   render() {
     if (this.context.isLoggedIn) {
-      return this.renderIfLoggedIn();
+      return this.renderLoggedIn();
     } else {
       return (
         <span />
@@ -17,7 +22,7 @@ class AppLeftNav extends ComponentBase {
     }
   }
 
-  renderIfLoggedIn() {
+  renderLoggedIn() {
     return (
       <div className="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <header className="demo-drawer-header">
@@ -37,17 +42,11 @@ class AppLeftNav extends ComponentBase {
           </div>
         </header>
         <nav className="mdl-navigation mdl-color--blue-grey-800">
-          <a className="mdl-navigation__link" href=""><i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
-          <a className="mdl-navigation__link" href=""><i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Inbox</a>
-          <a className="mdl-navigation__link" href=""><i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Trash</a>
-          <a className="mdl-navigation__link" href=""><i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Spam</a>
-          <a className="mdl-navigation__link" href=""><i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Forums</a>
-          <a className="mdl-navigation__link" href=""><i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>Updates</a>
-          <a className="mdl-navigation__link" href=""><i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_offer</i>Promos</a>
-          <a className="mdl-navigation__link" href=""><i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Purchases</a>
-          <a className="mdl-navigation__link" href=""><i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Social</a>
+          <Link className="mdl-navigation__link" to="/"><i className="mdl-color-text--blue-grey-100 material-icons" role="presentation">home</i>Home</Link>
+          <Link className="mdl-navigation__link" to="/"><i className="mdl-color-text--blue-grey-100 material-icons" role="presentation">inbox</i>Inbox</Link>
+          <Link className="mdl-navigation__link" to="/"><i className="mdl-color-text--blue-grey-100 material-icons" role="presentation">delete</i>Trash</Link>
           <div className="mdl-layout-spacer"></div>
-          <a className="mdl-navigation__link" href=""><i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span className="visuallyhidden">Help</span></a>
+          <span className="mdl-navigation__link" onClick={this.logout.bind(this)} ><i className="mdl-color-text--blue-grey-100 material-icons" role="presentation">delete</i>logout</span>
         </nav>
       </div>
     );
@@ -55,6 +54,7 @@ class AppLeftNav extends ComponentBase {
 }
 
 AppLeftNav.contextTypes = {
+  user: React.PropTypes.object,
   isLoggedIn: React.PropTypes.bool
 };
 

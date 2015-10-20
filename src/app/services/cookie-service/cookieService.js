@@ -1,11 +1,15 @@
 class CookieService {
   setCookie(options) {
-    const { expires, name, value } = options;
+    const { name, value, expires, path, domain, secure } = options;
 
     const d = new Date();
+    const pathString = 'path=' + (path || '/');
     d.setTime(d.getTime() + expires);
     const expiresString = 'expires=' + d.toUTCString();
-    window.document.cookie = name + '=' + value + '; ' + expiresString;
+
+    const cookieString = `${name}=${value}; ${expiresString}; ${pathString}; `;
+
+    window.document.cookie = cookieString;
   }
 
   getCookie(cname) {
@@ -22,6 +26,15 @@ class CookieService {
       }
     }
     return '';
+  }
+
+  deleteCookie(cookieName) {
+    const cookie = this.getCookie(cookieName);
+    console.log(cookie);
+
+    if (cookie) {
+      window.document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
   }
 }
 
