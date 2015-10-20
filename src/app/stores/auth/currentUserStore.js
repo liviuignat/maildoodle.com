@@ -28,14 +28,11 @@ class CurrentUserStore extends EventEmitter {
     appDispatcher.register(this.onAppDispatch.bind(this));
   }
 
-  initializeClient() {
-    this.parseUser = Parse.User.current();
+  initializeClient(user) {
+    this.parseUser = user;
 
     if (this.parseUser && this.parseUser.authenticated()) {
       this.isLoggedIn = true;
-    }
-
-    if (this.isLoggedIn) {
       this.user = getUserFromParseUser(this.parseUser);
     }
   }

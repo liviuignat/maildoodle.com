@@ -46,8 +46,7 @@ export const userFromParseMiddleware = (req, res, next) => {
     }).then(() => {
       return next();
     });
-  }
-  else {
+  } else {
     return next();
     // login('liviu@ignat.email', 'test123').then((response) => {
     //   req.session.authToken = response.sessionToken;

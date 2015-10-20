@@ -24,8 +24,7 @@ class LoginPage extends ComponentBase {
   onFormSubmit(e) {
     const user = this.state;
     const validatorResponse = formValidator.validate(user);
-    const formData = validatorResponse.formData;
-    const isValid = validatorResponse.isValid;
+    const { formData, isValid } = validatorResponse;
 
     this.setState(formData);
 
