@@ -28,9 +28,12 @@ class CurrentUserStore extends EventEmitter {
     appDispatcher.register(this.onAppDispatch.bind(this));
   }
 
-  initialize() {
+  initializeClient() {
     this.parseUser = Parse.User.current();
-    this.isLoggedIn = this.parseUser && this.parseUser.authenticated();
+
+    if (this.parseUser && this.parseUser.authenticated()) {
+      this.isLoggedIn = true;
+    }
 
     if (this.isLoggedIn) {
       this.user = getUserFromParseUser(this.parseUser);
@@ -101,7 +104,7 @@ class CurrentUserStore extends EventEmitter {
   }
 
   onAppDispatch(data) {
-    this.initialize();
+    this.initializeClient();
 
     switch (data.type) {
     case AUTH_ACTION_TYPES.LOG_IN_SUCCESS:

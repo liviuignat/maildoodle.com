@@ -9,7 +9,7 @@ import client from 'react-engine/lib/client';
 
 injectTapEventPlugin();
 Parse.initialize('HrMPFQFNyOPjq8cR9i67xSyAzAggfJYwTetpDUwB', 'Pm8doOztn0N8iXfNzisX5RrV4r2y1wbbTKHxRoUr');
-currentUserStore.initialize();
+currentUserStore.initializeClient();
 
 const render = () => {
   const options = {

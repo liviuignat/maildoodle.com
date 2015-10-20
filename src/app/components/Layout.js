@@ -1,16 +1,9 @@
 import * as React from 'react';
 import ComponentBase from './ComponentBase';
 
-class AppComponent extends ComponentBase {
+class Layout extends ComponentBase {
   constructor(props, context) {
     super(props, context);
-  }
-
-  handleClick(e) {
-    e.preventDefault();
-
-    const leftNav = this.refs['leftNav'];
-    leftNav.toggle();
   }
 
   isNode() {
@@ -44,8 +37,4 @@ class AppComponent extends ComponentBase {
   }
 }
 
-AppComponent.contextTypes = {
-  router: React.PropTypes.func.isRequired
-};
-
-export default AppComponent;
+export default Layout;

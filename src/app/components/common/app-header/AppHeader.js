@@ -2,9 +2,7 @@ import * as React from 'react';
 import config from './../../../app.config';
 import ComponentBase from './../../ComponentBase';
 import { Link } from 'react-router';
-import { history } from './../../../history';
-import { logoutAction } from './../../../actions/index';
-import { currentUserStore } from './../../../stores/index';
+import { currentUserStore } from './../../../stores';
 
 class AppHeader extends ComponentBase {
   constructor(props, context) {
@@ -35,13 +33,6 @@ class AppHeader extends ComponentBase {
     this.setState({
       isLoggedIn: currentUserStore.getIsLoggedIn()
     });
-  }
-
-  logout() {
-    logoutAction.execute()
-      .then(() => {
-        history.replaceState(null, '/');
-      });
   }
 
   render() {
