@@ -64,26 +64,29 @@ class CurrentUserStore extends EventEmitter {
   }
 
   onAppDispatch(data) {
-    this.initializeClient(Parse.User.current());
-
     switch (data.type) {
     case AUTH_ACTION_TYPES.LOG_IN_SUCCESS:
     case AUTH_ACTION_TYPES.SIGN_UP_SUCCESS:
+      this.initializeClient(data.payload);
       this.emit(EVENT_TYPES.AUTH_LOGIN);
       break;
 
     case AUTH_ACTION_TYPES.LOG_OUT_SUCCESS:
+      this.initializeClient(Parse.User.current());
       this.emit(EVENT_TYPES.AUTH_LOGOUT);
       break;
 
     case AUTH_ACTION_TYPES.RESET_PASSWORD_SUCCESS:
+      this.initializeClient(Parse.User.current());
       break;
 
     case MY_ACCOUNT_ACTION_TYPES.MY_ACCOUNT_UPDATE_SUCCESS:
+      this.initializeClient(Parse.User.current());
       this.emit(EVENT_TYPES.CHANGE_EVENT);
       break;
 
     case GET_CURRENT_USER.GET_CURRENT_USER_SUCCESS:
+      this.initializeClient(Parse.User.current());
       this.emit(EVENT_TYPES.CHANGE_EVENT);
       break;
 

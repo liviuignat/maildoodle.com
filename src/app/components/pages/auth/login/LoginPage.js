@@ -39,7 +39,6 @@ class LoginPage extends ComponentBase {
             password: this.state.password.reset(),
             email: this.state.email.reset()
           });
-
           this.context.router.transitionTo('/app');
         })
         .catch((error) => {

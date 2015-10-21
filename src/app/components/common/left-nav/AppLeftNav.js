@@ -6,10 +6,6 @@ import { logoutAction } from './../../../actions/index';
 class AppLeftNav extends ComponentBase {
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      currentUser: context.user
-    };
   }
 
   logout() {
@@ -17,8 +13,8 @@ class AppLeftNav extends ComponentBase {
   }
 
   render() {
-    if (this.context.isLoggedIn) {
-      return this.renderLoggedIn();
+    if (this.props.isLoggedIn) {
+      return this.getLeftNav();
     } else {
       return (
         <span />
@@ -26,13 +22,13 @@ class AppLeftNav extends ComponentBase {
     }
   }
 
-  renderLoggedIn() {
+  getLeftNav() {
     return (
       <div className="AppLeftNav mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <header className="AppLeftNav-header">
-          <img src={ this.state.currentUser.getUserPhoto() } className="AppLeftNav-avatar" />
+          <img src={ this.props.user.getUserPhoto() } className="AppLeftNav-avatar" />
           <div className="AppLeftNav-dropdown">
-            <span>{ this.state.currentUser.getDisplayName() }</span>
+            <span>{ this.props.user.getDisplayName() }</span>
             <div className="mdl-layout-spacer"></div>
             <button id="accbtn" className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
               <i className="material-icons" role="presentation">arrow_drop_down</i>

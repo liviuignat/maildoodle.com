@@ -6,14 +6,14 @@ class AppHomePage extends ComponentBase {
     super(props, context);
 
     this.state = {
-      currentUser: context.user
+      user: this.context.user
     };
   }
 
   render() {
     return (
       <div>
-        <h1>Hi { this.state.currentUser.getDisplayName() }, you are now logged in. Please use the menu on the left corner.</h1>
+        <span>Hi { this.state.user.getDisplayName() }, you are now logged in. Please use the menu on the left corner.</span>
       </div>
     );
   }

@@ -37,15 +37,19 @@ class AppComponent extends ComponentBase {
   }
 
   onLogin() {
-    this.setState({
-      isLoggedIn: currentUserStore.getIsLoggedIn()
-    });
+    const newState = {
+      isLoggedIn: currentUserStore.getIsLoggedIn(),
+      user: currentUserStore.getUser()
+    };
+    this.setState(newState);
   }
 
   onLogout() {
-    this.setState({
-      isLoggedIn: currentUserStore.getIsLoggedIn()
-    });
+    const newState = {
+      isLoggedIn: currentUserStore.getIsLoggedIn(),
+      user: currentUserStore.getUser()
+    };
+    this.setState(newState);
   }
 
   getLayoutClassName() {
@@ -62,9 +66,9 @@ class AppComponent extends ComponentBase {
     return (
       <Layout>
         <div className={ this.getLayoutClassName.call(this) }>
-          <AppHeader />
+          <AppHeader isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
 
-          <AppLeftNav />
+          <AppLeftNav isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
 
           <main className='AppContainer mdl-layout__content'>
             <RouteHandler {...this.props} />

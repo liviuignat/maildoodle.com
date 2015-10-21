@@ -17,8 +17,7 @@ const render = (user) => {
     routes
   };
 
-  client.boot(options, (data) => {
-    console.log('booted', data);
+  client.boot(options, () => {
   });
 };
 

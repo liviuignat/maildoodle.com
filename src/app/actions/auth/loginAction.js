@@ -20,8 +20,6 @@ class LoginAction {
   }
 
   setUserCookie(user) {
-    console.log(user.attributes);
-
     const exdays = 10000;
     const cname = 'auth_token';
     const cvalue = user.attributes.sessionToken;
