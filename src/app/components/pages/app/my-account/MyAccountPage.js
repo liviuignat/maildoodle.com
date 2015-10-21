@@ -11,21 +11,22 @@ class MyAccountPage extends ComponentBase {
 
   constructor(props, context) {
     super(props, context);
-    this.state = this.getState();
+    this.state = this.getState(this.context.user);
   }
 
-  getState() {
-    return {
-      displayName: this.context.user.getDisplayName(),
+  getState(user) {
+    const state = {
+      displayName: user.getDisplayName(),
       firstName: new TextFieldData({
-        value: this.context.user.firstName,
+        value: user.firstName,
         validators: [ new RequiredStringValidator() ]
       }),
       lastName: new TextFieldData({
-        value: this.context.user.lastName,
+        value: user.lastName,
         validators: [ new RequiredStringValidator() ]
       })
     };
+    return state;
   }
 
   componentDidMount() {
@@ -37,7 +38,8 @@ class MyAccountPage extends ComponentBase {
   }
 
   onChange() {
-    this.reset();
+    this.setState(this.getState(currentUserStore.getUser()));
+    //this.setState(this.getState(this.context.user));
   }
 
   onFormSubmit(e) {
@@ -59,10 +61,6 @@ class MyAccountPage extends ComponentBase {
           console.log('err', err);
         });
     }
-  }
-
-  reset() {
-    this.setState(this.getState());
   }
 
   handleChange(field) {
