@@ -21,7 +21,9 @@ require('harmonize')();
 
 const paths = {
   client: './src/app',
-  dist: '.dist'
+  dist: '.dist',
+  deploy: '.deploy',
+  deployPublic: '.deploy/public'
 };
 
 var bundler = {
@@ -143,6 +145,7 @@ gulp.task('extras', function () {
 });
 
 gulp.task('clean', del.bind(null, paths.dist));
+gulp.task('clean-deploy', del.bind(null, paths.deploy));
 
 gulp.task('generate-html', function () {
   var assets = $.useref.assets();
@@ -225,14 +228,24 @@ gulp.task('build', ['clean'], function (callback) {
   return runSequence('eslint', 'test', ['scripts', 'sass', 'html'], callback);
 });
 
+gulp.task('build-deploy', ['clean-deploy'], function (callback) {
+  return gulp.src([
+    paths.client + '/**/*.js',
+    '!' + paths.client + '/bower_components/**/*'
+  ]).pipe($.babel({
+      sourceMaps: false
+    }))
+    .pipe(gulp.dest(paths.deploy));
+});
+
 gulp.task('deploy-prev', function (callback) {
   return runSequence('clean', 'build', callback);
 });
 
-gulp.task('deploy', ['deploy-prev'], function (callback) {
+gulp.task('deploy', ['deploy-prev', 'build-deploy'], function (callback) {
   var jsFilter = $.filter(['**/*.js'], {restore: true});
   var cssFilter = $.filter(['**/*.css'], {restore: true});
-  var revFilter = $.filter(['**/*.js', '**/*.map', '**/*.css'], {restore: true});
+  var revFilter = $.filter(['**/*.js', '**/*.css'], {restore: true});
 
   return gulp.src(paths.dist + '/**/*')
     .pipe(jsFilter)
@@ -243,11 +256,6 @@ gulp.task('deploy', ['deploy-prev'], function (callback) {
     .pipe($.minifyCss())
     .pipe(cssFilter.restore)
 
-    .pipe(revFilter)
-    .pipe($.rev())
-    .pipe(revFilter.restore)
-
-    .pipe($.revReplace())
     .pipe(gulp.dest(paths.deployPublic))
     .pipe($.size());
 });

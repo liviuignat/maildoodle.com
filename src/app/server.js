@@ -1,9 +1,9 @@
 import url from 'url';
+import config from 'config';
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import session from 'express-session';
 import serveStatic from 'serve-static';
 import ReactEngine from 'react-engine';
 import { routes } from './components/routes';
@@ -34,18 +34,7 @@ class Server {
     app.use(cookieParser());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(serveStatic(path.join(DIR, '..', '..', '.dist')));
-
-    app.use(session({
-      name: 'httpsession',
-      secret: 'secretify',
-      saveUninitialized: true,
-      resave: true,
-      cookie: {
-        maxAge: 60 * 60 * 1000,
-        httpOnly: true
-      }
-    }));
+    app.use(serveStatic(path.join(DIR, config.publicFolder)));
 
     app.use(requestAuthTokenMiddleware);
     app.use(userFromParseMiddleware);
