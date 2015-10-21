@@ -50,13 +50,41 @@ class Server {
     app.use(requestAuthTokenMiddleware);
     app.use(userFromParseMiddleware);
 
-    app.get('*', (req, res) => {
-      const theUrl = url.parse(req.url).pathname.replace(/\.+/g, '');
+    const render = (req, res, data) => {
+      const obj = data || {};
+      obj.isLoggedIn = !!req.user;
+      obj.user = req.user;
 
-      res.render(theUrl, {
-        isLoggedIn: !!req.user,
-        user: req.user
-      });
+      const theUrl = url.parse(req.url).pathname.replace(/\.+/g, '');
+      res.render(theUrl, obj);
+    };
+
+    const shouldBeAuthenticated = (req, res, next) => {
+      if (!req.user) {
+        return res.redirect('/auth/login');
+      }
+
+      next();
+    };
+
+    const shouldNoBeAuthenticated = (req, res, next) => {
+      if (req.user) {
+        return res.redirect('/app');
+      }
+
+      next();
+    };
+
+    app.get('/app', shouldBeAuthenticated, (req, res) => {
+      render(req, res);
+    });
+
+    app.get('/app/*', shouldBeAuthenticated, (req, res) => {
+      render(req, res);
+    });
+
+    app.get('/*', shouldNoBeAuthenticated, (req, res) => {
+      render(req, res);
     });
 
     const server = app.listen(PORT, () => {

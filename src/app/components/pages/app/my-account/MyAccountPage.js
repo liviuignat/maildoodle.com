@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ComponentBase from './../../../ComponentBase';
+import ProtectedPageBase from './../ProtectedPageBase';
 import { Button, TextField } from './../../../common';
 import { TextFieldData } from './../../../../utils/FormFieldData';
 import { RequiredStringValidator, formValidator } from './../../../../utils/Validators';
@@ -7,7 +7,7 @@ import { RequiredStringValidator, formValidator } from './../../../../utils/Vali
 import { myAccountUpdateAction } from './../../../../actions';
 import { currentUserStore } from './../../../../stores';
 
-class MyAccountPage extends ComponentBase {
+class MyAccountPage extends ProtectedPageBase {
 
   constructor(props, context) {
     super(props, context);
@@ -30,10 +30,12 @@ class MyAccountPage extends ComponentBase {
   }
 
   componentDidMount() {
+    super.componentDidMount();
     currentUserStore.addChangeListener(this.onChange.bind(this));
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount();
     currentUserStore.removeChangeListener(this.onChange.bind(this));
   }
 
@@ -54,10 +56,8 @@ class MyAccountPage extends ComponentBase {
           lastName: this.state.lastName.value
         })
         .then(() => {
-          console.log('done');
         })
-        .catch((err) => {
-          console.log('err', err);
+        .catch(() => {
         });
     }
   }
@@ -77,7 +77,7 @@ class MyAccountPage extends ComponentBase {
     return (
       <div className='MyAccountPage'>
         <form noValidate onSubmit={this.onFormSubmit.bind(this)}>
-          <h2>Hi, {this.state.displayName}</h2>
+          <h3>Hi, {this.state.displayName}</h3>
 
           <div>
             <TextField

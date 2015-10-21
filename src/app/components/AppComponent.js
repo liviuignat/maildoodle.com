@@ -27,11 +27,13 @@ class AppComponent extends ComponentBase {
   }
 
   componentDidMount() {
+    super.componentDidMount();
     currentUserStore.addLoginListener(this.onLogin.bind(this));
     currentUserStore.addLoginListener(this.onLogout.bind(this));
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount();
     currentUserStore.removeChangeListener(this.onLogin.bind(this));
     currentUserStore.removeChangeListener(this.onLogout.bind(this));
   }

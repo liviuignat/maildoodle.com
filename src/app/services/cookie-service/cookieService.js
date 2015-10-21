@@ -32,7 +32,11 @@ class CookieService {
     const cookie = this.getCookie(cookieName);
 
     if (cookie) {
-      window.document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      this.setCookie({
+        name: cookieName,
+        value: '',
+        expires: new Date(0)
+      });
     }
   }
 }

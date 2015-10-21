@@ -8,11 +8,15 @@ class AppHeader extends ComponentBase {
     super(props, context);
   }
 
+  getHomeLink() {
+    return this.props.isLoggedIn ? '/app' : '/';
+  }
+
   render() {
     return (
       <header className="AppHeader mdl-layout__header">
         <div className="mdl-layout__header-row">
-          <Link className="AppHeader-homeLink mdl-layout-title" to="/">{ config.title }</Link>
+          <Link className="AppHeader-homeLink mdl-layout-title" to={ this.getHomeLink.call(this) }>{ config.title }</Link>
           <div className="AppHeader-navigationContainer">
             { this.props.isLoggedIn ? <span /> : this.getNav() }
           </div>
