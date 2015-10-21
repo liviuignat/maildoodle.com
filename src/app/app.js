@@ -22,12 +22,14 @@ const render = (user) => {
 };
 
 const initialize = () => {
-  const authToken = cookieService.getCookie('auth_token');
+  const cookieName = 'auth_token';
+  const authToken = cookieService.getCookie(cookieName);
 
   if (authToken) {
     Parse.User.become(authToken).then((user) => {
       render(user);
     }, () => {
+      cookieService.deleteCookie(cookieName);
       render();
     });
   } else {
