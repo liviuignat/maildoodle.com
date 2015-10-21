@@ -19,6 +19,8 @@ const url = require('url');
 
 require('harmonize')();
 
+let REVISION = 0;
+
 const paths = {
   client: './src/app',
   dist: '.dist',
@@ -228,7 +230,7 @@ gulp.task('build', ['clean'], function (callback) {
   return runSequence('eslint', 'test', ['scripts', 'sass', 'html'], callback);
 });
 
-gulp.task('build-deploy', ['clean-deploy'], function (callback) {
+gulp.task('build-server', ['clean-deploy'], function (callback) {
   return gulp.src([
     paths.client + '/**/*.js',
     '!' + paths.client + '/bower_components/**/*'
@@ -237,15 +239,10 @@ gulp.task('build-deploy', ['clean-deploy'], function (callback) {
     }))
     .pipe(gulp.dest(paths.deploy));
 });
-
-gulp.task('deploy-prev', function (callback) {
-  return runSequence('clean', 'build', callback);
-});
-
-gulp.task('deploy', ['deploy-prev', 'build-deploy'], function (callback) {
+gulp.task('deploy-static', function (callback) {
+  var revNumber = REVISION;
   var jsFilter = $.filter(['**/*.js'], {restore: true});
   var cssFilter = $.filter(['**/*.css'], {restore: true});
-  var revFilter = $.filter(['**/*.js', '**/*.css'], {restore: true});
 
   return gulp.src(paths.dist + '/**/*')
     .pipe(jsFilter)
@@ -256,8 +253,26 @@ gulp.task('deploy', ['deploy-prev', 'build-deploy'], function (callback) {
     .pipe($.minifyCss())
     .pipe(cssFilter.restore)
 
+    .pipe($.rename({
+      suffix: `-${revNumber}`
+    }))
+
     .pipe(gulp.dest(paths.deployPublic))
     .pipe($.size());
+});
+gulp.task('replace-deploy-rev', function (callback) {
+  var revNumber = REVISION;
+
+  return gulp.src(paths.deploy + '/**/*.js')
+    .pipe($.replace('/app.js', `/app-${revNumber}.js`))
+    .pipe($.replace('/scripts/vendor.js', `/scripts/vendor-${revNumber}.js`))
+    .pipe($.replace('/styles/main.css', `/styles/main-${revNumber}.css`))
+    .pipe(gulp.dest(paths.deploy));
+});
+
+gulp.task('deploy', function (callback) {
+  REVISION = Date.now();
+  runSequence('build-server', 'clean', 'build', 'deploy-static', 'replace-deploy-rev', callback);
 });
 
 gulp.task('watch', ['build'], function (callback) {
