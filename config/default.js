@@ -1,4 +1,6 @@
 module.exports = {
+  serverFile: './src/app/server',
+  publicFolder: './../../.dist',
   parse: {
     options: {
       app_id: 'HrMPFQFNyOPjq8cR9i67xSyAzAggfJYwTetpDUwB',

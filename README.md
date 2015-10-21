@@ -1,15 +1,11 @@
-# React + Parse + TypeScript example
+# Isomorphic + React + Flux
 
 Usefull commands:
 ```
 npm install
 gulp
-
-/**
-   inside ./parse-cloud folder run:
-**/
+npm start
 gulp deploy
-parse deploy //parse cli needs to be installed
 
 ```
 

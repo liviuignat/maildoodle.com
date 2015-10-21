@@ -16,13 +16,12 @@ const getUserFromSession = (sessionToken) => {
 };
 
 export const requestAuthTokenMiddleware = (req, res, next) => {
-  const fromSession = req.session.authToken;
   const fromCookie = req.cookies.auth_token;
   const fromUrl = req.query.auth_token;
   const authHeader = req.get('Authorization');
   const fromHeader = authHeader ? authHeader.replace('Bearer ', '') : '';
 
-  req.authToken = fromSession || fromCookie || fromUrl || fromHeader;
+  req.authToken = fromCookie || fromUrl || fromHeader;
 
   next();
 };
