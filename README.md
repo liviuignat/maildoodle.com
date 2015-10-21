@@ -5,7 +5,7 @@ Usefull commands:
 npm install
 gulp
 npm start
-gulp-deploy
+gulp deploy
 
 ```
 
