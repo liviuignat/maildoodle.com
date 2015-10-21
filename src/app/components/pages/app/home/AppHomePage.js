@@ -13,7 +13,7 @@ class AppHomePage extends ProtectedPageBase {
   render() {
     return (
       <div>
-        <span>Hi { this.state.user.getDisplayName() }, you are now logged in. Please use the menu on the left corner.</span>
+        <h3>Hi { this.state.user.getDisplayName() }, you are now logged in. Please use the menu on the left corner.</h3>
       </div>
     );
   }

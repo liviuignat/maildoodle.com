@@ -15,7 +15,7 @@ class ProtectedPageBase extends ComponentBase {
   }
 }
 
-ProtectedPageBase.willTransitionTo = (transition) => {
+ProtectedPageBase.willTransitionTo = () => {
   //if use is logged in can be checked here
 };
 

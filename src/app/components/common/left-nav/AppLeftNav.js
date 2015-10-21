@@ -9,7 +9,9 @@ class AppLeftNav extends ComponentBase {
   }
 
   logout() {
-    logoutAction.execute();
+    logoutAction.execute().then(() => {
+      this.context.router.transitionTo('/');
+    });
   }
 
   render() {
@@ -64,7 +66,9 @@ class AppLeftNav extends ComponentBase {
 
 AppLeftNav.contextTypes = {
   user: React.PropTypes.object,
-  isLoggedIn: React.PropTypes.bool
+  isLoggedIn: React.PropTypes.bool,
+  router: React.PropTypes.func,
+  location: React.PropTypes.object
 };
 
 export default AppLeftNav;
