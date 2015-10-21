@@ -39,7 +39,6 @@ class MyAccountPage extends ComponentBase {
 
   onChange() {
     this.setState(this.getState(currentUserStore.getUser()));
-    //this.setState(this.getState(this.context.user));
   }
 
   onFormSubmit(e) {
