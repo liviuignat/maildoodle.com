@@ -30,10 +30,12 @@ class MyAccountPage extends ComponentBase {
   }
 
   componentDidMount() {
+    super.componentDidMount();
     currentUserStore.addChangeListener(this.onChange.bind(this));
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount();
     currentUserStore.removeChangeListener(this.onChange.bind(this));
   }
 
