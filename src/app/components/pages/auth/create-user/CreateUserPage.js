@@ -1,15 +1,16 @@
 import * as React from 'react';
 import ComponentBase from './../../../ComponentBase';
+import { Button, TextField } from './../../../common';
 import { Link } from 'react-router';
-import { TextFieldData } from './../../../../utils/FormFieldData/index';
+import { TextFieldData } from './../../../../utils/FormFieldData';
 import {
   EmailValidator,
   RequiredStringValidator,
   PasswordValidator,
   formValidator
-} from './../../../../utils/Validators/index';
+} from './../../../../utils/Validators';
 
-import { createUserAction } from './../../../../actions/index';
+import { createUserAction } from './../../../../actions';
 
 class CreateUserPage extends ComponentBase {
   constructor(props, context) {
@@ -75,31 +76,27 @@ class CreateUserPage extends ComponentBase {
             <span className='CreateUserPage-title'>Sign up</span>
 
             <div>
-              <input
+              <TextField
                 value={this.state.email.value}
                 errorText={this.state.email.error}
                 onChange={this.handleEmailChange.bind(this)}
                 type='email'
-                hintText='Your email'
-                floatingLabelText='Your email'
-              />
+                labelText='Your email' />
             </div>
 
             <div>
-              <input
+              <TextField
                 value={this.state.password.value}
                 errorText={this.state.password.error}
                 onChange={this.handlePasswordChange.bind(this)}
                 type='password'
-                hintText='Your new password'
-                floatingLabelText='Your new password'
-              />
+                labelText='Your password' />
             </div>
 
             <div className='CreateUserPage-buttonContainer'>
-              <button
+              <Button
                 type='submit'
-                label='Create new account' />
+                value='Create new account' />
             </div>
 
             <div>

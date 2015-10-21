@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ComponentBase from './../../../ComponentBase';
+import { Button, TextField } from './../../../common';
 import { TextFieldData } from './../../../../utils/FormFieldData';
 import { RequiredStringValidator, formValidator } from './../../../../utils/Validators';
 
@@ -10,21 +11,22 @@ class MyAccountPage extends ComponentBase {
 
   constructor(props, context) {
     super(props, context);
-    this.state = this.getInitialState();
+    this.state = this.getState(this.context.user);
   }
 
-  getInitialState() {
-    return {
-      displayName: currentUserStore.getDisplayName(),
+  getState(user) {
+    const state = {
+      displayName: user.getDisplayName(),
       firstName: new TextFieldData({
-        value: currentUserStore.getUserData().firstName,
+        value: user.firstName,
         validators: [ new RequiredStringValidator() ]
       }),
       lastName: new TextFieldData({
-        value: currentUserStore.getUserData().lastName,
+        value: user.lastName,
         validators: [ new RequiredStringValidator() ]
       })
     };
+    return state;
   }
 
   componentDidMount() {
@@ -36,7 +38,7 @@ class MyAccountPage extends ComponentBase {
   }
 
   onChange() {
-    this.reset();
+    this.setState(this.getState(currentUserStore.getUser()));
   }
 
   onFormSubmit(e) {
@@ -60,10 +62,6 @@ class MyAccountPage extends ComponentBase {
     }
   }
 
-  reset() {
-    this.setState(this.getInitialState());
-  }
-
   handleChange(field) {
     return (e) => {
       const value = e.target.value;
@@ -82,29 +80,27 @@ class MyAccountPage extends ComponentBase {
           <h2>Hi, {this.state.displayName}</h2>
 
           <div>
-            <input
+            <TextField
               value={this.state.firstName.value}
               errorText={this.state.firstName.error}
               onChange={this.handleChange('firstName').bind(this)}
               type='text'
-              hintText='First name'
-              floatingLabelText='First name' />
+              labelText='First name' />
           </div>
 
           <div>
-            <input
+            <TextField
               value={this.state.lastName.value}
               errorText={this.state.lastName.error}
               onChange={this.handleChange('lastName').bind(this)}
               type='text'
-              hintText='Last name'
-              floatingLabelText='Last name' />
+              labelText='Last name' />
           </div>
 
           <div>
-            <button
+            <Button
               type='submit'
-              label='Save' />
+              value='Save' />
           </div>
         </form>
       </div>
@@ -113,7 +109,8 @@ class MyAccountPage extends ComponentBase {
 }
 
 MyAccountPage.contextTypes = {
-  router: React.PropTypes.func.isRequired
+  user: React.PropTypes.object,
+  isLoggedIn: React.PropTypes.bool
 };
 
 export default MyAccountPage;

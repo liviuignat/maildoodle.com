@@ -16,12 +16,12 @@
 }
 
 .LoginPage-signUpLink {
-  .action-link;
+  @extend .action-link;
   float: left;
 }
 
 .LoginPage-resetPasswordLink {
-  .action-link;
+  @extend .action-link;
   float: right;
 }
 

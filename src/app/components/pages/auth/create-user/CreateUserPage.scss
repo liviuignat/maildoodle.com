@@ -16,12 +16,12 @@
 }
 
 .CreateUserPage-loginLink {
-  .action-link;
+  @extend .action-link;
   float:left;
 }
 
 .CreateUserPage-resetPasswordLink {
-  .action-link;
+  @extend .action-link;
   float:right;
 }
 

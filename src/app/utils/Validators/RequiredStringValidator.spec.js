@@ -7,7 +7,6 @@ describe('Required string validator', () => {
 
   beforeEach(() => {
     validator = new RequiredStringValidator();
-    console.log(validator, validator.getIsValid('test'));
   });
 
   describe('When value is empty', () => {

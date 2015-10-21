@@ -3,9 +3,15 @@ import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
 import serveStatic from 'serve-static';
 import ReactEngine from 'react-engine';
 import { routes } from './components/routes';
+
+import {
+  userFromParseMiddleware,
+  requestAuthTokenMiddleware
+} from './_server/auth';
 
 const app = express();
 
@@ -30,13 +36,26 @@ class Server {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(serveStatic(path.join(DIR, '..', '..', '.dist')));
 
-    app.use((req, res) => {
-      const theUrl = url.parse(req.url).pathname.replace(/\.+/g, '');
-      return res.render(theUrl);
-    });
+    app.use(session({
+      name: 'httpsession',
+      secret: 'secretify',
+      saveUninitialized: true,
+      resave: true,
+      cookie: {
+        maxAge: 60 * 60 * 1000,
+        httpOnly: true
+      }
+    }));
+
+    app.use(requestAuthTokenMiddleware);
+    app.use(userFromParseMiddleware);
 
     app.get('*', (req, res) => {
-      res.render(req.url, {
+      const theUrl = url.parse(req.url).pathname.replace(/\.+/g, '');
+
+      res.render(theUrl, {
+        isLoggedIn: !!req.user,
+        user: req.user
       });
     });
 
@@ -44,7 +63,7 @@ class Server {
       const host = server.address().address;
       const port = server.address().port;
 
-      console.log('Example app listening at http://%s:%s', host, port);
+      console.log('server listening at http://%s:%s', host, port);
     });
   }
 }
