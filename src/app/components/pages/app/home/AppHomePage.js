@@ -1,7 +1,7 @@
 import * as React from 'react';
-import ComponentBase from './../../../ComponentBase';
+import ProtectedPageBase from './../ProtectedPageBase';
 
-class AppHomePage extends ComponentBase {
+class AppHomePage extends ProtectedPageBase {
   constructor(props, context) {
     super(props, context);
 
