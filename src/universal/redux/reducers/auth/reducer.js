@@ -7,19 +7,19 @@ const initialState = {
 
 export function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case actions.LOAD:
+    case actions.LOAD_CURRENT_USER:
       return {
         ...state,
         loading: true
       };
-    case actions.LOAD_SUCCESS:
+    case actions.LOAD_CURRENT_USER_SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
         user: getFullUser(action.result)
       };
-    case actions.LOAD_FAIL:
+    case actions.LOAD_CURRENT_USER_FAIL:
       return {
         ...state,
         loading: false,

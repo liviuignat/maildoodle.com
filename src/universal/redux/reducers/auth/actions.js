@@ -1,6 +1,6 @@
-export const LOAD = 'es6-templates/auth/LOAD';
-export const LOAD_SUCCESS = 'es6-templates/auth/LOAD_SUCCESS';
-export const LOAD_FAIL = 'es6-templates/auth/LOAD_FAIL';
+export const LOAD_CURRENT_USER = 'es6-templates/auth/LOAD_CURRENT_USER';
+export const LOAD_CURRENT_USER_SUCCESS = 'es6-templates/auth/LOAD_CURRENT_USER_SUCCESS';
+export const LOAD_CURRENT_USER_FAIL = 'es6-templates/auth/LOAD_CURRENT_USER_FAIL';
 export const LOGIN = 'es6-templates/auth/LOGIN';
 export const LOGIN_SUCCESS = 'es6-templates/auth/LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'es6-templates/auth/LOGIN_FAIL';
