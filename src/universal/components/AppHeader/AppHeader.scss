@@ -1,0 +1,45 @@
+@import "../../theme/variables.scss";
+
+.AppHeader {
+  .AppHeaderLayout {
+    background-color: white;
+    color: $color-grey900;
+
+    .AppHeader-navigationContainer {
+      direction: rtl;
+      order: 1;
+      width: 500px;
+      transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .AppHeader-navigationLink {
+      cursor: pointer;
+      text-transform: uppercase;
+      color: $color-grey600;
+      font-weight: 700;
+      font-size: $font-size-normal;
+      display: inline-block;
+      height: 54px;
+      line-height: 60px;
+      background-color: transparent;
+      border-bottom: 4px solid transparent;
+      text-decoration: none;
+
+      &:hover {
+        border-bottom: 4px solid #8bc34a;
+      }
+    }
+
+    .AppHeader-homeLink {
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      margin:0;
+      padding-top:0;
+      letter-spacing:0;
+      font-weight:400;
+      text-decoration: none;
+      color: $color-grey900;
+    }
+  }
+}

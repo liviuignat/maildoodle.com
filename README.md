@@ -1,11 +1,18 @@
-# Isomorphic + React + Flux
+# React redux parse hot example
 
-Usefull commands:
+Repo inspired from https://github.com/erikras/react-redux-universal-hot-example
+
 ```
 npm install
-gulp
-npm start
-gulp deploy
 
+//dev
+npm run dev
+
+//prod
+npm run build
+npm run start
+
+//test
+npm lint
+npm test
 ```
-

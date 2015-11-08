@@ -1,7 +1,5 @@
-.dist
-.deploy
-bower_components
-node_modules
+node_modules/
+dist/
+webpack-assets.json
+webpack-stats.json
 npm-debug.log
-parse.exe
-parse/public

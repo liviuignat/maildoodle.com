@@ -1,0 +1,11 @@
+@import "../../../theme/variables.scss";
+
+.LoginPage {
+  width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.LoginPageErrorMessage {
+  @include error-message();
+}
