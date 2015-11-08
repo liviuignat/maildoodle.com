@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import { pushState } from 'redux-router';
@@ -31,21 +30,16 @@ export default class App extends Component {
     }
   }
 
-  componentDidUpdate() {
-    const domNode = ReactDom.findDOMNode(this);
-    window.componentHandler.upgradeElement(domNode);
+  getContentClassName(styles, isDrawerVisble) {
+    let className = styles.AppContent;
+    if (isDrawerVisble) {
+      className += ' ' + styles.AppContent__isDrawerVisible;
+    }
+    return className;
   }
 
   get isLoggedIn() {
     return !!this.props.user;
-  }
-
-  get layoutClassName() {
-    let className = `mdl-layout mdl-js-layout mdl-layout--fixed-header`;
-    if (this.isLoggedIn) {
-      className += ` mdl-layout--fixed-drawer`;
-    }
-    return className;
   }
 
   static fetchData(getState, dispatch) {
@@ -58,18 +52,19 @@ export default class App extends Component {
   }
 
   render() {
-    const{user} = this.props;
     const styles = require('./AppContainer.scss');
+    const{user} = this.props;
+    const isDrawerVisble = this.isLoggedIn;
 
     return (
-      <div className={this.layoutClassName}>
+      <div className={styles.AppContainer}>
         <DocumentMeta {...config.app} />
 
         <AppHeader isLoggedIn={this.isLoggedIn} />
 
         {this.isLoggedIn && <AppLeftNav user={user} /> }
 
-        <div className={styles.appContent + ' mdl-layout__content'}>
+        <div className={::this.getContentClassName(styles, isDrawerVisble)}>
           {this.props.children}
         </div>
       </div>

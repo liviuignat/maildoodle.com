@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import config from './../../../config';
 import { Link } from 'react-router';
-import LogoutButton from './../LogoutButton/LogoutButton';
 
 class AppHeader extends Component {
   static propTypes = {
     isLoggedIn: React.PropTypes.bool
   };
+
+  getAppHeaderClassName(styles, isDrawerVisble) {
+    let className = styles.AppHeader;
+    if (isDrawerVisble) {
+      className += ' ' + styles.AppHeader__isDrawerVisible;
+    }
+    return className;
+  }
 
   get homeLink() {
     return this.props.isLoggedIn ? '/app' : '/';
@@ -14,23 +21,21 @@ class AppHeader extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
+    const isDrawerVisble = isLoggedIn;
     const styles = require('./AppHeader.scss');
 
     return (
-      <header className={styles.AppHeader_layout + ' mdl-layout__header'}>
-        <div className="mdl-layout__header-row">
-          <Link className={styles.AppHeader_homeLink + ' mdl-layout-title'} to={this.homeLink}>{config.app.title}</Link>
+      <header className={::this.getAppHeaderClassName(styles, isDrawerVisble)}>
+        <div className={styles.AppHeader_row}>
+          <Link className={styles.AppHeader_headerTitle} to={this.homeLink}>{config.app.title}</Link>
           <div className={styles.AppHeader_navigationContainer}>
-          <nav className="mdl-navigation">
-            {
-              !isLoggedIn && <Link className={styles.AppHeader_navigationLink + ' mdl-navigation__link'} to="/auth/login">Login</Link>
-            }
-            {
-              isLoggedIn && <LogoutButton />
-            }
-           </nav>
+            <nav>
+              {
+                !isLoggedIn && <Link className={styles.AppHeader_navigationLink}
+                                     to="/auth/login">Login</Link>
+              }
+             </nav>
           </div>
-          <div className="mdl-layout-spacer"></div>
         </div>
       </header>
     );

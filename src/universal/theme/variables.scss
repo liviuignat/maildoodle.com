@@ -26,6 +26,8 @@ $text-color: #333;
 $font-size-base: 14px;
 $font-family-sans-serif: "Helvetica Neue", Helvetica, sans-serif;
 
+$drawer-width: 240px;
+
 @mixin error-message() {
   color: $color-error;
   font-size: $font-size-error;

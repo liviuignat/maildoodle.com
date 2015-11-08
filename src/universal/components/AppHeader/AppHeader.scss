@@ -1,17 +1,78 @@
 @import "../../theme/variables.scss";
 
-.AppHeader_layout {
+.AppHeader {
+  $font-size-title: $font-size-x-large;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-height: 64px;
+  z-index: 3;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+  transition-duration: .2s;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-property: max-height,box-shadow;
   background-color: white;
   color: $color-grey900;
+
+  &.AppHeader__isDrawerVisible {
+    padding-left: $drawer-width;
+  }
+
+  .AppHeader_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    align-self: stretch;
+    align-items: center;
+    height: 64px;
+    margin: 0;
+    padding: 0 40px 0 80px;
+  }
+
+  .AppHeader_headerTitle {
+    flex: 1;
+    font-size: $font-size-title;
+    line-height: 1;
+    letter-spacing: .02em;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin:0;
+    padding-top:0;
+    letter-spacing:0;
+    font-weight:400;
+    text-decoration: none;
+    color: $color-grey900;
+  }
 
   .AppHeader_navigationContainer {
     direction: rtl;
     order: 1;
     width: 500px;
-    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    nav {
+      margin: 0;
+      padding: 0;
+      height: 64px;
+      flex-direction: row;
+      align-items: center;
+      display: flex;
+      flex-wrap: nowrap;
+    }
   }
 
   .AppHeader_navigationLink {
+    line-height: 64px;
+    padding: 0 24px;
     cursor: pointer;
     text-transform: uppercase;
     color: $color-grey600;
@@ -27,17 +88,5 @@
     &:hover {
       border-bottom: 4px solid #8bc34a;
     }
-  }
-
-  .AppHeader_homeLink {
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    margin:0;
-    padding-top:0;
-    letter-spacing:0;
-    font-weight:400;
-    text-decoration: none;
-    color: $color-grey900;
   }
 }

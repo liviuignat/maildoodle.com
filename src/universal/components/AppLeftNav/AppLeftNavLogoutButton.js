@@ -7,16 +7,16 @@ import { logoutAction } from './../../redux/reducers/auth';
   state => ({user: state.auth.user}),
   { logoutAction }
 )
-export default class LogoutButton extends Component {
+export default class AppLeftNavLogoutButton extends Component {
   static propTypes = {
     logoutAction: PropTypes.func.isRequired,
     user: PropTypes.object
   };
 
   render() {
-    const styles = require('./../AppHeader/AppHeader.scss');
+    const styles = require('./AppLeftNav.scss');
     return (
-      <span className={styles.AppHeader_navigationLink + ' mdl-navigation__link'}
+      <span className={styles.AppLeftNav_logout}
         onClick={this.props.logoutAction}>Logout</span>
     );
   }
