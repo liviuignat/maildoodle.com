@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import { pushState } from 'redux-router';
 import config from './../../../config';
 
-import { AppHeader } from './../../components';
+import { AppHeader, AppLeftNav } from './../../components';
 import { isUserLoaded, loadUserAction } from './../../redux/reducers/auth';
 
 @connect(
@@ -30,6 +31,23 @@ export default class App extends Component {
     }
   }
 
+  componentDidUpdate() {
+    const domNode = ReactDom.findDOMNode(this);
+    window.componentHandler.upgradeElement(domNode);
+  }
+
+  get isLoggedIn() {
+    return !!this.props.user;
+  }
+
+  get layoutClassName() {
+    let className = `mdl-layout mdl-js-layout mdl-layout--fixed-header`;
+    if (this.isLoggedIn) {
+      className += ` mdl-layout--fixed-drawer`;
+    }
+    return className;
+  }
+
   static fetchData(getState, dispatch) {
     const promises = [];
 
@@ -40,17 +58,18 @@ export default class App extends Component {
   }
 
   render() {
-    const {user} = this.props;
-    const isLoggedIn = !!user;
+    const{user} = this.props;
     const styles = require('./AppContainer.scss');
 
     return (
-      <div>
+      <div className={this.layoutClassName}>
         <DocumentMeta {...config.app} />
 
-        <AppHeader isLoggedIn={isLoggedIn} />
+        <AppHeader isLoggedIn={this.isLoggedIn} />
 
-        <div className={styles.appContent}>
+        {this.isLoggedIn && <AppLeftNav user={user} /> }
+
+        <div className={styles.appContent + ' mdl-layout__content'}>
           {this.props.children}
         </div>
       </div>

@@ -16,7 +16,7 @@ export default class LogoutButton extends Component {
   render() {
     const styles = require('./../AppHeader/AppHeader.scss');
     return (
-      <span className={styles['AppHeader-navigationLink'] + ' mdl-navigation__link'}
+      <span className={styles.AppHeader_navigationLink + ' mdl-navigation__link'}
         onClick={this.props.logoutAction}>Logout</span>
     );
   }

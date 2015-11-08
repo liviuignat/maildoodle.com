@@ -1,0 +1,56 @@
+@import "../../theme/variables.scss";
+
+.AppLeftNav {
+  border: none;
+
+  .AppLeftNav_header {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px;
+    height: 130px;
+  }
+
+  .AppLeftNav_avatar {
+    @include avatar(48px);
+  }
+
+  .AppLeftNav_dropdown {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+  }
+
+  .AppLeftNav_navigation {
+    flex-grow: 1;
+
+    .AppLeftNav_navigationLink {
+      &.mdl-navigation__link {
+        display: flex;
+        cursor: pointer;
+        color: $color-grey100;
+        font-size: 16px;
+
+        .AppLeftNav_navigationIcon {
+          margin-right: 16px;
+        }
+      }
+    }
+
+    .AppLeftNav_logout {
+      &.mdl-navigation__link {
+        display: flex;
+        cursor: pointer;
+        color: $color-grey100;
+        font-size: 16px;
+
+        .AppLeftNav_navigationIcon {
+          margin-right: 16px;
+        }
+      }
+    }
+  }
+}
