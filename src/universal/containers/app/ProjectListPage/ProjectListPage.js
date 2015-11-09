@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
 import {getProjectsAction} from './../../../redux/reducers/projects';
-import {FloatingActionButton} from './../../../components';
+import {Dialog, FlatButton, FloatingActionButton} from './../../../components';
 import AddProjectForm from './AddProjectForm';
 
 @connect(
@@ -15,11 +15,27 @@ export default class ProjectListPage extends Component {
     projects: PropTypes.array
   }
 
+  constructor(props, context) {
+    super(props, context);
+  }
+
   componentWillMount() {
     this.props.initialize('addProject', {});
   }
 
-  handleAddProject(data) {
+  openAddProjectDialog() {
+    this.refs.addProjectDialog.show();
+  }
+
+  saveAddProjectDialog() {
+    console.log('saveAddProjectDialog');
+  }
+
+  closeAddProjectDialog() {
+    this.refs.addProjectDialog.dismiss();
+  }
+
+  handleAddProjectSubmit(data) {
     console.log(data);
   }
 
@@ -50,15 +66,40 @@ export default class ProjectListPage extends Component {
               position: 'relative',
               top: '8px'
             }}
-            onClick={::this.handleAddProject}>
+            onClick={::this.openAddProjectDialog}>
             <span>+</span>
           </FloatingActionButton>
         </div>
+
         <ul>
           {projects.map(projectItem)}
         </ul>
 
-        <AddProjectForm handleSubmit={::this.handleAddProject}/>
+        <Dialog
+          ref="addProjectDialog"
+          title="Add project"
+          actionFocus="submit"
+          modal
+          autoDetectWindowHeight
+          autoScrollBodyContent
+          actions={[
+            <FlatButton
+              key="1"
+              label="Cancel"
+              secondary
+              onClick={::this.closeAddProjectDialog} />,
+            <FlatButton
+              key="2"
+              ref="submit"
+              label="Submit"
+              primary
+              onClick={::this.saveAddProjectDialog} />
+          ]}>
+          <AddProjectForm
+            ref="addProjectForm"
+            handleSubmit={::this.handleAddProjectSubmit}/>
+        </Dialog>
+
       </div>
     );
   }
