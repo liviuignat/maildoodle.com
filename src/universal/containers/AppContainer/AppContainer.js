@@ -4,7 +4,7 @@ import DocumentMeta from 'react-document-meta';
 import { pushState } from 'redux-router';
 import config from './../../../config';
 
-import { AppHeader } from './../../components';
+import { AppHeader, AppLeftNav } from './../../components';
 import { isUserLoaded, loadUserAction } from './../../redux/reducers/auth';
 
 @connect(
@@ -30,6 +30,18 @@ export default class App extends Component {
     }
   }
 
+  getContentClassName(styles, isDrawerVisble) {
+    let className = styles.AppContent;
+    if (isDrawerVisble) {
+      className += ' ' + styles.AppContent__isDrawerVisible;
+    }
+    return className;
+  }
+
+  get isLoggedIn() {
+    return !!this.props.user;
+  }
+
   static fetchData(getState, dispatch) {
     const promises = [];
 
@@ -40,17 +52,19 @@ export default class App extends Component {
   }
 
   render() {
-    const {user} = this.props;
-    const isLoggedIn = !!user;
     const styles = require('./AppContainer.scss');
+    const{user} = this.props;
+    const isDrawerVisble = this.isLoggedIn;
 
     return (
-      <div>
+      <div className={styles.AppContainer}>
         <DocumentMeta {...config.app} />
 
-        <AppHeader isLoggedIn={isLoggedIn} />
+        <AppHeader isLoggedIn={this.isLoggedIn} />
 
-        <div className={styles.appContent}>
+        {this.isLoggedIn && <AppLeftNav user={user} /> }
+
+        <div className={::this.getContentClassName(styles, isDrawerVisble)}>
           {this.props.children}
         </div>
       </div>
