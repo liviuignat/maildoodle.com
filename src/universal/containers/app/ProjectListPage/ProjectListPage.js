@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {initialize, startSubmit} from 'redux-form';
 import {getProjectsAction} from './../../../redux/reducers/projects';
-import {Dialog, FlatButton, FloatingActionButton} from './../../../components';
+import {FloatingActionButton, DialogForm} from './../../../components';
 import AddProjectForm, {ADD_PROJECT_FORM_NAME} from './AddProjectForm';
 
 @connect(
@@ -29,16 +29,13 @@ export default class ProjectListPage extends Component {
     this.refs.addProjectDialog.show();
   }
 
-  saveAddProjectDialog() {
+  startSubmit() {
     this.props.startSubmit(ADD_PROJECT_FORM_NAME);
-  }
-
-  closeAddProjectDialog() {
-    this.refs.addProjectDialog.dismiss();
   }
 
   handleAddProjectSubmit(data) {
     console.log('handleAddProjectSubmit', data);
+    this.refs.addProjectDialog.dismiss();
   }
 
   static fetchData(getState, dispatch) {
@@ -77,29 +74,10 @@ export default class ProjectListPage extends Component {
           {projects.map(projectItem)}
         </ul>
 
-        <Dialog
+        <DialogForm
           ref="addProjectDialog"
-          title="Add project"
-          actionFocus="submit"
-          modal
-          autoDetectWindowHeight
-          autoScrollBodyContent
-          actions={[
-            <FlatButton
-              key="1"
-              label="Cancel"
-              secondary
-              onClick={::this.closeAddProjectDialog} />,
-            <FlatButton
-              key="2"
-              ref="submit"
-              label="Submit"
-              primary
-              onClick={::this.saveAddProjectDialog} />
-          ]}>
-          <AddProjectForm
-            onSubmit={::this.handleAddProjectSubmit}/>
-        </Dialog>
+          startSubmit={::this.startSubmit}
+          form={<AddProjectForm onSubmit={::this.handleAddProjectSubmit}/>} />
 
       </div>
     );
