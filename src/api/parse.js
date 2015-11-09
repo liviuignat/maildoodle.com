@@ -7,7 +7,8 @@ if (process.env.NODE_ENV === 'integration-tests') {
   parseObj = new Parse({
     app_id: 'BS7AMCXlkT0j6AGeGWJtjpMeWSDxuFqMG0fCeRYs',
     js_key: 'WJo2j7T2r47JoZMGndtrA2VSxhaM0KFsO9gDOYuM',
-    api_key: 'Rsg7HjbqKJWjuaH29H4Civj0P9KAZx4u68vtbbFM'
+    api_key: 'Rsg7HjbqKJWjuaH29H4Civj0P9KAZx4u68vtbbFM',
+    master_key: 'q8aKH9LH2rfeaQNchcCY1YWS59tSo0Vu1xpJgQiM'
   });
 } else {
   parseObj = new Parse(config.parse.options);

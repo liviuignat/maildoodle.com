@@ -11,3 +11,21 @@ export function login(email, password) {
     });
   });
 }
+
+export function signup(email, password){
+  return new Promise((resolve, reject) => {
+    let newUserAccount = {
+      username: email,
+      password,
+      email
+    };
+
+    parse.insertUser(newUserAccount, (err, response) => {
+      if(err){
+        return reject(err);
+      }
+
+      return resolve(response);
+    });
+  });
+}
