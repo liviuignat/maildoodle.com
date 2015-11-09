@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
 import { pushState } from 'redux-router';
@@ -49,6 +50,8 @@ export default class LoginPage extends Component {
           onSubmit={::this.handleSubmit}
           isLoggingIn={loggingIn || false}
           loginError={loginError}/>
+
+        <Link className={''} to="/auth/sign-up">Sign Up</Link>
       </Paper>
     );
   }
