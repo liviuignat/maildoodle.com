@@ -1,17 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
-import {initialize} from 'redux-form';
+import {initialize, startSubmit, stopSubmit} from 'redux-form';
 import {getProjectsAction} from './../../../redux/reducers/projects';
 import {Dialog, FlatButton, FloatingActionButton} from './../../../components';
 import AddProjectForm from './AddProjectForm';
 
 @connect(
   state => ({projects: state.projects.list}), {
-    initialize
+    initialize,
+    startSubmit,
+    stopSubmit
   })
 export default class ProjectListPage extends Component {
   static propTypes = {
     initialize: PropTypes.func.isRequired,
+    startSubmit: PropTypes.func.isRequired,
+    stopSubmit: PropTypes.func.isRequired,
     projects: PropTypes.array
   }
 
@@ -20,7 +24,7 @@ export default class ProjectListPage extends Component {
   }
 
   componentWillMount() {
-    this.props.initialize('addProject', {});
+    this.props.initialize('addProjectForm', {});
   }
 
   openAddProjectDialog() {
@@ -28,7 +32,7 @@ export default class ProjectListPage extends Component {
   }
 
   saveAddProjectDialog() {
-    console.log('saveAddProjectDialog');
+    this.props.startSubmit('addProjectForm');
   }
 
   closeAddProjectDialog() {
@@ -36,7 +40,8 @@ export default class ProjectListPage extends Component {
   }
 
   handleAddProjectSubmit(data) {
-    console.log(data);
+    console.log('handleAddProjectSubmit', data);
+    this.props.stopSubmit('addProjectForm');
   }
 
   static fetchData(getState, dispatch) {
@@ -97,7 +102,7 @@ export default class ProjectListPage extends Component {
           ]}>
           <AddProjectForm
             ref="addProjectForm"
-            handleSubmit={::this.handleAddProjectSubmit}/>
+            onSubmit={::this.handleAddProjectSubmit}/>
         </Dialog>
 
       </div>
