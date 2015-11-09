@@ -1,7 +1,4 @@
-import { Parse } from 'node-parse-api';
-import config from './../../config';
-
-const parse = new Parse(config.parse.options);
+import {parse} from './../parse';
 
 export function login(email, password) {
   return new Promise((resolve, reject) => {

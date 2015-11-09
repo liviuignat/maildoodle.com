@@ -8,4 +8,8 @@ export function setupRoutes(app, prefix = '') {
       .then((response) => res.json(response))
       .catch((err) => res.status(401).json(err));
   });
+
+  app.post(`${prefix}/signup`, (req, res) => {
+    res.json({});
+  });
 };

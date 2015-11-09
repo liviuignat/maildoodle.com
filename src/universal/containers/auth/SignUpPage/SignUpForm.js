@@ -4,7 +4,7 @@ import { signUpFormValidator } from './signUpFormValidator';
 import { FormTextField, RaisedButton } from './../../../components';
 
 @reduxForm({
-  form: 'login',
+  form: 'signUp',
   fields: ['email', 'password'],
   validate: signUpFormValidator,
 })

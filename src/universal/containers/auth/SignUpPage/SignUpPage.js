@@ -33,7 +33,7 @@ export default class SignUpPage extends Component {
     return (
       <Paper className={styles.SignUpPage}>
         <h4>Sign Up</h4>
-       <SignUpForm
+        <SignUpForm
           onSubmit={::this.handleSubmit} />
 
         <Link className={''} to="/auth/login">Want to login?</Link>
