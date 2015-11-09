@@ -1,0 +1,87 @@
+@import "../../theme/variables.scss";
+
+.AppLeftNav {
+  @media screen and (min-width: 1025px) {
+    transform: translateX(0);
+  }
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  border: none;
+  width: $drawer-width;
+  height: 100%;
+  max-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+  box-sizing: border-box;
+  border-right: 1px solid #e0e0e0;
+  background: #fafafa;
+  transform: translateX(-250px);
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition-duration: .2s;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-property: transform;
+  color: $color-grey800;
+  overflow: visible;
+  overflow-y: auto;
+  z-index: 5;
+
+  .AppLeftNav_header {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: $color-blueGrey500;
+    padding: 16px;
+    height: 130px;
+  }
+
+  .AppLeftNav_avatar {
+    @include avatar(48px);
+  }
+
+  .AppLeftNav_displayNameContainer {
+    width: 100%;
+    padding: 8px 0;
+    color: $color-grey100;
+  }
+
+  .AppLeftNav_navigation {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: $color-blueGrey800;
+    flex-direction: column;
+  }
+
+  .AppLeftNav_navigationLink {
+    display: flex;
+    cursor: pointer;
+    color: $color-grey100;
+    display: block;
+    flex-shrink: 0;
+    padding: 16px 40px;
+    margin: 0;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 13px;
+
+    &:hover {
+      background-color: $color-grey600
+    }
+  }
+
+  .AppLeftNav_navigationLinkSpacer {
+    content: " ";
+    background-color: $color-grey100;
+    height: 1px;
+  }
+
+  .AppLeftNav_logout {
+    @extend .AppLeftNav_navigationLink;
+  }
+}

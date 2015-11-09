@@ -39,9 +39,6 @@ export default class Html extends Component {
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,500,500italic" rel="stylesheet" type="text/css" />
 
-          <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.indigo-pink.min.css" />
-          <script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script>
-
           {/* (will be present only in development mode) */}
           {/* outputs a <style/> tag with all bootstrap styles + App.scss + it could be CurrentPage.scss. */}
           {/* can smoothen the initial style flash (flicker) on page load in development mode. */}
