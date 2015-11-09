@@ -26,6 +26,27 @@ export function reducer(state = initialState, action = {}) {
         loaded: false,
         error: action.error
       };
+    case actions.INSERT_PROJECT:
+      return {
+        ...state,
+        isInserting: true
+      };
+    case actions.INSERT_PROJECT_SUCCESS:
+      return {
+        ...state,
+        isInserting: false,
+        loaded: true,
+        list:  [
+          ...state.list,
+          action.result
+        ]
+      };
+    case actions.INSERT_PROJECT_FAIL:
+      return {
+        ...state,
+        isInserting: false,
+        insertError: action.error
+      };
     default:
       return state;
   }

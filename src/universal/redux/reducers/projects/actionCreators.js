@@ -8,3 +8,12 @@ export function getProjectsAction() {
     }
   };
 }
+
+export function insertProjectsAction() {
+  return {
+    types: [actions.INSERT_PROJECT, actions.INSERT_PROJECT_SUCCESS, actions.INSERT_PROJECT_FAIL],
+    promise: (client) => {
+      return client.post('/project');
+    }
+  };
+}
