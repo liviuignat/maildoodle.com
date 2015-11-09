@@ -1,14 +1,20 @@
 import React, {Component, PropTypes} from 'react';
-import {reduxForm} from 'redux-form';
+import {reduxForm, stopSubmit} from 'redux-form';
 import {FormTextField} from './../../../components';
+import { projectFormValidator } from './projectFormValidator';
+
+export const ADD_PROJECT_FORM_NAME = 'addProjectForm';
 
 @reduxForm({
-  form: 'addProjectForm',
-  fields: ['identifier', 'name', 'description']
+  form: ADD_PROJECT_FORM_NAME,
+  fields: ['identifier', 'name', 'description'],
+  validate: projectFormValidator,
+  stopSubmit
 })
 export default class AddProjectForm extends Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     isInserting: PropTypes.bool,
     submitting: PropTypes.bool,
@@ -16,26 +22,27 @@ export default class AddProjectForm extends Component {
     valid: PropTypes.bool.isRequired
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {submitting, valid} = nextProps;
-
-    if (submitting && valid) {
-      this.props.handleSubmit();
+  componentDidUpdate(prevProps) {
+    const isNewSubmitRequested = !prevProps.submitting && this.props.submitting;
+    if (isNewSubmitRequested) {
+      this.submit();
     }
+  }
+
+  submit() {
+    this.props.handleSubmit();
+    this.props.dispatch(stopSubmit(ADD_PROJECT_FORM_NAME));
   }
 
   render() {
     const {
       fields: {identifier, name, description},
       handleSubmit,
-      isInserting,
-      insertError,
-      valid
+      isInserting
     } = this.props;
 
     return (
       <form
-        ref="form"
         onSubmit={handleSubmit}>
         <div>
           <FormTextField field={identifier}
@@ -62,8 +69,6 @@ export default class AddProjectForm extends Component {
             rows={2}
             disabled={isInserting}/>
         </div>
-
-        <span className={''}>{valid && insertError}</span>
       </form>
     );
   }

@@ -1,21 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
-import {initialize, startSubmit, stopSubmit} from 'redux-form';
+import {initialize, startSubmit} from 'redux-form';
 import {getProjectsAction} from './../../../redux/reducers/projects';
 import {Dialog, FlatButton, FloatingActionButton} from './../../../components';
-import AddProjectForm from './AddProjectForm';
+import AddProjectForm, {ADD_PROJECT_FORM_NAME} from './AddProjectForm';
 
 @connect(
   state => ({projects: state.projects.list}), {
     initialize,
-    startSubmit,
-    stopSubmit
+    startSubmit
   })
 export default class ProjectListPage extends Component {
   static propTypes = {
     initialize: PropTypes.func.isRequired,
     startSubmit: PropTypes.func.isRequired,
-    stopSubmit: PropTypes.func.isRequired,
     projects: PropTypes.array
   }
 
@@ -24,7 +22,7 @@ export default class ProjectListPage extends Component {
   }
 
   componentWillMount() {
-    this.props.initialize('addProjectForm', {});
+    this.props.initialize(ADD_PROJECT_FORM_NAME, {});
   }
 
   openAddProjectDialog() {
@@ -32,7 +30,7 @@ export default class ProjectListPage extends Component {
   }
 
   saveAddProjectDialog() {
-    this.props.startSubmit('addProjectForm');
+    this.props.startSubmit(ADD_PROJECT_FORM_NAME);
   }
 
   closeAddProjectDialog() {
@@ -41,7 +39,6 @@ export default class ProjectListPage extends Component {
 
   handleAddProjectSubmit(data) {
     console.log('handleAddProjectSubmit', data);
-    this.props.stopSubmit('addProjectForm');
   }
 
   static fetchData(getState, dispatch) {
@@ -101,7 +98,6 @@ export default class ProjectListPage extends Component {
               onClick={::this.saveAddProjectDialog} />
           ]}>
           <AddProjectForm
-            ref="addProjectForm"
             onSubmit={::this.handleAddProjectSubmit}/>
         </Dialog>
 
