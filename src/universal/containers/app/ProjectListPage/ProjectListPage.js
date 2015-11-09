@@ -1,18 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
+import {initialize} from 'redux-form';
 import {getProjectsAction} from './../../../redux/reducers/projects';
 import {FloatingActionButton} from './../../../components';
+import AddProjectForm from './AddProjectForm';
 
 @connect(
   state => ({projects: state.projects.list}), {
+    initialize
   })
 export default class ProjectListPage extends Component {
   static propTypes = {
+    initialize: PropTypes.func.isRequired,
     projects: PropTypes.array
   }
 
-  handleAddProject() {
-    console.log('Add project');
+  componentWillMount() {
+    this.props.initialize('addProject', {});
+  }
+
+  handleAddProject(data) {
+    console.log(data);
   }
 
   static fetchData(getState, dispatch) {
@@ -50,10 +58,7 @@ export default class ProjectListPage extends Component {
           {projects.map(projectItem)}
         </ul>
 
-        <div>
-
-        </div>
-
+        <AddProjectForm handleSubmit={::this.handleAddProject}/>
       </div>
     );
   }
