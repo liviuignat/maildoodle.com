@@ -9,18 +9,19 @@ import {
 
 export function setupRoutes(app, prefix = '') {
   app.get(`${prefix}/`, requiredAuthenticated, (req, res) => {
-    getProjects()
+    getProjects(req.user.id)
       .then((response) => res.json(response))
       .catch((err) => res.status(400).json(err));
   });
 
   app.post(`${prefix}/`, requiredAuthenticated, (req, res) => {
     const project = req.body;
+    const user = req.user;
 
-    insertProject(project)
+    insertProject(user.id, project)
       .then((response) => response.objectId)
       .then(getProjectById)
-      .then((response) => res.status(200).json(response))
+      .then((response) => res.json(response))
       .catch((err) => res.status(400).json(err));
   });
 };
