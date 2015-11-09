@@ -36,7 +36,7 @@ export function reducer(state = initialState, action = {}) {
         ...state,
         isInserting: false,
         loaded: true,
-        list:  [
+        list: [
           ...state.list,
           action.result
         ]

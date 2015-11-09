@@ -9,11 +9,13 @@ export function getProjectsAction() {
   };
 }
 
-export function insertProjectsAction() {
+export function insertProjectsAction(project) {
   return {
     types: [actions.INSERT_PROJECT, actions.INSERT_PROJECT_SUCCESS, actions.INSERT_PROJECT_FAIL],
     promise: (client) => {
-      return client.post('/project');
+      return client.post('/project', {
+        data: project
+      });
     }
   };
 }
