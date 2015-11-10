@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {initialize, startSubmit} from 'redux-form';
-import {getProjectsAction, insertProjectsAction} from './../../../redux/reducers/projects';
+import {getProjectsAction, insertProjectsAction, updateProjectsAction} from './../../../redux/reducers/projects';
 import AddProjectForm, {ADD_PROJECT_FORM_NAME} from './AddProjectForm';
 import {
   FloatingActionButton,
@@ -19,13 +19,15 @@ import {
   state => ({projects: state.projects.list}), {
     initialize,
     startSubmit,
-    insertProjectsAction
+    insertProjectsAction,
+    updateProjectsAction
   })
 export default class ProjectListPage extends Component {
   static propTypes = {
     initialize: PropTypes.func.isRequired,
     startSubmit: PropTypes.func.isRequired,
     insertProjectsAction: PropTypes.func.isRequired,
+    updateProjectsAction: PropTypes.func.isRequired,
     projects: PropTypes.array
   }
 
@@ -33,11 +35,8 @@ export default class ProjectListPage extends Component {
     super(props, context);
   }
 
-  componentWillMount() {
-    this.props.initialize(ADD_PROJECT_FORM_NAME, {});
-  }
-
   openAddProjectDialog() {
+    this.props.initialize(ADD_PROJECT_FORM_NAME, {});
     this.refs.addProjectDialog.show();
   }
 
@@ -50,8 +49,20 @@ export default class ProjectListPage extends Component {
     this.props.insertProjectsAction(data);
   }
 
-  openEditProjectDialog() {
-    console.log('openEditProjectDialog');
+  openEditProjectDialog(project) {
+    return () => {
+      this.props.initialize(ADD_PROJECT_FORM_NAME, project);
+      this.refs.editProjectDialog.show();
+    };
+  }
+
+  startSubmitEditProject() {
+    this.props.startSubmit(ADD_PROJECT_FORM_NAME);
+  }
+
+  handleEditProjectSubmit(data) {
+    this.refs.editProjectDialog.dismiss();
+    this.props.updateProjectsAction(data);
   }
 
   openConfirmDeleteProjectDialog() {
@@ -68,14 +79,14 @@ export default class ProjectListPage extends Component {
     const style = require('./ProjectListPage.scss');
     const { projects } = this.props;
 
-    const listItemIconMenu = () => (
+    const listItemIconMenu = (project) => (
       <IconMenu
         iconButtonElement={
           <IconButton tooltip="more...">
             <FontIcon className="material-icons">more_vert</FontIcon>
           </IconButton>
         }>
-        <MenuItem primaryText="Edit" onClick={::this.openEditProjectDialog}/>
+        <MenuItem primaryText="Edit" onClick={::this.openEditProjectDialog(project)}/>
         <MenuItem primaryText="Delete" onClick={::this.openConfirmDeleteProjectDialog}/>
       </IconMenu>
     );
@@ -84,7 +95,7 @@ export default class ProjectListPage extends Component {
         <div key={index}>
           <ListDivider />
           <ListItem
-            rightIconButton={listItemIconMenu()}
+            rightIconButton={listItemIconMenu(project)}
             primaryText={(
               <div className={style.ProjectListPage_listItemIdentifier}>
                 {project.identifier}
@@ -119,6 +130,11 @@ export default class ProjectListPage extends Component {
         <List subheader="List of projects">
           {projects.map(projectItem)}
         </List>
+
+        <DialogForm
+          ref="editProjectDialog"
+          startSubmit={::this.startSubmitEditProject}
+          form={<AddProjectForm onSubmit={::this.handleEditProjectSubmit}/>} />
 
         <DialogForm
           ref="addProjectDialog"

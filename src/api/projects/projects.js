@@ -55,7 +55,7 @@ export function insertProject(userId, project) {
 
 export function updateProject(projectId, project) {
   return new Promise((resolve, reject) => {
-    parse.insert(CLASS_NAME, projectId, project, (err, response) => {
+    parse.update(CLASS_NAME, projectId, project, (err, response) => {
       if (err) {
         return reject(err);
       }
@@ -66,7 +66,7 @@ export function updateProject(projectId, project) {
 
 export function deleteProject(projectId) {
   return new Promise((resolve, reject) => {
-    parse.insert(CLASS_NAME, projectId, (err, response) => {
+    parse.delete(CLASS_NAME, projectId, (err, response) => {
       if (err) {
         return reject(err);
       }

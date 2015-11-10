@@ -22,7 +22,7 @@ export function insertProjectsAction(project) {
 
 export function updateProjectsAction(project) {
   return {
-    types: [actions.INSERT_PROJECT, actions.INSERT_PROJECT_SUCCESS, actions.INSERT_PROJECT_FAIL],
+    types: [actions.UPDATE_PROJECT, actions.UPDATE_PROJECT_SUCCESS, actions.UPDATE_PROJECT_FAIL],
     promise: (client) => {
       return client.put('/project/' + project.objectId, {
         data: project
@@ -33,7 +33,7 @@ export function updateProjectsAction(project) {
 
 export function deleteProjectsAction(project) {
   return {
-    types: [actions.INSERT_PROJECT, actions.INSERT_PROJECT_SUCCESS, actions.INSERT_PROJECT_FAIL],
+    types: [actions.DELETE_PROJECT, actions.DELETE_PROJECT_SUCCESS, actions.DELETE_PROJECT_FAIL],
     promise: (client) => {
       return client.del('/project/' + project.objectId);
     }

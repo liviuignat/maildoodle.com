@@ -23,7 +23,7 @@ export function setupRoutes(app, prefix = '') {
 
   app.put(`${prefix}/:projectId`, requiredAuthenticated, (req, res) => {
     updateProject(req.params.projectId, req.body)
-      .then((response) => getProjectById(req.user.objectId, response.objectId))
+      .then((response) => getProjectById(req.user.objectId, req.params.projectId))
       .then((response) => res.json(response))
       .catch((err) => res.status(400).json(err));
   });
