@@ -2,8 +2,18 @@ import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {initialize, startSubmit} from 'redux-form';
 import {getProjectsAction, insertProjectsAction} from './../../../redux/reducers/projects';
-import {FloatingActionButton, DialogForm} from './../../../components';
 import AddProjectForm, {ADD_PROJECT_FORM_NAME} from './AddProjectForm';
+import {
+  FloatingActionButton,
+  DialogForm,
+  List,
+  ListItem,
+  ListDivider,
+  IconButton,
+  IconMenu,
+  MenuItem,
+  FontIcon
+} from './../../../components';
 
 @connect(
   state => ({projects: state.projects.list}), {
@@ -31,13 +41,21 @@ export default class ProjectListPage extends Component {
     this.refs.addProjectDialog.show();
   }
 
-  startSubmit() {
+  startSubmitAddProject() {
     this.props.startSubmit(ADD_PROJECT_FORM_NAME);
   }
 
   handleAddProjectSubmit(data) {
     this.refs.addProjectDialog.dismiss();
     this.props.insertProjectsAction(data);
+  }
+
+  openEditProjectDialog(project) {
+    console.log('openEditProjectDialog', project);
+  }
+
+  openConfirmDeleteProjectDialog(project) {
+    console.log('openConfirmDeleteProjectDialog', project);
   }
 
   static fetchData(getState, dispatch) {
@@ -50,35 +68,57 @@ export default class ProjectListPage extends Component {
     const style = require('./ProjectListPage.scss');
     const { projects } = this.props;
 
-    const projectItem = (project, index) =>
-      <li key={index}>
-        {project.name}
-      </li>;
+    const listItemIconMenu = () => (
+      <IconMenu
+        iconButtonElement={
+          <IconButton tooltip="more...">
+            <FontIcon className="material-icons">more_vert</FontIcon>
+          </IconButton>
+        }>
+        <MenuItem primaryText="Edit" />
+        <MenuItem primaryText="Delete" />
+      </IconMenu>
+    );
+
+    const projectItem = (project, index) => (
+        <div key={index}>
+          <ListDivider />
+          <ListItem
+            rightIconButton={listItemIconMenu()}
+            primaryText={<div>{project.identifier}</div>}
+            secondaryText={
+              <div>
+                <div>{project.name}</div>
+                <div>{project.description}</div>
+              </div>
+            }/>
+        </div>
+      );
+
 
     return (
       <div className={style.ProjectListPage}>
-        <div className={style.ProjectListPage_title}>
-          <span>List of projects</span>
+        <div style={{position: 'relative', height: '20px'}}>
           <FloatingActionButton
             primary
             mini
             style={{
               margin: '0 16px',
-              position: 'relative',
-              top: '8px'
+              position: 'absolute',
+              right: '0'
             }}
             onClick={::this.openAddProjectDialog}>
             <span>+</span>
           </FloatingActionButton>
         </div>
 
-        <ul>
+        <List subheader="List of projects">
           {projects.map(projectItem)}
-        </ul>
+        </List>
 
         <DialogForm
           ref="addProjectDialog"
-          startSubmit={::this.startSubmit}
+          startSubmit={::this.startSubmitAddProject}
           form={<AddProjectForm onSubmit={::this.handleAddProjectSubmit}/>} />
 
       </div>
