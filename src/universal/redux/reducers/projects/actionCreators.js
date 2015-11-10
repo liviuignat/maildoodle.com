@@ -31,7 +31,7 @@ export function updateProjectsAction(project) {
   };
 }
 
-export function insertProjectsAction(project) {
+export function deleteProjectsAction(project) {
   return {
     types: [actions.INSERT_PROJECT, actions.INSERT_PROJECT_SUCCESS, actions.INSERT_PROJECT_FAIL],
     promise: (client) => {
