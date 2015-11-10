@@ -1,4 +1,4 @@
-import { login, signup } from './auth';
+import { login, signup, resetPassword } from './auth';
 
 export function setupRoutes(app, prefix = '') {
   app.post(`${prefix}/login`, (req, res) => {
@@ -13,8 +13,16 @@ export function setupRoutes(app, prefix = '') {
     const {email, password} = req.body;
 
     signup(email, password)
-      .then(res.json)
+      .then((response) => res.json(response))
       .catch((err) => res.status(400).json(err));
 
   });
+
+  // app.post(`${prefix}/resetpassword`, (req, res) => {
+  //   const {email} = req.body;
+
+  //   resetPassword(email)
+  //     .then((response) => res.json(response))
+  //     .catch((err) => res.status(400).json(err));
+  // });
 };

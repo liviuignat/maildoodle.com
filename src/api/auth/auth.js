@@ -12,6 +12,17 @@ export function login(email, password) {
   });
 }
 
+export function resetPassword(email) {
+  return new Promise((resolve, reject) => {
+    parse.passwordReset(email, (err, response) => {
+      if(err) {
+        return reject(err);
+      }
+      return resolve(response);
+    });
+  });
+}
+
 export function signup(email, password){
   return new Promise((resolve, reject) => {
     let newUserAccount = {
