@@ -7,7 +7,7 @@ export const ADD_PROJECT_FORM_NAME = 'addProjectForm';
 
 @reduxForm({
   form: ADD_PROJECT_FORM_NAME,
-  fields: ['identifier', 'name', 'description'],
+  fields: ['objectId', 'identifier', 'name', 'description'],
   validate: projectFormValidator,
   stopSubmit
 })

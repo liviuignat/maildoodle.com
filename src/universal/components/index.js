@@ -9,6 +9,17 @@ export {
   Paper,
   FlatButton,
   FloatingActionButton,
-  FontIcon,
-  LinearProgress
+  LinearProgress,
+
+  List,
+  ListItem,
+  ListDivider,
+
+  IconButton,
+  FontIcon
 } from 'material-ui';
+
+export Menu from 'material-ui/lib/menus/menu';
+export MenuItem from 'material-ui/lib/menus/menu-item';
+export MenuDivider from 'material-ui/lib/menus/menu-divider';
+export IconMenu from 'material-ui/lib/menus/icon-menu';
