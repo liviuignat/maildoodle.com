@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
-import {initialize, startSubmit} from 'redux-form';
+import {initialize as initializeForm, startSubmit} from 'redux-form';
 import {
   getProjectsAction,
   insertProjectAction,
@@ -22,7 +22,7 @@ import {
 
 @connect(
   state => ({projects: state.projects.list}), {
-    initialize,
+    initializeForm,
     startSubmit,
     insertProjectAction,
     updateProjectAction,
@@ -30,7 +30,7 @@ import {
   })
 export default class ProjectListPage extends Component {
   static propTypes = {
-    initialize: PropTypes.func.isRequired,
+    initializeForm: PropTypes.func.isRequired,
     startSubmit: PropTypes.func.isRequired,
     insertProjectAction: PropTypes.func.isRequired,
     updateProjectAction: PropTypes.func.isRequired,
@@ -43,7 +43,7 @@ export default class ProjectListPage extends Component {
   }
 
   openAddProjectDialog() {
-    this.props.initialize(ADD_PROJECT_FORM_NAME, {});
+    this.props.initializeForm(ADD_PROJECT_FORM_NAME, {});
     this.refs.addProjectDialog.show();
   }
 
@@ -58,7 +58,7 @@ export default class ProjectListPage extends Component {
 
   openEditProjectDialog(project) {
     return () => {
-      this.props.initialize(ADD_PROJECT_FORM_NAME, project);
+      this.props.initializeForm(ADD_PROJECT_FORM_NAME, project);
       this.refs.editProjectDialog.show();
     };
   }

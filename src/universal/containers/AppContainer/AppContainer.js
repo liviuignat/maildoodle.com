@@ -14,7 +14,7 @@ import { isUserLoaded, loadUserAction } from './../../redux/reducers/auth';
   }),
   { pushState }
 )
-export default class App extends Component {
+export default class AppContainer extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     pushState: PropTypes.func.isRequired,
