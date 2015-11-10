@@ -52,7 +52,11 @@ function getUserFromParse(parseUser) {
   if (!parseUser) {
     return null;
   }
+
   return {
+    id: parseUser.objectId,
+    sessionToken: parseUser.sessionToken,
+    emailVerified: parseUser.emailVerified,
     email: parseUser.email,
     emailVerified: parseUser.emailVerified,
     updatedAt: parseUser.updatedAt,

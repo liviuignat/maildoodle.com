@@ -7,7 +7,7 @@ export function isUserLoaded(globalState) {
 
 export function loadUserAction() {
   return {
-    types: [actions.LOAD, actions.LOAD_SUCCESS, actions.LOAD_FAIL],
+    types: [actions.LOAD_CURRENT_USER, actions.LOAD_CURRENT_USER_SUCCESS, actions.LOAD_CURRENT_USER_FAIL],
     promise: (client) => {
       if (__SERVER__) {
         return client.get('/user/me');

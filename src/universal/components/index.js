@@ -1,6 +1,14 @@
 export AppHeader from './AppHeader/AppHeader';
-export LogoutButton from './LogoutButton/LogoutButton';
+export AppLeftNav from './AppLeftNav/AppLeftNav';
 export FormTextField from './TextField/FormTextField';
 export RaisedButton from './Button/RaisedButton';
+export DialogForm from './DialogForm/DialogForm';
 
-export { Paper } from 'material-ui';
+export {
+  Dialog,
+  Paper,
+  FlatButton,
+  FloatingActionButton,
+  FontIcon,
+  LinearProgress
+} from 'material-ui';

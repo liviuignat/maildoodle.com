@@ -4,17 +4,21 @@ import DocumentMeta from 'react-document-meta';
 import { pushState } from 'redux-router';
 import config from './../../../config';
 
-import { AppHeader } from './../../components';
+import { AppHeader, AppLeftNav, LinearProgress } from './../../components';
 import { isUserLoaded, loadUserAction } from './../../redux/reducers/auth';
 
 @connect(
-  state => ({user: state.auth.user}),
+  state => ({
+    isRouterLoading: state.appLoading.isLoading,
+    user: state.auth.user
+  }),
   { pushState }
 )
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     pushState: PropTypes.func.isRequired,
+    isRouterLoading: PropTypes.bool,
     user: PropTypes.object
   };
 
@@ -30,6 +34,18 @@ export default class App extends Component {
     }
   }
 
+  getContentClassName(styles, isDrawerVisble) {
+    let className = styles.AppContent;
+    if (isDrawerVisble) {
+      className += ' ' + styles.AppContent__isDrawerVisible;
+    }
+    return className;
+  }
+
+  get isLoggedIn() {
+    return !!this.props.user;
+  }
+
   static fetchData(getState, dispatch) {
     const promises = [];
 
@@ -40,17 +56,28 @@ export default class App extends Component {
   }
 
   render() {
-    const {user} = this.props;
-    const isLoggedIn = !!user;
     const styles = require('./AppContainer.scss');
+    const{isRouterLoading, user} = this.props;
+    const isDrawerVisble = this.isLoggedIn;
 
     return (
-      <div>
+      <div className={styles.AppContainer}>
         <DocumentMeta {...config.app} />
 
-        <AppHeader isLoggedIn={isLoggedIn} />
+        {<LinearProgress
+          style={{
+            position: 'absolute',
+            top: '0',
+            zIndex: '99999',
+            visibility: isRouterLoading ? 'visible' : 'hidden'
+          }}
+          mode="indeterminate"/>}
 
-        <div className={styles.appContent}>
+        <AppHeader isLoggedIn={this.isLoggedIn} />
+
+        {this.isLoggedIn && <AppLeftNav user={user} />}
+
+        <div className={::this.getContentClassName(styles, isDrawerVisble)}>
           {this.props.children}
         </div>
       </div>
