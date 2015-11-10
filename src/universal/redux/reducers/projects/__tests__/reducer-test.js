@@ -139,7 +139,7 @@ describe('Projects Reducer tests', () => {
         });
       });
 
-      describe('When updating a project that does not exist', () => {
+      describe('When deleting a project that does not exist', () => {
         const deleteAction = {
           type: actions.DELETE_PROJECT_SUCCESS,
           result: {
