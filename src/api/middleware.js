@@ -54,7 +54,7 @@ function getUserFromParse(parseUser) {
   }
 
   return {
-    id: parseUser.objectId,
+    objectId: parseUser.objectId,
     sessionToken: parseUser.sessionToken,
     emailVerified: parseUser.emailVerified,
     email: parseUser.email,
