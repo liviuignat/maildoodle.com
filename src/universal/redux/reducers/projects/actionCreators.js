@@ -19,3 +19,23 @@ export function insertProjectsAction(project) {
     }
   };
 }
+
+export function updateProjectsAction(project) {
+  return {
+    types: [actions.INSERT_PROJECT, actions.INSERT_PROJECT_SUCCESS, actions.INSERT_PROJECT_FAIL],
+    promise: (client) => {
+      return client.put('/project/' + project.objectId, {
+        data: project
+      });
+    }
+  };
+}
+
+export function insertProjectsAction(project) {
+  return {
+    types: [actions.INSERT_PROJECT, actions.INSERT_PROJECT_SUCCESS, actions.INSERT_PROJECT_FAIL],
+    promise: (client) => {
+      return client.del('/project/' + project.objectId);
+    }
+  };
+}

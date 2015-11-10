@@ -15,9 +15,14 @@ export function getProjects(userId) {
   });
 }
 
-export function getProjectById(projectId) {
+export function getProjectById(userId, projectId) {
   return new Promise((resolve, reject) => {
-    parse.find(CLASS_NAME, {objectId: projectId}, (err, response) => {
+    const query = {
+      objectId: projectId,
+      user: userId
+    };
+
+    parse.find(CLASS_NAME, query, (err, response) => {
       if (err) {
         return reject(err);
       }
@@ -43,7 +48,28 @@ export function insertProject(userId, project) {
       if (err) {
         return reject(err);
       }
+      return resolve(response);
+    });
+  });
+}
 
+export function updateProject(projectId, project) {
+  return new Promise((resolve, reject) => {
+    parse.insert(CLASS_NAME, projectId, project, (err, response) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(response);
+    });
+  });
+}
+
+export function deleteProject(projectId) {
+  return new Promise((resolve, reject) => {
+    parse.insert(CLASS_NAME, projectId, (err, response) => {
+      if (err) {
+        return reject(err);
+      }
       return resolve(response);
     });
   });

@@ -29,12 +29,12 @@ export function reducer(state = initialState, action = {}) {
     case actions.INSERT_PROJECT:
       return {
         ...state,
-        isInserting: true
+        isUpdating: true
       };
     case actions.INSERT_PROJECT_SUCCESS:
       return {
         ...state,
-        isInserting: false,
+        isUpdating: false,
         loaded: true,
         list: [
           ...state.list,
@@ -42,6 +42,44 @@ export function reducer(state = initialState, action = {}) {
         ]
       };
     case actions.INSERT_PROJECT_FAIL:
+      return {
+        ...state,
+        isUpdating: false,
+        updateError: action.error
+      };
+    case actions.UPDATE_PROJECT:
+      return {
+        ...state,
+        isDeleteing: true
+      };
+    case actions.UPDATE_PROJECT_SUCCESS:
+      return {
+        ...state,
+        isDeleteing: false,
+        loaded: true,
+        list: [
+        ]
+      };
+    case actions.UPDATE_PROJECT_FAIL:
+      return {
+        ...state,
+        isDeleteing: false,
+        deleteError: action.error
+      };
+    case actions.DELETE_PROJECT:
+      return {
+        ...state,
+        isInserting: true
+      };
+    case actions.DELETE_PROJECT_SUCCESS:
+      return {
+        ...state,
+        isInserting: false,
+        loaded: true,
+        list: [
+        ]
+      };
+    case actions.DELETE_PROJECT_FAIL:
       return {
         ...state,
         isInserting: false,
