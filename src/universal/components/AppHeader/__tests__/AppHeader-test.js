@@ -37,8 +37,9 @@ describe('AppHeader when NOT logged in', () => {
   });
 
   it('should render with correct value', () => {
-    const loginLink = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'mdl-navigation__link')[0];
-    expect(loginLink.textContent).to.equal('Login');
+    const links = ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'a');
+    const loginLink = links.find((link) => link.textContent.toLowerCase() === 'login');
+    expect(loginLink).to.exist;
   });
 });
 
@@ -58,7 +59,8 @@ describe('AppHeader when logged in', () => {
   });
 
   it('should render with correct value', () => {
-    const loginLink = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'mdl-navigation__link')[0];
-    expect(loginLink.textContent).to.equal('Logout');
+    const links = ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'a');
+    const loginLink = links.find((link) => link.textContent.toLowerCase() === 'login');
+    expect(loginLink).to.not.exist;
   });
 });
