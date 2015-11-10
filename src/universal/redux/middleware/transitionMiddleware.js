@@ -1,5 +1,6 @@
 import {ROUTER_DID_CHANGE} from 'redux-router/lib/constants';
 import getDataDependencies from '../../helpers/getDataDependencies';
+import {startLoading, endLoading} from '../../redux/reducers/appLoading';
 
 const locationsAreEqual = (locA, locB) => (locA.pathname === locB.pathname) && (locA.search === locB.search);
 
@@ -9,13 +10,19 @@ export default ({getState, dispatch}) => next => action => {
       return next(action);
     }
 
+    dispatch(startLoading());
+
     const {components, location, params} = action.payload;
     const promise = new Promise((resolve) => {
+      const resolvation = (param1, param2) => {
+        dispatch(endLoading());
+        resolve(param1, param2);
+      };
 
       const doTransition = () => {
         next(action);
         Promise.all(getDataDependencies(components, getState, dispatch, location, params, true))
-          .then(resolve, resolve);
+          .then(resolvation, resolvation);
       };
 
       Promise.all(getDataDependencies(components, getState, dispatch, location, params))
