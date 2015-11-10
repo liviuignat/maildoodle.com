@@ -50,12 +50,12 @@ export default class ProjectListPage extends Component {
     this.props.insertProjectsAction(data);
   }
 
-  openEditProjectDialog(project) {
-    console.log('openEditProjectDialog', project);
+  openEditProjectDialog() {
+    console.log('openEditProjectDialog');
   }
 
-  openConfirmDeleteProjectDialog(project) {
-    console.log('openConfirmDeleteProjectDialog', project);
+  openConfirmDeleteProjectDialog() {
+    console.log('openConfirmDeleteProjectDialog');
   }
 
   static fetchData(getState, dispatch) {
@@ -75,8 +75,8 @@ export default class ProjectListPage extends Component {
             <FontIcon className="material-icons">more_vert</FontIcon>
           </IconButton>
         }>
-        <MenuItem primaryText="Edit" />
-        <MenuItem primaryText="Delete" />
+        <MenuItem primaryText="Edit" onClick={::this.openEditProjectDialog}/>
+        <MenuItem primaryText="Delete" onClick={::this.openConfirmDeleteProjectDialog}/>
       </IconMenu>
     );
 
