@@ -85,20 +85,24 @@ export default class ProjectListPage extends Component {
           <ListDivider />
           <ListItem
             rightIconButton={listItemIconMenu()}
-            primaryText={<div>{project.identifier}</div>}
+            primaryText={(
+              <div className={style.ProjectListPage_listItemIdentifier}>
+                {project.identifier}
+              </div>)}
             secondaryText={
               <div>
-                <div>{project.name}</div>
-                <div>{project.description}</div>
+                <div className={style.ProjectListPage_listItemName}>{project.name}</div>
+                <div className={style.ProjectListPage_listDescription}>{project.description}</div>
               </div>
-            }/>
+            }
+            secondaryTextLines={project.description ? 2 : 1}/>
         </div>
       );
 
 
     return (
       <div className={style.ProjectListPage}>
-        <div style={{position: 'relative', height: '20px'}}>
+        <div className={style.ProjectListPage_addButtonContainer}>
           <FloatingActionButton
             primary
             mini

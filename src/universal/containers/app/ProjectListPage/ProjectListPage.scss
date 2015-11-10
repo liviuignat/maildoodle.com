@@ -3,3 +3,23 @@
 .ProjectListPage {
   position: relative;
 }
+
+.ProjectListPage_addButtonContainer {
+  position: relative;
+  height: 20px;
+}
+
+.ProjectListPage_listItemIdentifier {
+  font-size: $font-size-normal;
+  font-weight: 400;
+}
+
+.ProjectListPage_listItemName {
+  font-size: $font-size-normal;
+  font-weight: 400;
+}
+
+.ProjectListPage_listDescription {
+  font-size: $font-size-small;
+  font-weight: 300;
+}
