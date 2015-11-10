@@ -6,6 +6,7 @@ import {
     HomePage,
     LoginPage,
     DashboardPage,
+    ProjectListPage,
     NotFoundPage
   } from './containers';
 
@@ -50,6 +51,8 @@ export default (store) => {
 
       <Route onEnter={requireLogin}>
         <Route path="/app" component={DashboardPage} />
+
+        <Route path="/app/projects" component={ProjectListPage} />
       </Route>
 
       <Route path="*" component={NotFoundPage} status={404} />

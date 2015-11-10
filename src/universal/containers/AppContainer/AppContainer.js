@@ -4,17 +4,21 @@ import DocumentMeta from 'react-document-meta';
 import { pushState } from 'redux-router';
 import config from './../../../config';
 
-import { AppHeader, AppLeftNav } from './../../components';
+import { AppHeader, AppLeftNav, LinearProgress } from './../../components';
 import { isUserLoaded, loadUserAction } from './../../redux/reducers/auth';
 
 @connect(
-  state => ({user: state.auth.user}),
+  state => ({
+    isRouterLoading: state.appLoading.isLoading,
+    user: state.auth.user
+  }),
   { pushState }
 )
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     pushState: PropTypes.func.isRequired,
+    isRouterLoading: PropTypes.bool,
     user: PropTypes.object
   };
 
@@ -53,16 +57,25 @@ export default class App extends Component {
 
   render() {
     const styles = require('./AppContainer.scss');
-    const{user} = this.props;
+    const{isRouterLoading, user} = this.props;
     const isDrawerVisble = this.isLoggedIn;
 
     return (
       <div className={styles.AppContainer}>
         <DocumentMeta {...config.app} />
 
+        {<LinearProgress
+          style={{
+            position: 'absolute',
+            top: '0',
+            zIndex: '99999',
+            visibility: isRouterLoading ? 'visible' : 'hidden'
+          }}
+          mode="indeterminate"/>}
+
         <AppHeader isLoggedIn={this.isLoggedIn} />
 
-        {this.isLoggedIn && <AppLeftNav user={user} /> }
+        {this.isLoggedIn && <AppLeftNav user={user} />}
 
         <div className={::this.getContentClassName(styles, isDrawerVisble)}>
           {this.props.children}
