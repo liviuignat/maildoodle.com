@@ -1,7 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {initialize, startSubmit} from 'redux-form';
-import {getProjectsAction, insertProjectsAction, updateProjectsAction} from './../../../redux/reducers/projects';
+import {
+  getProjectsAction,
+  insertProjectAction,
+  updateProjectAction,
+  deleteProjectAction
+} from './../../../redux/reducers/projects';
 import AddProjectForm, {ADD_PROJECT_FORM_NAME} from './AddProjectForm';
 import {
   FloatingActionButton,
@@ -19,16 +24,18 @@ import {
   state => ({projects: state.projects.list}), {
     initialize,
     startSubmit,
-    insertProjectsAction,
-    updateProjectsAction
+    insertProjectAction,
+    updateProjectAction,
+    deleteProjectAction
   })
 export default class ProjectListPage extends Component {
   static propTypes = {
     initialize: PropTypes.func.isRequired,
     startSubmit: PropTypes.func.isRequired,
-    insertProjectsAction: PropTypes.func.isRequired,
-    updateProjectsAction: PropTypes.func.isRequired,
-    projects: PropTypes.array
+    insertProjectAction: PropTypes.func.isRequired,
+    updateProjectAction: PropTypes.func.isRequired,
+    deleteProjectAction: PropTypes.func.isRequired,
+    projects: PropTypes.array.isRequired
   }
 
   constructor(props, context) {
@@ -46,7 +53,7 @@ export default class ProjectListPage extends Component {
 
   handleAddProjectSubmit(data) {
     this.refs.addProjectDialog.dismiss();
-    this.props.insertProjectsAction(data);
+    this.props.insertProjectAction(data);
   }
 
   openEditProjectDialog(project) {
@@ -62,11 +69,13 @@ export default class ProjectListPage extends Component {
 
   handleEditProjectSubmit(data) {
     this.refs.editProjectDialog.dismiss();
-    this.props.updateProjectsAction(data);
+    this.props.updateProjectAction(data);
   }
 
-  openConfirmDeleteProjectDialog() {
-    console.log('openConfirmDeleteProjectDialog');
+  handleDeleteProjectSubmit(project) {
+    return () => {
+      this.props.deleteProjectAction(project);
+    };
   }
 
   static fetchData(getState, dispatch) {
@@ -87,7 +96,7 @@ export default class ProjectListPage extends Component {
           </IconButton>
         }>
         <MenuItem primaryText="Edit" onClick={::this.openEditProjectDialog(project)}/>
-        <MenuItem primaryText="Delete" onClick={::this.openConfirmDeleteProjectDialog}/>
+        <MenuItem primaryText="Delete" onClick={::this.handleDeleteProjectSubmit(project)}/>
       </IconMenu>
     );
 
@@ -109,7 +118,6 @@ export default class ProjectListPage extends Component {
             secondaryTextLines={project.description ? 2 : 1}/>
         </div>
       );
-
 
     return (
       <div className={style.ProjectListPage}>
