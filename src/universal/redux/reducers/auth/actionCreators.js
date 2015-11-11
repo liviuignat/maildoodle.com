@@ -32,6 +32,24 @@ export function loginAction(email, password) {
   };
 }
 
+export function signUpAction(email, password) {
+
+  return {
+    types: [actions.SIGN_UP, actions.SIGN_UP_SUCCESS, actions.SIGN_UP_FAIL],
+    promise: (client) => {
+      return client.post('/auth/signup', {
+        data: { email, password }
+      }).then((user) => {
+        if (!__SERVER__) {
+          currentUserService.setUserCookie(user);
+        }
+
+        return user;
+      });
+    }
+  };
+}
+
 export function logoutAction() {
   return {
     types: [actions.LOGOUT, actions.LOGOUT_SUCCESS, actions.LOGOUT_FAIL],

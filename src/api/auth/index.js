@@ -18,11 +18,11 @@ export function setupRoutes(app, prefix = '') {
 
   });
 
-  // app.post(`${prefix}/resetpassword`, (req, res) => {
-  //   const {email} = req.body;
+  app.post(`${prefix}/resetpassword`, (req, res) => {
+    const {email} = req.body;
 
-  //   resetPassword(email)
-  //     .then((response) => res.json(response))
-  //     .catch((err) => res.status(400).json(err));
-  // });
+    resetPassword(email)
+      .then((response) => res.json(response))
+      .catch((err) => res.status(400).json(err));
+  });
 };
