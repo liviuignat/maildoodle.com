@@ -8,3 +8,4 @@ export LoginPage from './auth/LoginPage/LoginPage';
 export DashboardPage from './app/DashboardPage/DashbordPage.js';
 
 export ProjectListPage from './app/ProjectListPage/ProjectListPage';
+export ProjectDetailPage from './app/ProjectDetailPage/ProjectDetailPage';
