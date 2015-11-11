@@ -33,7 +33,6 @@ export function loginAction(email, password) {
 }
 
 export function signUpAction(email, password) {
-
   return {
     types: [actions.SIGN_UP, actions.SIGN_UP_SUCCESS, actions.SIGN_UP_FAIL],
     promise: (client) => {
@@ -44,7 +43,7 @@ export function signUpAction(email, password) {
           currentUserService.setUserCookie(user);
         }
 
-        return user;
+        return client.get('/user/me');
       });
     }
   };
