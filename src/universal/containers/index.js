@@ -7,3 +7,5 @@ export LoginPage from './auth/LoginPage/LoginPage';
 export SignUpPage from './auth/SignUpPage/SignUpPage';
 
 export DashboardPage from './app/DashboardPage/DashbordPage.js';
+
+export ProjectListPage from './app/ProjectListPage/ProjectListPage';

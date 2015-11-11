@@ -44,7 +44,6 @@ class _ApiClient {
             if (err) {
               return reject(body || err);
             }
-
             resolve(body);
           });
         });
