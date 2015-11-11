@@ -58,7 +58,6 @@ function getUserFromParse(parseUser) {
     sessionToken: parseUser.sessionToken,
     emailVerified: parseUser.emailVerified,
     email: parseUser.email,
-    emailVerified: parseUser.emailVerified,
     updatedAt: parseUser.updatedAt,
     firstName: parseUser.firstName,
     lastName: parseUser.lastName

@@ -28,7 +28,8 @@
     "start-dev": "node ./node_modules/better-npm-run start-dev",
     "watch-client": "node ./node_modules/better-npm-run watch-client",
     "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\"",
-    "test": "karma start"
+    "test": "karma start",
+    "test-node": "NODE_ENV=integration-tests ./node_modules/mocha/bin/mocha ./src/api/**/__tests__/*-test.js --compilers js:babel-core/register"
   },
   "betterScripts": {
     "start-prod": {
@@ -145,6 +146,7 @@
     "sass-loader": "^3.0.0",
     "strip-loader": "^0.1.0",
     "style-loader": "^0.13.0",
+    "supertest": "^1.1.0",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.4.1"
