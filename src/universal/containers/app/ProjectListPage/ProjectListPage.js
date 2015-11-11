@@ -111,16 +111,16 @@ export default class ProjectListPage extends Component {
     );
 
     const projectItem = (project, index) => (
-        <div key={index} onClick={::this.navigateToDetails(project)}>
+        <div key={index}>
           <ListDivider />
           <ListItem
             rightIconButton={listItemIconMenu(project)}
             primaryText={(
-              <div className={style.ProjectListPage_listItemIdentifier}>
+              <div onClick={::this.navigateToDetails(project)} className={style.ProjectListPage_listItemIdentifier}>
                 {project.identifier}
               </div>)}
             secondaryText={
-              <div>
+              <div onClick={::this.navigateToDetails(project)}>
                 <div className={style.ProjectListPage_listItemName}>{project.name}</div>
                 <div className={style.ProjectListPage_listDescription}>{project.description}</div>
               </div>
