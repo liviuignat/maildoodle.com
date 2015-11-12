@@ -16,7 +16,6 @@ export function setupRoutes(app, prefix = '') {
 
   app.post(`${prefix}/`, requiredAuthenticated, (req, res) => {
     insertProject(req.user.objectId, req.body)
-      .then((response) => getProjectById(req.user.objectId, response.objectId))
       .then((response) => res.json(response))
       .catch((err) => res.status(400).json(err));
   });
