@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
+import { pushState } from 'redux-router';
 import {initialize as initializeForm, startSubmit} from 'redux-form';
 import {
   getProjectsAction,
@@ -22,6 +23,7 @@ import {
 
 @connect(
   state => ({projects: state.projects.list}), {
+    pushState,
     initializeForm,
     startSubmit,
     insertProjectAction,
@@ -30,6 +32,7 @@ import {
   })
 export default class ProjectListPage extends Component {
   static propTypes = {
+    pushState: PropTypes.func.isRequired,
     initializeForm: PropTypes.func.isRequired,
     startSubmit: PropTypes.func.isRequired,
     insertProjectAction: PropTypes.func.isRequired,
@@ -40,6 +43,13 @@ export default class ProjectListPage extends Component {
 
   constructor(props, context) {
     super(props, context);
+  }
+
+  navigateToDetails(project) {
+    return () => {
+      const url = `/app/project/${project.objectId}`;
+      this.props.pushState(null, url);
+    };
   }
 
   openAddProjectDialog() {
@@ -106,11 +116,11 @@ export default class ProjectListPage extends Component {
           <ListItem
             rightIconButton={listItemIconMenu(project)}
             primaryText={(
-              <div className={style.ProjectListPage_listItemIdentifier}>
+              <div onClick={::this.navigateToDetails(project)} className={style.ProjectListPage_listItemIdentifier}>
                 {project.identifier}
               </div>)}
             secondaryText={
-              <div>
+              <div onClick={::this.navigateToDetails(project)}>
                 <div className={style.ProjectListPage_listItemName}>{project.name}</div>
                 <div className={style.ProjectListPage_listDescription}>{project.description}</div>
               </div>
