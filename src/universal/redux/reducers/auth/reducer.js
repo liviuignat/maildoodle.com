@@ -26,6 +26,29 @@ export function reducer(state = initialState, action = {}) {
         loaded: false,
         error: action.error
       };
+
+    case actions.SIGN_UP:
+      return {
+        ...state,
+        signingUp: true,
+        signUpError: '',
+      };
+
+    case actions.SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        signingUp: false,
+        signUpError: '',
+        user: getFullUser(action.result)
+      };
+
+    case actions.SIGN_UP_FAIL:
+      return {
+        ...state,
+        signingUp: false,
+        signUpError: action.error
+      };
+
     case actions.LOGIN:
       return {
         ...state,
@@ -84,7 +107,7 @@ function getDisplayName(user) {
     return '';
   }
 
-  let displayName = user.username;
+  let displayName = user.email;
 
   if (user.firstName && user.lastName) {
     displayName = `${user.firstName} ${user.lastName}`;

@@ -5,8 +5,10 @@ import {
     AppContainer,
     HomePage,
     LoginPage,
+    SignUpPage,
     DashboardPage,
     ProjectListPage,
+    ProjectDetailPage,
     NotFoundPage
   } from './containers';
 
@@ -48,11 +50,13 @@ export default (store) => {
       <IndexRoute component={HomePage} />
 
       <Route path="/auth/login" component={LoginPage} onEnter={requireNotLogin} />
+      <Route path="/auth/sign-up" component={SignUpPage} onEnter={requireNotLogin} />
 
       <Route onEnter={requireLogin}>
         <Route path="/app" component={DashboardPage} />
 
-        <Route path="/app/projects" component={ProjectListPage} />
+        <Route path="/app/project" component={ProjectListPage} />
+        <Route path="/app/project/:projectId" component={ProjectDetailPage} />
       </Route>
 
       <Route path="*" component={NotFoundPage} status={404} />

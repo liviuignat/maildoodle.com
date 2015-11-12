@@ -40,7 +40,7 @@ export function logOut() {
   return Promise.resolve();
 }
 
-function setUserCookie(user) {
+export function setUserCookie(user) {
   const exdays = 10000;
   const cname = COOKIE_NAME;
   const cvalue = user.sessionToken;
