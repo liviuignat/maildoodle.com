@@ -39,7 +39,8 @@ export function requiredAuthenticated(req, res, next) {
 
 function getUserFromSession(sessionToken) {
   return new Promise((resolve, reject) => {
-    parse.me(sessionToken, (err, response) => {
+    const token = sessionToken.toString();
+    parse.me(token, (err, response) => {
       if (err) {
         return reject(err);
       }

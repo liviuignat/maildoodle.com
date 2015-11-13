@@ -1,5 +1,7 @@
-import {MongoClient} from 'mongodb';
+import MongoDb, {MongoClient} from 'mongodb';
 import config from './config';
+
+export const ObjectID = MongoDb.ObjectID;
 
 export function getMongdb() {
   return new Promise((resolve, reject) => {

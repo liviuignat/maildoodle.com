@@ -29,7 +29,7 @@ export default class AppLeftNav extends Component {
 
           <div className={styles.AppLeftNav_navigationLinkSpacer} />
 
-          <Link className={styles.AppLeftNav_navigationLink} to="/app/project">
+          <Link className={styles.AppLeftNav_navigationLink} to="/app/projects">
             Projects
           </Link>
 

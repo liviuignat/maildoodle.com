@@ -55,8 +55,8 @@ export default (store) => {
       <Route onEnter={requireLogin}>
         <Route path="/app" component={DashboardPage} />
 
-        <Route path="/app/project" component={ProjectListPage} />
-        <Route path="/app/project/:projectId" component={ProjectDetailPage} />
+        <Route path="/app/projects" component={ProjectListPage} />
+        <Route path="/app/projects/:projectId" component={ProjectDetailPage} />
       </Route>
 
       <Route path="*" component={NotFoundPage} status={404} />
