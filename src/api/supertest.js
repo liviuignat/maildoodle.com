@@ -1,24 +1,11 @@
 import supertest from 'supertest';
 import app from './../universal/expressApp';
-import {parse} from './parse';
 import {getMongdb} from './mongodb';
 
 export const request = supertest(app);
 
 export function cleanup() {
-  return deleteAllUsers()
-    .then(deleteMongoDb);
-}
-
-export function deleteAllUsers() {
-  return new Promise((resolve, reject) => {
-    parse.deleteAllUsers((err, response) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve();
-    });
-  });
+  return deleteMongoDb();
 }
 
 export function deleteMongoDb() {
