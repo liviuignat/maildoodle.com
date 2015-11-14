@@ -40,7 +40,7 @@ export function signUpAction(email, password) {
         data: { email, password }
       }).then((user) => {
         if (!__SERVER__) {
-          currentUserService.setUserCookie(user);
+          currentUserService.setUserInCache(user);
         }
 
         return client.get('/user/me');

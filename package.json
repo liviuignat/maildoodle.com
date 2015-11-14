@@ -77,8 +77,6 @@
     "md5": "^2.0.0",
     "mongodb": "^2.0.48",
     "multireducer": "^1.0.2",
-    "node-parse-api": "^0.3.8",
-    "parse": "^1.6.8",
     "piping": "^0.3.0",
     "pretty-error": "^1.2.0",
     "query-string": "^3.0.0",

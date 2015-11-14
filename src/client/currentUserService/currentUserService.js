@@ -1,43 +1,62 @@
-import * as Parse from 'parse';
 import { cookieService } from './../cookieService/cookieService';
+import { getItem, setItem, removeItem } from './../storageService/storageService';
+import ApiClient from './../../universal/helpers/ApiClient';
 
 const COOKIE_NAME = 'auth_token';
+const STORAGE_ITEM_NAME = 'email-templates/current_user';
 
 export function getCurrentUser() {
   const cookie = cookieService.getCookie(COOKIE_NAME);
   if (!cookie) {
-    logOut();
-    return null;
+    return logOut();
   }
 
-  const { attributes } = Parse.User.current() || {};
-  return getUserFromParse(attributes);
+  const storageUser = getItem(STORAGE_ITEM_NAME);
+
+  if (!storageUser) {
+    const client = new ApiClient();
+    return client.get('/user/me').then((user) => {
+      setItem(STORAGE_ITEM_NAME, user);
+      return user;
+    });
+  }
+
+  return Promise.resolve(storageUser);
 }
 
 export function getCurrentAuthSession() {
-  const parseUser = Parse.User.current();
-  return parseUser ? parseUser.getSessionToken() : null;
+  return getCurrentUser().then((user) => {
+    if (!user) {
+      return null;
+    }
+    return user.sessionToken;
+  });
 }
 
 export function logIn(email, password) {
-  Parse.User.logOut();
+  const client = new ApiClient();
+
   return new Promise((resolve, reject) => {
-    Parse.User.logIn(email, password, {
-      success: (user) => {
-        setUserCookie(user.attributes);
-        return resolve(getUserFromParse(user.attributes));
-      },
-      error: () => {
-        return reject('Login parameters are invalid');
-      }
+    client.post('/auth/login', {
+      data: { email, password }
+    }).then((user) => {
+      setUserInCache(user);
+      return resolve(user);
+    }, () => {
+      return reject('Login parameters are invalid');
     });
   });
 }
 
 export function logOut() {
-  Parse.User.logOut();
   cookieService.deleteCookie(COOKIE_NAME);
+  removeItem(STORAGE_ITEM_NAME);
   return Promise.resolve();
+}
+
+export function setUserInCache(user) {
+  setUserCookie(user);
+  setItem(STORAGE_ITEM_NAME, user);
 }
 
 export function setUserCookie(user) {
@@ -52,18 +71,3 @@ export function setUserCookie(user) {
     expires: expires
   });
 }
-
-function getUserFromParse(parseUser) {
-  if (!parseUser) {
-    return null;
-  }
-
-  return {
-    email: parseUser.email,
-    emailVerified: parseUser.emailVerified,
-    updatedAt: parseUser.updatedAt,
-    firstName: parseUser.firstName,
-    lastName: parseUser.lastName
-  };
-}
-
