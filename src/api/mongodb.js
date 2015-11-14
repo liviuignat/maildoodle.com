@@ -25,5 +25,9 @@ export function mapProp(entity, field, toField) {
 }
 
 export function mapId(entity) {
-  return mapProp(entity, '_id', 'objectId');
+  if(entity) {
+    const entityClone = Object.assign({}, entity);
+    entityClone._id = entity._id.toString();
+    return mapProp(entityClone, '_id', 'objectId');
+  }
 }
