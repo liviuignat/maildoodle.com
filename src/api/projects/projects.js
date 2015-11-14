@@ -58,7 +58,6 @@ export function updateProject(projectId, project) {
 }
 
 export function deleteProject(projectId) {
-  console.log(projectId);
   return co(function*() {
     const db = yield getMongdb();
     const collection = db.collection(CLASS_NAME);
