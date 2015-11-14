@@ -61,6 +61,42 @@ describe('projectModule tests', () => {
         });
       });
 
+      describe('When getting the project by id', () => {
+        let getProjectByIdRequest;
+
+        beforeEach(() => {
+          getProjectByIdRequest = request.get('/api/projects/' + addedProject.objectId)
+            .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+        });
+
+        it('Should get the project with success', (done) => {
+          getProjectByIdRequest.expect(200).end(done);
+        });
+
+        describe('When get by id request finished', () => {
+          let loadedProject;
+
+          beforeEach((done) => {
+            getProjectByIdRequest.end((err, response) => {
+              if(err){
+                return done(err);
+              }
+              loadedProject = response.body;
+
+              return done();
+            });
+          });
+
+          it('Should have the same name', () => {
+            expect(loadedProject.name).to.equal(addedProject.name);
+          });
+
+          it('Should have the same description', () => {
+            expect(loadedProject.description).to.equal(addedProject.description);
+          });
+        });
+      });
+
       describe('When delete a project',() => {
         let deleteProjectRequest;
 
