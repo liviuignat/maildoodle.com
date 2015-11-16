@@ -14,11 +14,18 @@ export function getCurrentUser() {
   const storageUser = getItem(STORAGE_ITEM_NAME);
 
   if (!storageUser) {
-    const client = new ApiClient();
-    return client.get('/user/me').then((user) => {
-      setItem(STORAGE_ITEM_NAME, user);
-      return user;
-    });
+    // const client = new ApiClient();
+    // return new Promise((resolve, reject) => {
+    //   client.get('/user/me').then((user) => {
+    //     setItem(STORAGE_ITEM_NAME, user);
+    //     resolve(user);
+    //   }).catch((err) => {
+    //     removeUserInCache();
+    //     reject(err);
+    //   });
+    // });
+    removeUserInCache();
+    return Promise.resolve();
   }
 
   return Promise.resolve(storageUser);
@@ -49,14 +56,18 @@ export function logIn(email, password) {
 }
 
 export function logOut() {
-  cookieService.deleteCookie(COOKIE_NAME);
-  removeItem(STORAGE_ITEM_NAME);
+  removeUserInCache();
   return Promise.resolve();
 }
 
 export function setUserInCache(user) {
   setUserCookie(user);
   setItem(STORAGE_ITEM_NAME, user);
+}
+
+export function removeUserInCache() {
+  cookieService.deleteCookie(COOKIE_NAME);
+  removeItem(STORAGE_ITEM_NAME);
 }
 
 export function setUserCookie(user) {
