@@ -47,7 +47,7 @@ export default class ProjectListPage extends Component {
 
   navigateToDetails(project) {
     return () => {
-      const url = `/app/project/${project.objectId}`;
+      const url = `/app/projects/${project.objectId}`;
       this.props.pushState(null, url);
     };
   }

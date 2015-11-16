@@ -14,9 +14,14 @@ export function setupRoutes(app, prefix = '') {
       .catch((err) => res.status(400).json(err));
   });
 
+  app.get(`${prefix}/:projectId`, requiredAuthenticated, (req, res) => {
+    getProjectById(req.user.objectId, req.params.projectId)
+      .then((response) => res.json(response))
+      .catch((err) => res.status(400).json(err));
+  });
+
   app.post(`${prefix}/`, requiredAuthenticated, (req, res) => {
     insertProject(req.user.objectId, req.body)
-      .then((response) => getProjectById(req.user.objectId, response.objectId))
       .then((response) => res.json(response))
       .catch((err) => res.status(400).json(err));
   });

@@ -1,76 +1,69 @@
-import { Parse } from 'node-parse-api';
-import config from './../../config';
+import co from 'co';
+import {ObjectID, getMongdb, mapId} from './../mongodb';
 
-const parse = new Parse(config.parse.options);
-const CLASS_NAME = 'Projects';
+const CLASS_NAME = 'projects';
 
 export function getProjects(userId) {
-  return new Promise((resolve, reject) => {
-    parse.find(CLASS_NAME, {user: userId}, (err, response) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(response.results);
-    });
+  return co(function*() {
+    const db = yield getMongdb();
+    const collection = db.collection(CLASS_NAME);
+
+    return yield collection
+      .find({ userId })
+      .toArray()
+      .then((results) => results.map((item) => mapId(item)));
   });
 }
 
 export function getProjectById(userId, projectId) {
-  return new Promise((resolve, reject) => {
-    const query = {
-      objectId: projectId,
-      user: userId
-    };
+  return co(function*() {
+    const db = yield getMongdb();
+    const collection = db.collection(CLASS_NAME);
 
-    parse.find(CLASS_NAME, query, (err, response) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(response);
-    });
+    return yield collection
+      .findOne({ _id: ObjectID(projectId), userId })
+      .then((item) => mapId(item));
   });
 }
 
 export function insertProject(userId, project) {
-  return new Promise((resolve, reject) => {
-    const projectToInsert = Object.assign({}, project, {
-      user: {
-        __op: 'AddRelation',
-        objects:[{
-          __type: 'Pointer',
-          className: '_User',
-          objectId: userId
-        }]
-      }
-    });
+  return co(function*() {
+    const newProject = Object.assign({}, project, { userId });
+    const db = yield getMongdb();
+    const collection = db.collection(CLASS_NAME);
 
-    parse.insert(CLASS_NAME, projectToInsert, (err, response) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(response);
+    yield collection.ensureIndex({
+      userId: 1
     });
+    const result = yield collection.insertOne(newProject);
+
+    if (result.ops && result.ops.length) {
+      return mapId(result.ops[0]);
+    }
   });
 }
 
 export function updateProject(projectId, project) {
-  return new Promise((resolve, reject) => {
-    parse.update(CLASS_NAME, projectId, project, (err, response) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(response);
+  return co(function*() {
+    const db = yield getMongdb();
+    const collection = db.collection(CLASS_NAME);
+
+    return yield collection
+    .updateOne({
+      _id: ObjectID(projectId)
+    }, {
+      $set: project
     });
   });
 }
 
 export function deleteProject(projectId) {
-  return new Promise((resolve, reject) => {
-    parse.delete(CLASS_NAME, projectId, (err, response) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(response);
+  return co(function*() {
+    const db = yield getMongdb();
+    const collection = db.collection(CLASS_NAME);
+
+    return yield collection.deleteOne({
+      _id: ObjectID(projectId)
     });
   });
 }

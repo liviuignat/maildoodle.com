@@ -2,7 +2,6 @@ import 'babel-core/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import * as Parse from 'parse';
 import createHistory from 'history/lib/createBrowserHistory';
 import createStore from './redux/create';
 import ApiClient from './helpers/ApiClient';
@@ -11,10 +10,9 @@ import {reduxReactRouter, ReduxRouter} from 'redux-router';
 
 import getRoutes from './routes';
 import makeRouteHooksSafe from './helpers/makeRouteHooksSafe';
-import config from './../config';
 
 injectTapEventPlugin();
-Parse.initialize(config.parse.options.app_id, config.parse.options.js_key);
+
 const client = new ApiClient();
 
 const dest = document.getElementById('content');

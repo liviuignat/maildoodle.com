@@ -1,7 +1,5 @@
-import { Parse } from 'node-parse-api';
+import {getUserBySessionToken} from './user/userRepository';
 import config from './../config';
-
-const parse = new Parse(config.parse.options);
 
 export function requestAuthToken(req, res, next) {
   const fromCookie = req.cookies.auth_token;
@@ -17,7 +15,7 @@ export function requestAuthToken(req, res, next) {
 export function userFromParse(req, res, next) {
   if (req.authToken) {
     getUserFromSession(req.authToken).then((user) => {
-      req.user = getUserFromParse(user);
+      req.user = getUserResponse(user);
     }).catch(() => {
     }).then(() => {
       return next();
@@ -38,28 +36,18 @@ export function requiredAuthenticated(req, res, next) {
 }
 
 function getUserFromSession(sessionToken) {
-  return new Promise((resolve, reject) => {
-    parse.me(sessionToken, (err, response) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(response);
-    });
-  });
+  return getUserBySessionToken(sessionToken);
 };
 
-function getUserFromParse(parseUser) {
-  if (!parseUser) {
+function getUserResponse(user) {
+  if (!user) {
     return null;
   }
 
-  return {
-    objectId: parseUser.objectId,
-    sessionToken: parseUser.sessionToken,
-    emailVerified: parseUser.emailVerified,
-    email: parseUser.email,
-    updatedAt: parseUser.updatedAt,
-    firstName: parseUser.firstName,
-    lastName: parseUser.lastName
-  };
+  const response = Object.assign({},user);
+
+  delete response.password;
+  delete response.authToken;
+
+  return response;
 }

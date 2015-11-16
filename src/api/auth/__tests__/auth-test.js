@@ -3,7 +3,9 @@ import {request, cleanup} from './../../supertest';
 
 describe('authModule tests', () => {
   beforeEach((done) => {
-    cleanup().then(() => done());
+    cleanup()
+      .then(() => done())
+      .catch(done);
   });
 
   it('getting myself should not work', (done) => {

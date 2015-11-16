@@ -1,14 +1,21 @@
-import {parse} from './../parse';
+import co from 'co';
+import { createUser, getUserByEmail, getUserById } from './../user/userRepository';
 
 export function login(email, password) {
-  return new Promise((resolve, reject) => {
-    parse.loginUser(email, password, (err, response) => {
-      if (err) {
-        return reject(err);
-      }
+  return co(function*() {
+    const user = yield getUserByEmail(email);
+    if (!user) {
+      throw new Error('User does not exist.');
+    }
 
-      return resolve(response);
-    });
+    if (!user.password === password) {
+      throw new Error('Incorrect password.');
+    }
+
+    delete user.password;
+    delete user.authToken;
+
+    return user;
   });
 }
 
@@ -23,20 +30,19 @@ export function resetPassword(email) {
   });
 }
 
-export function signup(email, password){
-  return new Promise((resolve, reject) => {
-    let newUserAccount = {
-      username: email,
-      password,
-      email
-    };
+export function signUp(email, password){
+  return co(function*() {
+    const existingUser = yield getUserByEmail(email);
+    if(existingUser) throw new Error('User already exists.');
 
-    parse.insertUser(newUserAccount, (err, response) => {
-      if(err){
-        return reject(err);
-      }
+    const user = yield createUser({email, password});
+    if (!user) {
+      throw new Error('Error creating user.');
+    }
 
-      return resolve(response);
-    });
+    delete user.password;
+    delete user.authToken;
+
+    return user;
   });
 }
