@@ -19,17 +19,14 @@ describe('projectModule tests', () => {
       name: 'new project',
       description: 'new project description'
     };
-    let createProjectRequest;
 
-    beforeEach(() => {
-      createProjectRequest = request.post('/api/projects')
-        .set('Content-type', 'application/json')
-        .set('Authorization', `Bearer ${currentUser.sessionToken}`)
-        .send(newProject);
-    });
+    let createProjectRequest = () => request.post('/api/projects')
+      .set('Content-type', 'application/json')
+      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .send(newProject);
 
     it('Should create the project with success', (done) => {
-      createProjectRequest.expect(200).end(done);
+      createProjectRequest().expect(200).end(done);
     });
 
     describe('When getting the project', () => {
@@ -40,8 +37,10 @@ describe('projectModule tests', () => {
         getProjectRequest = request.get('/api/projects')
           .set('Authorization', `Bearer ${currentUser.sessionToken}`)
 
-        createProjectRequest.end((err, response) => {
-          if (err) return done(err);
+        createProjectRequest().end((err, response) => {
+          if (err) {
+            return done(err)
+          }
           addedProject = response.body;
           return done();
         });
