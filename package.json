@@ -22,6 +22,7 @@
   "scripts": {
     "start": "concurrent --kill-others \"npm run start-prod\"",
     "start-prod": "node ./node_modules/better-npm-run start-prod",
+    "start-qa": "node ./node_modules/better-npm-run start-qa",
     "build": "webpack --verbose --colors --display-error-details --config webpack/prod.config.js",
     "postinstall": "webpack --display-error-details --config webpack/prod.config.js",
     "lint": "eslint -c .eslintrc src",
@@ -37,6 +38,14 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
+        "PORT": 8080
+      }
+    },
+    "start-qa": {
+      "command": "node ./src/web-server.js",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "qa",
         "PORT": 8080
       }
     },
