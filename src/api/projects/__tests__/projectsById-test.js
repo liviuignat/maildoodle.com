@@ -60,16 +60,20 @@ describe('projectModule tests', () => {
         expect(project).to.not.be.undefined;
       });
 
-      it('Should contain an email templates list', () => {
+      it('Should contain the same name', () => {
+        expect(project.name).to.equal(newProject.name);
+      });
+
+      it('Should contain an empty email templates list', () => {
         expect(project.templates).to.deep.equal([]);
       });
 
-      it('Should contain an empty languages list', () => {
-        expect(project.languages).to.deep.equal([]);
+      it('Should contain item in languages list', () => {
+        expect(project.languages.length).to.equal(1);
       });
 
-      it('Should contain an empty layouts list', () => {
-        expect(project.layouts).to.deep.equal([]);
+      it('Should contain one item layouts list', () => {
+        expect(project.layouts.length).to.equal(1);
       });
     });
   });

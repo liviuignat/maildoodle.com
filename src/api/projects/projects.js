@@ -1,5 +1,6 @@
 import co from 'co';
 import {ObjectID, getMongdb, mapId} from './../mongodb';
+import {getTemplatesByProjectId} from './../templates/templates';
 
 const CLASS_NAME = 'projects';
 
@@ -20,15 +21,28 @@ export function getProjectById(userId, projectId) {
     const db = yield getMongdb();
     const collection = db.collection(CLASS_NAME);
 
-    return yield collection
-      .findOne({ _id: ObjectID(projectId), userId })
-      .then((item) => mapId(item));
+    const item = yield collection
+      .findOne({ _id: ObjectID(projectId), userId });
+
+    if (!item) {
+      return null;
+    }
+
+    const project = mapId(item);
+    const templates = yield getTemplatesByProjectId(userId, project.objectId);
+    return Object.assign({}, project, {
+      templates: templates
+    });
   });
 }
 
 export function insertProject(userId, project) {
   return co(function*() {
-    const newProject = Object.assign({}, project, { userId });
+    const newProject = Object.assign({}, project, {
+      userId,
+      languages: [getDefaultLanguage()],
+      layouts: [getDefaultLayout()]
+    });
     const db = yield getMongdb();
     const collection = db.collection(CLASS_NAME);
 
@@ -66,4 +80,18 @@ export function deleteProject(projectId) {
       _id: ObjectID(projectId)
     });
   });
+}
+
+function getDefaultLanguage() {
+  return {
+    key: 'default',
+    name: 'default'
+  };
+}
+
+function getDefaultLayout() {
+  return {
+    name: 'default',
+    value: '<html> <head> </head> <body> <!--CONTENT--> </body> </html>'
+  };
 }
