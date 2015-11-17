@@ -7,7 +7,7 @@ export const ADD_PROJECT_FORM_NAME = 'addProjectForm';
 
 @reduxForm({
   form: ADD_PROJECT_FORM_NAME,
-  fields: ['objectId', 'identifier', 'name', 'description'],
+  fields: ['objectId', 'name', 'description'],
   validate: projectFormValidator,
   stopSubmit
 })
@@ -36,7 +36,7 @@ export default class AddProjectForm extends Component {
 
   render() {
     const {
-      fields: {identifier, name, description},
+      fields: {name, description},
       handleSubmit,
       isInserting
     } = this.props;
@@ -44,14 +44,6 @@ export default class AddProjectForm extends Component {
     return (
       <form
         onSubmit={handleSubmit}>
-        <div>
-          <FormTextField field={identifier}
-            type="text"
-            labelText="Project identifier"
-            fullWidth
-            disabled={isInserting}/>
-        </div>
-
         <div>
           <FormTextField field={name}
             type="text"
