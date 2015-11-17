@@ -116,16 +116,16 @@ export default class ProjectListPage extends Component {
           <ListItem
             rightIconButton={listItemIconMenu(project)}
             primaryText={(
-              <div onClick={::this.navigateToDetails(project)} className={style.ProjectListPage_listItemIdentifier}>
-                {project.identifier}
+              <div onClick={::this.navigateToDetails(project)} className={style.ProjectListPage_listItemName}>
+                {project.name}
               </div>)}
             secondaryText={
-              <div onClick={::this.navigateToDetails(project)}>
-                <div className={style.ProjectListPage_listItemName}>{project.name}</div>
+              project.description &&
+              (<div onClick={::this.navigateToDetails(project)}>
                 <div className={style.ProjectListPage_listDescription}>{project.description}</div>
-              </div>
+              </div>)
             }
-            secondaryTextLines={project.description ? 2 : 1}/>
+            secondaryTextLines={1}/>
         </div>
       );
 
