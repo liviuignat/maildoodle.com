@@ -1,69 +1,47 @@
 import co from 'co';
-import {ObjectID, getMongdb, mapId} from './../mongodb';
+import {Project, toJson} from './../mongoose';
 
 const CLASS_NAME = 'projects';
 
 export function getProjects(userId) {
   return co(function*() {
-    const db = yield getMongdb();
-    const collection = db.collection(CLASS_NAME);
-
-    return yield collection
-      .find({ userId })
-      .toArray()
-      .then((results) => results.map((item) => mapId(item)));
+    const projects = yield Project.find({ userId });
+    return toJson(projects);
   });
 }
 
 export function getProjectById(userId, projectId) {
   return co(function*() {
-    const db = yield getMongdb();
-    const collection = db.collection(CLASS_NAME);
-
-    return yield collection
-      .findOne({ _id: ObjectID(projectId), userId })
-      .then((item) => mapId(item));
+    const project = yield Project.findOne({
+      _id: projectId,
+      userId
+    });
+    return toJson(project);
   });
 }
 
 export function insertProject(userId, project) {
   return co(function*() {
     const newProject = Object.assign({}, project, { userId });
-    const db = yield getMongdb();
-    const collection = db.collection(CLASS_NAME);
 
-    yield collection.ensureIndex({
-      userId: 1
-    });
-    const result = yield collection.insertOne(newProject);
+    const insertedProject = yield new Project(newProject).save();
 
-    if (result.ops && result.ops.length) {
-      return mapId(result.ops[0]);
-    }
+    return toJson(insertedProject);
   });
 }
 
 export function updateProject(projectId, project) {
   return co(function*() {
-    const db = yield getMongdb();
-    const collection = db.collection(CLASS_NAME);
-
-    return yield collection
-    .updateOne({
-      _id: ObjectID(projectId)
-    }, {
-      $set: project
-    });
+    return yield Project.update({
+      _id: projectId
+    }, project);
   });
 }
 
 export function deleteProject(projectId) {
   return co(function*() {
-    const db = yield getMongdb();
-    const collection = db.collection(CLASS_NAME);
-
-    return yield collection.deleteOne({
-      _id: ObjectID(projectId)
-    });
+    return yield Project.find({
+      _id: projectId
+    }).remove();
   });
 }
