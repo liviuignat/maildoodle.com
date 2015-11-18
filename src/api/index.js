@@ -1,6 +1,10 @@
+import mongoose from 'mongoose';
+import config from './config';
 import * as auth from './auth';
 import * as user from './user';
 import * as projects from './projects';
+
+mongoose.connect(config.mongodb.url);
 
 export function setupRoutes(app) {
   auth.setupRoutes(app, '/api/auth');

@@ -1,8 +1,6 @@
 import md5 from 'md5';
 import co from 'co';
-import {getMongdb, mapId, ObjectID} from './../mongodb';
-
-const CLASS_NAME = 'users';
+import {User, toJson} from './../mongoose';
 
 export function getUserById(objectId) {
   return getUserByQuery({ objectId });
@@ -22,17 +20,13 @@ export function getUserBySessionToken(sessionToken) {
 
 function getUserByQuery(query) {
   return co(function *() {
-    const db = yield getMongdb();
-    const collection = db.collection(CLASS_NAME);
-
     const objectIdQuery = {
-      _id: ObjectID(query.objectId)
+      _id: query.objectId
     };
     const search = query.objectId ? Object.assign(query, objectIdQuery) : query;
 
-    return yield collection
-      .findOne(search)
-      .then((item) => mapId(item));
+    var user = yield User.findOne(search);
+    return toJson(user);
   });
 }
 
@@ -49,19 +43,8 @@ export function createUser(userData) {
       createdAt: new Date()
     });
 
-    const db = yield getMongdb();
-    const collection = db.collection(CLASS_NAME);
+    var user = yield new User(newUserAccount).save();
 
-    yield collection.ensureIndex({
-      email: 1,
-      authToken: 1,
-      sessionToken: 1
-    });
-
-    const result = yield collection.insertOne(newUserAccount);
-
-    if (result.ops && result.ops.length) {
-      return mapId(result.ops[0]);
-    }
+    return toJson(user);
   });
 }
