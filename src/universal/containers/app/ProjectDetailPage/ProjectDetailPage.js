@@ -4,7 +4,8 @@ import {
   getProjectDetailByIdAction
 } from './../../../redux/reducers/currentProject';
 import {
-  List
+  List,
+  GenericList
 } from './../../../components';
 
 @connect(
@@ -30,7 +31,25 @@ export default class ProjectDetailPage extends Component {
     const {project} = this.props;
     return (
       <div>
-        <List subheader={project.name} />
+        <List subheader="templates" />
+
+        <GenericList subheader="layouts"
+          items={project.layouts}
+          onEditPressed={() => {}}
+          onDeletePressed={() => {}}
+          onAddPressed={() => {}}
+          onRowClick={() => {}}
+          primaryText={(item) => item.name}
+          secondaryText={(item) => item.value}/>
+
+        <GenericList subheader="languages"
+          items={project.languages}
+          onEditPressed={() => {}}
+          onDeletePressed={() => {}}
+          onAddPressed={() => {}}
+          onRowClick={() => {}}
+          primaryText={(item) => item.key}
+          secondaryText={(item) => item.name}/>
       </div>
     );
   }
