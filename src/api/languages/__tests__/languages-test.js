@@ -37,7 +37,8 @@ describe('languageModule tests', () => {
     let createdLanguage;
 
     beforeEach(() => {
-      createLanguageRequest = () => request.post('/api/languages')
+      createLanguageRequest = () => request
+        .post(`/api/projects/${currentProject.objectId}/languages`)
         .set('Content-type', 'application/json')
         .set('Authorization', `Bearer ${currentUser.sessionToken}`)
         .send(newLanguage);
