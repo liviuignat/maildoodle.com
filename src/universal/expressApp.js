@@ -37,6 +37,9 @@ app.use((req, res, next) => {
     return next();
   }
 
+  const userAgent = req.get('user-agent');
+  global.navigator = { userAgent };
+
   if (__DEVELOPMENT__) {
     // Do not cache webpack stats: the script file would change since
     // hot module replacement is enabled in the development env
