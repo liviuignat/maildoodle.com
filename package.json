@@ -82,7 +82,7 @@
     "less-loader": "^2.2.1",
     "lru-memoize": "^1.0.0",
     "map-props": "^1.0.0",
-    "material-ui": "^0.13.1",
+    "material-ui": "^0.13.3",
     "md5": "^2.0.0",
     "mongoose": "^4.2.6",
     "multireducer": "^1.0.2",
