@@ -7,8 +7,8 @@ function formatUrl(path) {
   const adjustedPath = path[0] !== '/' ? '/' + path : path;
   if (__SERVER__) {
     const PORT = process.env.PORT || 3000;
-    const URL_AUTHORITY = process.env.URL_AUTHORITY || 'localhost';
-    return 'http://' + `${URL_AUTHORITY}:${PORT}/api${adjustedPath}`;
+    const HOST = process.env.HOST || 'localhost';
+    return 'http://' + `${HOST}:${PORT}/api${adjustedPath}`;
   }
   return '/api' + adjustedPath;
 }
