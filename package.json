@@ -18,7 +18,7 @@
     "react-hot-reloader",
     "redux"
   ],
-  "main": "bin/server.js",
+  "main": "src/web-server.js",
   "scripts": {
     "start": "concurrent --kill-others \"npm run start-prod\"",
     "start-prod": "node ./node_modules/better-npm-run start-prod",
