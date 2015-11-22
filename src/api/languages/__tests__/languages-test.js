@@ -3,19 +3,19 @@ import {request, cleanup, createUser} from './../../supertest';
 
 describe('languageModule tests', () => {
   let currentUser;
-  let currentProject;
+  let currentProject = {name: 'New Project'};
 
-  beforeEach(() => {
+  beforeEach((done) => {
     cleanup()
       .then(() => createUser())
       .then((user) => {
         currentUser = user
       })
-      .then((done) => {
+      .then(() => {
         request.post('/api/projects')
           .set('Content-type', 'application/json')
           .set('Authorization', `Bearer ${currentUser.sessionToken}`)
-          .send(newProject)
+          .send(currentProject)
           .end((err, response) => {
             if (err) {
               return done(err)
@@ -24,7 +24,7 @@ describe('languageModule tests', () => {
             return done();
         })
       })
-      .catch((err) => {done(err)});
+      .catch((err) => done(err));
   });
 
   describe('When interting a language', () => {
@@ -33,33 +33,33 @@ describe('languageModule tests', () => {
       key: 'de-EN'
     };
 
-    let createLanguageRequest;
-    let createdLanguage;
-
-    beforeEach(() => {
-      createLanguageRequest = () => request
+    const createLanguageRequest = () => request
         .post(`/api/projects/${currentProject.objectId}/languages`)
         .set('Content-type', 'application/json')
         .set('Authorization', `Bearer ${currentUser.sessionToken}`)
         .send(newLanguage);
 
-    });
-
     it('Should create the language with success', (done) => {
-      createLanguageRequest.expect(200).end(done);
+      createLanguageRequest().expect(200).end(done);
     });
 
-    it('Should contain the new language', (done) => {
-      createLanguageRequest.end((err, response) => {
-        if(err){
-          return done(err);
-        }
+    describe('When language request is finished', () => {
+      let createdLanguage;
 
-        createdLanguage = response.body;
-        return done();
+      beforeEach((done) => {
+        createLanguageRequest().end((err, response) => {
+          if(err){
+            return done(err);
+          }
+
+          createdLanguage = response.body;
+          return done();
+        });
       });
 
-      expect(createdLanguage.key).to.equal(newLanguage.key);
+      it('Should contain the new language', () => {
+        expect(createdLanguage.key).to.equal(newLanguage.key);
+      });
     });
   });
 });
