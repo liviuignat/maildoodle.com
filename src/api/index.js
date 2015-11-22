@@ -4,7 +4,7 @@ import * as auth from './auth';
 import * as user from './user';
 import * as projects from './projects';
 
-console.log('MONGO_URL:', config.mongodb.url);
+console.log('MONGO_URI:', config.mongodb.url);
 mongoose.connect(config.mongodb.url);
 
 export function setupRoutes(app) {
