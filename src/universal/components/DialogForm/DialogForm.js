@@ -8,12 +8,24 @@ export default class DialogForm extends Component {
     form: PropTypes.object.isRequired
   };
 
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      open: false
+    };
+  }
+
   show() {
-    this.refs.formDialog.show();
+    this.setState({
+      open: true
+    });
   }
 
   dismiss() {
-    this.refs.formDialog.dismiss();
+    this.setState({
+      open: false
+    });
   }
 
   render() {
@@ -21,8 +33,8 @@ export default class DialogForm extends Component {
       <Dialog
         ref="formDialog"
         title="Add project"
+        open={this.state.open}
         actionFocus="submit"
-        modal
         autoDetectWindowHeight
         autoScrollBodyContent
         actions={[

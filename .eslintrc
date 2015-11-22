@@ -22,7 +22,8 @@
     "indent": [2, 2, {"SwitchCase": 1}],
     "no-console": 0,
     "no-alert": 0,
-    "no-use-before-define": [2, "nofunc"]
+    "no-use-before-define": [2, "nofunc"],
+    "no-redeclare": 0
   },
   "plugins": [
     "react", "import"
