@@ -6,7 +6,9 @@ const methods = ['get', 'post', 'put', 'patch', 'del'];
 function formatUrl(path) {
   const adjustedPath = path[0] !== '/' ? '/' + path : path;
   if (__SERVER__) {
-    return 'http://' + `localhost:3000/api${adjustedPath}`;
+    const PORT = process.env.PORT || 3000;
+    const HOST = process.env.HOST || 'localhost';
+    return 'http://' + `${HOST}:${PORT}/api${adjustedPath}`;
   }
   return '/api' + adjustedPath;
 }

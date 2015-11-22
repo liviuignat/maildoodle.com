@@ -18,22 +18,30 @@
     "react-hot-reloader",
     "redux"
   ],
-  "main": "bin/server.js",
+  "main": "src/web-server.js",
   "scripts": {
     "start": "concurrent --kill-others \"npm run start-prod\"",
     "start-prod": "node ./node_modules/better-npm-run start-prod",
+    "start-local-prod": "node ./node_modules/better-npm-run start-local-prod",
     "start-qa": "node ./node_modules/better-npm-run start-qa",
-    "build": "webpack --verbose --colors --display-error-details --config webpack/prod.config.js",
-    "postinstall": "webpack --display-error-details --config webpack/prod.config.js",
+    "build": "./node_modules/.bin/webpack --verbose --colors --display-error-details --config webpack/prod.config.js",
+    "postinstall": "./node_modules/.bin/webpack --display-error-details --config webpack/prod.config.js",
     "lint": "eslint -c .eslintrc src",
     "start-dev": "node ./node_modules/better-npm-run start-dev",
     "watch-client": "node ./node_modules/better-npm-run watch-client",
     "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\"",
     "test": "karma start",
-    "test-node": "NODE_ENV=integration_tests ./node_modules/mocha/bin/mocha ./src/api/**/__tests__/*-test.js --compilers js:babel-core/register --timeout 5000"
+    "test-node": "node ./node_modules/better-npm-run test-node"
   },
   "betterScripts": {
     "start-prod": {
+      "command": "node ./src/web-server.js",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "production"
+      }
+    },
+    "start-local-prod": {
       "command": "node ./src/web-server.js",
       "env": {
         "NODE_PATH": "./src",
@@ -62,6 +70,14 @@
       "env": {
         "UV_THREADPOOL_SIZE": 100,
         "NODE_PATH": "./src"
+      }
+    },
+    "test-node": {
+      "command": "./node_modules/mocha/bin/mocha ./src/api/**/__tests__/*-test.js --compilers js:babel-core/register --timeout 5000",
+      "env": {
+        "UV_THREADPOOL_SIZE": 100,
+        "NODE_PATH": "./src",
+        "NODE_ENV": "integration_tests"
       }
     }
   },
