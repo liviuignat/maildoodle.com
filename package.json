@@ -24,7 +24,7 @@
     "start-prod": "node ./node_modules/better-npm-run start-prod",
     "start-qa": "node ./node_modules/better-npm-run start-qa",
     "build": "./node_modules/.bin/webpack --verbose --colors --display-error-details --config webpack/prod.config.js",
-    "postinstall": "test fail command",
+    "postinstall": "./node_modules/.bin/webpack --display-error-details --config webpack/prod.config.js",
     "lint": "eslint -c .eslintrc src",
     "start-dev": "node ./node_modules/better-npm-run start-dev",
     "watch-client": "node ./node_modules/better-npm-run watch-client",
@@ -107,7 +107,8 @@
     "serve-static": "^1.10.0",
     "superagent": "^1.4.0",
     "url-loader": "^0.5.6",
-    "webpack-isomorphic-tools": "^2.2.4"
+    "webpack-isomorphic-tools": "^2.2.4",
+    "webpack": "^1.12.2"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
@@ -157,7 +158,6 @@
     "strip-loader": "^0.1.0",
     "style-loader": "^0.13.0",
     "supertest": "^1.1.0",
-    "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.4.1"
   },
