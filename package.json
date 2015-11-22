@@ -37,8 +37,7 @@
       "command": "node ./src/web-server.js",
       "env": {
         "NODE_PATH": "./src",
-        "NODE_ENV": "production",
-        "PORT": 8080
+        "NODE_ENV": "production"
       }
     },
     "start-qa": {
