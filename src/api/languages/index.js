@@ -7,15 +7,15 @@ import {
 } from './../projects/projects'
 
 export function setupRoutes(app, prefix=''){
-	app.post(`${prefix}/:projectId/languages`, requiredAuthenticated, (request, response) => {
-	  getProjectById(request.user.objectId, request.params.projectId)
+	app.post(`${prefix}/:projectId/languages`, requiredAuthenticated, (req, res) => {
+	  getProjectById(req.user.objectId, req.params.projectId)
 	    .then((project) => {
-			project.languages.push(request.body)
+			project.languages.push(req.body)
 		    return updateProject(project.objectId, project);
 	    })
-	    .then(() => getProjectById(request.user.objectId, request.params.projectId))
+	    .then(() => getProjectById(req.user.objectId, req.params.projectId))
 	    .then((project) => {
-	    	const newLanguageKey = request.body.key;
+	    	const newLanguageKey = req.body.key;
 		    const addedLanguage = project.languages.find((element) => {
 		    	if (element.key === newLanguageKey) {
 		    		return true;
@@ -24,17 +24,16 @@ export function setupRoutes(app, prefix=''){
 		     	return false;
 		    });
 
-		    return response.json(addedLanguage);
+		    return res.json(addedLanguage);
 	    })
-	    .catch((err) => sendHttpError(response, { code: 400, err }));
+	    .catch((err) => sendHttpError(res, { code: 400, err }));
 	});
 
-	app.get(`${prefix}/:projectId/languages/:languageId`, requiredAuthenticated, (request, response) => {
-		getProjectById(request.user.objectId, request.params.projectId)
+	app.get(`${prefix}/:projectId/languages/:languageId`, requiredAuthenticated, (req, res) => {
+		getProjectById(req.user.objectId, req.params.projectId)
 		.then((project) => {
-			console.log(project);
 			const result = project.languages.find((element) => {
-		    	if (element.objectId === reqeust.params.languageId) {
+		    	if (element.objectId === req.params.languageId) {
 		    		return true;
 		    	}
 
@@ -42,11 +41,11 @@ export function setupRoutes(app, prefix=''){
 		    });
 
 		    if (!result) {
-		    	sendHttpError(response, {code: 404});
+		    	sendHttpError(res, {code: 404});
 		    }
 
-		    return response.json(result);
+		    return res.json(result);
 		})
-		.catch((err) => sendHttpError(response, { code: 400, err }));
+		.catch((err) => sendHttpError(res, { code: 400, err }));
 	});
 }
