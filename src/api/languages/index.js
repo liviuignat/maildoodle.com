@@ -28,4 +28,25 @@ export function setupRoutes(app, prefix=''){
 	    })
 	    .catch((err) => sendHttpError(response, { code: 400, err }));
 	});
+
+	app.get(`${prefix}/:projectId/languages/:languageId`, requiredAuthenticated, (request, response) => {
+		getProjectById(request.user.objectId, request.params.projectId)
+		.then((project) => {
+			console.log(project);
+			const result = project.languages.find((element) => {
+		    	if (element.objectId === reqeust.params.languageId) {
+		    		return true;
+		    	}
+
+		     	return false;
+		    });
+
+		    if (!result) {
+		    	sendHttpError(response, {code: 404});
+		    }
+
+		    return response.json(result);
+		})
+		.catch((err) => sendHttpError(response, { code: 400, err }));
+	});
 }
