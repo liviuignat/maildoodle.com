@@ -61,6 +61,25 @@ describe('languageModule tests', () => {
         expect(createdLanguage.key).to.equal(newLanguage.key);
       });
 
+      describe('When getting all languages', () => {
+         let getAllLanguagesRequest = () => request
+            .get(`/api/projects/${currentProject.objectId}/languages`)
+            .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+
+        it('Should return success', (done) => {
+          getAllLanguagesRequest().expect(200).end(done);
+        });
+
+        it('Should contain two languages', (done) => {
+          getAllLanguagesRequest().end((err, response) => {
+            if(err){
+              return done(err);
+            }
+            expect(response.body.length).to.equal(2);
+            return done();
+          });
+        });
+      });
       describe('When getting the language by id', () => {
         const getLanguageByIdRequest = () => request
             .get(`/api/projects/${currentProject.objectId}/languages/${createdLanguage.objectId}`)
@@ -93,18 +112,21 @@ describe('languageModule tests', () => {
       });
 
       describe('When deleting a language', () => {
-        const languageDeleteRequest;
+        const getDeletedLanguageRequest = () => request
+            .get(`/api/projects/${currentProject.objectId}/languages/${createdLanguage.objectId}`)
+            .set('Authorization', `Bearer ${currentUser.sessionToken}`);
 
-        beforeEach(() => {
-          languageDeleteRequest = request.
+        let deleteLanguageRequest = () => request
             .del(`/api/projects/${currentProject.objectId}/languages/${createdLanguage.objectId}`)
-            .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+            .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+
+        it('Should return success', (done) => {
+          deleteLanguageRequest().expect(200).end(done);
         });
 
-        describe('When the language has been previously added', () => {
-          let getLanguageRequest
-          it("Should delete the language with success", (done) => {
-
+        it('Should not find the language in the project', (done) => {
+          deleteLanguageRequest().end(() => {
+            getDeletedLanguageRequest().expect(404).end(done);
           });
         });
       });
