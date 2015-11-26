@@ -1,18 +1,55 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
+import {
+  getProjectDetailByIdAction
+} from './../../../redux/reducers/currentProject';
+import {
+  List,
+  GenericList
+} from './../../../components';
 
 @connect(
-  state => ({project: state.currentProject}), {
+  state => ({
+    projectId: state.router.params.projectId,
+    project: state.currentProject.project
+  }), {
+    getProjectDetailByIdAction
   })
 export default class ProjectDetailPage extends Component {
   static propTypes = {
+    projectId: PropTypes.string.isRequired,
     project: PropTypes.object
   }
 
+  static fetchData(getState, dispatch, location, params) {
+    const promises = [];
+    promises.push(dispatch(getProjectDetailByIdAction(params.projectId)));
+    return Promise.all(promises);
+  }
+
   render() {
+    const {project} = this.props;
     return (
       <div>
-        <h2> Project detail </h2>
+        <List subheader="templates" />
+
+        <GenericList subheader="layouts"
+          items={project.layouts}
+          onEditPressed={() => {}}
+          onDeletePressed={() => {}}
+          onAddPressed={() => {}}
+          onRowClick={() => {}}
+          primaryText={(item) => item.name}
+          secondaryText={(item) => item.value}/>
+
+        <GenericList subheader="languages"
+          items={project.languages}
+          onEditPressed={() => {}}
+          onDeletePressed={() => {}}
+          onAddPressed={() => {}}
+          onRowClick={() => {}}
+          primaryText={(item) => item.key}
+          secondaryText={(item) => item.name}/>
       </div>
     );
   }

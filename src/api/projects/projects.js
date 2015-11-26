@@ -22,7 +22,11 @@ export function getProjectById(userId, projectId) {
 
 export function insertProject(userId, project) {
   return co(function*() {
-    const newProject = Object.assign({}, project, { userId });
+    const newProject = Object.assign({}, project, {
+      userId,
+      languages: [getDefaultLanguage()],
+      layouts: [getDefaultLayout()]
+    });
 
     const insertedProject = yield new Project(newProject).save();
 
@@ -44,4 +48,18 @@ export function deleteProject(projectId) {
       _id: projectId
     }).remove();
   });
+}
+
+function getDefaultLanguage() {
+  return {
+    key: 'default',
+    name: 'default'
+  };
+}
+
+function getDefaultLayout() {
+  return {
+    name: 'default',
+    value: '<html> <head> </head> <body> <!--CONTENT--> </body> </html>'
+  };
 }

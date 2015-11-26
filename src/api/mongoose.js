@@ -27,7 +27,14 @@ var languageSchema = new Schema({
 
 var layoutSchema = new Schema({
   name: { type: String },
-  layoutHtml: { type: String }
+  value: { type: String }
+});
+
+var templateSchema = new Schema({
+  name: { type: String },
+  description: { type: String },
+  templateHtml: { type: String },
+  sampleJson: { type: String }
 });
 
 var projectSchema = new Schema({
@@ -35,13 +42,15 @@ var projectSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String },
   layouts: [layoutSchema],
-  languages: [languageSchema]
+  languages: [languageSchema],
+  templates: [templateSchema]
 });
 
 languageSchema.set('toJSON', schemaSettings);
 layoutSchema.set('toJSON', schemaSettings);
 projectSchema.set('toJSON', schemaSettings);
 userSchema.set('toJSON', schemaSettings);
+templateSchema.set('toJSON', schemaSettings);
 
 function mapEntity(entity) {
   if (!entity) {
@@ -69,5 +78,6 @@ export function toJson(entityOrArray) {
   }
 }
 
-export const Project = model('Project', projectSchema);
 export const User = model('User', userSchema);
+export const Project = model('Project', projectSchema);
+export const Template = model('Template', templateSchema);
