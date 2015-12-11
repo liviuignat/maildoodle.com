@@ -46,3 +46,18 @@ export function createUser(user) {
       });
   });
 }
+
+export function createProject(currentUser, newProject) {
+  return new Promise((resolve, reject) => {
+    request.post('/api/projects')
+      .set('Content-type', 'application/json')
+      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .send(newProject)
+      .end((err, response) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(response.body);
+    });
+  });
+}
