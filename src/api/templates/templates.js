@@ -47,7 +47,6 @@ export function deleteTemplate(userId, projectId, templateId) {
       userId
     });
     const existingTemplate = project.templates.id(templateId);
-    console.log(existingTemplate);
     existingTemplate.remove();
     return yield project.save();
   });

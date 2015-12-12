@@ -11,7 +11,7 @@ export const ADD_TEMPLATE_FORM_NAME = 'addTemplateForm';
   validate: addTemplateFormValidator,
   stopSubmit
 })
-export default class AddProjectForm extends Component {
+export default class AddTemplateForm extends Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -31,7 +31,7 @@ export default class AddProjectForm extends Component {
 
   submit() {
     this.props.handleSubmit();
-    this.props.dispatch(stopSubmit(ADD_PROJECT_FORM_NAME));
+    this.props.dispatch(stopSubmit(ADD_TEMPLATE_FORM_NAME));
   }
 
   render() {
@@ -47,7 +47,7 @@ export default class AddProjectForm extends Component {
         <div>
           <FormTextField field={name}
             type="text"
-            labelText="Project name"
+            labelText="Template name"
             fullWidth
             disabled={isSaving}/>
         </div>
@@ -55,7 +55,7 @@ export default class AddProjectForm extends Component {
         <div>
           <FormTextField field={description}
             type="text"
-            labelText="Project description"
+            labelText="Template description"
             fullWidth
             multiLine
             rows={2}
