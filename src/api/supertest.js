@@ -53,11 +53,26 @@ export function createProject(currentUser, newProject) {
       .set('Content-type', 'application/json')
       .set('Authorization', `Bearer ${currentUser.sessionToken}`)
       .send(newProject)
-      .end((err, response) => {
+      .end((err, res) => {
         if (err) {
           return reject(err)
         }
-        return resolve(response.body);
-    });
+        return resolve(res.body);
+      });
+  });
+}
+
+export function getTemplatesByProjectId(currentUser, projectId) {
+  return new Promise((resolve, reject) => {
+    request
+      .get(`/api/projects/${projectId}/templates`)
+      .set('Content-type', 'application/json')
+      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .end((err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res.body);
+      });
   });
 }
