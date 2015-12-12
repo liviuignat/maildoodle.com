@@ -49,57 +49,6 @@ describe('GIVEN project detail reducer tests', () => {
 
       it('project should have a layout',
         () => expect(currrentState.project.layouts.length).to.equal(1));
-
-      describe('WHEN adding a template with success', () => {
-        let action = {
-          type: actions.INSERT_TEMPLATE_SUCCESS,
-          result: {
-            projectId: newProject.objectId,
-            template: newTemplate
-          }
-        };
-        beforeEach(() => currrentState = reducer(currrentState, action));
-
-        it('should have one template in the list',
-          () => expect(currrentState.project.templates.length).to.equal(1));
-
-        it('should have the correct template',
-          () => expect(currrentState.project.templates[0]).to.deep.equal(action.result.template));
-
-        describe('WHEN updating a template with success', () => {
-          let action = {
-            type: actions.UPDATE_TEMPLATE_SUCCESS,
-            result: {
-              projectId: newProject.objectId,
-              template: Object.assign(newTemplate, {
-                name: 'updated template'
-              })
-            }
-          };
-          beforeEach(() => currrentState = reducer(currrentState, action));
-
-          it('should have only one template in the list',
-            () => expect(currrentState.project.templates.length).to.equal(1));
-
-          it('should have the correct template name',
-            () => expect(currrentState.project.templates[0].name)
-              .to.deep.equal(action.result.template.name));
-        });
-
-        describe('WHEN deleting a template with success', () => {
-          let action = {
-            type: actions.DELETE_TEMPLATE_SUCCESS,
-            result: {
-              projectId: newProject.objectId,
-              objectId: newTemplate.objectId
-            }
-          };
-          beforeEach(() => currrentState = reducer(currrentState, action));
-
-          it('should have no item in the list',
-            () => expect(currrentState.project.templates.length).to.equal(0));
-        });
-      });
     });
   });
 });
