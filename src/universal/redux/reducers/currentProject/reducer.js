@@ -21,22 +21,22 @@ export function reducer(state = initialState, action = {}) {
     case actions.INSERT_TEMPLATE_SUCCESS:
     case actions.INSERT_TEMPLATE_FAIL:
       state.project.templates = insertProjectTemplate(state.project.templates, action);
-      return state;
+      return Object.assign({}, state);
 
     case actions.UPDATE_TEMPLATE:
     case actions.UPDATE_TEMPLATE_SUCCESS:
     case actions.UPDATE_TEMPLATE_FAIL:
       state.project.templates = updateProjectTemplate(state.project.templates, action);
-      return state;
+      return Object.assign({}, state);
 
     case actions.DELETE_TEMPLATE:
     case actions.DELETE_TEMPLATE_SUCCESS:
     case actions.DELETE_TEMPLATE_FAIL:
       state.project.templates = deleteProjectTemplate(state.project.templates, action);
-      return state;
+      return Object.assign({}, state);
 
     default:
-      return state;
+      return Object.assign({}, state);
   }
 }
 
