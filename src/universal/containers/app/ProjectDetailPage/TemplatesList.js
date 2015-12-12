@@ -15,10 +15,8 @@ export default class TemplatesList extends Component {
   };
 
   navigateToDetails(template) {
-    return () => {
-      const url = `/app/projects/${this.props.project.objectId}/${template.objectId}`;
-      this.props.pushState(null, url);
-    };
+    const url = `/app/projects/${this.props.project.objectId}/template/${template.objectId}`;
+    this.props.pushState(null, url);
   }
 
   openAddTemplateDialog() {
@@ -60,9 +58,9 @@ export default class TemplatesList extends Component {
         <GenericList subheader="templates"
           items={templates}
           onAddPressed={() => {::this.openAddTemplateDialog();}}
-          onEditPressed={(template) => {::this.openEditTemplateDialog(template);}}
-          onDeletePressed={(template) => {::this.handleDeleteTemplateSubmit(template);}}
-          onRowClick={() => {}}
+          onEditPressed={(item) => {::this.openEditTemplateDialog(item);}}
+          onDeletePressed={(item) => {::this.handleDeleteTemplateSubmit(item);}}
+          onRowClick={(item) => {::this.navigateToDetails(item);}}
           primaryText={(item) => item.name}
           secondaryText={(item) => item.description} />
 
