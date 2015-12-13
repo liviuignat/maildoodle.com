@@ -1,5 +1,5 @@
-import { requiredAuthenticated } from './../middleware';
-import { sendHttpError } from './../http';
+import { requiredAuthenticated } from './../../middleware';
+import { sendHttpError } from './../../http';
 import {
   getTemplatesByProjectId,
   insertTemplate,

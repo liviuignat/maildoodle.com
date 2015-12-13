@@ -1,4 +1,4 @@
-import {getUserBySessionToken} from './user/userRepository';
+import {getUserBySessionToken} from './modules/user/userRepository';
 import config from './../config';
 
 export function requestAuthToken(req, res, next) {

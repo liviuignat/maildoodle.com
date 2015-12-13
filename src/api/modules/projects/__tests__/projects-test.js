@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {request, cleanup, createUser} from './../../supertest';
+import {request, cleanup, createUser} from './../../../supertest';
 
 describe('projectModule tests', () => {
   let currentUser;

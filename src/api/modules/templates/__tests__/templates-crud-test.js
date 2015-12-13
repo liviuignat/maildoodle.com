@@ -5,7 +5,7 @@ import {
   createUser,
   createProject,
   getTemplatesByProjectId
-} from './../../supertest';
+} from './../../../supertest';
 
 describe('given we want to modify templates', () => {
   let currentUser;
