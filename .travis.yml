@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "v5.1.0"
+
+services:
+  - mongodb
+
+before_script:
+  - "npm install -g webpack"
+  - "npm install -g eslint"
+  - "npm install -g karma"
+  - "npm install"
+
+script:
+  - sleep 5
+  - "npm run test-node"
+  - "npm run test"
