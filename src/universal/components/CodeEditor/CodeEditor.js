@@ -32,7 +32,6 @@ export default class CodeEditor extends Component {
       require('codemirror/mode/javascript/javascript');
       require('codemirror/mode/xml/xml');
       require('codemirror/mode/htmlmixed/htmlmixed');
-      require('codemirror/mode/javascript/javascript');
 
       return (
         <CodeMirror
