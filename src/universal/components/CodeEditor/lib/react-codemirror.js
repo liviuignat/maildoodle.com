@@ -1,3 +1,4 @@
+/* eslint-disable */
 var CM = require('./codemirror');
 var React = require('react');
 var className = require('classnames');
