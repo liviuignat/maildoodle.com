@@ -1,5 +1,8 @@
 # Online email template editor with an API
 
+[![star this repo](http://githubbadges.com/star.svg?user=liviuignat&repo=email-templates&style=default)](https://github.com/liviuignat/email-templates)
+[![fork this repo](http://githubbadges.com/fork.svg?user=liviuignat&repo=email-templates&style=default)](https://github.com/liviuignat/email-templates/fork)
+
 Visit on Heroku here: 
 http://email-cloud.herokuapp.com/
 
