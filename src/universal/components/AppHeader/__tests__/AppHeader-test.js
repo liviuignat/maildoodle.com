@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import * as ReactTestUtils from 'react-addons-test-utils';
 import {expect} from 'chai';
 import {Provider} from 'react-redux';
@@ -39,7 +38,7 @@ describe('AppHeader when NOT logged in', () => {
   it('should render with correct value', () => {
     const links = ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'a');
     const loginLink = links.find((link) => link.textContent.toLowerCase() === 'login');
-    expect(loginLink).to.exist;
+    return expect(loginLink).to.exist;
   });
 });
 
@@ -61,6 +60,6 @@ describe('AppHeader when logged in', () => {
   it('should render with correct value', () => {
     const links = ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'a');
     const loginLink = links.find((link) => link.textContent.toLowerCase() === 'login');
-    expect(loginLink).to.not.exist;
+    return expect(loginLink).to.not.exist;
   });
 });

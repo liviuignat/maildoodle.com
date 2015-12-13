@@ -19,7 +19,6 @@ import routes from './routes';
 import ApiClient from './helpers/ApiClient';
 import Html from './helpers/Html';
 import getStatusFromRoutes from './helpers/getStatusFromRoutes';
-import config from './../config';
 import * as middleware from './../api/middleware';
 
 const pretty = new PrettyError();
@@ -33,7 +32,7 @@ app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
 app.use(require('serve-static')(path.join(__dirname, '..', 'static')));
 
 app.use((req, res, next) => {
-  if(req.url.indexOf('/api/') === 0) {
+  if (req.url.indexOf('/api/') === 0) {
     return next();
   }
 
@@ -56,7 +55,7 @@ app.use((req, res, next) => {
 
   if (__DISABLE_SSR__) {
     hydrateOnClient();
-    return;
+    return null;
   }
 
   store.dispatch(match(req.originalUrl, (error, redirectLocation, routerState) => {

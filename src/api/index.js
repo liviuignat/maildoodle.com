@@ -4,6 +4,7 @@ import * as auth from './auth';
 import * as user from './user';
 import * as projects from './projects';
 import * as languages from './languages';
+import * as templates from './templates';
 
 console.log('MONGO_URI:', config.mongodb.url);
 mongoose.connect(config.mongodb.url);
@@ -13,4 +14,5 @@ export function setupRoutes(app) {
   user.setupRoutes(app, '/api/user');
   projects.setupRoutes(app, '/api/projects');
   languages.setupRoutes(app, '/api/projects');
+  templates.setupRoutes(app, '/api/projects/:projectId/templates');
 };

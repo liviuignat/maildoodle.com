@@ -110,6 +110,7 @@
     "react-addons-pure-render-mixin": "^0.14.2",
     "react-addons-transition-group": "^0.14.2",
     "react-addons-update": "^0.14.2",
+    "react-codemirror": "^0.2.2",
     "react-document-meta": "^2.0.0",
     "react-dom": "^0.14.1",
     "react-inline-css": "^2.0.0",
