@@ -4,25 +4,38 @@ import {Dialog, FlatButton} from 'material-ui';
 export default class DialogForm extends Component {
   static propTypes = {
     isLoading: PropTypes.bool,
+    title: PropTypes.string,
     startSubmit: PropTypes.func.isRequired,
     form: PropTypes.object.isRequired
   };
 
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      open: false
+    };
+  }
+
   show() {
-    this.refs.formDialog.show();
+    this.setState({
+      open: true
+    });
   }
 
   dismiss() {
-    this.refs.formDialog.dismiss();
+    this.setState({
+      open: false
+    });
   }
 
   render() {
     return (
       <Dialog
         ref="formDialog"
-        title="Add project"
+        title={this.props.title || ''}
+        open={this.state.open}
         actionFocus="submit"
-        modal
         autoDetectWindowHeight
         autoScrollBodyContent
         actions={[

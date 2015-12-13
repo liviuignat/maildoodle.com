@@ -1,4 +1,5 @@
 import { login, signUp, resetPassword } from './auth';
+import { sendHttpError } from './../http';
 
 export function setupRoutes(app, prefix = '') {
   app.post(`${prefix}/login`, (req, res) => {
@@ -6,7 +7,7 @@ export function setupRoutes(app, prefix = '') {
 
     login(email, password)
       .then((response) => res.json(response))
-      .catch((err) => res.status(401).json(err));
+      .catch((err) => sendHttpError(res, { code: 401, err }));
   });
 
   app.post(`${prefix}/signup`, (req, res) => {
@@ -14,9 +15,7 @@ export function setupRoutes(app, prefix = '') {
 
     signUp(email, password)
       .then((response) => res.json(response))
-      .catch((err) => {
-        res.status(400).json(err)
-      });
+      .catch((err) => sendHttpError(res, { code: 400, err }));
 
   });
 
@@ -25,6 +24,6 @@ export function setupRoutes(app, prefix = '') {
 
     resetPassword(email)
       .then((response) => res.json(response))
-      .catch((err) => res.status(400).json(err));
+      .catch((err) => sendHttpError(res, { code: 400, err }));
   });
 };

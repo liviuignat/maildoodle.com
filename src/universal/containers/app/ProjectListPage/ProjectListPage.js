@@ -150,11 +150,13 @@ export default class ProjectListPage extends Component {
         </List>
 
         <DialogForm
+          title="Edit project"
           ref="editProjectDialog"
           startSubmit={::this.startSubmitEditProject}
           form={<AddProjectForm onSubmit={::this.handleEditProjectSubmit}/>} />
 
         <DialogForm
+          title="Add new project"
           ref="addProjectDialog"
           startSubmit={::this.startSubmitAddProject}
           form={<AddProjectForm onSubmit={::this.handleAddProjectSubmit}/>} />
