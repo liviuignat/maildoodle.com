@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {request, cleanup} from './../../supertest';
+import {request, cleanup} from './../../../supertest';
 
 describe('authModule tests', () => {
   beforeEach((done) => {
