@@ -35,6 +35,22 @@ export function setupRoutes(app, prefix=''){
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });
 
+  app.get(`${prefix}/:projectId/languages/:languageId`, requiredAuthenticated, (req, res) => {
+    getProjectById(req.user.objectId, req.params.projectId)
+    .then((project) => {
+      const result = project.languages.find((element) => {
+       return element.objectId === req.params.languageId;
+      });
+
+      if (!result) {
+        return sendHttpError(res, { code: 404 });
+      }
+
+      return res.json(result);
+    })
+    .catch((err) => sendHttpError(res, { code: 400, err }));
+  });
+
   app.put(`${prefix}/:projectId/languages/:languageId`, requiredAuthenticated, (req, res) => {
     const userId = req.user.objectId;
     const projectId = req.params.projectId;
@@ -45,22 +61,6 @@ export function setupRoutes(app, prefix=''){
       .then(() => getLanguageById(userId, projectId, languageId))
       .then(language => res.json(language))
       .catch(err => sendHttpError(res, { code: 400, err }));
-  });
-
-  app.get(`${prefix}/:projectId/languages/:languageId`, requiredAuthenticated, (req, res) => {
-    getProjectById(req.user.objectId, req.params.projectId)
-    .then((project) => {
-      const result = project.languages.find((element) => {
-       return element.objectId === req.params.languageId;
-      });
-
-      if (!result) {
-        sendHttpError(res, {code: 404});
-      }
-
-      return res.json(result);
-    })
-    .catch((err) => sendHttpError(res, { code: 400, err }));
   });
 
   app.del(`${prefix}/:projectId/languages/:languageId`, requiredAuthenticated, (req, res) => {

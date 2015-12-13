@@ -127,15 +127,15 @@ describe('languageModule tests', () => {
             expect(response.body.key).to.equal(createdLanguage.key);
             return done();
           });
+        });
 
-          describe('When the language does not exist', () => {
-            const getBogusLanguageByIdRequest = () => request
-              .get(`/api/projects/${currentProject.objectId}/languages/123`)
-              .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+        describe('When the language does not exist', () => {
+          const getBogusLanguageByIdRequest = () => request
+            .get(`/api/projects/${currentProject.objectId}/languages/123`)
+            .set('Authorization', `Bearer ${currentUser.sessionToken}`);
 
-            it('Should return not found', (done) => {
-              getBogusLanguageByIdRequest().expect(404).end(done);
-            });
+          it('Should return not found', (done) => {
+            getBogusLanguageByIdRequest().expect(404).end(done);
           });
         });
       });
