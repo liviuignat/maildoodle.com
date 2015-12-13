@@ -13,6 +13,23 @@ export function getTemplatesByProjectId(userId, projectId) {
   });
 }
 
+export function getTemplateById(userId, projectId, templateId) {
+  return co(function*() {
+    const project = yield Project.findOne({
+      _id: projectId,
+      userId
+    });
+
+    const template = project.templates.id(templateId);
+
+    if (!template) {
+      throw new Error(`No template with id ${templateId}`);
+    }
+
+    return toJson(template);
+  });
+}
+
 export function insertTemplate(userId, projectId, template) {
   return co(function*() {
     let project = yield Project.findOne({
