@@ -38,6 +38,9 @@ export default class Html extends Component {
 
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,500,500italic" rel="stylesheet" type="text/css" />
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.9.0/codemirror.min.css" rel="stylesheet" type="text/css" />
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.9.0/theme/night.min.css" rel="stylesheet" type="text/css" />
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.9.0/addon/display/fullscreen.min.css" rel="stylesheet" type="text/css" />
 
           {/* (will be present only in development mode) */}
           {/* outputs a <style/> tag with all bootstrap styles + App.scss + it could be CurrentPage.scss. */}
