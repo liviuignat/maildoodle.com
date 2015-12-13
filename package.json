@@ -85,6 +85,7 @@
     "babel": "^6.0.12",
     "babel-plugin-typecheck": "^2.0.0",
     "body-parser": "^1.14.1",
+    "classnames": "^2.2.1",
     "co": "^4.6.0",
     "compression": "^1.6.0",
     "cookie-parser": "^1.4.0",
