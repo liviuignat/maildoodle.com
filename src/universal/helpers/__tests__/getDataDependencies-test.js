@@ -20,29 +20,24 @@ describe('getDataDependencies', () => {
     location = 'location';
     params = 'params';
 
-    CompWithNoData = () =>
-      <div />;
+    CompWithNoData = () => <div />;
 
-    CompWithFetchData = () =>
-      <div />;
+    CompWithFetchData = () => <div />;
 
     CompWithFetchData.fetchData = (_getState, _dispatch, _location, _params) => {
       return `fetchData ${_getState} ${_dispatch} ${_location} ${_params}`;
     };
-    CompWithFetchDataDeferred = () =>
-      <div />;
+    CompWithFetchDataDeferred = () => <div />;
 
     CompWithFetchDataDeferred.fetchDataDeferred = (_getState, _dispatch, _location, _params) => {
       return `fetchDataDeferred ${_getState} ${_dispatch} ${_location} ${_params}`;
     };
 
-    ConnectedCompWithFetchData = () =>
-      <div/>;
+    ConnectedCompWithFetchData = () => <div/>;
 
     ConnectedCompWithFetchData.WrappedComponent = CompWithFetchData;
 
-    ConnectedCompWithFetchDataDeferred = () =>
-      <div/>;
+    ConnectedCompWithFetchDataDeferred = () => <div/>;
 
     ConnectedCompWithFetchDataDeferred.WrappedComponent = CompWithFetchDataDeferred;
   });
