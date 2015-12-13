@@ -1,5 +1,5 @@
 import co from 'co';
-import {Project, toJson} from './../mongoose';
+import {Project, toJson} from './../../mongoose';
 
 const CLASS_NAME = 'templates';
 

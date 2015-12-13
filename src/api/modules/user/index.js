@@ -1,4 +1,4 @@
-import { requiredAuthenticated } from './../middleware';
+import { requiredAuthenticated } from './../../middleware';
 
 export function setupRoutes(app, prefix = '') {
   app.get(`${prefix}/me`, requiredAuthenticated, (req, res) => {

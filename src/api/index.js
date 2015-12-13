@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import config from './config';
-import * as auth from './auth';
-import * as user from './user';
-import * as projects from './projects';
-import * as languages from './languages';
-import * as templates from './templates';
+import * as auth from './modules/auth';
+import * as user from './modules/user';
+import * as projects from './modules/projects';
+import * as languages from './modules/languages';
+import * as templates from './modules/templates';
 
 console.log('MONGO_URI:', config.mongodb.url);
 mongoose.connect(config.mongodb.url);

@@ -1,6 +1,6 @@
 import md5 from 'md5';
 import co from 'co';
-import {User, toJson} from './../mongoose';
+import {User, toJson} from './../../mongoose';
 
 export function getUserById(objectId) {
   return getUserByQuery({ objectId });

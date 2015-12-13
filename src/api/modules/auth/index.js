@@ -1,5 +1,5 @@
 import { login, signUp, resetPassword } from './auth';
-import { sendHttpError } from './../http';
+import { sendHttpError } from './../../http';
 
 export function setupRoutes(app, prefix = '') {
   app.post(`${prefix}/login`, (req, res) => {
