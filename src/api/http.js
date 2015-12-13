@@ -1,4 +1,9 @@
 export function sendHttpError(res, data) {
-  console.error(' <==== ERROR', data.err);
-  res.send(data.code).json(data.err);
+  const {err, code} = data;
+
+  if (err) {
+    console.error(' <==== ERROR', data.err, data.err.stack);
+  }
+
+  res.send(code).json(err);
 }
