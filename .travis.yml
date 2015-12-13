@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "4.2.2"
+  - "v5.1.0"
 
 services:
   - mongodb
