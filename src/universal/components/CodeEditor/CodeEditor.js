@@ -28,8 +28,8 @@ export default class CodeEditor extends Component {
     const { mode, value } = this.props;
 
     if (__CLIENT__) {
-      const CodeMirror = require('react-codemirror');
-      require('./../../../../node_modules/codemirror/mode/htmlmixed/htmlmixed');
+      const CodeMirror = require('./lib/react-codemirror');
+      require('./lib/modes/htmlmixed');
 
       return (
         <CodeMirror
