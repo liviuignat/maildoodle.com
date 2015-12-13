@@ -29,9 +29,9 @@ export default class CodeEditor extends Component {
 
     if (__CLIENT__) {
       const CodeMirror = require('react-codemirror');
-      require('codemirror/mode/javascript/javascript');
-      require('codemirror/mode/xml/xml');
-      require('codemirror/mode/htmlmixed/htmlmixed');
+      const htmlMixedModule = require('codemirror/mode/htmlmixed/htmlmixed');
+
+      const modules = [htmlMixedModule];
 
       return (
         <CodeMirror
