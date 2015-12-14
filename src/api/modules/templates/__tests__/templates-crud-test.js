@@ -26,6 +26,11 @@ describe('given we want to modify templates', () => {
     .set('Content-type', 'application/json')
     .set('Authorization', `Bearer ${currentUser.sessionToken}`);
 
+  const getTemplateByIdRequest = (projectId, templateId) => request
+      .get(`/api/projects/${projectId}/templates/${templateId}`)
+      .set('Content-type', 'application/json')
+      .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+
   const addTemplateRequest = (projectId, template) => request
     .post(`/api/projects/${projectId}/templates`)
     .set('Content-type', 'application/json')
@@ -57,12 +62,12 @@ describe('given we want to modify templates', () => {
   it('should not have any template',
     (done) => getTemplatesRequest(currentProject.objectId).expect(200).end(done));
 
-  describe('when adding a new template', () => {
+  describe('WHEN adding a new template', () => {
     it('should make the request with success',
       (done) => addTemplateRequest(currentProject.objectId, newTemplate)
         .expect(200).end(done));
 
-    describe('when adding template is finished', () => {
+    describe('WHEN adding template is finished', () => {
       let firstAddedTemplate = null;
       beforeEach((done) => {
         addTemplateRequest(currentProject.objectId, newTemplate)
@@ -76,7 +81,33 @@ describe('given we want to modify templates', () => {
       it('templated should have the same name',
           () => expect(firstAddedTemplate.name).to.equal(newTemplate.name));
 
-      describe('when getting the template by id', () => {
+      describe('WHEN getting the template by id', () => {
+        it('should make the request with success',
+          (done) => getTemplateByIdRequest(currentProject.objectId, firstAddedTemplate.objectId)
+            .expect(200).end(done));
+
+        describe('WHEN get template by id request is finished', () => {
+          let retreivedTemplate = null;
+          beforeEach((done) => {
+            getTemplateByIdRequest(currentProject.objectId, firstAddedTemplate.objectId).end((err, res) => {
+              if (err) return done(err);
+              retreivedTemplate = res.body;
+              done();
+            });
+          });
+
+          it('should have an object id',
+            () => expect(retreivedTemplate.objectId).not.to.be.undefined);
+
+          it('should have the correct name',
+            () => expect(retreivedTemplate.name).to.equal(newTemplate.name));
+
+          it('should have the correct description',
+            () => expect(retreivedTemplate.description).to.equal(newTemplate.description));
+        });
+      });
+
+      describe('WHEN getting all the templates', () => {
         beforeEach((done) => getTemplatesByProjectId(currentUser, currentProject.objectId)
           .then((templates) => { currentProject.templates = templates; })
           .then(done)
@@ -92,7 +123,7 @@ describe('given we want to modify templates', () => {
           () => expect(currentProject.templates[0].description).to.equal(newTemplate.description));
       });
 
-      describe('when updating the template', () => {
+      describe('WHEN updating the template', () => {
         const updatedTemplate = {
           name: 'updated template',
           description: 'updated template description'
@@ -102,7 +133,7 @@ describe('given we want to modify templates', () => {
           (done) => updateTemplateRequest(currentProject.objectId, firstAddedTemplate.objectId, updatedTemplate)
             .expect(200).end(done));
 
-        describe('when getting the template by id', () => {
+        describe('WHEN getting all the templates', () => {
           beforeEach((done) => updateTemplateRequest(currentProject.objectId, firstAddedTemplate.objectId, updatedTemplate)
               .end(done));
 
@@ -122,12 +153,12 @@ describe('given we want to modify templates', () => {
         });
       });
 
-      describe('when deleting a template', () => {
+      describe('WHEN deleting a template', () => {
         it('should make the request with success',
           (done) => deleteTemplateRequest(currentProject.objectId, firstAddedTemplate.objectId)
             .expect(200).end(done));
 
-        describe('when request is complete', () => {
+        describe('WHEN request is complete', () => {
           beforeEach((done) => deleteTemplateRequest(currentProject.objectId, firstAddedTemplate.objectId)
             .end(done));
 

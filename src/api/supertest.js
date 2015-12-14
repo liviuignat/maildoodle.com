@@ -76,3 +76,18 @@ export function getTemplatesByProjectId(currentUser, projectId) {
       });
   });
 }
+
+export function getTemplateById(currentUser, projectId, templateId) {
+  return new Promise((resolve, reject) => {
+    request
+      .get(`/api/projects/${projectId}/templates/${templateId}`)
+      .set('Content-type', 'application/json')
+      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .end((err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res.body);
+      });
+  });
+}

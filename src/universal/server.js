@@ -10,5 +10,6 @@ server.listen(config.port, (err) => {
   }
 
   console.info(`----\n==> ✅ ${config.app.title} is running`);
-  console.info(`==> 💻  Open http://localhost:${config.port} in a browser to view the app.`);
+  const port = config.port || process.env.PORT;
+  console.info(`==> 💻  Open http://localhost:${port} in a browser to view the app.`);
 });
