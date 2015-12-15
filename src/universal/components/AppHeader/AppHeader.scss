@@ -22,7 +22,10 @@
   color: $color-grey900;
 
   &.AppHeader__isDrawerVisible {
-    padding-left: $drawer-width;
+    padding-left: 0;
+    @media screen and (min-width: 1025px) {
+      padding-left: $drawer-width;
+    }
   }
 
   .AppHeader_row {
@@ -57,7 +60,11 @@
   .AppHeader_navigationContainer {
     direction: rtl;
     order: 1;
-    width: 500px;
+    width: 100px;
+
+    @media screen and (min-width: 1025px) {
+      padding-left: 500px;
+    }
 
     nav {
       margin: 0;
