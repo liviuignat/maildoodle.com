@@ -4,9 +4,12 @@ import {
   getTemplateDetailByIdAction
 } from './../../../redux/reducers/currentTemplate';
 import {
-  CodeEditor,
-  Paper
+  Paper,
+  Tabs,
+  Tab
 } from './../../../components';
+import TemplateDetailOverview from './TemplateDetailOverview/TemplateDetailOverview';
+import TemplateDetailHtmlEditor from './TemplateDetailHtmlEditor/TemplateDetailHtmlEditor';
 
 @connect(
   state => ({template: state.currentTemplate.template}), {
@@ -28,8 +31,28 @@ export default class TemplateDetailPage extends Component {
 
     return (
       <Paper className={style.TemplateDetailPage}>
-        <h3>template name: {template.name}</h3>
-        <CodeEditor value="<div>not yet implemented</div>" />
+      <Tabs>
+        <Tab label="Overview">
+          <div className={style.TemplateDetailPage_tabContainer}>
+            <TemplateDetailOverview template={template} />
+          </div>
+        </Tab>
+        <Tab label="Html">
+          <div className={style.TemplateDetailPage_tabContainer}>
+            <TemplateDetailHtmlEditor template={template} />
+          </div>
+        </Tab>
+        <Tab label="Translations">
+          <div className={style.TemplateDetailPage_tabContainer}>
+            Translations
+          </div>
+        </Tab>
+        <Tab label="Test JSON">
+          <div className={style.TemplateDetailPage_tabContainer}>
+            Test JSON
+          </div>
+        </Tab>
+      </Tabs>
       </Paper>
     );
   }
