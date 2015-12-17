@@ -10,6 +10,7 @@ import {
 } from './../../../components';
 import TemplateDetailOverview from './TemplateDetailOverview/TemplateDetailOverview';
 import TemplateDetailHtmlEditor from './TemplateDetailHtmlEditor/TemplateDetailHtmlEditor';
+import TemplateDetailTestJsonEditor from './TemplateDetailTestJsonEditor/TemplateDetailTestJsonEditor';
 
 @connect(
   state => ({template: state.currentTemplate.template}), {
@@ -49,7 +50,7 @@ export default class TemplateDetailPage extends Component {
         </Tab>
         <Tab label="Test JSON">
           <div className={style.TemplateDetailPage_tabContainer}>
-            Test JSON
+            <TemplateDetailTestJsonEditor template={template} />
           </div>
         </Tab>
       </Tabs>

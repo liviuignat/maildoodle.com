@@ -13,7 +13,12 @@ export default class TemplateDetailHtmlEditor extends Component {
 
     return (
       <div>
-        <CodeEditor value="<div>html editor not yet implemented</div>" />
+        <CodeEditor
+          mode={{
+            name: 'javascript',
+            json: true
+          }}
+          value="{value: 'not yet implemented'}" />
       </div>
     );
   }
