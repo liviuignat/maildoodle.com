@@ -7,7 +7,33 @@ import {
 
 export default class TemplateDetailOverview extends Component {
   static propTypes = {
-    template: PropTypes.object.isRequired
+    template: PropTypes.object.isRequired,
+    projectLanguages: PropTypes.array.isRequired,
+    projectLayouts: PropTypes.array.isRequired
+  }
+
+  get languagesSelectItems() {
+    const {projectLanguages} = this.props;
+    if (!projectLanguages) return [];
+
+    return projectLanguages.map((language) => {
+      return {
+        id: language.objectId,
+        text: language.name
+      };
+    });
+  }
+
+  get layoutsSelectItems() {
+    const {projectLayouts} = this.props;
+    if (!projectLayouts) return [];
+
+    return projectLayouts.map((project) => {
+      return {
+        id: project.objectId,
+        text: project.name
+      };
+    });
   }
 
   render() {
@@ -30,12 +56,12 @@ export default class TemplateDetailOverview extends Component {
         <Paper className={style.TemplateDetailOverview_actionButtonGroup}>
           <div>
             <div>Choose a layout:</div>
-            <SelectField menuItems={[{text: 'default'}]}/>
+            <SelectField menuItems={this.layoutsSelectItems}/>
           </div>
 
           <div>
             <div>Choose a language:</div>
-            <SelectField menuItems={[{text: 'default'}]}/>
+            <SelectField menuItems={this.languagesSelectItems}/>
           </div>
 
           <div>

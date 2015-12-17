@@ -3,7 +3,7 @@ import {
   CodeEditor,
 } from './../../../../components';
 
-export default class TemplateDetailHtmlEditor extends Component {
+export default class TemplateDetailTestJsonEditor extends Component {
   static propTypes = {
     template: PropTypes.object.isRequired
   }
