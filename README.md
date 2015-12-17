@@ -1,5 +1,6 @@
 # Online email template editor with an API
 
+[![Build Status](https://travis-ci.org/liviuignat/email-templates.svg?branch=master)](https://travis-ci.org/liviuignat/email-templates)
 [![star this repo](http://githubbadges.com/star.svg?user=liviuignat&repo=email-templates&style=default)](https://github.com/liviuignat/email-templates)
 [![fork this repo](http://githubbadges.com/fork.svg?user=liviuignat&repo=email-templates&style=default)](https://github.com/liviuignat/email-templates/fork)
 
