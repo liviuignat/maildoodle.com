@@ -9,8 +9,6 @@ export default class TemplateDetailHtmlEditor extends Component {
   }
 
   render() {
-    // const { template } = this.props;
-
     return (
       <div>
         <CodeEditor value="<div>html editor not yet implemented</div>" />
