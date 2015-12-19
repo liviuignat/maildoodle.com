@@ -25,7 +25,7 @@ function getUserByQuery(query) {
     };
     const search = query.objectId ? Object.assign(query, objectIdQuery) : query;
 
-    var user = yield User.findOne(search);
+    const user = yield User.findOne(search);
     return toJson(user);
   });
 }
@@ -43,7 +43,7 @@ export function createUser(userData) {
       createdAt: new Date()
     });
 
-    var user = yield new User(newUserAccount).save();
+    const user = yield new User(newUserAccount).save();
 
     return toJson(user);
   });

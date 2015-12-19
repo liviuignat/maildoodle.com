@@ -58,4 +58,4 @@ export function setupRoutes(app, prefix = '/api/projects/:projectId/templates') 
       .then((response) => res.json(response))
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });
-};
+}
