@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 export default class CodeEditor extends Component {
   static propTypes = {
-    mode: PropTypes.string,
+    mode: PropTypes.any,
     value: PropTypes.string,
   };
 

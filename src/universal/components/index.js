@@ -21,6 +21,9 @@ export {
   FontIcon
 } from 'material-ui';
 
+export SelectField from 'material-ui/lib/select-field';
+export Tabs from 'material-ui/lib/tabs/tabs';
+export Tab from 'material-ui/lib/tabs/tab';
 export Menu from 'material-ui/lib/menus/menu';
 export MenuItem from 'material-ui/lib/menus/menu-item';
 export MenuDivider from 'material-ui/lib/menus/menu-divider';
