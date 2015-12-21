@@ -15,4 +15,4 @@ export function setupRoutes(app) {
   projects.setupRoutes(app, '/api/projects');
   languages.setupRoutes(app, '/api/projects');
   templates.setupRoutes(app, '/api/projects/:projectId/templates');
-};
+}

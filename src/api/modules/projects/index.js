@@ -29,14 +29,14 @@ export function setupRoutes(app, prefix = '') {
 
   app.put(`${prefix}/:projectId`, requiredAuthenticated, (req, res) => {
     updateProject(req.params.projectId, req.body)
-      .then((response) => getProjectById(req.user.objectId, req.params.projectId))
+      .then(() => getProjectById(req.user.objectId, req.params.projectId))
       .then((response) => res.json(response))
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });
 
   app.del(`${prefix}/:projectId`, requiredAuthenticated, (req, res) => {
     deleteProject(req.params.projectId)
-      .then((response) => res.json({ response: 'success' }))
+      .then(() => res.json({ response: 'success' }))
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });
-};
+}

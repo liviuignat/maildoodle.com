@@ -26,7 +26,7 @@
     "start-qa": "node ./node_modules/better-npm-run start-qa",
     "build": "./node_modules/.bin/webpack --verbose --colors --display-error-details --config webpack/prod.config.js",
     "postinstall": "./node_modules/.bin/webpack --display-error-details --config webpack/prod.config.js",
-    "lint": "eslint -c .eslintrc src",
+    "lint": "eslint -c .eslintrc ./src",
     "start-dev": "node ./node_modules/better-npm-run start-dev",
     "watch-client": "node ./node_modules/better-npm-run watch-client",
     "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\"",

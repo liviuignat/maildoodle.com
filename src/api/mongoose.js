@@ -1,7 +1,7 @@
 import {Schema, model} from 'mongoose';
 
-var schemaSettings = {
-  transform: function (doc, ret, options) {
+const schemaSettings = {
+  transform: function(doc, ret) {
     ret.objectId = ret._id.toString();
     delete ret._id;
     delete ret.__v;
@@ -20,24 +20,24 @@ const userSchema = new Schema({
   createdAt: { type: Date }
 });
 
-var languageSchema = new Schema({
+const languageSchema = new Schema({
   key: { type: String },
   name: { type: String }
 });
 
-var layoutSchema = new Schema({
+const layoutSchema = new Schema({
   name: { type: String },
   value: { type: String }
 });
 
-var templateSchema = new Schema({
+const templateSchema = new Schema({
   name: { type: String },
   description: { type: String },
   templateHtml: { type: String },
   sampleJson: { type: String }
 });
 
-var projectSchema = new Schema({
+const projectSchema = new Schema({
   userId: { type: String, required: true, index: true },
   name: { type: String, required: true },
   description: { type: String },
@@ -56,12 +56,12 @@ function mapEntity(entity) {
   if (!entity) {
     return entity;
   }
-  var json = entity.toJSON();
+  const json = entity.toJSON();
   return json;
 }
 
 function mapEntitiesArray(entities) {
-  return entities.map(function (entity) {
+  return entities.map(function(entity) {
     return mapEntity(entity);
   });
 }
@@ -70,12 +70,11 @@ export function toJson(entityOrArray) {
   if (!entityOrArray) {
     return entityOrArray;
   }
-  var isArray = typeof entityOrArray.map === 'function';
+  const isArray = typeof entityOrArray.map === 'function';
   if (isArray) {
     return mapEntitiesArray(entityOrArray);
-  } else {
-    return mapEntity(entityOrArray);
   }
+  return mapEntity(entityOrArray);
 }
 
 export const User = model('User', userSchema);

@@ -12,7 +12,7 @@ export function deleteMongoDb() {
   return new Promise((resolve, reject) => {
     getMongdb().then(db => {
       db.dropDatabase((err) => {
-        if(err) {
+        if (err) {
           return reject(err);
         }
         return resolve();
@@ -37,7 +37,7 @@ export function createUser(user) {
           .set('Content-type', 'application/json')
           .send(newAccount)
           .end((err, res) => {
-            if(err) {
+            if (err) {
               return reject(err);
             }
             return resolve(res.body);
@@ -55,7 +55,7 @@ export function createProject(currentUser, newProject) {
       .send(newProject)
       .end((err, res) => {
         if (err) {
-          return reject(err)
+          return reject(err);
         }
         return resolve(res.body);
       });
@@ -70,7 +70,7 @@ export function getTemplatesByProjectId(currentUser, projectId) {
       .set('Authorization', `Bearer ${currentUser.sessionToken}`)
       .end((err, res) => {
         if (err) {
-          return reject(err)
+          return reject(err);
         }
         return resolve(res.body);
       });
@@ -85,7 +85,7 @@ export function getTemplateById(currentUser, projectId, templateId) {
       .set('Authorization', `Bearer ${currentUser.sessionToken}`)
       .end((err, res) => {
         if (err) {
-          return reject(err)
+          return reject(err);
         }
         return resolve(res.body);
       });

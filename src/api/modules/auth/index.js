@@ -26,4 +26,4 @@ export function setupRoutes(app, prefix = '') {
       .then((response) => res.json(response))
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });
-};
+}

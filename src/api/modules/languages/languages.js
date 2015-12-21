@@ -1,8 +1,6 @@
 import co from 'co';
 import {Project, toJson} from './../../mongoose';
 
-const CLASS_NAME = 'projects';
-
 export function updateLanguage(userId, projectId, languageId, language) {
   return co(function*() {
     const project = yield Project.findOne({

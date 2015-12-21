@@ -1,8 +1,6 @@
 import co from 'co';
 import {Project, toJson} from './../../mongoose';
 
-const CLASS_NAME = 'projects';
-
 export function getProjects(userId) {
   return co(function*() {
     const projects = yield Project.find({ userId });

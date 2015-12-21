@@ -1,8 +1,6 @@
 import co from 'co';
 import {Project, toJson} from './../../mongoose';
 
-const CLASS_NAME = 'templates';
-
 export function getTemplatesByProjectId(userId, projectId) {
   return co(function*() {
     const project = yield Project.findOne({
@@ -32,7 +30,7 @@ export function getTemplateById(userId, projectId, templateId) {
 
 export function insertTemplate(userId, projectId, template) {
   return co(function*() {
-    let project = yield Project.findOne({
+    const project = yield Project.findOne({
       _id: projectId,
       userId
     });
@@ -53,7 +51,7 @@ export function updateTemplate(userId, projectId, templateId, template) {
     const newTemplate = Object.assign(existingTemplate, template);
     yield project.save();
 
-    return toJson(newTemplate)
+    return toJson(newTemplate);
   });
 }
 

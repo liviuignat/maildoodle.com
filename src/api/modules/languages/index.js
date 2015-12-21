@@ -8,11 +8,11 @@ import {
 
 import {getLanguageById, updateLanguage} from './languages';
 
-export function setupRoutes(app, prefix=''){
+export function setupRoutes(app, prefix = '') {
   app.post(`${prefix}/:projectId/languages`, requiredAuthenticated, (req, res) => {
     getProjectById(req.user.objectId, req.params.projectId)
       .then((project) => {
-       project.languages.push(req.body)
+        project.languages.push(req.body);
         return updateProject(project.objectId, project);
       })
       .then(() => getProjectById(req.user.objectId, req.params.projectId))
@@ -30,7 +30,7 @@ export function setupRoutes(app, prefix=''){
   app.get(`${prefix}/:projectId/languages`, requiredAuthenticated, (req, res) => {
     getProjectById(req.user.objectId, req.params.projectId)
       .then((project) => {
-          return res.json(project.languages);
+        return res.json(project.languages);
       })
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });
@@ -39,7 +39,7 @@ export function setupRoutes(app, prefix=''){
     getProjectById(req.user.objectId, req.params.projectId)
     .then((project) => {
       const result = project.languages.find((element) => {
-       return element.objectId === req.params.languageId;
+        return element.objectId === req.params.languageId;
       });
 
       if (!result) {
@@ -59,7 +59,7 @@ export function setupRoutes(app, prefix=''){
 
     updateLanguage(userId, projectId, languageId, language)
       .then(() => getLanguageById(userId, projectId, languageId))
-      .then(language => res.json(language))
+      .then(lang => res.json(lang))
       .catch(err => sendHttpError(res, { code: 400, err }));
   });
 
