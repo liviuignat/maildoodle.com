@@ -15,3 +15,4 @@ script:
   - sleep 5
   - "npm run test-node"
   - "npm run test"
+  - "npm run lint"

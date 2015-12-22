@@ -34,4 +34,7 @@ npm run start
 npm run lint
 npm run test
 npm run test-node
+
+//run REST API sigle test
+make test FILE=[complete_path_to_file]
 ```
