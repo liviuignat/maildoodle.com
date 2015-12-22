@@ -30,11 +30,20 @@ const layoutSchema = new Schema({
   value: { type: String }
 });
 
+const templateVersionSchemaBase = {
+  html: { type: String },
+  sampleJson: { type: String },
+  translations: [],
+};
+const templateVersionSchema = new Schema(Object.assign({}, templateVersionSchemaBase, {
+  templateId: { type: String, required: true, index: true },
+  isProduction: { type: Boolean, required: true, index: true },
+  createdAt: { type: Date }
+}));
 const templateSchema = new Schema({
   name: { type: String },
   description: { type: String },
-  templateHtml: { type: String },
-  sampleJson: { type: String }
+  developmentVersion: templateVersionSchemaBase
 });
 
 const projectSchema = new Schema({
@@ -51,6 +60,7 @@ layoutSchema.set('toJSON', schemaSettings);
 projectSchema.set('toJSON', schemaSettings);
 userSchema.set('toJSON', schemaSettings);
 templateSchema.set('toJSON', schemaSettings);
+templateVersionSchema.set('toJSON', schemaSettings);
 
 function mapEntity(entity) {
   if (!entity) {
@@ -71,12 +81,15 @@ export function toJson(entityOrArray) {
     return entityOrArray;
   }
   const isArray = typeof entityOrArray.map === 'function';
+
   if (isArray) {
     return mapEntitiesArray(entityOrArray);
   }
+
   return mapEntity(entityOrArray);
 }
 
 export const User = model('User', userSchema);
 export const Project = model('Project', projectSchema);
 export const Template = model('Template', templateSchema);
+export const TemplateVersion = model('TemplateVersion', templateVersionSchema);
