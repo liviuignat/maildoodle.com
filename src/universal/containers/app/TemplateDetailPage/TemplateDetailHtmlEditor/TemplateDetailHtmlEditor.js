@@ -10,9 +10,18 @@ export default class TemplateDetailHtmlEditor extends Component {
   }
 
   handleChange(html) {
+    if (!this.isHtmlChanged(html)) {
+      return;
+    }
+
     this.props.updateDevelopmentVersion({
       html
     });
+  }
+
+  isHtmlChanged(currentHtml) {
+    const { html } = this.props.template.developmentVersion;
+    return currentHtml !== html;
   }
 
   render() {

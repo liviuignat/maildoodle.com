@@ -21,7 +21,7 @@ export default class TemplateDetailTestJsonEditor extends Component {
 
   isJsonChanged(json) {
     const { sampleJson } = this.props.template.developmentVersion;
-    return JSON.stringify(json) !== JSON.stringify(sampleJson);
+    return json !== sampleJson;
   }
 
   render() {

@@ -14,6 +14,12 @@ export function reducer(state = initialState, action = {}) {
     case actions.LOAD_TEMPLATE_DETAIL_FAIL:
       return loadTemplateDetails(state, action);
 
+    case actions.UPDATE_DEVELOPMENT_VERSION:
+    case actions.UPDATE_DEVELOPMENT_VERSION_SUCCESS:
+    case actions.UPDATE_DEVELOPMENT_VERSION_FAIL:
+      state.template.developmentVersion = updateTemplateDevelopmentVersion(state.template.developmentVersion, action);
+      return state;
+
     default:
       return Object.assign({}, state);
   }
@@ -43,5 +49,24 @@ function loadTemplateDetails(state, action) {
         .toJSON();
     default:
       return state;
+  }
+}
+
+function updateTemplateDevelopmentVersion(state, action) {
+  const immutable = fromJS(state);
+
+  switch (action.type) {
+    case actions.UPDATE_DEVELOPMENT_VERSION:
+      return Object.assign({}, state);
+    case actions.UPDATE_DEVELOPMENT_VERSION_SUCCESS:
+      const {html, sampleJson} = action.result.developmentVersion;
+      return immutable
+        .set('html', html)
+        .set('sampleJson', sampleJson)
+        .toJSON();
+    case actions.UPDATE_DEVELOPMENT_VERSION_FAIL:
+      return Object.assign({}, state);
+    default:
+      return Object.assign({}, state);
   }
 }
