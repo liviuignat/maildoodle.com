@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import ExecuteOnce from './../../../../helpers/ExecuteOnce';
 import {
   CodeEditor,
 } from './../../../../components';
@@ -9,14 +10,21 @@ export default class TemplateDetailHtmlEditor extends Component {
     updateDevelopmentVersion: PropTypes.func.isRequired
   }
 
+  constructor(props, context) {
+    super(props, context);
+    this.executeOnce = new ExecuteOnce();
+  }
+
   handleChange(html) {
     if (!this.isHtmlChanged(html)) {
       return;
     }
 
-    this.props.updateDevelopmentVersion({
-      html
-    });
+    this.executeOnce.execute(() => {
+      this.props.updateDevelopmentVersion({
+        html
+      });
+    }, 2000);
   }
 
   isHtmlChanged(currentHtml) {

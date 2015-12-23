@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import ExecuteOnce from './../../../../helpers/ExecuteOnce';
 import {
   CodeEditor,
 } from './../../../../components';
@@ -9,14 +10,21 @@ export default class TemplateDetailTestJsonEditor extends Component {
     updateDevelopmentVersion: PropTypes.func.isRequired
   }
 
+  constructor(props, context) {
+    super(props, context);
+    this.executeOnce = new ExecuteOnce();
+  }
+
   handleChange(sampleJson) {
     if (!this.isJsonChanged(sampleJson)) {
       return;
     }
 
-    this.props.updateDevelopmentVersion({
-      sampleJson
-    });
+    this.executeOnce.execute(() => {
+      this.props.updateDevelopmentVersion({
+        sampleJson
+      });
+    }, 2000);
   }
 
   isJsonChanged(json) {
