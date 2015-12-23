@@ -1,5 +1,10 @@
 import co from 'co';
 import {Project, toJson} from './../../mongoose';
+import {
+  getTemplateVersionsByTemplateId,
+  insertTemplateVersion,
+  getDefaultVersion
+} from './templateVersions';
 
 export function getTemplatesByProjectId(userId, projectId) {
   return co(function*() {
@@ -24,7 +29,11 @@ export function getTemplateById(userId, projectId, templateId) {
       throw new Error(`No template with id ${templateId}`);
     }
 
-    return toJson(template);
+    const templateJson = toJson(template);
+    const templateVersions = yield getTemplateVersionsByTemplateId(templateJson.objectId);
+
+    const returnValue = getFullTemplate(templateJson, templateVersions || []);
+    return returnValue;
   });
 }
 
@@ -34,9 +43,16 @@ export function insertTemplate(userId, projectId, template) {
       _id: projectId,
       userId
     });
+
+    const defaultTemplateVersion = getDefaultVersion();
+
+    template.developmentVersion = defaultTemplateVersion;
     const newTemplate = project.templates.create(template);
     project.templates.push(newTemplate);
+
     yield project.save();
+    yield insertTemplateVersion(newTemplate._id, defaultTemplateVersion);
+
     return toJson(newTemplate);
   });
 }
@@ -47,8 +63,10 @@ export function updateTemplate(userId, projectId, templateId, template) {
       _id: projectId,
       userId
     });
+
     const existingTemplate = project.templates.id(templateId);
     const newTemplate = Object.assign(existingTemplate, template);
+
     yield project.save();
 
     return toJson(newTemplate);
@@ -61,8 +79,16 @@ export function deleteTemplate(userId, projectId, templateId) {
       _id: projectId,
       userId
     });
+
     const existingTemplate = project.templates.id(templateId);
     existingTemplate.remove();
-    return yield project.save();
+
+    yield project.save();
+  });
+}
+
+function getFullTemplate(template, versions) {
+  return Object.assign({}, template, {
+    versions
   });
 }

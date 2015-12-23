@@ -7,7 +7,7 @@ import {
   getTemplatesByProjectId
 } from './../../../supertest';
 
-describe('given we want to modify templates', () => {
+describe('given we want to CRUD templates', () => {
   let currentUser;
   let currentProject;
 
@@ -88,13 +88,11 @@ describe('given we want to modify templates', () => {
 
         describe('WHEN get template by id request is finished', () => {
           let retreivedTemplate = null;
-          beforeEach((done) => {
-            getTemplateByIdRequest(currentProject.objectId, firstAddedTemplate.objectId).end((err, res) => {
-              if (err) return done(err);
-              retreivedTemplate = res.body;
-              done();
-            });
-          });
+          beforeEach((done) => getTemplateByIdRequest(currentProject.objectId, firstAddedTemplate.objectId).end((err, res) => {
+            if (err) return done(err);
+            retreivedTemplate = res.body;
+            done();
+          }));
 
           it('should have an object id',
             () => expect(retreivedTemplate.objectId).not.to.be.undefined);
