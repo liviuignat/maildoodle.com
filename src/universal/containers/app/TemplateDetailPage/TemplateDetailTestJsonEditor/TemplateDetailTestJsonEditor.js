@@ -1,14 +1,40 @@
 import React, { Component, PropTypes } from 'react';
+import ExecuteOnce from './../../../../helpers/ExecuteOnce';
 import {
   CodeEditor,
 } from './../../../../components';
 
 export default class TemplateDetailTestJsonEditor extends Component {
   static propTypes = {
-    template: PropTypes.object.isRequired
+    template: PropTypes.object.isRequired,
+    updateDevelopmentVersion: PropTypes.func.isRequired
+  }
+
+  constructor(props, context) {
+    super(props, context);
+    this.executeOnce = new ExecuteOnce();
+  }
+
+  handleChange(sampleJson) {
+    if (!this.isJsonChanged(sampleJson)) {
+      return;
+    }
+
+    this.executeOnce.execute(() => {
+      this.props.updateDevelopmentVersion({
+        sampleJson
+      });
+    }, 2000);
+  }
+
+  isJsonChanged(json) {
+    const { sampleJson } = this.props.template.developmentVersion;
+    return json !== sampleJson;
   }
 
   render() {
+    const { sampleJson } = this.props.template.developmentVersion;
+
     return (
       <div>
         <CodeEditor
@@ -16,7 +42,8 @@ export default class TemplateDetailTestJsonEditor extends Component {
             name: 'javascript',
             json: true
           }}
-          value="{value: 'not yet implemented'}" />
+          value={sampleJson}
+          onChange={::this.handleChange} />
       </div>
     );
   }

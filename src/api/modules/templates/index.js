@@ -5,7 +5,8 @@ import {
   getTemplateById,
   insertTemplate,
   updateTemplate,
-  deleteTemplate
+  deleteTemplate,
+  updateTemplateDevelopmentVersion
 } from './templates';
 import { insertTemplateVersion } from './templateVersions';
 
@@ -45,9 +46,8 @@ export function setupRoutes(app, prefix = '/api/projects/:projectId/templates') 
     const projectId = req.params.projectId;
     const templateId = req.params.templateId;
     const developmentVersion = req.body;
-    const template = { developmentVersion };
 
-    updateTemplate(user.objectId, projectId, templateId, template)
+    updateTemplateDevelopmentVersion(user.objectId, projectId, templateId, developmentVersion)
       .then((response) => res.json(response))
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });

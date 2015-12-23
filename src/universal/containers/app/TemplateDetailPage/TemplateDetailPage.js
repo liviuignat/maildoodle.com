@@ -4,7 +4,8 @@ import {
   getProjectDetailByIdAction
 } from './../../../redux/reducers/currentProject';
 import {
-  getTemplateDetailByIdAction
+  getTemplateDetailByIdAction,
+  updateTemplateDevelopmentVersion
 } from './../../../redux/reducers/currentTemplate';
 import {
   Paper,
@@ -19,15 +20,15 @@ import TemplateLanguages from './TemplateLanguages/TemplateLanguages';
 @connect(
   state => ({
     template: state.currentTemplate.template,
-    projectLayouts: state.currentProject.project.layouts,
-    projectLanguages: state.currentProject.project.languages
+    project: state.currentProject.project
   }), {
+    updateDevelopmentVersion: updateTemplateDevelopmentVersion
   })
 export default class TemplateDetailPage extends Component {
   static propTypes = {
     template: PropTypes.object.isRequired,
-    projectLayouts: PropTypes.array.isRequired,
-    projectLanguages: PropTypes.array.isRequired
+    project: PropTypes.object.isRequired,
+    updateDevelopmentVersion: PropTypes.func.isRequired
   }
 
   static fetchData(getState, dispatch, location, params) {
@@ -37,9 +38,15 @@ export default class TemplateDetailPage extends Component {
     return Promise.all(promises);
   }
 
+  updateDevelopmentVersion(version) {
+    const {template, project} = this.props;
+    this.props.updateDevelopmentVersion(project.objectId, template.objectId, version);
+  }
+
   render() {
     const style = require('./TemplateDetailPage.scss');
-    const { template, projectLanguages, projectLayouts } = this.props;
+    const {template, project} = this.props;
+    const {languages, layouts} = project;
 
     return (
       <Paper className={style.TemplateDetailPage}>
@@ -48,23 +55,29 @@ export default class TemplateDetailPage extends Component {
           <div className={style.TemplateDetailPage_tabContainer}>
             <TemplateDetailOverview
               template={template}
-              projectLanguages={projectLanguages}
-              projectLayouts={projectLayouts}/>
+              projectLanguages={languages}
+              projectLayouts={layouts}/>
           </div>
         </Tab>
         <Tab label="Html">
           <div className={style.TemplateDetailPage_tabContainer}>
-            <TemplateDetailHtmlEditor template={template} />
+            <TemplateDetailHtmlEditor
+              template={template}
+              updateDevelopmentVersion={::this.updateDevelopmentVersion} />
           </div>
         </Tab>
         <Tab label="Translations">
           <div>
-            <TemplateLanguages template={template} projectLanguages={projectLanguages} />
+            <TemplateLanguages
+              template={template}
+              projectLanguages={languages} />
           </div>
         </Tab>
         <Tab label="Test JSON">
           <div className={style.TemplateDetailPage_tabContainer}>
-            <TemplateDetailTestJsonEditor template={template} />
+            <TemplateDetailTestJsonEditor
+              template={template}
+              updateDevelopmentVersion={::this.updateDevelopmentVersion} />
           </div>
         </Tab>
       </Tabs>

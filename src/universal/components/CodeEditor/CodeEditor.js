@@ -4,6 +4,7 @@ export default class CodeEditor extends Component {
   static propTypes = {
     mode: PropTypes.any,
     value: PropTypes.string,
+    onChange: PropTypes.func
   };
 
   static defaultProps = {
@@ -51,7 +52,8 @@ export default class CodeEditor extends Component {
                 }
               }
             }
-          }} />
+          }}
+          {...this.props} />
         );
     }
 
