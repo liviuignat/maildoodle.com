@@ -111,8 +111,8 @@ describe('given we want to modify templates', () => {
           it('should have the one development version property`',
             () => expect(retreivedTemplate.developmentVersion).not.to.be.undefined);
 
-          it('should have the default html development version `<div><%=title%><div>`',
-            () => expect(retreivedTemplate.developmentVersion.html).to.equal('<div><%=title%><div>'));
+          it('should have the default html development version `<div><%= model.title %><div>`',
+            () => expect(retreivedTemplate.developmentVersion.html).to.equal('<div><%= model.title %><div>'));
 
           it('should have the sample json development version `{title: \'Welcome!\'}`',
             () => expect(retreivedTemplate.developmentVersion.sampleJson).to.equal('{title: \'Welcome\'}'));
@@ -120,8 +120,8 @@ describe('given we want to modify templates', () => {
           it('should have the one template version in versions array`',
             () => expect(retreivedTemplate.versions.length).to.equal(1));
 
-          it('should have the default html in the first version `<div><%=title%><div>`',
-            () => expect(retreivedTemplate.versions[0].html).to.equal('<div><%=title%><div>'));
+          it('should have the default html in the first version `<div><%= model.title %><div>`',
+            () => expect(retreivedTemplate.versions[0].html).to.equal('<div><%= model.title %><div>'));
 
           it('should have the sample json in the first version `{title: \'Welcome!\'}`',
             () => expect(retreivedTemplate.versions[0].sampleJson).to.equal('{title: \'Welcome\'}'));
@@ -182,7 +182,7 @@ describe('given we want to modify templates', () => {
             () => expect(retreivedTemplate.versions.length).to.equal(2));
 
           it('should have initial html in first version',
-            () => expect(retreivedTemplate.versions[0].html).to.equal('<div><%=title%><div>'));
+            () => expect(retreivedTemplate.versions[0].html).to.equal('<div><%= model.title %><div>'));
 
           it('should have `new version of html` in second version html',
             () => expect(retreivedTemplate.versions[1].html).to.equal('new version of html'));

@@ -3,7 +3,7 @@ import {TemplateVersion, toJson} from './../../mongoose';
 
 export function getDefaultVersion() {
   return {
-    html: `<div><%=title%><div>`,
+    html: `<div><%= model.title %><div>`,
     sampleJson: `{title: 'Welcome'}`
   };
 }
