@@ -6,15 +6,14 @@ export default class ExecuteOnce {
       }
 
       this.tryDisableTimeout();
+
       this.setTimeout = setTimeout(() => {
         resolve(callback());
       }, timeout);
-      console.log(this.setTimeout);
     });
   }
 
   tryDisableTimeout() {
-    console.log(this.setTimeout);
     if (this.setTimeout) {
       clearTimeout(this.setTimeout);
       this.setTimeout = null;
