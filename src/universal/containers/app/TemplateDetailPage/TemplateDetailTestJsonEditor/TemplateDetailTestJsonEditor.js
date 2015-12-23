@@ -5,10 +5,28 @@ import {
 
 export default class TemplateDetailTestJsonEditor extends Component {
   static propTypes = {
-    template: PropTypes.object.isRequired
+    template: PropTypes.object.isRequired,
+    updateDevelopmentVersion: PropTypes.func.isRequired
+  }
+
+  handleChange(sampleJson) {
+    if (!this.isJsonChanged(sampleJson)) {
+      return;
+    }
+
+    this.props.updateDevelopmentVersion({
+      sampleJson
+    });
+  }
+
+  isJsonChanged(json) {
+    const { sampleJson } = this.props.template.developmentVersion;
+    return JSON.stringify(json) !== JSON.stringify(sampleJson);
   }
 
   render() {
+    const { sampleJson } = this.props.template.developmentVersion;
+
     return (
       <div>
         <CodeEditor
@@ -16,7 +34,8 @@ export default class TemplateDetailTestJsonEditor extends Component {
             name: 'javascript',
             json: true
           }}
-          value="{value: 'not yet implemented'}" />
+          value={sampleJson}
+          onChange={::this.handleChange} />
       </div>
     );
   }

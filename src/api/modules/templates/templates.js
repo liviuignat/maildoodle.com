@@ -73,6 +73,25 @@ export function updateTemplate(userId, projectId, templateId, template) {
   });
 }
 
+export function updateTemplateDevelopmentVersion(userId, projectId, templateId, version) {
+  return co(function*() {
+    const project = yield Project.findOne({
+      _id: projectId,
+      userId
+    });
+
+    const existingTemplate = project.templates.id(templateId);
+
+    if (existingTemplate && existingTemplate.developmentVersion) {
+      Object.assign(existingTemplate.developmentVersion, version);
+      yield project.save();
+
+      return toJson(existingTemplate);
+    }
+    return null;
+  });
+}
+
 export function deleteTemplate(userId, projectId, templateId) {
   return co(function*() {
     const project = yield Project.findOne({

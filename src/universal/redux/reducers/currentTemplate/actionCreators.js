@@ -9,3 +9,13 @@ export function getTemplateDetailByIdAction(projectId, templateId) {
     }
   };
 }
+
+export function updateTemplateDevelopmentVersion(projectId, templateId, version) {
+  return {
+    types: [actions.UPDATE_DEVELOPMENT_VERSION, actions.UPDATE_DEVELOPMENT_VERSION_SUCCESS, actions.UPDATE_DEVELOPMENT_VERSION_FAIL],
+    promise: (client) => {
+      const url = `/projects/${projectId}/templates/${templateId}/versions/development`;
+      return client.post(url, {data: version});
+    }
+  };
+}

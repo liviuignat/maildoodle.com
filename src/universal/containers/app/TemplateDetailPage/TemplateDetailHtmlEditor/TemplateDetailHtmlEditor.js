@@ -5,13 +5,24 @@ import {
 
 export default class TemplateDetailHtmlEditor extends Component {
   static propTypes = {
-    template: PropTypes.object.isRequired
+    template: PropTypes.object.isRequired,
+    updateDevelopmentVersion: PropTypes.func.isRequired
+  }
+
+  handleChange(html) {
+    this.props.updateDevelopmentVersion({
+      html
+    });
   }
 
   render() {
+    const { html } = this.props.template.developmentVersion;
+
     return (
       <div>
-        <CodeEditor value="<div>html editor not yet implemented</div>" />
+        <CodeEditor
+          value={html}
+          onChange={::this.handleChange} />
       </div>
     );
   }
