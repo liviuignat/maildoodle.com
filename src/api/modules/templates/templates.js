@@ -4,6 +4,7 @@ import {
   getTemplateVersionsByTemplateId,
   insertTemplateVersion,
   getDefaultVersion,
+  deleteTemplateVersionsByTemplateId,
   DEFAULT_COMMIT_MESSAGE
 } from './templateVersions';
 
@@ -105,6 +106,7 @@ export function deleteTemplate(userId, projectId, templateId) {
     existingTemplate.remove();
 
     yield project.save();
+    yield deleteTemplateVersionsByTemplateId(templateId);
   });
 }
 

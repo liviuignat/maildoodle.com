@@ -7,6 +7,7 @@ import {
   createProject,
   getTemplatesByProjectId
 } from './../../../supertest';
+import {getTemplateVersionsByTemplateId} from './../templateVersions';
 
 describe('given we want to modify templates', () => {
   let currentUser;
@@ -36,6 +37,11 @@ describe('given we want to modify templates', () => {
     .set('Content-type', 'application/json')
     .set('Authorization', `Bearer ${currentUser.sessionToken}`)
     .send(newTemplate);
+
+  const deleteTemplateRequest = (projectId, templateId) => request
+    .delete(`/api/projects/${projectId}/templates/${templateId}`)
+    .set('Content-type', 'application/json')
+    .set('Authorization', `Bearer ${currentUser.sessionToken}`);
 
   const updateTemplateDevVersionRequest = (projectId, templateId, data) => {
     const url = `/api/projects/${projectId}/templates/${templateId}/versions/development`;
@@ -157,7 +163,7 @@ describe('given we want to modify templates', () => {
         });
       });
 
-      describe('WHEN updating production template', () => {
+      describe('WHEN commiting a version to production', () => {
         const prodVersion = {
           html: 'new version of html',
           sampleJson: 'new version json',
@@ -193,6 +199,59 @@ describe('given we want to modify templates', () => {
 
           it('should have `new update to production` in second version commit message',
             () => expect(retreivedTemplate.versions[1].commitMessage).to.equal('new update to production'));
+        });
+      });
+
+      describe('WHEN commiting 5 new versions to production', () => {
+        let retreivedTemplate = null;
+        const prodVersion = {
+          html: 'new version of html',
+          sampleJson: 'new version json',
+          commitMessage: 'new update to production'
+        };
+
+        beforeEach((done) => promoteTemplateProdVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
+          .end(done));
+        beforeEach((done) => promoteTemplateProdVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
+          .end(done));
+        beforeEach((done) => promoteTemplateProdVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
+          .end(done));
+        beforeEach((done) => promoteTemplateProdVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
+          .end(done));
+        beforeEach((done) => promoteTemplateProdVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
+          .end(done));
+
+        beforeEach((done) => getTemplateByIdRequest(currentProject.objectId, firstAddedTemplate.objectId).end((err, res) => {
+          if (err) return done(err);
+          retreivedTemplate = res.body;
+          done();
+        }));
+
+        it('should have 6 versions',
+          () => expect(retreivedTemplate.versions.length).to.equal(6));
+
+        describe('WHEN deleting the template', () => {
+          let existingTemplateVersions = [];
+          beforeEach((done) => deleteTemplateRequest(currentProject.objectId, firstAddedTemplate.objectId)
+            .end(done));
+
+          beforeEach((done) => getTemplateVersionsByTemplateId(retreivedTemplate.objectId)
+            .then((versions) => {
+              existingTemplateVersions = versions;
+              done();
+            }).catch(done));
+
+          it('should not have the template in the list anymore', (done) => {
+            getTemplatesByProjectId(currentUser, currentProject.objectId)
+              .then((templates) => {
+                expect(templates.length).to.equal(0);
+                done();
+              })
+              .catch(done);
+          });
+
+          it('should not have any template version anymore',
+            () => expect(existingTemplateVersions.length).to.equal(0));
         });
       });
     });

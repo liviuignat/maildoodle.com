@@ -44,3 +44,11 @@ export function insertTemplateVersion(templateId, template) {
     return toJson(templateVersion);
   });
 }
+
+export function deleteTemplateVersionsByTemplateId(templateId) {
+  return co(function*() {
+    return yield TemplateVersion.find({
+      templateId
+    }).remove();
+  });
+}
