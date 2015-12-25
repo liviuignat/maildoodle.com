@@ -19,3 +19,13 @@ export function updateTemplateDevelopmentVersion(projectId, templateId, version)
     }
   };
 }
+
+export function promoteTemplateToProductionVersion(projectId, templateId, version) {
+  return {
+    types: [actions.PROMOTE_PRODUCTION_VERSION, actions.PROMOTE_PRODUCTION_VERSION_SUCCESS, actions.PROMOTE_PRODUCTION_VERSION_FAIL],
+    promise: (client) => {
+      const url = `/projects/${projectId}/templates/${templateId}/versions/production`;
+      return client.post(url, {data: version});
+    }
+  };
+}

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
 import {
   RaisedButton,
@@ -9,7 +10,8 @@ export default class TemplateDetailOverview extends Component {
   static propTypes = {
     template: PropTypes.object.isRequired,
     projectLanguages: PropTypes.array.isRequired,
-    projectLayouts: PropTypes.array.isRequired
+    projectLayouts: PropTypes.array.isRequired,
+    promoteProductionVersion: PropTypes.func.isRequired
   }
 
   get languagesSelectItems() {
@@ -36,9 +38,24 @@ export default class TemplateDetailOverview extends Component {
     });
   }
 
+  handleCommitToProduction() {
+    const {template} = this.props;
+    this.props.promoteProductionVersion(template.developmentVersion);
+  }
+
+  renderTemplateVersion(version, index) {
+    const {createdAt} = version;
+    return (
+      <div key={index}>
+        {moment(createdAt).calendar()}
+      </div>
+    );
+  }
+
   render() {
     const style = require('./TemplateDetailOverview.scss');
-    const { template } = this.props;
+    const {template} = this.props;
+    const {versions} = template;
 
     return (
       <div className={style.TemplateDetailOverview}>
@@ -67,7 +84,8 @@ export default class TemplateDetailOverview extends Component {
           <div>
             <div className={style.TemplateDetailOverview_actionButtonContainer}>
               <RaisedButton
-                labelText="Save"
+                labelText="Commit to production"
+                onClick={::this.handleCommitToProduction}
                 primary />
             </div>
 
@@ -83,6 +101,13 @@ export default class TemplateDetailOverview extends Component {
                 secondary />
             </div>
             <div className="clearfix"/>
+          </div>
+        </Paper>
+
+        <Paper className={style.TemplateDetailOverview_versionsContainer}>
+          <div>
+            <h3>Template versions</h3>
+            {versions.map(this.renderTemplateVersion)}
           </div>
         </Paper>
 

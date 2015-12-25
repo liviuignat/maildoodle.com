@@ -18,7 +18,13 @@ export function reducer(state = initialState, action = {}) {
     case actions.UPDATE_DEVELOPMENT_VERSION_SUCCESS:
     case actions.UPDATE_DEVELOPMENT_VERSION_FAIL:
       state.template.developmentVersion = updateTemplateDevelopmentVersion(state.template.developmentVersion, action);
-      return state;
+      return Object.assign({}, state);
+
+    case actions.PROMOTE_PRODUCTION_VERSION:
+    case actions.PROMOTE_PRODUCTION_VERSION_SUCCESS:
+    case actions.PROMOTE_PRODUCTION_VERSION_FAIL:
+      state.template.versions = promoteTemplateProductionVersion(state.template.versions, action);
+      return Object.assign({}, state);
 
     default:
       return Object.assign({}, state);
@@ -68,5 +74,23 @@ function updateTemplateDevelopmentVersion(state, action) {
       return Object.assign({}, state);
     default:
       return Object.assign({}, state);
+  }
+}
+
+function promoteTemplateProductionVersion(state, action) {
+  const immutable = fromJS(state);
+
+  switch (action.type) {
+    case actions.PROMOTE_PRODUCTION_VERSION:
+      return immutable.toJSON();
+    case actions.PROMOTE_PRODUCTION_VERSION_SUCCESS:
+      const version = action.result;
+      return immutable
+        .push(version)
+        .toJSON();
+    case actions.PROMOTE_PRODUCTION_VERSION_FAIL:
+      return immutable.toJSON();
+    default:
+      return immutable.toJSON();
   }
 }

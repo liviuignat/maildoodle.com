@@ -5,7 +5,8 @@ import {
 } from './../../../redux/reducers/currentProject';
 import {
   getTemplateDetailByIdAction,
-  updateTemplateDevelopmentVersion
+  updateTemplateDevelopmentVersion,
+  promoteTemplateToProductionVersion
 } from './../../../redux/reducers/currentTemplate';
 import {
   Paper,
@@ -20,15 +21,19 @@ import TemplateLanguages from './TemplateLanguages/TemplateLanguages';
 @connect(
   state => ({
     template: state.currentTemplate.template,
+    versions: state.currentTemplate.template.versions,
     project: state.currentProject.project
   }), {
-    updateDevelopmentVersion: updateTemplateDevelopmentVersion
+    updateDevelopmentVersion: updateTemplateDevelopmentVersion,
+    promoteProductionVersion: promoteTemplateToProductionVersion
   })
 export default class TemplateDetailPage extends Component {
   static propTypes = {
     template: PropTypes.object.isRequired,
+    versions: PropTypes.array.isRequired,
     project: PropTypes.object.isRequired,
-    updateDevelopmentVersion: PropTypes.func.isRequired
+    updateDevelopmentVersion: PropTypes.func.isRequired,
+    promoteProductionVersion: PropTypes.func.isRequired
   }
 
   static fetchData(getState, dispatch, location, params) {
@@ -41,6 +46,11 @@ export default class TemplateDetailPage extends Component {
   updateDevelopmentVersion(version) {
     const {template, project} = this.props;
     this.props.updateDevelopmentVersion(project.objectId, template.objectId, version);
+  }
+
+  promoteProductionVersion(version) {
+    const {template, project} = this.props;
+    this.props.promoteProductionVersion(project.objectId, template.objectId, version);
   }
 
   render() {
@@ -56,7 +66,8 @@ export default class TemplateDetailPage extends Component {
             <TemplateDetailOverview
               template={template}
               projectLanguages={languages}
-              projectLayouts={layouts}/>
+              projectLayouts={layouts}
+              promoteProductionVersion={::this.promoteProductionVersion}/>
           </div>
         </Tab>
         <Tab label="Html">
