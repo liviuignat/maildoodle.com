@@ -28,12 +28,12 @@ export default class TemplateDetailHtmlEditor extends Component {
   }
 
   isHtmlChanged(currentHtml) {
-    const { html } = this.props.template.developmentVersion;
+    const { html } = this.props.template.currentVersion;
     return currentHtml !== html;
   }
 
   render() {
-    const { html } = this.props.template.developmentVersion;
+    const { html } = this.props.template.currentVersion;
 
     return (
       <div>

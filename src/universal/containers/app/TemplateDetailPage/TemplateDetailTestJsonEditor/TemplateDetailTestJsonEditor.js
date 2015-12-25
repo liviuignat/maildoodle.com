@@ -28,12 +28,12 @@ export default class TemplateDetailTestJsonEditor extends Component {
   }
 
   isJsonChanged(json) {
-    const { sampleJson } = this.props.template.developmentVersion;
+    const { sampleJson } = this.props.template.currentVersion;
     return json !== sampleJson;
   }
 
   render() {
-    const { sampleJson } = this.props.template.developmentVersion;
+    const { sampleJson } = this.props.template.currentVersion;
 
     return (
       <div>

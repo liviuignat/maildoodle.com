@@ -7,6 +7,7 @@ import {
   DialogForm
 } from './../../../../components';
 import PromoteTemplateToProductionForm, {FORM_NAME} from './../template-detail-forms/PromoteTemplateToProductionForm';
+import TemplateVersionsList from './../TemplateVersionsList/TemplateVersionsList';
 
 export default class TemplateDetailOverview extends Component {
   static propTypes = {
@@ -119,8 +120,13 @@ export default class TemplateDetailOverview extends Component {
 
           <Paper className={style.TemplateDetailOverview_versionsContainer}>
             <div>
-              <h3>Template versions</h3>
-              {versions.map(this.renderTemplateVersion)}
+              <TemplateVersionsList
+                subheader="Template Versions"
+                items={versions}
+                onViewPressed={() => {}}
+                onSetProductionPressed={() => {}}
+                primaryText={(item) => item.commitMessage}
+                secondaryText={(item) => moment(item.createdAt).calendar()} />
             </div>
           </Paper>
         </div>

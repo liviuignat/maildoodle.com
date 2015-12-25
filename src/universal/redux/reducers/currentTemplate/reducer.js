@@ -18,6 +18,7 @@ export function reducer(state = initialState, action = {}) {
     case actions.UPDATE_DEVELOPMENT_VERSION_SUCCESS:
     case actions.UPDATE_DEVELOPMENT_VERSION_FAIL:
       state.template.developmentVersion = updateTemplateDevelopmentVersion(state.template.developmentVersion, action);
+      state.template.currentVersion = state.template.developmentVersion;
       return Object.assign({}, state);
 
     case actions.PROMOTE_PRODUCTION_VERSION:
@@ -47,7 +48,7 @@ function loadTemplateDetails(state, action) {
       return immutable
         .set('loadingTemplate', false)
         .set('loadTemplateError', '')
-        .set('template', fromJS(template))
+        .set('template', fromJS(setCurrentVersion(template)))
         .toJSON();
 
     case actions.LOAD_TEMPLATE_DETAIL_FAIL:
@@ -102,5 +103,23 @@ function sortVersions(versions) {
     const createdAt1 = new Date(v1.createdAt);
     const createdAt2 = new Date(v2.createdAt);
     return createdAt2 - createdAt1;
+  });
+}
+
+function getVersion(template, versionId) {
+  const versions = template.versions.filter((version) => version.objectId = versionId);
+  if (versions && versions.length) {
+    return versions[0];
+  }
+  return template.developmentVersion;
+}
+
+function setCurrentVersion(template, versionId) {
+  if (!(template && template.versions)) {
+    return template;
+  }
+
+  return Object.assign({}, template, {
+    currentVersion: getVersion(template, versionId)
   });
 }

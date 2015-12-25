@@ -43,6 +43,9 @@ describe('GIVEN template detail reducer tests', () => {
       it('should have a template',
         () => expect(currentState.template).not.to.equal(null));
 
+      it('should the current version as the developmentVersion',
+          () => expect(currentState.template.currentVersion).to.deep.equal(currentState.template.developmentVersion));
+
       describe('WHEN updated development version html and sampleJSon with success', () => {
         let newVersion = {
           html: 'changed html',
@@ -56,6 +59,9 @@ describe('GIVEN template detail reducer tests', () => {
           }
         };
         beforeEach(() => currentState = reducer(currentState, action));
+
+        it('should the current version as the developmentVersion',
+          () => expect(currentState.template.currentVersion).to.deep.equal(currentState.template.developmentVersion));
 
         it('should have the new html',
           () => expect(currentState.template.developmentVersion.html).to.equal(newVersion.html));
