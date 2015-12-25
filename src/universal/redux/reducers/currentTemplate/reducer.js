@@ -18,7 +18,13 @@ export function reducer(state = initialState, action = {}) {
     case actions.UPDATE_DEVELOPMENT_VERSION_SUCCESS:
     case actions.UPDATE_DEVELOPMENT_VERSION_FAIL:
       state.template.developmentVersion = updateTemplateDevelopmentVersion(state.template.developmentVersion, action);
-      return state;
+      return Object.assign({}, state);
+
+    case actions.PROMOTE_PRODUCTION_VERSION:
+    case actions.PROMOTE_PRODUCTION_VERSION_SUCCESS:
+    case actions.PROMOTE_PRODUCTION_VERSION_FAIL:
+      state.template.versions = promoteTemplateProductionVersion(state.template.versions, action);
+      return Object.assign({}, state);
 
     default:
       return Object.assign({}, state);
@@ -36,10 +42,12 @@ function loadTemplateDetails(state, action) {
         .toJSON();
 
     case actions.LOAD_TEMPLATE_DETAIL_SUCCESS:
+      const template = action.result;
+      template.versions = sortVersions(template.versions);
       return immutable
         .set('loadingTemplate', false)
         .set('loadTemplateError', '')
-        .set('template', fromJS(action.result))
+        .set('template', fromJS(template))
         .toJSON();
 
     case actions.LOAD_TEMPLATE_DETAIL_FAIL:
@@ -69,4 +77,30 @@ function updateTemplateDevelopmentVersion(state, action) {
     default:
       return Object.assign({}, state);
   }
+}
+
+function promoteTemplateProductionVersion(state, action) {
+  const immutable = fromJS(state);
+
+  switch (action.type) {
+    case actions.PROMOTE_PRODUCTION_VERSION:
+      return immutable.toJSON();
+    case actions.PROMOTE_PRODUCTION_VERSION_SUCCESS:
+      const version = action.result;
+      return sortVersions(immutable
+        .push(version)
+        .toJSON());
+    case actions.PROMOTE_PRODUCTION_VERSION_FAIL:
+      return immutable.toJSON();
+    default:
+      return immutable.toJSON();
+  }
+}
+
+function sortVersions(versions) {
+  return versions.sort((v1, v2) => {
+    const createdAt1 = new Date(v1.createdAt);
+    const createdAt2 = new Date(v2.createdAt);
+    return createdAt2 - createdAt1;
+  });
 }

@@ -38,6 +38,7 @@ const templateVersionSchemaBase = {
 const templateVersionSchema = new Schema(Object.assign({}, templateVersionSchemaBase, {
   templateId: { type: String, required: true, index: true },
   isProduction: { type: Boolean, required: true, index: true },
+  commitMessage: { type: String, required: true, index: true },
   createdAt: { type: Date }
 }));
 const templateSchema = new Schema({
