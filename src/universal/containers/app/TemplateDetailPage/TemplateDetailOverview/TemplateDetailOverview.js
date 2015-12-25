@@ -72,59 +72,58 @@ export default class TemplateDetailOverview extends Component {
 
     return (
       <div className={style.TemplateDetailOverview}>
-        <div className={style.TemplateDetailOverview_row}>
-          <div className={style.TemplateDetailOverview_header}>TEMPLATE NAME</div>
-          <div className={style.TemplateDetailOverview_cell}>{template.name}</div>
+        <div className={style.TemplateDetailOverview_header}>
+          <div className={style.TemplateDetailOverview_row}>
+            <div className={style.TemplateDetailOverview_rowLabel}>TEMPLATE NAME</div>
+            <div className={style.TemplateDetailOverview_rowCell}>{template.name}</div>
+          </div>
+          <div className={style.TemplateDetailOverview_row}>
+            <div className={style.TemplateDetailOverview_rowLabel}>TEMPLATE DESCRIPTION</div>
+            <div className={style.TemplateDetailOverview_rowCell}>{template.description}</div>
+          </div>
         </div>
-        <div className={style.TemplateDetailOverview_row}>
-          <div className={style.TemplateDetailOverview_header}>TEMPLATE DESCRIPTION</div>
-          <div className={style.TemplateDetailOverview_cell}>{template.description}</div>
+
+        <div className={style.TemplateDetailOverview_content}>
+          <Paper className={style.TemplateDetailOverview_actionButtonGroup}>
+            <div>
+              <div>Choose a layout:</div>
+              <SelectField menuItems={this.layoutsSelectItems}/>
+            </div>
+
+            <div>
+              <div>Choose a language:</div>
+              <SelectField menuItems={this.languagesSelectItems}/>
+            </div>
+
+            <div>
+              <div className={style.TemplateDetailOverview_actionButtonContainer}>
+                <RaisedButton
+                  labelText="Preview html"
+                  secondary />
+              </div>
+              <div className={style.TemplateDetailOverview_actionButtonContainer}>
+                <RaisedButton
+                  labelText="Preview pdf"
+                  secondary />
+              </div>
+              <div className="clearfix"/>
+              <div className={style.TemplateDetailOverview_commitButtonContainer}>
+                <RaisedButton
+                  labelText="Commit to production"
+                  onClick={::this.showCommitToProductionForm}
+                  primary />
+              </div>
+              <div className="clearfix"/>
+            </div>
+          </Paper>
+
+          <Paper className={style.TemplateDetailOverview_versionsContainer}>
+            <div>
+              <h3>Template versions</h3>
+              {versions.map(this.renderTemplateVersion)}
+            </div>
+          </Paper>
         </div>
-
-        <br />
-
-        <Paper className={style.TemplateDetailOverview_actionButtonGroup}>
-          <div>
-            <div>Choose a layout:</div>
-            <SelectField menuItems={this.layoutsSelectItems}/>
-          </div>
-
-          <div>
-            <div>Choose a language:</div>
-            <SelectField menuItems={this.languagesSelectItems}/>
-          </div>
-
-          <div>
-            <div className={style.TemplateDetailOverview_actionButtonContainer}>
-              <RaisedButton
-                labelText="Commit to production"
-                onClick={::this.showCommitToProductionForm}
-                primary />
-            </div>
-
-            <div className={style.TemplateDetailOverview_actionButtonContainer}>
-              <RaisedButton
-                labelText="Preview html"
-                secondary />
-            </div>
-
-            <div className={style.TemplateDetailOverview_actionButtonContainer}>
-              <RaisedButton
-                labelText="Preview pdf"
-                secondary />
-            </div>
-            <div className="clearfix"/>
-          </div>
-        </Paper>
-
-        <Paper className={style.TemplateDetailOverview_versionsContainer}>
-          <div>
-            <h3>Template versions</h3>
-            {versions.map(this.renderTemplateVersion)}
-          </div>
-        </Paper>
-
-        <br />
 
         <DialogForm
           ref="promoteTemplateToProductionFormDialog"

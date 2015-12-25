@@ -1,4 +1,9 @@
-.TemplateDetailOverview {}
+.TemplateDetailOverview {
+}
+
+.TemplateDetailOverview_header {
+  margin: 16px 0;
+}
 
 .TemplateDetailOverview_row {
   margin: 8px 0;
@@ -6,18 +11,24 @@
   flex-direction: row;
 }
 
-.TemplateDetailOverview_cell {
+.TemplateDetailOverview_rowCell {
   flex-grow: 1;
 }
 
-.TemplateDetailOverview_header {
+.TemplateDetailOverview_rowLabel {
   font-weight: 700;
   flex-grow: 0;
   flex-shrink: 0;
   flex-basis: 200px;
 }
 
+.TemplateDetailOverview_content {
+  margin-bottom: 16px;
+  display: flex;
+}
+
 .TemplateDetailOverview_actionButtonGroup {
+  flex-basis: 320px;
   padding: 16px;
 }
 
@@ -26,9 +37,13 @@
   margin-right: 16px;
 }
 
-.TemplateDetailOverview_versionsContainer {
-  float: left;
+.TemplateDetailOverview_commitButtonContainer {
+  margin-top: 8px;
   margin-right: 16px;
-  margin-top: 16px;
+}
+
+.TemplateDetailOverview_versionsContainer {
+  flex: 1;
+  margin-left: 16px;
   padding: 16px;
 }
