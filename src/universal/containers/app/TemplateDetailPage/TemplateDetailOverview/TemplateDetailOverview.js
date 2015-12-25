@@ -43,6 +43,12 @@ export default class TemplateDetailOverview extends Component {
     });
   }
 
+  isCurrentlyViewingOlderVersion(version) {
+    const {template} = this.props;
+    const {currentVersion} = template;
+    return currentVersion.objectId === version.objectId;
+  }
+
   startCommitToProduction() {
     this.props.startSubmit(FORM_NAME);
   }
@@ -129,8 +135,15 @@ export default class TemplateDetailOverview extends Component {
                   this.props.loadVersionHistory(objectId);
                 }}
                 onSetProductionPressed={() => {}}
-                primaryText={(item) => item.commitMessage}
-                secondaryText={(item) => moment(item.createdAt).calendar()} />
+                primaryText={(item) => {
+                  return <span>{item.commitMessage}</span>;
+                }}
+                secondaryText={(item) => {
+                  const text = moment(item.createdAt).calendar();
+                  const viewingSpan = <span className={style.TemplateDetailOverview__isViewingVersion}>(viewing)</span>;
+
+                  return <span>{::this.isCurrentlyViewingOlderVersion(item) && viewingSpan} {text}</span>;
+                }} />
             </div>
           </Paper>
         </div>

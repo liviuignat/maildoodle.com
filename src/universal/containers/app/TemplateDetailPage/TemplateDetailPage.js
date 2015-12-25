@@ -59,48 +59,84 @@ export default class TemplateDetailPage extends Component {
     this.props.promoteProductionVersion(project.objectId, template.objectId, version);
   }
 
+  loadDevelopmentVersion() {
+    this.props.loadVersionHistory();
+  }
+
+  renderViewDevelopmentVersion(currentVersion) {
+    const style = require('./TemplateDetailPage.scss');
+    const span = (
+      <span className={style.TemplateDetailPage_loadDevelopmentVersion}
+        onClick={::this.loadDevelopmentVersion}>here</span>
+    );
+    const commitName = (
+      <span className={style.TemplateDetailPage_loadedVersionCommitName}>{currentVersion.commitMessage}</span>
+    );
+
+    return (
+      <div className={style.TemplateDetailPage_headerMessage}>
+        <div>
+          You are currently viewing an older version. Press {span} to load the most recent version.&nbsp;
+          {!!currentVersion.commitMessage && <span>You are viewing: {commitName}</span>}
+        </div>
+      </div>
+    );
+  }
+
+  renderTopActions(template) {
+    const {currentVersion} = template;
+    return (
+      <div>
+        {!currentVersion.isDevelopment && ::this.renderViewDevelopmentVersion(currentVersion)}
+      </div>
+    );
+  }
+
   render() {
     const style = require('./TemplateDetailPage.scss');
     const {template, project} = this.props;
     const {languages, layouts} = project;
 
     return (
-      <Paper className={style.TemplateDetailPage}>
-      <Tabs>
-        <Tab label="Overview">
-          <div className={style.TemplateDetailPage_tabContainer}>
-            <TemplateDetailOverview
-              template={template}
-              projectLanguages={languages}
-              projectLayouts={layouts}
-              startSubmit={this.props.startSubmit}
-              promoteProductionVersion={::this.promoteProductionVersion}
-              loadVersionHistory={::this.props.loadVersionHistory}/>
-          </div>
-        </Tab>
-        <Tab label="Html">
-          <div className={style.TemplateDetailPage_tabContainer}>
-            <TemplateDetailHtmlEditor
-              template={template}
-              updateDevelopmentVersion={::this.updateDevelopmentVersion} />
-          </div>
-        </Tab>
-        <Tab label="Translations">
-          <div>
-            <TemplateLanguages
-              template={template}
-              projectLanguages={languages} />
-          </div>
-        </Tab>
-        <Tab label="Test JSON">
-          <div className={style.TemplateDetailPage_tabContainer}>
-            <TemplateDetailTestJsonEditor
-              template={template}
-              updateDevelopmentVersion={::this.updateDevelopmentVersion} />
-          </div>
-        </Tab>
-      </Tabs>
-      </Paper>
+      <div>
+        {::this.renderTopActions(template)}
+        <Paper className={style.TemplateDetailPage}>
+          <Tabs>
+            <Tab label="Overview">
+              <div className={style.TemplateDetailPage_tabContainer}>
+                <TemplateDetailOverview
+                  template={template}
+                  projectLanguages={languages}
+                  projectLayouts={layouts}
+                  startSubmit={this.props.startSubmit}
+                  promoteProductionVersion={::this.promoteProductionVersion}
+                  loadVersionHistory={::this.props.loadVersionHistory}/>
+              </div>
+            </Tab>
+            <Tab label="Html">
+              <div className={style.TemplateDetailPage_tabContainer}>
+                <TemplateDetailHtmlEditor
+                  template={template}
+                  updateDevelopmentVersion={::this.updateDevelopmentVersion} />
+              </div>
+            </Tab>
+            <Tab label="Translations">
+              <div>
+                <TemplateLanguages
+                  template={template}
+                  projectLanguages={languages} />
+              </div>
+            </Tab>
+            <Tab label="Test JSON">
+              <div className={style.TemplateDetailPage_tabContainer}>
+                <TemplateDetailTestJsonEditor
+                  template={template}
+                  updateDevelopmentVersion={::this.updateDevelopmentVersion} />
+              </div>
+            </Tab>
+          </Tabs>
+        </Paper>
+      </div>
     );
   }
 }
