@@ -49,8 +49,6 @@ export default class PromoteTemplateToProductionForm extends Component {
             type="text"
             labelText="Commit message"
             fullWidth
-            multiLine
-            rows={3}
             disabled={isSaving}/>
         </div>
       </form>

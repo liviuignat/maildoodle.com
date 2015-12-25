@@ -128,7 +128,7 @@ export default class TemplateDetailOverview extends Component {
 
         <DialogForm
           ref="promoteTemplateToProductionFormDialog"
-          title="Add new template"
+          title="Commit new production version"
           startSubmit={::this.startCommitToProduction}
           form={<PromoteTemplateToProductionForm onSubmit={::this.handleCommitToProduction}/>} />
 
