@@ -142,8 +142,12 @@ export default class TemplateDetailOverview extends Component {
                 secondaryText={(item) => {
                   const text = moment(item.createdAt).calendar();
                   const viewingSpan = <span className={style.TemplateDetailOverview__isViewingVersion}>(viewing)</span>;
+                  const isProdSpan = <span className={style.TemplateDetailOverview__isProductionVersion}>(production)</span>;
 
-                  return <span>{::this.isCurrentlyViewingOlderVersion(item) && viewingSpan} {text}</span>;
+                  return (<span>
+                    {::this.isCurrentlyViewingOlderVersion(item) && viewingSpan}
+                    {item.isProduction && isProdSpan}
+                    {text}</span>);
                 }} />
             </div>
           </Paper>

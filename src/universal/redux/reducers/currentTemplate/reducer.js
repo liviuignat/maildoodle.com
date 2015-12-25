@@ -50,7 +50,7 @@ function loadTemplateDetails(state, action) {
 
     case actions.LOAD_TEMPLATE_DETAIL_SUCCESS:
       const template = action.result;
-      template.versions = sortVersions(template.versions);
+      template.versions = setProductionVersion(sortVersions(template.versions));
       return immutable
         .set('loadingTemplate', false)
         .set('loadTemplateError', '')
@@ -151,4 +151,15 @@ function setCurrentVersion(template, versionId) {
   return Object.assign(template, {
     currentVersion: getCurrentVersion(template, versionId)
   });
+}
+
+function setProductionVersion(versions) {
+  const filter = versions.filter((version) => version.isProduction);
+  if (filter && filter.length) {
+    return versions;
+  }
+  Object.assign(versions[0], {
+    isProduction: true
+  });
+  return versions;
 }
