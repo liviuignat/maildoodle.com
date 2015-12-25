@@ -3,7 +3,8 @@ import {Project, toJson} from './../../mongoose';
 import {
   getTemplateVersionsByTemplateId,
   insertTemplateVersion,
-  getDefaultVersion
+  getDefaultVersion,
+  DEFAULT_COMMIT_MESSAGE
 } from './templateVersions';
 
 export function getTemplatesByProjectId(userId, projectId) {
@@ -45,6 +46,7 @@ export function insertTemplate(userId, projectId, template) {
     });
 
     const defaultTemplateVersion = getDefaultVersion();
+    defaultTemplateVersion.commitMessage = DEFAULT_COMMIT_MESSAGE;
 
     template.developmentVersion = defaultTemplateVersion;
     const newTemplate = project.templates.create(template);

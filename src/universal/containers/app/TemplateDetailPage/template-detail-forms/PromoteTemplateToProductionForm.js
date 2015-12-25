@@ -1,17 +1,17 @@
 import React, {Component, PropTypes} from 'react';
 import {reduxForm, stopSubmit} from 'redux-form';
 import {FormTextField} from './../../../../components';
-import { addTemplateFormValidator } from './validators';
+import {promoteTemplateToProductionValidator} from './validators';
 
-export const ADD_TEMPLATE_FORM_NAME = 'addTemplateForm';
+export const FORM_NAME = 'promoteTemplateToProductionForm';
 
 @reduxForm({
-  form: ADD_TEMPLATE_FORM_NAME,
-  fields: ['objectId', 'name', 'description'],
-  validate: addTemplateFormValidator,
+  form: FORM_NAME,
+  fields: ['commitMessage'],
+  validate: promoteTemplateToProductionValidator,
   stopSubmit
 })
-export default class AddTemplateForm extends Component {
+export default class PromoteTemplateToProductionForm extends Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -31,12 +31,12 @@ export default class AddTemplateForm extends Component {
 
   submit() {
     this.props.handleSubmit();
-    this.props.dispatch(stopSubmit(ADD_TEMPLATE_FORM_NAME));
+    this.props.dispatch(stopSubmit(FORM_NAME));
   }
 
   render() {
     const {
-      fields: {name, description},
+      fields: {commitMessage},
       handleSubmit,
       isSaving
     } = this.props;
@@ -45,20 +45,12 @@ export default class AddTemplateForm extends Component {
       <form
         onSubmit={handleSubmit}>
         <div>
-          <FormTextField field={name}
+          <FormTextField field={commitMessage}
             type="text"
-            labelText="Template name"
-            fullWidth
-            disabled={isSaving}/>
-        </div>
-
-        <div>
-          <FormTextField field={description}
-            type="text"
-            labelText="Template description"
+            labelText="Commit message"
             fullWidth
             multiLine
-            rows={2}
+            rows={3}
             disabled={isSaving}/>
         </div>
       </form>

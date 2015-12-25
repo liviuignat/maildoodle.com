@@ -160,7 +160,8 @@ describe('given we want to modify templates', () => {
       describe('WHEN updating production template', () => {
         const prodVersion = {
           html: 'new version of html',
-          sampleJson: 'new version json'
+          sampleJson: 'new version json',
+          commitMessage: 'new update to production'
         };
 
         it('Should return 200',
@@ -189,6 +190,9 @@ describe('given we want to modify templates', () => {
 
           it('should have `new version json` in second version sample json',
             () => expect(retreivedTemplate.versions[1].sampleJson).to.equal('new version json'));
+
+          it('should have `new update to production` in second version commit message',
+            () => expect(retreivedTemplate.versions[1].commitMessage).to.equal('new update to production'));
         });
       });
     });

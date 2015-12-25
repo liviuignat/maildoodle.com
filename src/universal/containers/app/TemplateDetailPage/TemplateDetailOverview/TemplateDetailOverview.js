@@ -3,14 +3,17 @@ import React, { Component, PropTypes } from 'react';
 import {
   RaisedButton,
   Paper,
-  SelectField
+  SelectField,
+  DialogForm
 } from './../../../../components';
+import PromoteTemplateToProductionForm, {FORM_NAME} from './../template-detail-forms/PromoteTemplateToProductionForm';
 
 export default class TemplateDetailOverview extends Component {
   static propTypes = {
     template: PropTypes.object.isRequired,
     projectLanguages: PropTypes.array.isRequired,
     projectLayouts: PropTypes.array.isRequired,
+    startSubmit: PropTypes.func.isRequired,
     promoteProductionVersion: PropTypes.func.isRequired
   }
 
@@ -38,16 +41,26 @@ export default class TemplateDetailOverview extends Component {
     });
   }
 
-  handleCommitToProduction() {
+  startCommitToProduction() {
+    this.props.startSubmit(FORM_NAME);
+  }
+
+  handleCommitToProduction(formData) {
     const {template} = this.props;
-    this.props.promoteProductionVersion(template.developmentVersion);
+    const prodVersion = Object.assign({}, template.developmentVersion, formData);
+    this.props.promoteProductionVersion(prodVersion);
+    this.refs.promoteTemplateToProductionFormDialog.dismiss();
+  }
+
+  showCommitToProductionForm() {
+    this.refs.promoteTemplateToProductionFormDialog.show();
   }
 
   renderTemplateVersion(version, index) {
-    const {createdAt} = version;
+    const {createdAt, commitMessage} = version;
     return (
       <div key={index}>
-        {moment(createdAt).calendar()}
+        {commitMessage} - {moment(createdAt).calendar()}
       </div>
     );
   }
@@ -85,7 +98,7 @@ export default class TemplateDetailOverview extends Component {
             <div className={style.TemplateDetailOverview_actionButtonContainer}>
               <RaisedButton
                 labelText="Commit to production"
-                onClick={::this.handleCommitToProduction}
+                onClick={::this.showCommitToProductionForm}
                 primary />
             </div>
 
@@ -112,6 +125,12 @@ export default class TemplateDetailOverview extends Component {
         </Paper>
 
         <br />
+
+        <DialogForm
+          ref="promoteTemplateToProductionFormDialog"
+          title="Add new template"
+          startSubmit={::this.startCommitToProduction}
+          form={<PromoteTemplateToProductionForm onSubmit={::this.handleCommitToProduction}/>} />
 
       </div>
     );

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
+import {startSubmit} from 'redux-form';
 import {
   getProjectDetailByIdAction
 } from './../../../redux/reducers/currentProject';
@@ -24,6 +25,7 @@ import TemplateLanguages from './TemplateLanguages/TemplateLanguages';
     versions: state.currentTemplate.template.versions,
     project: state.currentProject.project
   }), {
+    startSubmit,
     updateDevelopmentVersion: updateTemplateDevelopmentVersion,
     promoteProductionVersion: promoteTemplateToProductionVersion
   })
@@ -32,6 +34,7 @@ export default class TemplateDetailPage extends Component {
     template: PropTypes.object.isRequired,
     versions: PropTypes.array.isRequired,
     project: PropTypes.object.isRequired,
+    startSubmit: PropTypes.func.isRequired,
     updateDevelopmentVersion: PropTypes.func.isRequired,
     promoteProductionVersion: PropTypes.func.isRequired
   }
@@ -67,6 +70,7 @@ export default class TemplateDetailPage extends Component {
               template={template}
               projectLanguages={languages}
               projectLayouts={layouts}
+              startSubmit={this.props.startSubmit}
               promoteProductionVersion={::this.promoteProductionVersion}/>
           </div>
         </Tab>

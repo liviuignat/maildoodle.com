@@ -1,6 +1,8 @@
 import co from 'co';
 import {TemplateVersion, toJson} from './../../mongoose';
 
+export const DEFAULT_COMMIT_MESSAGE = 'Initial commit';
+
 export function getDefaultVersion() {
   return {
     html: `<div><%= model.title %><div>`,
