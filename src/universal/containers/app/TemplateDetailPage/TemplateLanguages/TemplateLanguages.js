@@ -7,15 +7,18 @@ import {
 
 export default class TemplateLanguages extends Component {
   static propTypes = {
+    isReadOnly: PropTypes.bool.isRequired,
     template: PropTypes.object.isRequired,
     projectLanguages: PropTypes.array.isRequired
   }
 
   renderLanguage(language) {
     const { objectId, name } = language;
+    const {isReadOnly} = this.props;
     return (
       <Tab label={name} key={objectId}>
         <CodeEditor
+          readOnly={isReadOnly}
           mode={{
             name: 'javascript',
             json: true

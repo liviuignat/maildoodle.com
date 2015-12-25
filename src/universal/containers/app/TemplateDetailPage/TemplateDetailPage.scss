@@ -5,3 +5,21 @@
 .TemplateDetailPage_tabContainer {
   padding: 4px 16px;
 }
+
+.TemplateDetailPage_headerMessage {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.TemplateDetailPage_loadedVersionCommitName {
+  font-weight: normal;
+  font-style: italic;
+}
+
+.TemplateDetailPage_loadDevelopmentVersion {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  text-decoration: underline;
+  cursor: pointer;
+}
