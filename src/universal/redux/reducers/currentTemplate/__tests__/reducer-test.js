@@ -14,6 +14,7 @@ describe('GIVEN template detail reducer tests', () => {
       translations: []
     },
     versions: [{
+      objectId: "567c2e24464efd1c0770uyiedhas",
       html: 'initial html',
       sampleJson: 'initial json',
       translations: []
@@ -43,8 +44,12 @@ describe('GIVEN template detail reducer tests', () => {
       it('should have a template',
         () => expect(currentState.template).not.to.equal(null));
 
-      it('should the current version as the developmentVersion',
-          () => expect(currentState.template.currentVersion).to.deep.equal(currentState.template.developmentVersion));
+      it('should the current version as the developmentVersion', () => {
+        const expectation = Object.assign({}, currentState.template.developmentVersion, {
+          isDevelopment: true
+        });
+        expect(currentState.template.currentVersion).to.deep.equal(expectation);
+      });
 
       describe('WHEN updated development version html and sampleJSon with success', () => {
         let newVersion = {
@@ -60,8 +65,12 @@ describe('GIVEN template detail reducer tests', () => {
         };
         beforeEach(() => currentState = reducer(currentState, action));
 
-        it('should the current version as the developmentVersion',
-          () => expect(currentState.template.currentVersion).to.deep.equal(currentState.template.developmentVersion));
+        it('should the current version as the developmentVersion', () => {
+          const expectation = Object.assign({}, currentState.template.developmentVersion, {
+            isDevelopment: true
+          });
+          expect(currentState.template.currentVersion).to.deep.equal(expectation);
+        });
 
         it('should have the new html',
           () => expect(currentState.template.developmentVersion.html).to.equal(newVersion.html));
@@ -93,6 +102,26 @@ describe('GIVEN template detail reducer tests', () => {
 
           it('should have the dev version of json',
             () => expect(currentState.template.versions[1].sampleJson).to.equal(action.result.sampleJson));
+
+          describe('WHEN willing to view the second version', () => {
+            let action = {
+              type: actions.LOAD_VERSION_FROM_HISTORY_SUCCESS,
+              result: {
+                objectId: "567c2e24464efd1c0770f48b"
+              }
+            };
+
+            beforeEach(() => currentState = reducer(currentState, action));
+
+            it('should have currentVersion html from the second version',
+              () => expect(currentState.template.currentVersion.html).to.equal(currentState.template.versions[1].html));
+
+            it('should have currentVersion sampleJson from the second version',
+              () => expect(currentState.template.currentVersion.html).to.equal(currentState.template.versions[1].html));
+
+            it('should have currentVersion isDevelopment to false',
+              () => expect(currentState.template.currentVersion.isDevelopment).to.equal(false));
+          });
         });
       });
     });

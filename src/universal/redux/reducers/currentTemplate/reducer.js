@@ -18,13 +18,19 @@ export function reducer(state = initialState, action = {}) {
     case actions.UPDATE_DEVELOPMENT_VERSION_SUCCESS:
     case actions.UPDATE_DEVELOPMENT_VERSION_FAIL:
       state.template.developmentVersion = updateTemplateDevelopmentVersion(state.template.developmentVersion, action);
-      state.template.currentVersion = state.template.developmentVersion;
+      setCurrentVersion(state.template);
       return Object.assign({}, state);
 
     case actions.PROMOTE_PRODUCTION_VERSION:
     case actions.PROMOTE_PRODUCTION_VERSION_SUCCESS:
     case actions.PROMOTE_PRODUCTION_VERSION_FAIL:
       state.template.versions = promoteTemplateProductionVersion(state.template.versions, action);
+      return Object.assign({}, state);
+
+    case actions.LOAD_VERSION_FROM_HISTORY:
+    case actions.LOAD_VERSION_FROM_HISTORY_SUCCESS:
+    case actions.LOAD_VERSION_FROM_HISTORY_FAIL:
+      state.template = loadVersionFromHitory(state.template, action);
       return Object.assign({}, state);
 
     default:
@@ -98,6 +104,24 @@ function promoteTemplateProductionVersion(state, action) {
   }
 }
 
+function loadVersionFromHitory(state, action) {
+  const immutable = fromJS(state);
+
+  switch (action.type) {
+    case actions.LOAD_VERSION_FROM_HISTORY:
+      return immutable.toJSON();
+    case actions.LOAD_VERSION_FROM_HISTORY_SUCCESS:
+      const {objectId} = action.result;
+      return immutable
+        .set('currentVersion', getCurrentVersion(state, objectId))
+        .toJSON();
+    case actions.LOAD_VERSION_FROM_HISTORY_FAIL:
+      return immutable.toJSON();
+    default:
+      return immutable.toJSON();
+  }
+}
+
 function sortVersions(versions) {
   return versions.sort((v1, v2) => {
     const createdAt1 = new Date(v1.createdAt);
@@ -106,12 +130,17 @@ function sortVersions(versions) {
   });
 }
 
-function getVersion(template, versionId) {
-  const versions = template.versions.filter((version) => version.objectId = versionId);
+function getCurrentVersion(template, versionId) {
+  const versions = template.versions.filter((version) => version.objectId === versionId);
   if (versions && versions.length) {
-    return versions[0];
+    return Object.assign({}, versions[0], {
+      isDevelopment: false
+    });
   }
-  return template.developmentVersion;
+
+  return Object.assign({}, template.developmentVersion, {
+    isDevelopment: true
+  });
 }
 
 function setCurrentVersion(template, versionId) {
@@ -119,7 +148,7 @@ function setCurrentVersion(template, versionId) {
     return template;
   }
 
-  return Object.assign({}, template, {
-    currentVersion: getVersion(template, versionId)
+  return Object.assign(template, {
+    currentVersion: getCurrentVersion(template, versionId)
   });
 }

@@ -7,7 +7,8 @@ import {
 import {
   getTemplateDetailByIdAction,
   updateTemplateDevelopmentVersion,
-  promoteTemplateToProductionVersion
+  promoteTemplateToProductionVersion,
+  loadTemplateVersionHistory
 } from './../../../redux/reducers/currentTemplate';
 import {
   Paper,
@@ -27,7 +28,8 @@ import TemplateLanguages from './TemplateLanguages/TemplateLanguages';
   }), {
     startSubmit,
     updateDevelopmentVersion: updateTemplateDevelopmentVersion,
-    promoteProductionVersion: promoteTemplateToProductionVersion
+    promoteProductionVersion: promoteTemplateToProductionVersion,
+    loadVersionHistory: loadTemplateVersionHistory
   })
 export default class TemplateDetailPage extends Component {
   static propTypes = {
@@ -36,7 +38,8 @@ export default class TemplateDetailPage extends Component {
     project: PropTypes.object.isRequired,
     startSubmit: PropTypes.func.isRequired,
     updateDevelopmentVersion: PropTypes.func.isRequired,
-    promoteProductionVersion: PropTypes.func.isRequired
+    promoteProductionVersion: PropTypes.func.isRequired,
+    loadVersionHistory: PropTypes.func.isRequired
   }
 
   static fetchData(getState, dispatch, location, params) {
@@ -71,7 +74,8 @@ export default class TemplateDetailPage extends Component {
               projectLanguages={languages}
               projectLayouts={layouts}
               startSubmit={this.props.startSubmit}
-              promoteProductionVersion={::this.promoteProductionVersion}/>
+              promoteProductionVersion={::this.promoteProductionVersion}
+              loadVersionHistory={::this.props.loadVersionHistory}/>
           </div>
         </Tab>
         <Tab label="Html">
