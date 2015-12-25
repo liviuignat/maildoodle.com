@@ -49,6 +49,12 @@ export default class TemplateDetailPage extends Component {
     return Promise.all(promises);
   }
 
+  get isViewingOldVersion() {
+    const {template} = this.props;
+    const {currentVersion} = template;
+    return !currentVersion.isDevelopment;
+  }
+
   updateDevelopmentVersion(version) {
     const {template, project} = this.props;
     this.props.updateDevelopmentVersion(project.objectId, template.objectId, version);
@@ -87,7 +93,7 @@ export default class TemplateDetailPage extends Component {
     const {currentVersion} = template;
     return (
       <div>
-        {!currentVersion.isDevelopment && ::this.renderViewDevelopmentVersion(currentVersion)}
+        {this.isViewingOldVersion && ::this.renderViewDevelopmentVersion(currentVersion)}
       </div>
     );
   }
@@ -105,6 +111,7 @@ export default class TemplateDetailPage extends Component {
             <Tab label="Overview">
               <div className={style.TemplateDetailPage_tabContainer}>
                 <TemplateDetailOverview
+                  isReadOnly={this.isViewingOldVersion}
                   template={template}
                   projectLanguages={languages}
                   projectLayouts={layouts}
@@ -116,6 +123,7 @@ export default class TemplateDetailPage extends Component {
             <Tab label="Html">
               <div className={style.TemplateDetailPage_tabContainer}>
                 <TemplateDetailHtmlEditor
+                  isReadOnly={this.isViewingOldVersion}
                   template={template}
                   updateDevelopmentVersion={::this.updateDevelopmentVersion} />
               </div>
@@ -123,6 +131,7 @@ export default class TemplateDetailPage extends Component {
             <Tab label="Translations">
               <div>
                 <TemplateLanguages
+                  isReadOnly={this.isViewingOldVersion}
                   template={template}
                   projectLanguages={languages} />
               </div>
@@ -130,6 +139,7 @@ export default class TemplateDetailPage extends Component {
             <Tab label="Test JSON">
               <div className={style.TemplateDetailPage_tabContainer}>
                 <TemplateDetailTestJsonEditor
+                  isReadOnly={this.isViewingOldVersion}
                   template={template}
                   updateDevelopmentVersion={::this.updateDevelopmentVersion} />
               </div>

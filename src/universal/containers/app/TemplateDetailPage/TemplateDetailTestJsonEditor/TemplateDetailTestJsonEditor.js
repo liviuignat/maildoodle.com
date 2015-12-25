@@ -6,6 +6,7 @@ import {
 
 export default class TemplateDetailTestJsonEditor extends Component {
   static propTypes = {
+    isReadOnly: PropTypes.bool.isRequired,
     template: PropTypes.object.isRequired,
     updateDevelopmentVersion: PropTypes.func.isRequired
   }
@@ -33,11 +34,13 @@ export default class TemplateDetailTestJsonEditor extends Component {
   }
 
   render() {
+    const {isReadOnly} = this.props;
     const { sampleJson } = this.props.template.currentVersion;
 
     return (
       <div>
         <CodeEditor
+          readOnly={isReadOnly}
           mode={{
             name: 'javascript',
             json: true

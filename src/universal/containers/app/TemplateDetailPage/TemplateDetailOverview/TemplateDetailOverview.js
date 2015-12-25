@@ -11,6 +11,7 @@ import TemplateVersionsList from './../TemplateVersionsList/TemplateVersionsList
 
 export default class TemplateDetailOverview extends Component {
   static propTypes = {
+    isReadOnly: PropTypes.bool.isRequired,
     template: PropTypes.object.isRequired,
     projectLanguages: PropTypes.array.isRequired,
     projectLayouts: PropTypes.array.isRequired,
@@ -75,7 +76,7 @@ export default class TemplateDetailOverview extends Component {
 
   render() {
     const style = require('./TemplateDetailOverview.scss');
-    const {template} = this.props;
+    const {template, isReadOnly} = this.props;
     const {versions} = template;
 
     return (
@@ -115,12 +116,12 @@ export default class TemplateDetailOverview extends Component {
                   secondary />
               </div>
               <div className="clearfix"/>
-              <div className={style.TemplateDetailOverview_commitButtonContainer}>
+              {!isReadOnly && <div className={style.TemplateDetailOverview_commitButtonContainer}>
                 <RaisedButton
                   labelText="Commit to production"
                   onClick={::this.showCommitToProductionForm}
                   primary />
-              </div>
+              </div>}
               <div className="clearfix"/>
             </div>
           </Paper>
