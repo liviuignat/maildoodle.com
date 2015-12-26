@@ -98,7 +98,6 @@ export default class TemplateDetailOverview extends Component {
               <div>Choose a layout:</div>
               <SelectField menuItems={this.layoutsSelectItems}/>
             </div>
-
             <div>
               <div>Choose a language:</div>
               <SelectField menuItems={this.languagesSelectItems}/>
@@ -108,18 +107,19 @@ export default class TemplateDetailOverview extends Component {
               <div className={style.TemplateDetailOverview_actionButtonContainer}>
                 <RaisedButton
                   labelText="Preview html"
-                  secondary />
+                  orange />
               </div>
               <div className={style.TemplateDetailOverview_actionButtonContainer}>
                 <RaisedButton
                   labelText="Preview pdf"
-                  secondary />
+                  orange />
               </div>
               <div className="clearfix"/>
               {!isReadOnly && <div className={style.TemplateDetailOverview_commitButtonContainer}>
                 <RaisedButton
                   labelText="Commit to production"
                   onClick={::this.showCommitToProductionForm}
+                  fullWidth
                   primary />
               </div>}
               <div className="clearfix"/>
