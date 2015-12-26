@@ -52,13 +52,29 @@ describe('given we want to modify templates', () => {
       .send(data);
   }
 
-  const promoteTemplateProdVersionRequest = (projectId, templateId, data) => {
+  const addVersionToProdRequest = (projectId, templateId, data) => {
     const url = `/api/projects/${projectId}/templates/${templateId}/versions/production`;
     return request
       .post(url)
       .set('Content-type', 'application/json')
       .set('Authorization', `Bearer ${currentUser.sessionToken}`)
       .send(data);
+  }
+
+  const getVersionRequest = (projectId, templateId, versionId) => {
+    const url = `/api/projects/${projectId}/templates/${templateId}/versions/${versionId}`;
+    return request
+      .get(url)
+      .set('Content-type', 'application/json')
+      .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+  }
+
+  const updateVersionToProdRequest = (projectId, templateId, versionId) => {
+    const url = `/api/projects/${projectId}/templates/${templateId}/versions/${versionId}`;
+    return request
+      .put(url)
+      .set('Content-type', 'application/json')
+      .set('Authorization', `Bearer ${currentUser.sessionToken}`);
   }
 
   beforeEach((done) => {
@@ -171,12 +187,12 @@ describe('given we want to modify templates', () => {
         };
 
         it('Should return 200',
-          (done) => promoteTemplateProdVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
+          (done) => addVersionToProdRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
             .expect(200).end(done));
 
         describe('WHEN getting the template by id', () => {
           let retreivedTemplate = null;
-          beforeEach((done) => promoteTemplateProdVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
+          beforeEach((done) => addVersionToProdRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
             .end(done));
 
           beforeEach((done) => getTemplateByIdRequest(currentProject.objectId, firstAddedTemplate.objectId).end((err, res) => {
@@ -204,21 +220,23 @@ describe('given we want to modify templates', () => {
 
       describe('WHEN commiting 5 new versions to production', () => {
         let retreivedTemplate = null;
-        const prodVersion = {
-          html: 'new version of html',
-          sampleJson: 'new version json',
-          commitMessage: 'new update to production'
+        const prodVersion = (index) => {
+          return {
+            html: 'new version of html' + index,
+            sampleJson: 'new version json' + index,
+            commitMessage: 'new update to production' + index
+          };
         };
 
-        beforeEach((done) => promoteTemplateProdVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
+        beforeEach((done) => addVersionToProdRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion(1))
           .end(done));
-        beforeEach((done) => promoteTemplateProdVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
+        beforeEach((done) => addVersionToProdRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion(2))
           .end(done));
-        beforeEach((done) => promoteTemplateProdVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
+        beforeEach((done) => addVersionToProdRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion(3))
           .end(done));
-        beforeEach((done) => promoteTemplateProdVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
+        beforeEach((done) => addVersionToProdRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion(4))
           .end(done));
-        beforeEach((done) => promoteTemplateProdVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion)
+        beforeEach((done) => addVersionToProdRequest(currentProject.objectId, firstAddedTemplate.objectId, prodVersion(5))
           .end(done));
 
         beforeEach((done) => getTemplateByIdRequest(currentProject.objectId, firstAddedTemplate.objectId).end((err, res) => {
@@ -252,6 +270,76 @@ describe('given we want to modify templates', () => {
 
           it('should not have any template version anymore',
             () => expect(existingTemplateVersions.length).to.equal(0));
+        });
+
+        describe('WHEN getting the 3d version', () => {
+          let version;
+          beforeEach(() => version = retreivedTemplate.versions[2]);
+
+          it('should return a 200 status code',
+            (done) => getVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, version.objectId)
+              .expect(200).end(done));
+
+          describe('WHEN getting the version is finished', () => {
+            let requestTemplate;
+            beforeEach((done) => getVersionRequest(currentProject.objectId, firstAddedTemplate.objectId, version.objectId)
+              .end((err, res) => {
+                if (err) return done(err);
+                requestTemplate = res.body;
+                done();
+              }));
+
+            it('should have correct html',
+              () => expect(requestTemplate.html).to.equal(version.html));
+
+            it('should have correct sampleJson',
+              () => expect(requestTemplate.sampleJson).to.equal(version.sampleJson));
+          });
+        });
+
+        describe('WHEN the 3d version is promoted to production', () => {
+          let version;
+          beforeEach(() => version = retreivedTemplate.versions[2]);
+
+          it('should return a 200 status code',
+            (done) => updateVersionToProdRequest(currentProject.objectId, firstAddedTemplate.objectId, version.objectId)
+              .expect(200).end(done));
+
+          describe('WHEN the promote request is finished', () => {
+            let template;
+            beforeEach((done) => updateVersionToProdRequest(currentProject.objectId, firstAddedTemplate.objectId, version.objectId)
+              .end(done));
+
+            beforeEach((done) => getTemplateByIdRequest(currentProject.objectId, firstAddedTemplate.objectId).end((err, res) => {
+              if (err) return done(err);
+              template = res.body;
+              done();
+            }));
+
+            it('should have production set to true',
+              () => expect(template.versions[2].isProduction).to.equal(true));
+
+            describe('WHEN the 4d version is promoted to production', () => {
+              let version;
+              let template;
+              beforeEach(() => version = retreivedTemplate.versions[3]);
+
+              beforeEach((done) => updateVersionToProdRequest(currentProject.objectId, firstAddedTemplate.objectId, version.objectId)
+                  .end(done));
+
+              beforeEach((done) => getTemplateByIdRequest(currentProject.objectId, firstAddedTemplate.objectId).end((err, res) => {
+                if (err) return done(err);
+                template = res.body;
+                done();
+              }));
+
+              it('should have the 3d version is production set to false',
+                () => expect(template.versions[2].isProduction).to.equal(false));
+
+              it('should have production set to true',
+                () => expect(template.versions[3].isProduction).to.equal(true));
+            });
+          });
         });
       });
     });

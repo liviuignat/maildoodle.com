@@ -8,7 +8,11 @@ import {
   deleteTemplate,
   updateTemplateDevelopmentVersion
 } from './templates';
-import { insertTemplateVersion } from './templateVersions';
+import {
+  getTemplateVersionById,
+  insertTemplateVersion,
+  updateTemplateToProductionVersion
+} from './templateVersions';
 
 export function setupRoutes(app, prefix = '/api/projects/:projectId/templates') {
 
@@ -41,6 +45,15 @@ export function setupRoutes(app, prefix = '/api/projects/:projectId/templates') 
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });
 
+  app.get(`${prefix}/:templateId/versions/:versionId`, requiredAuthenticated, (req, res) => {
+    const templateId = req.params.templateId;
+    const versionId = req.params.versionId;
+
+    getTemplateVersionById(templateId, versionId)
+      .then((response) => res.json(response))
+      .catch((err) => sendHttpError(res, { code: 400, err }));
+  });
+
   app.post(`${prefix}/:templateId/versions/development`, requiredAuthenticated, (req, res) => {
     const user = req.user;
     const projectId = req.params.projectId;
@@ -57,6 +70,15 @@ export function setupRoutes(app, prefix = '/api/projects/:projectId/templates') 
     const version = req.body;
 
     insertTemplateVersion(templateId, version)
+      .then((response) => res.json(response))
+      .catch((err) => sendHttpError(res, { code: 400, err }));
+  });
+
+  app.put(`${prefix}/:templateId/versions/:versionId`, requiredAuthenticated, (req, res) => {
+    const templateId = req.params.templateId;
+    const versionId = req.params.versionId;
+
+    updateTemplateToProductionVersion(templateId, versionId)
       .then((response) => res.json(response))
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });
