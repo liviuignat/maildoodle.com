@@ -104,14 +104,12 @@ export default class TemplateDetailOverview extends Component {
 
             <div className={style.TemplateDetailOverview_actionButtonContainer}>
               <RaisedButton
-                labelText="Preview html"
-                secondary />
+                labelText="Preview html" orange />
             </div>
 
             <div className={style.TemplateDetailOverview_actionButtonContainer}>
               <RaisedButton
-                labelText="Preview pdf"
-                secondary />
+                labelText="Preview pdf" orange />
             </div>
             <div className="clearfix"/>
           </div>
