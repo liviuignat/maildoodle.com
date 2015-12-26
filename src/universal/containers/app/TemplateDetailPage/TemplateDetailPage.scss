@@ -1,3 +1,5 @@
+@import "../../../theme/variables.scss";
+
 .TemplateDetailPage {
   padding: 0;
 }
@@ -9,6 +11,7 @@
 .TemplateDetailPage_headerMessage {
   font-size: 16px;
   font-weight: bold;
+  color: $green;
 }
 
 .TemplateDetailPage_loadedVersionCommitName {
@@ -19,7 +22,7 @@
 .TemplateDetailPage_loadDevelopmentVersion {
   font-size: 16px;
   font-weight: bold;
-  color: #000;
+  color: $blue;
   text-decoration: underline;
   cursor: pointer;
 }
