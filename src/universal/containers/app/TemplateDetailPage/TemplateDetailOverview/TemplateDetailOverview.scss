@@ -1,3 +1,5 @@
+@import "../../../../theme/variables.scss";
+
 .TemplateDetailOverview {
 }
 
@@ -49,9 +51,17 @@
 }
 
 .TemplateDetailOverview__isViewingVersion {
-  color: green;
+  color: white;
+  font-weight: bold;
+  padding: 4px;
+  background-color: $orange;
+  margin-right: 4px;
 }
 
 .TemplateDetailOverview__isProductionVersion {
-  color: red;
+  color: white;
+  font-weight: bold;
+  padding: 4px;
+  background-color: $green;
+  margin-right: 4px;
 }
