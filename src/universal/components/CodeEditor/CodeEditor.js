@@ -4,12 +4,14 @@ export default class CodeEditor extends Component {
   static propTypes = {
     mode: PropTypes.any,
     value: PropTypes.string,
+    readOnly: PropTypes.bool,
     onChange: PropTypes.func
   };
 
   static defaultProps = {
     mode: 'htmlmixed',
-    value: ''
+    value: '',
+    readOnly: false
   };
 
   componentDidMount() {
@@ -26,7 +28,7 @@ export default class CodeEditor extends Component {
   }
 
   get codeEditor() {
-    const { mode, value } = this.props;
+    const { mode, value, readOnly } = this.props;
 
     if (__CLIENT__) {
       const CodeMirror = require('./lib/react-codemirror');
@@ -37,6 +39,7 @@ export default class CodeEditor extends Component {
           ref="codemirror"
           value={value}
           options={{
+            readOnly: readOnly,
             mode: mode,
             theme: 'night',
             lineNumbers: true,

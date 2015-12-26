@@ -18,12 +18,19 @@ export function reducer(state = initialState, action = {}) {
     case actions.UPDATE_DEVELOPMENT_VERSION_SUCCESS:
     case actions.UPDATE_DEVELOPMENT_VERSION_FAIL:
       state.template.developmentVersion = updateTemplateDevelopmentVersion(state.template.developmentVersion, action);
+      setCurrentVersion(state.template);
       return Object.assign({}, state);
 
     case actions.PROMOTE_PRODUCTION_VERSION:
     case actions.PROMOTE_PRODUCTION_VERSION_SUCCESS:
     case actions.PROMOTE_PRODUCTION_VERSION_FAIL:
       state.template.versions = promoteTemplateProductionVersion(state.template.versions, action);
+      return Object.assign({}, state);
+
+    case actions.LOAD_VERSION_FROM_HISTORY:
+    case actions.LOAD_VERSION_FROM_HISTORY_SUCCESS:
+    case actions.LOAD_VERSION_FROM_HISTORY_FAIL:
+      state.template = loadVersionFromHitory(state.template, action);
       return Object.assign({}, state);
 
     default:
@@ -43,11 +50,11 @@ function loadTemplateDetails(state, action) {
 
     case actions.LOAD_TEMPLATE_DETAIL_SUCCESS:
       const template = action.result;
-      template.versions = sortVersions(template.versions);
+      template.versions = setProductionVersion(sortVersions(template.versions));
       return immutable
         .set('loadingTemplate', false)
         .set('loadTemplateError', '')
-        .set('template', fromJS(template))
+        .set('template', fromJS(setCurrentVersion(template)))
         .toJSON();
 
     case actions.LOAD_TEMPLATE_DETAIL_FAIL:
@@ -97,10 +104,62 @@ function promoteTemplateProductionVersion(state, action) {
   }
 }
 
+function loadVersionFromHitory(state, action) {
+  const immutable = fromJS(state);
+
+  switch (action.type) {
+    case actions.LOAD_VERSION_FROM_HISTORY:
+      return immutable.toJSON();
+    case actions.LOAD_VERSION_FROM_HISTORY_SUCCESS:
+      const {objectId} = action.result;
+      return immutable
+        .set('currentVersion', getCurrentVersion(state, objectId))
+        .toJSON();
+    case actions.LOAD_VERSION_FROM_HISTORY_FAIL:
+      return immutable.toJSON();
+    default:
+      return immutable.toJSON();
+  }
+}
+
 function sortVersions(versions) {
   return versions.sort((v1, v2) => {
     const createdAt1 = new Date(v1.createdAt);
     const createdAt2 = new Date(v2.createdAt);
     return createdAt2 - createdAt1;
   });
+}
+
+function getCurrentVersion(template, versionId) {
+  const versions = template.versions.filter((version) => version.objectId === versionId);
+  if (versions && versions.length) {
+    return Object.assign({}, versions[0], {
+      isDevelopment: false
+    });
+  }
+
+  return Object.assign({}, template.developmentVersion, {
+    isDevelopment: true
+  });
+}
+
+function setCurrentVersion(template, versionId) {
+  if (!(template && template.versions)) {
+    return template;
+  }
+
+  return Object.assign(template, {
+    currentVersion: getCurrentVersion(template, versionId)
+  });
+}
+
+function setProductionVersion(versions) {
+  const filter = versions.filter((version) => version.isProduction);
+  if (filter && filter.length) {
+    return versions;
+  }
+  Object.assign(versions[0], {
+    isProduction: true
+  });
+  return versions;
 }

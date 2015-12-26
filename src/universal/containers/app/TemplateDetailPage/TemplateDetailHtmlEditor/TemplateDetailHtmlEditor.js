@@ -6,6 +6,7 @@ import {
 
 export default class TemplateDetailHtmlEditor extends Component {
   static propTypes = {
+    isReadOnly: PropTypes.bool.isRequired,
     template: PropTypes.object.isRequired,
     updateDevelopmentVersion: PropTypes.func.isRequired
   }
@@ -28,16 +29,18 @@ export default class TemplateDetailHtmlEditor extends Component {
   }
 
   isHtmlChanged(currentHtml) {
-    const { html } = this.props.template.developmentVersion;
+    const { html } = this.props.template.currentVersion;
     return currentHtml !== html;
   }
 
   render() {
-    const { html } = this.props.template.developmentVersion;
+    const {isReadOnly} = this.props;
+    const { html } = this.props.template.currentVersion;
 
     return (
       <div>
         <CodeEditor
+          readOnly={isReadOnly}
           value={html}
           onChange={::this.handleChange} />
       </div>
