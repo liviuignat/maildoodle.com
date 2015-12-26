@@ -44,7 +44,7 @@ export default class TemplateDetailOverview extends Component {
     });
   }
 
-  isCurrentlyViewingOlderVersion(version) {
+  isViewingOlderVersion(version) {
     const {template} = this.props;
     const {currentVersion} = template;
     return currentVersion.objectId === version.objectId;
@@ -141,12 +141,12 @@ export default class TemplateDetailOverview extends Component {
                 }}
                 secondaryText={(item) => {
                   const text = moment(item.createdAt).calendar();
-                  const viewingSpan = <span className={style.TemplateDetailOverview__isViewingVersion}>(viewing)</span>;
-                  const isProdSpan = <span className={style.TemplateDetailOverview__isProductionVersion}>(production)</span>;
+                  const isViewingTag = <span className={style.TemplateDetailOverview__isViewingVersion}>(viewing)</span>;
+                  const isProdTag = <span className={style.TemplateDetailOverview__isProductionVersion}>(production)</span>;
 
                   return (<span>
-                    {::this.isCurrentlyViewingOlderVersion(item) && viewingSpan}
-                    {item.isProduction && isProdSpan}
+                    {::this.isViewingOlderVersion(item) && isViewingTag}
+                    {item.isProduction && isProdTag}
                     {text}</span>);
                 }} />
             </div>
