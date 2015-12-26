@@ -8,7 +8,7 @@ import {
   getTemplateDetailByIdAction,
   updateTemplateDevelopmentVersion,
   promoteTemplateToProductionVersion,
-  loadTemplateVersionHistory
+  loadTemplateVersion
 } from './../../../redux/reducers/currentTemplate';
 import {
   Paper,
@@ -29,7 +29,7 @@ import TemplateLanguages from './TemplateLanguages/TemplateLanguages';
     startSubmit,
     updateDevelopmentVersion: updateTemplateDevelopmentVersion,
     promoteProductionVersion: promoteTemplateToProductionVersion,
-    loadVersionHistory: loadTemplateVersionHistory
+    loadVersionHistory: loadTemplateVersion
   })
 export default class TemplateDetailPage extends Component {
   static propTypes = {

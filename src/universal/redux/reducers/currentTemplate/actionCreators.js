@@ -30,7 +30,7 @@ export function promoteTemplateToProductionVersion(projectId, templateId, versio
   };
 }
 
-export function loadTemplateVersionHistory(versionId) {
+export function loadTemplateVersion(versionId) {
   return {
     types: [actions.LOAD_VERSION_FROM_HISTORY, actions.LOAD_VERSION_FROM_HISTORY_SUCCESS, actions.LOAD_VERSION_FROM_HISTORY_FAIL],
     promise: () => {
