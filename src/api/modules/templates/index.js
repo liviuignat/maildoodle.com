@@ -79,6 +79,7 @@ export function setupRoutes(app, prefix = '/api/projects/:projectId/templates') 
     const versionId = req.params.versionId;
 
     updateTemplateToProductionVersion(templateId, versionId)
+      .then(() => getTemplateVersionById(templateId, versionId))
       .then((response) => res.json(response))
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });

@@ -8,7 +8,8 @@ import {
   getTemplateDetailByIdAction,
   updateTemplateDevelopmentVersion,
   promoteTemplateToProductionVersion,
-  loadTemplateVersion
+  loadTemplateVersion,
+  changeProductionVersion
 } from './../../../redux/reducers/currentTemplate';
 import {
   Paper,
@@ -29,7 +30,8 @@ import TemplateLanguages from './TemplateLanguages/TemplateLanguages';
     startSubmit,
     updateDevelopmentVersion: updateTemplateDevelopmentVersion,
     promoteProductionVersion: promoteTemplateToProductionVersion,
-    loadVersionHistory: loadTemplateVersion
+    loadTemplateVersion,
+    changeProductionVersion
   })
 export default class TemplateDetailPage extends Component {
   static propTypes = {
@@ -39,7 +41,8 @@ export default class TemplateDetailPage extends Component {
     startSubmit: PropTypes.func.isRequired,
     updateDevelopmentVersion: PropTypes.func.isRequired,
     promoteProductionVersion: PropTypes.func.isRequired,
-    loadVersionHistory: PropTypes.func.isRequired
+    loadTemplateVersion: PropTypes.func.isRequired,
+    changeProductionVersion: PropTypes.func.isRequired
   }
 
   static fetchData(getState, dispatch, location, params) {
@@ -65,8 +68,17 @@ export default class TemplateDetailPage extends Component {
     this.props.promoteProductionVersion(project.objectId, template.objectId, version);
   }
 
+  changeProductionVersion(version) {
+    const {template, project} = this.props;
+    this.props.changeProductionVersion(project.objectId, template.objectId, version.objectId);
+  }
+
+  loadTemplateVersion(version) {
+    this.props.loadTemplateVersion(version.objectId);
+  }
+
   loadDevelopmentVersion() {
-    this.props.loadVersionHistory();
+    this.props.loadTemplateVersion();
   }
 
   renderViewDevelopmentVersion(currentVersion) {
@@ -117,7 +129,8 @@ export default class TemplateDetailPage extends Component {
                   projectLayouts={layouts}
                   startSubmit={this.props.startSubmit}
                   promoteProductionVersion={::this.promoteProductionVersion}
-                  loadVersionHistory={::this.props.loadVersionHistory}/>
+                  loadTemplateVersion={::this.loadTemplateVersion}
+                  changeProductionVersion={::this.changeProductionVersion}/>
               </div>
             </Tab>
             <Tab label="Html">
