@@ -141,20 +141,20 @@ export default class TemplateDetailPage extends Component {
                   updateDevelopmentVersion={::this.updateDevelopmentVersion} />
               </div>
             </Tab>
-            <Tab label="Translations">
-              <div>
-                <TemplateLanguages
-                  isReadOnly={this.isViewingOldVersion}
-                  template={template}
-                  projectLanguages={languages} />
-              </div>
-            </Tab>
             <Tab label="Test JSON">
               <div className={style.TemplateDetailPage_tabContainer}>
                 <TemplateDetailTestJsonEditor
                   isReadOnly={this.isViewingOldVersion}
                   template={template}
                   updateDevelopmentVersion={::this.updateDevelopmentVersion} />
+              </div>
+            </Tab>
+            <Tab label="Translations">
+              <div>
+                <TemplateLanguages
+                  isReadOnly={this.isViewingOldVersion}
+                  template={template}
+                  projectLanguages={languages} />
               </div>
             </Tab>
           </Tabs>
