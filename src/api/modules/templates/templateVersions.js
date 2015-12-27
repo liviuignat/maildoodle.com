@@ -10,10 +10,11 @@ export function getDefaultVersion() {
   };
 }
 
-export function getTemplateVersionById(id) {
+export function getTemplateVersionById(templateId, versionId) {
   return co(function*() {
     const templateVersion = yield TemplateVersion.findOne({
-      _id: id
+      _id: versionId,
+      templateId
     });
     return toJson(templateVersion);
   });
@@ -42,6 +43,20 @@ export function insertTemplateVersion(templateId, template) {
     const newVersion = new TemplateVersion(Object.assign({}, defaultVersion, template));
     const templateVersion = yield newVersion.save();
     return toJson(templateVersion);
+  });
+}
+
+export function updateTemplateToProductionVersion(templateId, versionId) {
+  return co(function*() {
+    yield TemplateVersion.update({
+      isProduction: true,
+      templateId
+    }, { isProduction: false });
+
+    return yield TemplateVersion.update({
+      _id: versionId,
+      templateId
+    }, { isProduction: true });
   });
 }
 

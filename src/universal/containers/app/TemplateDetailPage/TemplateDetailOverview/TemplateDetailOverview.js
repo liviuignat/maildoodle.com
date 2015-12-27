@@ -17,7 +17,8 @@ export default class TemplateDetailOverview extends Component {
     projectLayouts: PropTypes.array.isRequired,
     startSubmit: PropTypes.func.isRequired,
     promoteProductionVersion: PropTypes.func.isRequired,
-    loadVersionHistory: PropTypes.func.isRequired
+    loadTemplateVersion: PropTypes.func.isRequired,
+    changeProductionVersion: PropTypes.func.isRequired
   }
 
   get languagesSelectItems() {
@@ -132,10 +133,11 @@ export default class TemplateDetailOverview extends Component {
                 subheader="Template Versions"
                 items={versions}
                 onViewPressed={(item) => {
-                  const {objectId} = item;
-                  this.props.loadVersionHistory(objectId);
+                  this.props.loadTemplateVersion(item);
                 }}
-                onSetProductionPressed={() => {}}
+                onSetProductionPressed={(item) => {
+                  this.props.changeProductionVersion(item);
+                }}
                 primaryText={(item) => {
                   return <span>{item.commitMessage}</span>;
                 }}

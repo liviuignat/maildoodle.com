@@ -17,7 +17,8 @@ describe('GIVEN template detail reducer tests', () => {
       objectId: "567c2e24464efd1c0770uyiedhas",
       html: 'initial html',
       sampleJson: 'initial json',
-      translations: []
+      translations: [],
+      createdAt: "2010-12-24T17:40:52.508Z",
     }]
   };
 
@@ -98,16 +99,16 @@ describe('GIVEN template detail reducer tests', () => {
             () => expect(currentState.template.versions.length).to.equal(2));
 
           it('should have the dev version html',
-            () => expect(currentState.template.versions[1].html).to.equal(action.result.html));
+            () => expect(currentState.template.versions[0].html).to.equal(action.result.html));
 
           it('should have the dev version of json',
-            () => expect(currentState.template.versions[1].sampleJson).to.equal(action.result.sampleJson));
+            () => expect(currentState.template.versions[0].sampleJson).to.equal(action.result.sampleJson));
 
           describe('WHEN willing to view the second version', () => {
             let action = {
               type: actions.LOAD_VERSION_FROM_HISTORY_SUCCESS,
               result: {
-                objectId: "567c2e24464efd1c0770f48b"
+                objectId: "567c2e24464efd1c0770uyiedhas"
               }
             };
 
@@ -121,6 +122,23 @@ describe('GIVEN template detail reducer tests', () => {
 
             it('should have currentVersion isDevelopment to false',
               () => expect(currentState.template.currentVersion.isDevelopment).to.equal(false));
+          });
+
+          describe('WHEN changing the production version to the second initial version', () => {
+            let action = {
+              type: actions.CHANGE_PRODUCTION_VERSION_SUCCESS,
+              result: {
+                objectId: "567c2e24464efd1c0770uyiedhas"
+              }
+            };
+
+            beforeEach(() => currentState = reducer(currentState, action));
+
+            it('should have the id of "567c2e24464efd1c0770uyiedhas"',
+              () => expect(currentState.template.versions[1].objectId).to.equal('567c2e24464efd1c0770uyiedhas'));
+
+            it('should have the first version marked as production',
+              () => expect(currentState.template.versions[1].isProduction).to.equal(true));
           });
         });
       });

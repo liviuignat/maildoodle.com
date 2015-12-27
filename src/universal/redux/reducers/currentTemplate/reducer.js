@@ -27,6 +27,12 @@ export function reducer(state = initialState, action = {}) {
       state.template.versions = promoteTemplateProductionVersion(state.template.versions, action);
       return Object.assign({}, state);
 
+    case actions.CHANGE_PRODUCTION_VERSION:
+    case actions.CHANGE_PRODUCTION_VERSION_SUCCESS:
+    case actions.CHANGE_PRODUCTION_VERSION_FAIL:
+      state.template.versions = changeProductionVersion(state.template.versions, action);
+      return Object.assign({}, state);
+
     case actions.LOAD_VERSION_FROM_HISTORY:
     case actions.LOAD_VERSION_FROM_HISTORY_SUCCESS:
     case actions.LOAD_VERSION_FROM_HISTORY_FAIL:
@@ -50,7 +56,7 @@ function loadTemplateDetails(state, action) {
 
     case actions.LOAD_TEMPLATE_DETAIL_SUCCESS:
       const template = action.result;
-      template.versions = setProductionVersion(sortVersions(template.versions));
+      template.versions = sortVersions(template.versions);
       return immutable
         .set('loadingTemplate', false)
         .set('loadTemplateError', '')
@@ -104,6 +110,28 @@ function promoteTemplateProductionVersion(state, action) {
   }
 }
 
+function changeProductionVersion(state, action) {
+  const immutable = fromJS(state);
+
+  switch (action.type) {
+    case actions.CHANGE_PRODUCTION_VERSION:
+      return immutable.toJSON();
+    case actions.CHANGE_PRODUCTION_VERSION_SUCCESS:
+      const versions = Object.assign([], state);
+      versions.forEach((version) => {
+        version.isProduction = false;
+      });
+      const existingVersion = versions
+        .filter((version) => version.objectId === action.result.objectId)[0];
+      existingVersion.isProduction = true;
+      return versions;
+    case actions.CHANGE_PRODUCTION_VERSION_FAIL:
+      return immutable.toJSON();
+    default:
+      return immutable.toJSON();
+  }
+}
+
 function loadVersionFromHitory(state, action) {
   const immutable = fromJS(state);
 
@@ -151,15 +179,4 @@ function setCurrentVersion(template, versionId) {
   return Object.assign(template, {
     currentVersion: getCurrentVersion(template, versionId)
   });
-}
-
-function setProductionVersion(versions) {
-  const filter = versions.filter((version) => version.isProduction);
-  if (filter && filter.length) {
-    return versions;
-  }
-  Object.assign(versions[0], {
-    isProduction: true
-  });
-  return versions;
 }
