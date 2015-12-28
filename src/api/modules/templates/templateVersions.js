@@ -6,7 +6,7 @@ export const DEFAULT_COMMIT_MESSAGE = 'Initial commit';
 export function getDefaultVersion() {
   return {
     html: `<div><%= model.title %><div>`,
-    sampleJson: `{title: 'Welcome'}`
+    sampleJson: `{"title": "Welcome"}`
   };
 }
 

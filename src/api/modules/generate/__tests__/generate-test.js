@@ -23,7 +23,7 @@ describe('GIVEN we want generate a template from the API', () => {
     const url = `/api/generate/${currentProject.objectId}/${currentTemplate.objectId}/?json=${json}`;
     return request
     .get(url)
-    .set('Content-type', 'application/json')
+    .set('Content-type', 'text/html')
     .set('Authorization', `Bearer ${currentUser.sessionToken}`);
   };
 
@@ -47,7 +47,7 @@ describe('GIVEN we want generate a template from the API', () => {
       beforeEach((done) => getHtmlRequest(json)
         .end((err, res) => {
           if (err) return done(err);
-          that.returnedHtml = res.body;
+          that.returnedHtml = res.text;
           return done();
         }));
       it('should have the expected html template',

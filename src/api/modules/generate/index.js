@@ -24,7 +24,7 @@ export function setupRoutes(app, prefix = '/api/generate/:projectId/:templateId'
 
       const html = templateGeneratorService.getHtml(payload);
       return html;
-    }).then((response) => res.json(response))
+    }).then((response) => res.send(response))
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });
 }
