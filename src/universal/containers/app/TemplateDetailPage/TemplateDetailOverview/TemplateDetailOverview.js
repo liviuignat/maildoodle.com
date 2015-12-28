@@ -63,9 +63,17 @@ export default class TemplateDetailOverview extends Component {
 
   handlePreviewTemplate() {
     const {project, template} = this.props;
-    const { sampleJson } = this.props.template.currentVersion;
+    const {currentVersion} = this.props.template;
+    const {sampleJson} = currentVersion;
     const jsonString = JSON.stringify(JSON.parse(sampleJson));
-    const url = `/api/generate/${project.objectId}/${template.objectId}/?json=${jsonString}`;
+    let url = `/api/generate/${project.objectId}/${template.objectId}/?json=${jsonString}`;
+
+    const viewedVersion =
+      template.versions.filter((version) => version.objectId === currentVersion.objectId)[0];
+    if (viewedVersion) {
+      url += `&versionId=${viewedVersion.objectId}`;
+    }
+
     window.open(url);
   }
 
