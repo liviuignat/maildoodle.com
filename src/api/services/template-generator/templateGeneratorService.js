@@ -76,16 +76,17 @@ export function getHtml(options) {
     translations,
     versions,
     filter,
-    model
+    model,
+    html
   } = opts;
 
   const layout = getLayoutByIdOrDefault(layouts, filter.layoutId);
   const translation = getTranslationByKeyOrDefault(translations, filter.languageKey);
   const version = getVersionByIdOrProdcutionVersion(versions, filter.versionId);
-  const template = getRawHtml(layout, version.html);
+  const template = html || getRawHtml(layout, version.html);
 
   const modelToBind = {model, translation};
-  const html = ejs.render(template, modelToBind);
+  const generatedHtml = ejs.render(template, modelToBind);
 
-  return html;
+  return generatedHtml;
 }
