@@ -13,8 +13,7 @@ export default class TemplateDetailOverview extends Component {
   static propTypes = {
     isReadOnly: PropTypes.bool.isRequired,
     template: PropTypes.object.isRequired,
-    projectLanguages: PropTypes.array.isRequired,
-    projectLayouts: PropTypes.array.isRequired,
+    project: PropTypes.object.isRequired,
     startSubmit: PropTypes.func.isRequired,
     promoteProductionVersion: PropTypes.func.isRequired,
     loadTemplateVersion: PropTypes.func.isRequired,
@@ -22,7 +21,7 @@ export default class TemplateDetailOverview extends Component {
   }
 
   get languagesSelectItems() {
-    const {projectLanguages} = this.props;
+    const {projectLanguages} = this.props.project;
     if (!projectLanguages) return [];
 
     return projectLanguages.map((language) => {
@@ -34,7 +33,7 @@ export default class TemplateDetailOverview extends Component {
   }
 
   get layoutsSelectItems() {
-    const {projectLayouts} = this.props;
+    const {projectLayouts} = this.props.project;
     if (!projectLayouts) return [];
 
     return projectLayouts.map((project) => {
@@ -60,6 +59,22 @@ export default class TemplateDetailOverview extends Component {
     const prodVersion = Object.assign({}, template.developmentVersion, formData);
     this.props.promoteProductionVersion(prodVersion);
     this.refs.promoteTemplateToProductionFormDialog.dismiss();
+  }
+
+  handlePreviewTemplate() {
+    const {project, template} = this.props;
+    const {currentVersion} = this.props.template;
+    const {sampleJson} = currentVersion;
+    const jsonString = JSON.stringify(JSON.parse(sampleJson));
+    let url = `/api/generate/${project.objectId}/${template.objectId}/preview?json=${jsonString}`;
+
+    const viewedVersion =
+      template.versions.filter((version) => version.objectId === currentVersion.objectId)[0];
+    if (viewedVersion) {
+      url += `&versionId=${viewedVersion.objectId}`;
+    }
+
+    window.open(url);
   }
 
   showCommitToProductionForm() {
@@ -108,6 +123,7 @@ export default class TemplateDetailOverview extends Component {
               <div className={style.TemplateDetailOverview_actionButtonContainer}>
                 <RaisedButton
                   labelText="Preview html"
+                  onClick={::this.handlePreviewTemplate}
                   orange />
               </div>
               <div className={style.TemplateDetailOverview_actionButtonContainer}>

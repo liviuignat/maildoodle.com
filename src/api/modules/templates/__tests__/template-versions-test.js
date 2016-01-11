@@ -136,8 +136,8 @@ describe('given we want to modify templates', () => {
           it('should have the default html development version `<div><%= model.title %><div>`',
             () => expect(retreivedTemplate.developmentVersion.html).to.equal('<div><%= model.title %><div>'));
 
-          it('should have the sample json development version `{title: \'Welcome!\'}`',
-            () => expect(retreivedTemplate.developmentVersion.sampleJson).to.equal('{title: \'Welcome\'}'));
+          it('should have the sample json development version `{"title": "Welcome"}}`',
+            () => expect(retreivedTemplate.developmentVersion.sampleJson).to.equal('{"title": "Welcome"}'));
 
           it('should have the one template version in versions array`',
             () => expect(retreivedTemplate.versions.length).to.equal(1));
@@ -145,8 +145,8 @@ describe('given we want to modify templates', () => {
           it('should have the default html in the first version `<div><%= model.title %><div>`',
             () => expect(retreivedTemplate.versions[0].html).to.equal('<div><%= model.title %><div>'));
 
-          it('should have the sample json in the first version `{title: \'Welcome!\'}`',
-            () => expect(retreivedTemplate.versions[0].sampleJson).to.equal('{title: \'Welcome\'}'));
+          it('should have the sample json in the first version `{"title": "Welcome"}}`',
+            () => expect(retreivedTemplate.versions[0].sampleJson).to.equal('{"title": "Welcome"}'));
         });
       });
 
