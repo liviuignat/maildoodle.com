@@ -21,10 +21,10 @@ export default class TemplateDetailOverview extends Component {
   }
 
   get languagesSelectItems() {
-    const {projectLanguages} = this.props.project;
-    if (!projectLanguages) return [];
+    const {languages} = this.props.project;
+    if (!languages) return [];
 
-    return projectLanguages.map((language) => {
+    return languages.map((language) => {
       return {
         id: language.objectId,
         text: language.name
@@ -33,10 +33,10 @@ export default class TemplateDetailOverview extends Component {
   }
 
   get layoutsSelectItems() {
-    const {projectLayouts} = this.props.project;
-    if (!projectLayouts) return [];
+    const {layouts} = this.props.project;
+    if (!layouts) return [];
 
-    return projectLayouts.map((project) => {
+    return layouts.map((project) => {
       return {
         id: project.objectId,
         text: project.name
