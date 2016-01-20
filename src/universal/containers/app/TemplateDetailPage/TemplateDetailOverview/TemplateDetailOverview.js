@@ -92,12 +92,16 @@ export default class TemplateDetailOverview extends Component {
 
   render() {
     const style = require('./TemplateDetailOverview.scss');
-    const {template, isReadOnly} = this.props;
+    const {project, template, isReadOnly} = this.props;
     const {versions} = template;
 
     return (
       <div className={style.TemplateDetailOverview}>
         <div className={style.TemplateDetailOverview_header}>
+          <div className={style.TemplateDetailOverview_row}>
+            <div className={style.TemplateDetailOverview_rowLabel}>TEMPLATE ID</div>
+            <div className={style.TemplateDetailOverview_rowCell}>{template.objectId}</div>
+          </div>
           <div className={style.TemplateDetailOverview_row}>
             <div className={style.TemplateDetailOverview_rowLabel}>TEMPLATE NAME</div>
             <div className={style.TemplateDetailOverview_rowCell}>{template.name}</div>
@@ -170,6 +174,23 @@ export default class TemplateDetailOverview extends Component {
             </div>
           </Paper>
         </div>
+
+        <Paper className={style.TemplateDetailOverview_apiSampleContent}>
+          <div><b>Link:</b></div>
+          <code>
+            {`[POST] /app/projects/${project.objectId}/templates/${template.objectId}`}
+          </code>
+          <div><b>Headers:</b></div>
+          <code>
+            API-SECRET: [API SECRET FROM MY ACCOUNT]
+          </code>
+          <div><b>Payload:</b></div>
+          <code>
+            {`{
+              "properties": "in progress ..."
+            }`}
+          </code>
+        </Paper>
 
         <DialogForm
           ref="promoteTemplateToProductionFormDialog"
