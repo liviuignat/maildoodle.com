@@ -45,6 +45,9 @@ export default class TemplateDetailTestJsonEditor extends Component {
             name: 'javascript',
             json: true
           }}
+          lineNumbers
+          matchBrackets
+          height={600}
           value={sampleJson}
           onChange={::this.handleChange} />
       </div>

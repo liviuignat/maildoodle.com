@@ -4,7 +4,8 @@ import {
   RaisedButton,
   Paper,
   SelectField,
-  DialogForm
+  DialogForm,
+  CodeEditor
 } from './../../../../components';
 import PromoteTemplateToProductionForm, {FORM_NAME} from './../template-detail-forms/PromoteTemplateToProductionForm';
 import TemplateVersionsList from './../TemplateVersionsList/TemplateVersionsList';
@@ -94,6 +95,14 @@ export default class TemplateDetailOverview extends Component {
     const style = require('./TemplateDetailOverview.scss');
     const {project, template, isReadOnly} = this.props;
     const {versions} = template;
+    const currentVersionJsonString = template.currentVersion.sampleJson;
+    const currentVersionJson = JSON.parse(currentVersionJsonString);
+    const exampleJson = {
+      layoutId: '[OPTIONAL LAYOUT ID]',
+      versionId: '[OPTIONAL TEMPLATE ID]',
+      languageKey: '[OPTIONAL LANGUAGE KEY]',
+      json: currentVersionJson
+    };
 
     return (
       <div className={style.TemplateDetailOverview}>
@@ -176,20 +185,31 @@ export default class TemplateDetailOverview extends Component {
         </div>
 
         <Paper className={style.TemplateDetailOverview_apiSampleContent}>
-          <div><b>Link:</b></div>
-          <code>
-            {`[POST] /app/projects/${project.objectId}/templates/${template.objectId}`}
-          </code>
-          <div><b>Headers:</b></div>
-          <code>
-            API-SECRET: [API SECRET FROM MY ACCOUNT]
-          </code>
-          <div><b>Payload:</b></div>
-          <code>
-            {`{
-              "properties": "in progress ..."
-            }`}
-          </code>
+          <h3>API DOCUMENTATION</h3>
+          <div className={style.TemplateDetailOverview_apiSampleSubsection}>
+            <div><b>Link:</b></div>
+            <code>
+              {`[POST] /app/projects/${project.objectId}/templates/${template.objectId}`}
+            </code>
+          </div>
+          <div className={style.TemplateDetailOverview_apiSampleSubsection}>
+            <div><b>Headers:</b></div>
+            <code>
+              <div>Api-Secret:   '[API SECRET FROM MY ACCOUNT]'</div>
+              <div>Content-Type: 'application/json'</div>
+            </code>
+          </div>
+          <div className={style.TemplateDetailOverview_apiSampleSubsection}>
+            <div><b>Payload:</b></div>
+            <CodeEditor
+              readOnly
+              theme=""
+              mode={{
+                name: 'javascript',
+                json: true
+              }}
+              value={JSON.stringify(exampleJson, null, 2)} />
+          </div>
         </Paper>
 
         <DialogForm

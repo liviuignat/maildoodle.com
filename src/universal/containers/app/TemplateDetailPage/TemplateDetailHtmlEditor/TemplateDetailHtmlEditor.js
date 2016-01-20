@@ -42,6 +42,9 @@ export default class TemplateDetailHtmlEditor extends Component {
         <CodeEditor
           readOnly={isReadOnly}
           value={html}
+          lineNumbers
+          matchBrackets
+          height={600}
           onChange={::this.handleChange} />
       </div>
     );
