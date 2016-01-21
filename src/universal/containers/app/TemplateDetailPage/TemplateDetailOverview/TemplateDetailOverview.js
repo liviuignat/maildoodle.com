@@ -108,17 +108,21 @@ export default class TemplateDetailOverview extends Component {
       <div className={style.TemplateDetailOverview}>
         <div className={style.TemplateDetailOverview_header}>
           <div className={style.TemplateDetailOverview_row}>
+            <div className={style.TemplateDetailOverview_rowLabel}>PROJECT ID</div>
+            <code className={style.TemplateDetailOverview_rowCell}>{project.objectId}</code>
+          </div>
+          <div className={style.TemplateDetailOverview_row}>
             <div className={style.TemplateDetailOverview_rowLabel}>TEMPLATE ID</div>
-            <div className={style.TemplateDetailOverview_rowCell}>{template.objectId}</div>
+            <code className={style.TemplateDetailOverview_rowCell}>{template.objectId}</code>
           </div>
           <div className={style.TemplateDetailOverview_row}>
             <div className={style.TemplateDetailOverview_rowLabel}>TEMPLATE NAME</div>
-            <div className={style.TemplateDetailOverview_rowCell}>{template.name}</div>
+            <code className={style.TemplateDetailOverview_rowCell}>{template.name}</code>
           </div>
-          <div className={style.TemplateDetailOverview_row}>
+          {template.description && <div className={style.TemplateDetailOverview_row}>
             <div className={style.TemplateDetailOverview_rowLabel}>TEMPLATE DESCRIPTION</div>
-            <div className={style.TemplateDetailOverview_rowCell}>{template.description}</div>
-          </div>
+            <code className={style.TemplateDetailOverview_rowCell}>{template.description}</code>
+          </div>}
         </div>
 
         <div className={style.TemplateDetailOverview_content}>
@@ -171,14 +175,17 @@ export default class TemplateDetailOverview extends Component {
                   return <span>{item.commitMessage}</span>;
                 }}
                 secondaryText={(item) => {
-                  const text = moment(item.createdAt).calendar();
+                  const templateCreatedDate = moment(item.createdAt).calendar();
+                  const templateId = item.objectId;
                   const isViewingTag = <span className={style.TemplateDetailOverview__isViewingVersion}>view</span>;
                   const isProdTag = <span className={style.TemplateDetailOverview__isProductionVersion}>prod</span>;
 
                   return (<span>
-                    {::this.isViewingOlderVersion(item) && isViewingTag}
-                    {item.isProduction && isProdTag}
-                    {text}</span>);
+                      {::this.isViewingOlderVersion(item) && isViewingTag}
+                      {item.isProduction && isProdTag}
+                      <code>{templateId}</code>
+                      <span className={style.TemplateDetailOverview_templateVersionCreateDate}>{templateCreatedDate}</span>
+                    </span>);
                 }} />
             </div>
           </Paper>
