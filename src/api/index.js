@@ -16,5 +16,5 @@ export function setupRoutes(app) {
   projects.setupRoutes(app, '/api/projects');
   languages.setupRoutes(app, '/api/projects');
   templates.setupRoutes(app, '/api/projects/:projectId/templates');
-  generate.setupRoutes(app, '/api/generate/:projectId/:templateId');
+  generate.setupRoutes(app, '/api/projects/:projectId/templates/:templateId/generate');
 }

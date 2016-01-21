@@ -83,7 +83,7 @@ export function getHtml(options) {
   const layout = getLayoutByIdOrDefault(layouts, filter.layoutId);
   const translation = getTranslationByKeyOrDefault(translations, filter.languageKey);
   const version = getVersionByIdOrProdcutionVersion(versions, filter.versionId);
-  const template = html || getRawHtml(layout, version.html);
+  const template = getRawHtml(layout, html || version.html);
 
   const modelToBind = {model, translation};
   const generatedHtml = ejs.render(template, modelToBind);

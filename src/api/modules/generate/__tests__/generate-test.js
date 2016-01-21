@@ -20,11 +20,21 @@ describe('GIVEN we want generate a template from the API', () => {
   };
 
   const getHtmlRequest = (json) => {
-    const url = `/api/generate/${currentProject.objectId}/${currentTemplate.objectId}/?json=${json}`;
+    const url = `/api/projects/${currentProject.objectId}/templates/${currentTemplate.objectId}/generate?json=${json}`;
     return request
-    .get(url)
-    .set('Content-type', 'text/html')
-    .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+      .get(url)
+      .set('Content-type', 'text/html')
+      .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+  };
+
+  const postHtmlRequest = (json) => {
+    const url = `/api/projects/${currentProject.objectId}/templates/${currentTemplate.objectId}/generate`;
+    const payload = {json};
+    return request
+      .post(url)
+      .set('Content-type', 'application/json')
+      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .send(payload);
   };
 
   beforeEach((done) => {
@@ -37,7 +47,7 @@ describe('GIVEN we want generate a template from the API', () => {
       .catch(done);
   });
 
-  describe('WHEN making a request to generate the html template', () => {
+  describe('WHEN making a GET request to generate the html template preview', () => {
     const json = JSON.stringify({title: 'Hello'});
 
     it('should make the request with success',
@@ -45,6 +55,24 @@ describe('GIVEN we want generate a template from the API', () => {
 
     describe('WHEN the request is done with success', () => {
       beforeEach((done) => getHtmlRequest(json)
+        .end((err, res) => {
+          if (err) return done(err);
+          that.returnedHtml = res.text;
+          return done();
+        }));
+      it('should have the expected html template',
+        () => expect(that.returnedHtml).to.equal('<html> <head> </head> <body> <div>Hello<div> </body> </html>'));
+    });
+  });
+
+  describe('WHEN making a POST request to generate the html template from the API', () => {
+    const json = {title: 'Hello'};
+
+    it('should make the request with success',
+      (done) => postHtmlRequest(json).expect(200).end(done));
+
+    describe('WHEN the request is done with success', () => {
+      beforeEach((done) => postHtmlRequest(json)
         .end((err, res) => {
           if (err) return done(err);
           that.returnedHtml = res.text;

@@ -67,7 +67,7 @@ export default class TemplateDetailOverview extends Component {
     const {currentVersion} = this.props.template;
     const {sampleJson} = currentVersion;
     const jsonString = JSON.stringify(JSON.parse(sampleJson));
-    let url = `/api/generate/${project.objectId}/${template.objectId}/preview?json=${jsonString}`;
+    let url = `/api/projects/${project.objectId}/templates/${template.objectId}/generate?json=${jsonString}`;
 
     const viewedVersion =
       template.versions.filter((version) => version.objectId === currentVersion.objectId)[0];
@@ -196,7 +196,7 @@ export default class TemplateDetailOverview extends Component {
           <div className={style.TemplateDetailOverview_apiSampleSubsection}>
             <div><b>Link:</b></div>
             <code>
-              {`[POST] /app/projects/${project.objectId}/templates/${template.objectId}`}
+              {`[POST] /app/projects/${project.objectId}/templates/${template.objectId}/generate`}
             </code>
           </div>
           <div className={style.TemplateDetailOverview_apiSampleSubsection}>
