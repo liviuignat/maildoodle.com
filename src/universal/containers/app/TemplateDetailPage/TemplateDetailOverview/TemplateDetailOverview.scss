@@ -29,6 +29,14 @@
   display: flex;
 }
 
+.TemplateDetailOverview_apiSampleContent {
+  padding: 16px;
+}
+
+.TemplateDetailOverview_apiSampleSubsection {
+  margin-bottom: 16px;
+}
+
 .TemplateDetailOverview_actionButtonGroup {
   flex-basis: 320px;
   padding: 16px;
@@ -48,6 +56,10 @@
   flex: 1;
   margin-left: 16px;
   padding: 16px;
+}
+
+.TemplateDetailOverview_templateVersionCreateDate {
+  float: right;
 }
 
 .TemplateDetailOverview__isViewingVersion {

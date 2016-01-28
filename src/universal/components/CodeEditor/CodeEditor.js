@@ -3,20 +3,32 @@ import React, { Component, PropTypes } from 'react';
 export default class CodeEditor extends Component {
   static propTypes = {
     mode: PropTypes.any,
+    height: PropTypes.any,
+    theme: PropTypes.string,
     value: PropTypes.string,
     readOnly: PropTypes.bool,
+    lineNumbers: PropTypes.bool,
+    matchBrackets: PropTypes.bool,
     onChange: PropTypes.func
   };
 
   static defaultProps = {
     mode: 'htmlmixed',
+    theme: 'night',
     value: '',
-    readOnly: false
+    lineNumbers: false,
+    matchBrackets: false,
+    readOnly: false,
+    height: 0
   };
 
   componentDidMount() {
     if (this.codeMirror) {
-      this.codeMirror.setSize('auto', 600);
+      if (this.props.height) {
+        this.codeMirror.setSize('auto', 600);
+      } else {
+        this.codeMirror.setSize('auto', 'auto');
+      }
     }
   }
 
@@ -28,7 +40,7 @@ export default class CodeEditor extends Component {
   }
 
   get codeEditor() {
-    const { mode, value, readOnly } = this.props;
+    const { mode, value, readOnly, theme, lineNumbers, matchBrackets } = this.props;
 
     if (__CLIENT__) {
       const CodeMirror = require('./lib/react-codemirror');
@@ -41,9 +53,9 @@ export default class CodeEditor extends Component {
           options={{
             readOnly: readOnly,
             mode: mode,
-            theme: 'night',
-            lineNumbers: true,
-            matchBrackets: true,
+            theme: theme,
+            lineNumbers: lineNumbers,
+            matchBrackets: matchBrackets,
             extraKeys: {
               'Enter': 'newlineAndIndentContinueComment',
               'F10': (cm) => {
@@ -67,7 +79,6 @@ export default class CodeEditor extends Component {
     return (
       <div>
         {this.codeEditor}
-        <p>* Press F10 to enter full screen and ESC to exit.</p>
       </div>
     );
   }

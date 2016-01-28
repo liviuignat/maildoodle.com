@@ -4,7 +4,8 @@ import {
   RaisedButton,
   Paper,
   SelectField,
-  DialogForm
+  DialogForm,
+  CodeEditor
 } from './../../../../components';
 import PromoteTemplateToProductionForm, {FORM_NAME} from './../template-detail-forms/PromoteTemplateToProductionForm';
 import TemplateVersionsList from './../TemplateVersionsList/TemplateVersionsList';
@@ -13,8 +14,7 @@ export default class TemplateDetailOverview extends Component {
   static propTypes = {
     isReadOnly: PropTypes.bool.isRequired,
     template: PropTypes.object.isRequired,
-    projectLanguages: PropTypes.array.isRequired,
-    projectLayouts: PropTypes.array.isRequired,
+    project: PropTypes.object.isRequired,
     startSubmit: PropTypes.func.isRequired,
     promoteProductionVersion: PropTypes.func.isRequired,
     loadTemplateVersion: PropTypes.func.isRequired,
@@ -22,10 +22,10 @@ export default class TemplateDetailOverview extends Component {
   }
 
   get languagesSelectItems() {
-    const {projectLanguages} = this.props;
-    if (!projectLanguages) return [];
+    const {languages} = this.props.project;
+    if (!languages) return [];
 
-    return projectLanguages.map((language) => {
+    return languages.map((language) => {
       return {
         id: language.objectId,
         text: language.name
@@ -34,10 +34,10 @@ export default class TemplateDetailOverview extends Component {
   }
 
   get layoutsSelectItems() {
-    const {projectLayouts} = this.props;
-    if (!projectLayouts) return [];
+    const {layouts} = this.props.project;
+    if (!layouts) return [];
 
-    return projectLayouts.map((project) => {
+    return layouts.map((project) => {
       return {
         id: project.objectId,
         text: project.name
@@ -62,6 +62,22 @@ export default class TemplateDetailOverview extends Component {
     this.refs.promoteTemplateToProductionFormDialog.dismiss();
   }
 
+  handlePreviewTemplate() {
+    const {project, template} = this.props;
+    const {currentVersion} = this.props.template;
+    const {sampleJson} = currentVersion;
+    const jsonString = JSON.stringify(JSON.parse(sampleJson));
+    let url = `/api/projects/${project.objectId}/templates/${template.objectId}/generate?json=${jsonString}`;
+
+    const viewedVersion =
+      template.versions.filter((version) => version.objectId === currentVersion.objectId)[0];
+    if (viewedVersion) {
+      url += `&versionId=${viewedVersion.objectId}`;
+    }
+
+    window.open(url);
+  }
+
   showCommitToProductionForm() {
     this.refs.promoteTemplateToProductionFormDialog.show();
   }
@@ -77,20 +93,36 @@ export default class TemplateDetailOverview extends Component {
 
   render() {
     const style = require('./TemplateDetailOverview.scss');
-    const {template, isReadOnly} = this.props;
+    const {project, template, isReadOnly} = this.props;
     const {versions} = template;
+    const currentVersionJsonString = template.currentVersion.sampleJson;
+    const currentVersionJson = JSON.parse(currentVersionJsonString);
+    const exampleJson = {
+      layoutId: '[OPTIONAL LAYOUT ID]',
+      versionId: '[OPTIONAL TEMPLATE ID]',
+      languageKey: '[OPTIONAL LANGUAGE KEY]',
+      json: currentVersionJson
+    };
 
     return (
       <div className={style.TemplateDetailOverview}>
         <div className={style.TemplateDetailOverview_header}>
           <div className={style.TemplateDetailOverview_row}>
-            <div className={style.TemplateDetailOverview_rowLabel}>TEMPLATE NAME</div>
-            <div className={style.TemplateDetailOverview_rowCell}>{template.name}</div>
+            <div className={style.TemplateDetailOverview_rowLabel}>PROJECT ID</div>
+            <code className={style.TemplateDetailOverview_rowCell}>{project.objectId}</code>
           </div>
           <div className={style.TemplateDetailOverview_row}>
-            <div className={style.TemplateDetailOverview_rowLabel}>TEMPLATE DESCRIPTION</div>
-            <div className={style.TemplateDetailOverview_rowCell}>{template.description}</div>
+            <div className={style.TemplateDetailOverview_rowLabel}>TEMPLATE ID</div>
+            <code className={style.TemplateDetailOverview_rowCell}>{template.objectId}</code>
           </div>
+          <div className={style.TemplateDetailOverview_row}>
+            <div className={style.TemplateDetailOverview_rowLabel}>TEMPLATE NAME</div>
+            <code className={style.TemplateDetailOverview_rowCell}>{template.name}</code>
+          </div>
+          {template.description && <div className={style.TemplateDetailOverview_row}>
+            <div className={style.TemplateDetailOverview_rowLabel}>TEMPLATE DESCRIPTION</div>
+            <code className={style.TemplateDetailOverview_rowCell}>{template.description}</code>
+          </div>}
         </div>
 
         <div className={style.TemplateDetailOverview_content}>
@@ -108,6 +140,7 @@ export default class TemplateDetailOverview extends Component {
               <div className={style.TemplateDetailOverview_actionButtonContainer}>
                 <RaisedButton
                   labelText="Preview html"
+                  onClick={::this.handlePreviewTemplate}
                   orange />
               </div>
               <div className={style.TemplateDetailOverview_actionButtonContainer}>
@@ -142,18 +175,49 @@ export default class TemplateDetailOverview extends Component {
                   return <span>{item.commitMessage}</span>;
                 }}
                 secondaryText={(item) => {
-                  const text = moment(item.createdAt).calendar();
+                  const templateCreatedDate = moment(item.createdAt).calendar();
+                  const templateId = item.objectId;
                   const isViewingTag = <span className={style.TemplateDetailOverview__isViewingVersion}>view</span>;
                   const isProdTag = <span className={style.TemplateDetailOverview__isProductionVersion}>prod</span>;
 
                   return (<span>
-                    {::this.isViewingOlderVersion(item) && isViewingTag}
-                    {item.isProduction && isProdTag}
-                    {text}</span>);
+                      {::this.isViewingOlderVersion(item) && isViewingTag}
+                      {item.isProduction && isProdTag}
+                      <code>{templateId}</code>
+                      <span className={style.TemplateDetailOverview_templateVersionCreateDate}>{templateCreatedDate}</span>
+                    </span>);
                 }} />
             </div>
           </Paper>
         </div>
+
+        <Paper className={style.TemplateDetailOverview_apiSampleContent}>
+          <h3>API DOCUMENTATION</h3>
+          <div className={style.TemplateDetailOverview_apiSampleSubsection}>
+            <div><b>Link:</b></div>
+            <code>
+              {`[POST] /app/projects/${project.objectId}/templates/${template.objectId}/generate`}
+            </code>
+          </div>
+          <div className={style.TemplateDetailOverview_apiSampleSubsection}>
+            <div><b>Headers:</b></div>
+            <code>
+              <div>Api-Secret:   '[API SECRET FROM MY ACCOUNT]'</div>
+              <div>Content-Type: 'application/json'</div>
+            </code>
+          </div>
+          <div className={style.TemplateDetailOverview_apiSampleSubsection}>
+            <div><b>Payload:</b></div>
+            <CodeEditor
+              readOnly
+              theme=""
+              mode={{
+                name: 'javascript',
+                json: true
+              }}
+              value={JSON.stringify(exampleJson, null, 2)} />
+          </div>
+        </Paper>
 
         <DialogForm
           ref="promoteTemplateToProductionFormDialog"

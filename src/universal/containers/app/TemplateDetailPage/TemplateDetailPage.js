@@ -113,7 +113,7 @@ export default class TemplateDetailPage extends Component {
   render() {
     const style = require('./TemplateDetailPage.scss');
     const {template, project} = this.props;
-    const {languages, layouts} = project;
+    const {languages} = project;
 
     return (
       <div>
@@ -125,8 +125,7 @@ export default class TemplateDetailPage extends Component {
                 <TemplateDetailOverview
                   isReadOnly={this.isViewingOldVersion}
                   template={template}
-                  projectLanguages={languages}
-                  projectLayouts={layouts}
+                  project={project}
                   startSubmit={this.props.startSubmit}
                   promoteProductionVersion={::this.promoteProductionVersion}
                   loadTemplateVersion={::this.loadTemplateVersion}

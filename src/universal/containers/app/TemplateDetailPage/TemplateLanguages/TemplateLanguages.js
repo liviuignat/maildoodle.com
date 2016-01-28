@@ -18,12 +18,15 @@ export default class TemplateLanguages extends Component {
     return (
       <Tab label={name} key={objectId}>
         <CodeEditor
+          value="{}"
           readOnly={isReadOnly}
           mode={{
             name: 'javascript',
             json: true
           }}
-          value="{}" />
+          lineNumbers
+          matchBrackets
+          height={600} />
       </Tab>
     );
   }
