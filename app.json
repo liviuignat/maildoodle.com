@@ -1,0 +1,23 @@
+{
+  "name": "email-templates",
+  "description": "",
+  "scripts": {
+  },
+  "env": {
+    "MONGO_URI": {
+      "required": true
+    },
+    "NODE_ENV": {
+      "required": true
+    },
+    "NPM_CONFIG_PRODUCTION": {
+      "required": true
+    },
+    "PORT": {
+      "required": true
+    }
+  },
+  "addons": [
+    "mongolab"
+  ]
+}
