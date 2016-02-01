@@ -19,7 +19,7 @@ export default class TemplateDetailOverview extends Component {
     promoteProductionVersion: PropTypes.func.isRequired,
     loadTemplateVersion: PropTypes.func.isRequired,
     changeProductionVersion: PropTypes.func.isRequired
-  }
+  };
 
   get languagesSelectItems() {
     const {languages} = this.props.project;

@@ -20,7 +20,7 @@ export default class PromoteTemplateToProductionForm extends Component {
     submitting: PropTypes.bool,
     saveError: PropTypes.string,
     valid: PropTypes.bool.isRequired
-  }
+  };
 
   componentDidUpdate(prevProps) {
     const isNewSubmitRequested = !prevProps.submitting && this.props.submitting;

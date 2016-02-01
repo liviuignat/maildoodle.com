@@ -39,7 +39,7 @@ export default class ProjectListPage extends Component {
     updateProjectAction: PropTypes.func.isRequired,
     deleteProjectAction: PropTypes.func.isRequired,
     projects: PropTypes.array.isRequired
-  }
+  };
 
   constructor(props, context) {
     super(props, context);

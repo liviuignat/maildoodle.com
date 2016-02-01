@@ -43,7 +43,7 @@ export default class TemplateDetailPage extends Component {
     promoteProductionVersion: PropTypes.func.isRequired,
     loadTemplateVersion: PropTypes.func.isRequired,
     changeProductionVersion: PropTypes.func.isRequired
-  }
+  };
 
   static fetchData(getState, dispatch, location, params) {
     const promises = [];

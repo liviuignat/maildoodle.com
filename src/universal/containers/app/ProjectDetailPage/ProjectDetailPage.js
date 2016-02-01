@@ -36,7 +36,7 @@ export default class ProjectDetailPage extends Component {
     insertTemplateAction: PropTypes.func.isRequired,
     updateTemplateAction: PropTypes.func.isRequired,
     deleteTemplateAction: PropTypes.func.isRequired
-  }
+  };
 
   static fetchData(getState, dispatch, location, params) {
     const promises = [];
