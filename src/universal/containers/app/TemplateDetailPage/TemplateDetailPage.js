@@ -17,6 +17,7 @@ import {
   Tab
 } from './../../../components';
 import TemplateDetailOverview from './TemplateDetailOverview/TemplateDetailOverview';
+import TemplateApiDocumentation from './TemplateApiDocumentation/TemplateApiDocumentation';
 import TemplateDetailHtmlEditor from './TemplateDetailHtmlEditor/TemplateDetailHtmlEditor';
 import TemplateDetailTestJsonEditor from './TemplateDetailTestJsonEditor/TemplateDetailTestJsonEditor';
 import TemplateLanguages from './TemplateLanguages/TemplateLanguages';
@@ -130,6 +131,10 @@ export default class TemplateDetailPage extends Component {
                   promoteProductionVersion={::this.promoteProductionVersion}
                   loadTemplateVersion={::this.loadTemplateVersion}
                   changeProductionVersion={::this.changeProductionVersion}/>
+
+                <TemplateApiDocumentation
+                  project={project}
+                  template={template} />
               </div>
             </Tab>
             <Tab label="Html">
