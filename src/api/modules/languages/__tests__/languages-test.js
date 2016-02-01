@@ -145,19 +145,26 @@ describe('languageModule tests', () => {
             .get(`/api/projects/${currentProject.objectId}/languages/${createdLanguage.objectId}`)
             .set('Authorization', `Bearer ${currentUser.sessionToken}`);
 
-        let deleteLanguageRequest = () => request
-            .del(`/api/projects/${currentProject.objectId}/languages/${createdLanguage.objectId}`)
+        let deleteLanguageRequest = (objectId) => request
+            .del(`/api/projects/${currentProject.objectId}/languages/${objectId}`)
             .set('Authorization', `Bearer ${currentUser.sessionToken}`);
 
         it('Should return success', (done) => {
-          deleteLanguageRequest().expect(200).end(done);
+          deleteLanguageRequest(createdLanguage.objectId).expect(200).end(done);
         });
 
         it('Should not find the language in the project', (done) => {
-          deleteLanguageRequest().end(() => {
+          deleteLanguageRequest(createdLanguage.objectId).end(() => {
             getDeletedLanguageRequest().expect(404).end(done);
           });
         });
+
+        describe('WHEN the language does not exist', () => {
+          it('SHOULD return an error', (done) => {
+            deleteLanguageRequest(123).expect(400).end(done);
+          });
+        });
+
       });
     });
   });

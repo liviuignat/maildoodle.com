@@ -69,6 +69,10 @@ export function setupRoutes(app, prefix = '/api/projects') {
         return item.objectId === req.params.layoutId;
       });
 
+      if (indexOfLayout === -1) {
+        throw new Error('Cannot delete the requested object. The object was not found.');
+      }
+
       project.layouts.splice(indexOfLayout, 1);
       return updateProject(project.objectId, project);
     })

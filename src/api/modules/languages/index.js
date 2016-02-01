@@ -70,6 +70,10 @@ export function setupRoutes(app, prefix = '') {
         return item.objectId === req.params.languageId;
       });
 
+      if (indexOfLanguage === -1) {
+        throw new Error('Could not delete the language. The language was not found.');
+      }
+
       project.languages.splice(indexOfLanguage, 1);
       return updateProject(project.objectId, project);
     })
