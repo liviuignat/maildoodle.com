@@ -5,10 +5,10 @@ import { FormTextField, RaisedButton } from './../../../components';
 @reduxForm({
   form: 'PersonalInformationForm',
   fields: [
-     'firstName',
-     'lastName',
-     'company',
-     'location'],
+    'firstName',
+    'lastName',
+    'company',
+    'location'],
 })
 export default class PersonalInformationForm extends Component {
   static propTypes = {

@@ -14,9 +14,9 @@ describe('authModule tests', () => {
       .end(done);
   });
 
-  describe('When signing up', () => {
+  describe('WHEN signing up', () => {
 
-    describe('When using a inexisting account', () => {
+    describe('WHEN using a inexisting account', () => {
       let newAccount;
       let signUpRequest;
 
@@ -30,19 +30,31 @@ describe('authModule tests', () => {
           .send(newAccount);
       });
 
-      it('should create a new account', (done) => {
+      it('SHOULD create a new account', (done) => {
         signUpRequest.expect(200).end(done);
       });
 
-      describe('When sign up of non-existing account is finished', () => {
+      describe('WHEN sign up of non-existing account is finished', () => {
+        let newUser;
         beforeEach((done) => {
           request.post('/api/auth/signup')
             .set('Content-type', 'application/json')
             .send(newAccount)
-            .end(done);
+            .end((err, res) => {
+               if(err) return done(err);
+
+               newUser = res.body;
+               done();
+            });
         });
-        describe('When trying to login', () => {
-          it('should login successfully', (done) => {
+
+
+        it('SHOULD create an initial API key', () => {
+          expect(newUser.apiAccessToken).not.to.be.undefined;
+        });
+
+        describe('WHEN trying to login', () => {
+          it('SHOULD login successfully', (done) => {
             request.post('/api/auth/login')
               .set('Content-type', 'application/json')
               .send(newAccount)
@@ -51,7 +63,7 @@ describe('authModule tests', () => {
           });
         });
 
-        describe('When the account already exists', () => {
+        describe('WHEN the account already exists', () => {
           let secondSignUpRequest;
           beforeEach(() => {
             secondSignUpRequest = request.post('/api/auth/signup')
@@ -59,23 +71,10 @@ describe('authModule tests', () => {
               .send(newAccount);
           });
 
-          it('should NOT create a new account', (done) => {
+          it('SHOULD NOT create a new account', (done) => {
             secondSignUpRequest.expect(400).end(done);
           });
         });
-
-        /*describe('When changing password', () => {
-          let passwordResetRequest;
-          beforeEach(() => {
-            passwordResetRequest = request.post('/api/auth/resetpassword')
-              .set('Content-type', 'application/json')
-              .send(newAccount)
-          });
-
-          it('should update password', (done) => {
-            passwordResetRequest.expect(200).end(done);
-          });
-        });*/
       });
     });
   });

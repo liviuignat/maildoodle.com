@@ -35,8 +35,10 @@ export function createUser(userData) {
     const data = Date.now();
     const authToken = md5(data);
     const sessionToken = md5(Date.now() + 5);
+    const apiAccessToken = md5(Date.now() + 10);
 
     const newUserAccount = Object.assign(userData, {
+      apiAccessToken,
       authToken,
       sessionToken,
       verified: false,
