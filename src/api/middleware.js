@@ -1,5 +1,4 @@
 import {getUserBySessionToken} from './modules/user/userRepository';
-import config from './../config';
 
 export function requestAuthToken(req, res, next) {
   const fromCookie = req.cookies.auth_token;
@@ -26,7 +25,7 @@ export function userFromParse(req, res, next) {
 }
 
 export function requiredAuthenticated(req, res, next) {
-  if(!req.user) {
+  if (!req.user) {
     return res
       .status(401)
       .json('Not authorized');
@@ -37,14 +36,14 @@ export function requiredAuthenticated(req, res, next) {
 
 function getUserFromSession(sessionToken) {
   return getUserBySessionToken(sessionToken);
-};
+}
 
 function getUserResponse(user) {
   if (!user) {
     return null;
   }
 
-  const response = Object.assign({},user);
+  const response = Object.assign({}, user);
 
   delete response.password;
   delete response.authToken;

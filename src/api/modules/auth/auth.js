@@ -1,5 +1,5 @@
 import co from 'co';
-import { createUser, getUserByEmail, getUserById } from './../user/userRepository';
+import { createUser, getUserByEmail } from './../user/userRepository';
 
 export function login(email, password) {
   return co(function*() {
@@ -19,21 +19,16 @@ export function login(email, password) {
   });
 }
 
-export function resetPassword(email) {
+export function resetPassword() {
   return new Promise((resolve, reject) => {
-    parse.passwordReset(email, (err, response) => {
-      if(err) {
-        return reject(err);
-      }
-      return resolve(response);
-    });
+    reject(new Error('Not yet implemented!'));
   });
 }
 
-export function signUp(email, password){
+export function signUp(email, password) {
   return co(function*() {
     const existingUser = yield getUserByEmail(email);
-    if(existingUser) throw new Error('User already exists.');
+    if (existingUser) throw new Error('User already exists.');
 
     const user = yield createUser({email, password});
     if (!user) {

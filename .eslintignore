@@ -1,0 +1,6 @@
+*.js
+node_modules/**
+webpack/**
+src/**/__tests__/**/*.js
+src/static/dist/**
+src/web-server.js

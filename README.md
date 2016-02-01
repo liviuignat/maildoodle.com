@@ -1,6 +1,24 @@
-# React redux parse hot example
+# Online email template editor with an API
 
-Repo inspired from https://github.com/erikras/react-redux-universal-hot-example
+[![Build Status](https://travis-ci.org/liviuignat/email-templates.svg?branch=master)](https://travis-ci.org/liviuignat/email-templates)
+[![star this repo](http://githubbadges.com/star.svg?user=liviuignat&repo=email-templates&style=default)](https://github.com/liviuignat/email-templates)
+[![fork this repo](http://githubbadges.com/fork.svg?user=liviuignat&repo=email-templates&style=default)](https://github.com/liviuignat/email-templates/fork)
+
+Visit on Heroku here: 
+http://email-cloud.herokuapp.com/
+
+Create an account and test it here: 
+http://email-cloud.herokuapp.com/auth/sign-up
+
+Inspired from Redux Universal Hot Example repo: 
+https://github.com/erikras/react-redux-universal-hot-example
+
+- easily create email templates on the web
+- add test json data to test how your output email will look like (in progress)
+- ability to test how output email will look in html and pdf format (in progress)
+- multi-language support (in progress)
+- ability to access the output through APIs and also to test your APIs from the UI (in progress)
+- more to come ...
 
 ```
 npm install
@@ -12,7 +30,11 @@ npm run dev
 npm run build
 npm run start
 
-//test
-npm lint
-npm test
+//run test
+npm run lint
+npm run test
+npm run test-node
+
+//run REST API sigle test
+make test FILE=[complete_path_to_file]
 ```

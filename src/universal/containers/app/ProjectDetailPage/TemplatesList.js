@@ -15,7 +15,7 @@ export default class TemplatesList extends Component {
   };
 
   navigateToDetails(template) {
-    const url = `/app/projects/${this.props.project.objectId}/template/${template.objectId}`;
+    const url = `/app/projects/${this.props.project.objectId}/templates/${template.objectId}`;
     this.props.pushState(null, url);
   }
 

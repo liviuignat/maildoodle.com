@@ -1,0 +1,28 @@
+@import "../../../theme/variables.scss";
+
+.TemplateDetailPage {
+  padding: 0;
+}
+
+.TemplateDetailPage_tabContainer {
+  padding: 4px 16px;
+}
+
+.TemplateDetailPage_headerMessage {
+  font-size: 16px;
+  font-weight: bold;
+  color: $green;
+}
+
+.TemplateDetailPage_loadedVersionCommitName {
+  font-weight: normal;
+  font-style: italic;
+}
+
+.TemplateDetailPage_loadDevelopmentVersion {
+  font-size: 16px;
+  font-weight: bold;
+  color: $blue;
+  text-decoration: underline;
+  cursor: pointer;
+}

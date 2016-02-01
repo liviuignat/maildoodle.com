@@ -1,0 +1,79 @@
+@import "../../../../theme/variables.scss";
+
+.TemplateDetailOverview {
+}
+
+.TemplateDetailOverview_header {
+  margin: 16px 0;
+}
+
+.TemplateDetailOverview_row {
+  margin: 8px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.TemplateDetailOverview_rowCell {
+  flex-grow: 1;
+}
+
+.TemplateDetailOverview_rowLabel {
+  font-weight: 700;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 200px;
+}
+
+.TemplateDetailOverview_content {
+  margin-bottom: 16px;
+  display: flex;
+}
+
+.TemplateDetailOverview_apiSampleContent {
+  padding: 16px;
+}
+
+.TemplateDetailOverview_apiSampleSubsection {
+  margin-bottom: 16px;
+}
+
+.TemplateDetailOverview_actionButtonGroup {
+  flex-basis: 320px;
+  padding: 16px;
+}
+
+.TemplateDetailOverview_actionButtonContainer {
+  float: left;
+  margin-right: 16px;
+}
+
+.TemplateDetailOverview_commitButtonContainer {
+  margin-top: 8px;
+  margin-right: 16px;
+}
+
+.TemplateDetailOverview_versionsContainer {
+  flex: 1;
+  margin-left: 16px;
+  padding: 16px;
+}
+
+.TemplateDetailOverview_templateVersionCreateDate {
+  float: right;
+}
+
+.TemplateDetailOverview__isViewingVersion {
+  color: white;
+  font-weight: bold;
+  padding: 4px;
+  background-color: $orange;
+  margin-right: 4px;
+}
+
+.TemplateDetailOverview__isProductionVersion {
+  color: white;
+  font-weight: bold;
+  padding: 4px;
+  background-color: $green;
+  margin-right: 4px;
+}

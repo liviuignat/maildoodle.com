@@ -12,7 +12,7 @@ export function getMongdb() {
       return resolve(db);
     });
   });
-};
+}
 
 export function mapProp(entity, field, toField) {
   if (entity) {
@@ -25,7 +25,7 @@ export function mapProp(entity, field, toField) {
 }
 
 export function mapId(entity) {
-  if(entity) {
+  if (entity) {
     const entityClone = Object.assign({}, entity);
     entityClone._id = entity._id.toString();
     return mapProp(entityClone, '_id', 'objectId');
