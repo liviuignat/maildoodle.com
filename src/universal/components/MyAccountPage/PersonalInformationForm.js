@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+/* import React, { Component, PropTypes } from 'react';
 import {reduxForm} from 'redux-form';
 import { FormTextField, RaisedButton } from './../../../components';
 
@@ -39,3 +39,4 @@ export default class PersonalInformationForm extends Component {
     );
   }
 }
+*/
