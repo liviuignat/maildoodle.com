@@ -20,13 +20,30 @@ export function getUserBySessionToken(sessionToken) {
 
 function getUserByQuery(query) {
   return co(function *() {
+
     const objectIdQuery = {
       _id: query.objectId
     };
     const search = query.objectId ? Object.assign(query, objectIdQuery) : query;
 
+    if (search.objectId) {
+      delete search.objectId;
+    }
+
     const user = yield User.findOne(search);
     return toJson(user);
+  });
+}
+
+export function updateApiAccessToken(userId) {
+  return co(function*() {
+    const newApiAccessToken = md5(Date.now() + 10);
+
+    return yield User.update({
+      _id: userId
+    }, {
+      apiAccessToken: newApiAccessToken
+    });
   });
 }
 

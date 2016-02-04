@@ -52,10 +52,6 @@ describe('authModule tests', () => {
         it('SHOULD create an initial API key',
           () => expect(newUser.apiAccessToken).not.to.be.undefined);
 
-        describe('WHEN requesting a new api access token', () => {
-
-        });
-
         describe('WHEN trying to login', () => {
           it('SHOULD login successfully', (done) => {
             request.post('/api/auth/login')
