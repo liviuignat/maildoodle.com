@@ -10,6 +10,7 @@ import {
     ProjectListPage,
     ProjectDetailPage,
     TemplateDetailPage,
+    MyAccountPage,
     NotFoundPage
   } from './containers';
 
@@ -59,6 +60,8 @@ export default (store) => {
         <Route path="/app/projects" component={ProjectListPage} />
         <Route path="/app/projects/:projectId" component={ProjectDetailPage} />
         <Route path="/app/projects/:projectId/templates/:templateId" component={TemplateDetailPage} />
+
+        <Route path="/app/my-account" component={MyAccountPage}/>
       </Route>
 
       <Route path="*" component={NotFoundPage} status={404} />

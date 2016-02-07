@@ -12,3 +12,5 @@ export ProjectListPage from './app/ProjectListPage/ProjectListPage';
 export ProjectDetailPage from './app/ProjectDetailPage/ProjectDetailPage';
 
 export TemplateDetailPage from './app/TemplateDetailPage/TemplateDetailPage';
+
+export MyAccountPage from './app/MyAccountPage/MyAccountPage';
