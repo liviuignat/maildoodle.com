@@ -35,6 +35,18 @@ function getUserByQuery(query) {
   });
 }
 
+export function updateUserPersonalData(userId, updatedUserData) {
+  return co(function*() {
+    return yield User.update({
+      _id: userId
+    }, {
+      firstName: updatedUserData.firstName,
+      lastName: updatedUserData.lastName,
+      companyName: updatedUserData.companyName
+    });
+  });
+}
+
 export function updateApiAccessToken(userId) {
   return co(function*() {
     const newApiAccessToken = md5(Date.now() + 10);

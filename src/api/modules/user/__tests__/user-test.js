@@ -20,6 +20,41 @@ describe('userModule tests', () => {
       .catch(done);
   });
 
+  describe('WHEN requesting an update on the user\'s personal data', () => {
+    that.updateUserDataRequest = (user) => request
+      .put('/api/user/me')
+      .set('Content-type', 'application/json')
+      .set('Authorization', `Bearer ${user.sessionToken}`)
+      .send(user);
+
+    it('SHOULD return status okay (200)',
+      (done) => that.updateUserDataRequest(that.currentUser).expect(200).end(done));
+
+    describe('WHEN update user request is finished', () => {
+      beforeEach((done) => {
+        that.currentUser.firstName = 'Alina';
+        that.currentUser.lastName = 'Ignat';
+        that.currentUser.companyName = 'gogule';
+
+        that.updateUserDataRequest(that.currentUser).end((err,res) => {
+          if(err) return done(err);
+
+          that.updatedUser = res.body;
+          done();
+        });
+      });
+
+      it('SHOULD update the user first name',
+        () => expect(that.updatedUser.firstName).to.equal('Alina'));
+
+      it('SHOULD update the user last name',
+        () => expect(that.updatedUser.lastName).to.equal('Ignat'));
+
+      it('SHOULD update the user company name',
+        () => expect(that.updatedUser.companyName).to.equal('gogule'));
+    });
+  });
+
   describe('WHEN requesting a new api access token', () => {
     const newApiAccessTokenRequest = (user) => request
       .put('/api/user/me/apiaccesstoken')

@@ -13,6 +13,7 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   firstName: { type: String },
   lastName: { type: String },
+  companyName: { type: String },
   authToken: { type: String, index: true },
   sessionToken: { type: String, index: true },
   apiAccessToken: { type: String, index: true },

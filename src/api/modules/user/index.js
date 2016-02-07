@@ -1,5 +1,5 @@
 import { requiredAuthenticated } from './../../middleware';
-import { getUserById, updateApiAccessToken } from './userRepository';
+import { getUserById, updateApiAccessToken, updateUserPersonalData } from './userRepository';
 import { sendHttpError } from './../../http';
 
 export function setupRoutes(app, prefix = '/api/user') {
@@ -9,6 +9,13 @@ export function setupRoutes(app, prefix = '/api/user') {
 
   app.put(`${prefix}/me/apiaccesstoken`, requiredAuthenticated, (req, res) => {
     updateApiAccessToken(req.user.objectId)
+      .then(() => getUserById(req.user.objectId))
+      .then((updatedUser) => res.json(updatedUser))
+      .catch((err) => sendHttpError(res, { code: 400, err }));
+  });
+
+  app.put(`${prefix}/me`, requiredAuthenticated, (req, res) => {
+    updateUserPersonalData(req.user.objectId, req.body)
       .then(() => getUserById(req.user.objectId))
       .then((updatedUser) => res.json(updatedUser))
       .catch((err) => sendHttpError(res, { code: 400, err }));
