@@ -98,7 +98,7 @@ export function reducer(state = initialState, action = {}) {
         updatetingUser: false,
         updateUserError: '',
         user: Object.assign({}, action.result)
-      }
+      };
 
     case actions.UPDATE_CURRENT_USER_FAIL:
       return {
@@ -175,4 +175,3 @@ function getUserPhoto(user) {
   const emailMd5 = md5(user.email);
   return `http://www.gravatar.com/avatar/${emailMd5}.jpg?s=200`;
 }
-
