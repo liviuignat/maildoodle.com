@@ -6,16 +6,21 @@ import {
   getProjectDetailByIdAction,
   insertTemplateAction,
   updateTemplateAction,
-  deleteTemplateAction
+  deleteTemplateAction,
+  insertLayoutAction,
+  updateLayoutAction,
+  deleteLayoutAction
 } from './../../../redux/reducers/currentProject';
 import { GenericList } from './../../../components';
 import TemplatesList from './TemplatesList';
+import LayoutsList from './LayoutsList';
 
 @connect(
   state => ({
     projectId: state.router.params.projectId,
     project: state.currentProject.project,
     templates: state.currentProject.project.templates,
+    layouts: state.currentProject.project.layouts
   }), {
     pushState,
     initializeForm,
@@ -23,19 +28,26 @@ import TemplatesList from './TemplatesList';
     getProjectDetailByIdAction,
     insertTemplateAction,
     updateTemplateAction,
-    deleteTemplateAction
+    deleteTemplateAction,
+    insertLayoutAction,
+    updateLayoutAction,
+    deleteLayoutAction
   })
 export default class ProjectDetailPage extends Component {
   static propTypes = {
     projectId: PropTypes.string.isRequired,
     project: PropTypes.object,
     templates: PropTypes.array,
+    layouts: PropTypes.array,
     pushState: PropTypes.func.isRequired,
     initializeForm: PropTypes.func.isRequired,
     startSubmit: PropTypes.func.isRequired,
     insertTemplateAction: PropTypes.func.isRequired,
     updateTemplateAction: PropTypes.func.isRequired,
-    deleteTemplateAction: PropTypes.func.isRequired
+    deleteTemplateAction: PropTypes.func.isRequired,
+    insertLayoutAction: PropTypes.func.isRequired,
+    updateLayoutAction: PropTypes.func.isRequired,
+    deleteLayoutAction: PropTypes.func.isRequired
   };
 
   static fetchData(getState, dispatch, location, params) {
@@ -45,7 +57,7 @@ export default class ProjectDetailPage extends Component {
   }
 
   render() {
-    const { project, templates } = this.props;
+    const { project, templates, layouts } = this.props;
 
     return (
       <div>
@@ -59,14 +71,15 @@ export default class ProjectDetailPage extends Component {
           updateTemplateAction={this.props.updateTemplateAction}
           deleteTemplateAction={this.props.deleteTemplateAction} />
 
-        <GenericList subheader="layouts"
-          items={project.layouts}
-          onEditPressed={() => {}}
-          onDeletePressed={() => {}}
-          onAddPressed={() => {}}
-          onRowClick={() => {}}
-          primaryText={(item) => item.name}
-          secondaryText={(item) => item.value}/>
+        <LayoutsList
+          project={project}
+          layouts={layouts}
+          pushState={this.props.pushState}
+          initializeForm={this.props.initializeForm}
+          startSubmit={this.props.startSubmit}
+          insertLayoutAction={this.props.insertLayoutAction}
+          updateLayoutAction={this.props.updateLayoutAction}
+          deleteLayoutAction={this.props.deleteLayoutAction} />
 
         <GenericList subheader="languages"
           items={project.languages}

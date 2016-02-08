@@ -1,5 +1,7 @@
-import * as actions from './actions';
 import {fromJS} from 'immutable';
+import * as actions from './actions';
+import {insertProjectTemplate, updateProjectTemplate, deleteProjectTemplate} from './projectReducer';
+import {insertProjectLayout, updateProjectLayout, deleteProjectLayout} from './layoutReducer';
 
 const initialState = {
   loadingProject: false,
@@ -35,6 +37,24 @@ export function reducer(state = initialState, action = {}) {
       state.project.templates = deleteProjectTemplate(state.project.templates, action);
       return Object.assign({}, state);
 
+    case actions.INSERT_LAYOUT:
+    case actions.INSERT_LAYOUT_SUCCESS:
+    case actions.INSERT_LAYOUT_FAIL:
+      state.project.layouts = insertProjectLayout(state.project.layouts, action);
+      return Object.assign({}, state);
+
+    case actions.UPDATE_LAYOUT:
+    case actions.UPDATE_LAYOUT_SUCCESS:
+    case actions.UPDATE_LAYOUT_FAIL:
+      state.project.layouts = updateProjectLayout(state.project.layouts, action);
+      return Object.assign({}, state);
+
+    case actions.DELETE_LAYOUT:
+    case actions.DELETE_LAYOUT_SUCCESS:
+    case actions.DELETE_LAYOUT_FAIL:
+      state.project.layouts = deleteProjectLayout(state.project.layouts, action);
+      return Object.assign({}, state);
+
     default:
       return Object.assign({}, state);
   }
@@ -62,81 +82,6 @@ function loadProjectDetails(state, action) {
         .set('loadingProject', false)
         .set('loadProjectError', fromJS(action.error))
         .toJSON();
-    default:
-      return state;
-  }
-}
-
-function insertProjectTemplate(state, action) {
-  const immutable = fromJS(state);
-
-  switch (action.type) {
-    case actions.INSERT_TEMPLATE:
-      return immutable.toJSON();
-
-    case actions.INSERT_TEMPLATE_SUCCESS:
-      return immutable.push(fromJS(action.result.template)).toJSON();
-
-    case actions.INSERT_TEMPLATE_FAIL:
-      return immutable
-        .set('insertTemplateError', fromJS(action.error))
-        .toJSON();
-
-    default:
-      return state;
-  }
-}
-
-function updateProjectTemplate(state, action) {
-  const immutable = fromJS(state);
-
-  switch (action.type) {
-    case actions.UPDATE_TEMPLATE:
-      return immutable.toJSON();
-
-    case actions.UPDATE_TEMPLATE_SUCCESS:
-      const template = action.result.template;
-      const index = immutable
-        .findIndex((item) => item.get('objectId') === template.objectId);
-
-      if (index === -1) {
-        return immutable.toJSON();
-      }
-
-      return immutable.update(index, () => fromJS(template)).toJSON();
-
-    case actions.UPDATE_TEMPLATE_FAIL:
-      return immutable
-        .set('insertTemplateError', fromJS(action.error))
-        .toJSON();
-
-    default:
-      return state;
-  }
-}
-
-function deleteProjectTemplate(state, action) {
-  const immutable = fromJS(state);
-
-  switch (action.type) {
-    case actions.DELETE_TEMPLATE:
-      return immutable.toJSON();
-
-    case actions.DELETE_TEMPLATE_SUCCESS:
-      const index = immutable
-        .findIndex((item) => item.get('objectId') === action.result.objectId);
-
-      if (index === -1) {
-        return immutable.toJSON();
-      }
-
-      return immutable.remove(index).toJSON();
-
-    case actions.DELETE_TEMPLATE_FAIL:
-      return immutable
-        .set('insertTemplateError', fromJS(action.error))
-        .toJSON();
-
     default:
       return state;
   }

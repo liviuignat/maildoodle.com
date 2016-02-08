@@ -1,3 +1,4 @@
+import co from 'co';
 import { requiredAuthenticated } from './../../middleware';
 import { sendHttpError } from './../../http';
 
@@ -10,19 +11,20 @@ import {getLayoutById, updateLayout} from './layouts';
 
 export function setupRoutes(app, prefix = '/api/projects') {
   app.post(`${prefix}/:projectId/layouts`, requiredAuthenticated, (req, res) => {
-    getProjectById(req.user.objectId, req.params.projectId)
-      .then((project) => {
-        project.layouts.push(req.body);
-        return updateProject(project.objectId, project);
-      })
-      .then(() => getProjectById(req.user.objectId, req.params.projectId))
-      .then((project) => {
-        const newLayoutName = req.body.name;
-        const addedLayout = project.layouts.find((element) => {
-          return element.name === newLayoutName;
-        });
-        return res.json(addedLayout);
-      })
+    const userId = req.user.objectId;
+    const projectId = req.params.projectId;
+    const newLayout = req.body;
+
+    co(function*(){
+      const existingProject = yield getProjectById(userId, projectId);
+      existingProject.layouts.push(newLayout);
+      yield updateProject(existingProject.objectId, existingProject);
+
+      const project = yield getProjectById(userId, projectId);
+      const addedLayout = project.layouts.find((element) => element.name === newLayout.name);
+
+      return addedLayout;
+    }).then(layout => res.json(layout))
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });
 

@@ -59,3 +59,42 @@ export function deleteTemplateAction(projectId, template) {
     }
   };
 }
+
+export function insertLayoutAction(projectId, newLayout) {
+  return {
+    types: [actions.INSERT_LAYOUT, actions.INSERT_LAYOUT_SUCCESS, actions.INSERT_LAYOUT_FAIL],
+    promise: (client) => {
+      const url = `/projects/${projectId}/layouts`;
+      return client.post(url, { data: newLayout })
+        .then((layout) => {
+          return { projectId, layout };
+        });
+    }
+  };
+}
+
+export function updateLayoutAction(projectId, layoutToUpdate) {
+  return {
+    types: [actions.UPDATE_LAYOUT, actions.UPDATE_LAYOUT_SUCCESS, actions.UPDATE_LAYOUT_FAIL],
+    promise: (client) => {
+      const url = `/projects/${projectId}/layouts/${layoutToUpdate.objectId}`;
+      return client.put(url, { data: layoutToUpdate })
+        .then((layout) => {
+          return { projectId, layout };
+        });
+    }
+  };
+}
+
+export function deleteLayoutAction(projectId, layout) {
+  return {
+    types: [actions.DELETE_LAYOUT, actions.DELETE_LAYOUT_SUCCESS, actions.DELETE_LAYOUT_FAIL],
+    promise: (client) => {
+      const url = `/projects/${projectId}/layouts/${layout.objectId}`;
+      return client.del(url)
+        .then(() => {
+          return { projectId, objectId: layout.objectId };
+        });
+    }
+  };
+}
