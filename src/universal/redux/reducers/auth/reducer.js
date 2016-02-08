@@ -84,6 +84,53 @@ export function reducer(state = initialState, action = {}) {
         loggingOut: false,
         logoutError: action.error
       };
+
+    case actions.UPDATE_CURRENT_USER:
+      return {
+        ...state,
+        updatetingUser: true,
+        updateUserError: ''
+      };
+
+    case actions.UPDATE_CURRENT_USER_SUCCESS:
+      return {
+        ...state,
+        updatetingUser: false,
+        updateUserError: '',
+        user: Object.assign({}, action.result)
+      }
+
+    case actions.UPDATE_CURRENT_USER_FAIL:
+      return {
+        ...state,
+        updatetingUser: false,
+        updateUserError: action.error
+      };
+
+    case actions.UPDATE_API_ACCESS_TOKEN_USER:
+      return {
+        ...state,
+        updatetingUserAPIAccessToken: true,
+        updateAPIAccessTokenError: ''
+      };
+
+    case actions.UPDATE_API_ACCESS_TOKEN_USER_FAIL:
+      return {
+        ...state,
+        updatetingUserAPIAccessToken: false,
+        updateAPIAccessTokenError: action.error
+      };
+
+    case actions.UPDATE_API_ACCESS_TOKEN_USER_SUCCESS:
+      return {
+        ...state,
+        updatetingUserAPIAccessToken: false,
+        updateAPIAccessTokenError: '',
+        user: Object.assign(state.user, {
+          apiAccessToken: action.result.apiAccessToken
+        })
+      };
+
     default:
       return state;
   }
