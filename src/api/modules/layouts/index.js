@@ -15,7 +15,7 @@ export function setupRoutes(app, prefix = '/api/projects') {
     const projectId = req.params.projectId;
     const newLayout = req.body;
 
-    co(function*(){
+    co(function*() {
       const existingProject = yield getProjectById(userId, projectId);
       existingProject.layouts.push(newLayout);
       yield updateProject(existingProject.objectId, existingProject);
