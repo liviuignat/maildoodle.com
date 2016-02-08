@@ -23,8 +23,11 @@
 
   &.AppHeader__isDrawerVisible {
     padding-left: 0;
-    @media screen and (min-width: 1025px) {
-      padding-left: $drawer-width;
+    @media screen and (min-width: $drawer-screen-size-small) {
+      padding-left: $drawer-width-small;
+    }
+    @media screen and (min-width: $drawer-screen-size-large) {
+      padding-left: $drawer-width-large;
     }
   }
 
@@ -62,7 +65,7 @@
     order: 1;
     width: 100px;
 
-    @media screen and (min-width: 1025px) {
+    @media screen and (min-width: $drawer-screen-size-large) {
       padding-left: 500px;
     }
 

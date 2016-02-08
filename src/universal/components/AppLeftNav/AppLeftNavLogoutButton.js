@@ -17,7 +17,9 @@ export default class AppLeftNavLogoutButton extends Component {
     const styles = require('./AppLeftNav.scss');
     return (
       <span className={styles.AppLeftNav_logout}
-        onClick={this.props.logoutAction}>Logout</span>
+        onClick={this.props.logoutAction}>
+        <i className="fa fa-circle-o-notch"/><span className={styles.AppLeftNav_linkText}>Logout</span>
+        </span>
     );
   }
 }
