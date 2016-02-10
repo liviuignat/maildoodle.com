@@ -10,5 +10,6 @@ export DashboardPage from './app/DashboardPage/DashbordPage.js';
 
 export ProjectListPage from './app/ProjectListPage/ProjectListPage';
 export ProjectDetailPage from './app/ProjectDetailPage/ProjectDetailPage';
+export LayoutDetailPage from './app/LayoutDetailPage/LayoutDetailPage';
 
 export TemplateDetailPage from './app/TemplateDetailPage/TemplateDetailPage';
