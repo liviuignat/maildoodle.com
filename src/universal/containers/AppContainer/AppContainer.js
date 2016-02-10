@@ -80,7 +80,7 @@ export default class AppContainer extends Component {
 
         <AppHeader isLoggedIn={this.isLoggedIn} />
 
-        {this.isLoggedIn && <AppLeftNav user={user} />}
+        {this.isLoggedIn && <AppLeftNav user={user} pushState={this.props.pushState} />}
 
         <div className={::this.getContentClassName(styles, isDrawerVisble)}>
           {this.props.children}
