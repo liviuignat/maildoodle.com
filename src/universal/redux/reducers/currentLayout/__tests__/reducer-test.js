@@ -38,6 +38,38 @@ describe('GIVEN project detail reducer tests', () => {
 
       it('layout should have the new value',
         () => expect(currrentState.layout.value).to.equal(newLayout.value));
+
+      describe('WHEN updating layout', () => {
+        let action = { type: actions.UPDATE_LAYOUT_DETAIL };
+        beforeEach(() => currrentState = reducer(currrentState, action));
+
+        it('should isUpdatingLayout set to true',
+          () => expect(currrentState.isUpdatingLayout).to.equal(true));
+
+        describe('WHEN updating layout success', () => {
+          let updatedLayout = Object.assign(newLayout, {
+            name: 'updated layout',
+            value: 'some updated value'
+          });
+          let action = {
+            type: actions.UPDATE_LAYOUT_DETAIL_SUCCESS,
+            result: updatedLayout
+          };
+          beforeEach(() => currrentState = reducer(currrentState, action));
+
+          it('should isUpdatingLayout set to false',
+            () => expect(currrentState.isUpdatingLayout).to.equal(false));
+
+          it('should have a layout',
+            () => expect(currrentState.layout).not.to.equal(null));
+
+          it('layout should have the new name',
+            () => expect(currrentState.layout.name).to.equal(updatedLayout.name));
+
+          it('layout should have the new value',
+            () => expect(currrentState.layout.value).to.equal(updatedLayout.value));
+        });
+      });
     });
   });
 });

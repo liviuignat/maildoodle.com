@@ -25,7 +25,7 @@ export default class AppLeftNav extends Component {
           </div>
         </header>
         <nav className={styles.AppLeftNav_navigation}>
-          <Link style={{display: 'none;'}} className={styles.AppLeftNav_navigationLink} to="/app">
+          <Link style={{display: 'none'}} className={styles.AppLeftNav_navigationLink} to="/app">
             <i className={"fa fa-dashboard"}/><span className={styles.AppLeftNav_linkText}>Dashboard</span>
           </Link>
           <Link className={styles.AppLeftNav_navigationLink} to="/app/my-account">
