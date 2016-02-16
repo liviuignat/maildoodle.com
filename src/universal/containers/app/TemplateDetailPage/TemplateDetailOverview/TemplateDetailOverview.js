@@ -26,7 +26,7 @@ export default class TemplateDetailOverview extends Component {
 
     return languages.map((language) => {
       return {
-        id: language.objectId,
+        value: language.objectId,
         text: language.name
       };
     });
@@ -38,7 +38,7 @@ export default class TemplateDetailOverview extends Component {
 
     return layouts.map((project) => {
       return {
-        id: project.objectId,
+        value: project.objectId,
         text: project.name
       };
     });
@@ -66,7 +66,8 @@ export default class TemplateDetailOverview extends Component {
     const {currentVersion} = this.props.template;
     const {sampleJson} = currentVersion;
     const jsonString = JSON.stringify(JSON.parse(sampleJson));
-    let url = `/api/projects/${project.objectId}/templates/${template.objectId}/generate?json=${jsonString}`;
+    const layoutId = this.layoutsSelectItems[1];
+    let url = `/api/projects/${project.objectId}/templates/${template.objectId}/generate?json=${jsonString}&layoutId=${layoutId}`;
 
     const viewedVersion =
       template.versions.filter((version) => version.objectId === currentVersion.objectId)[0];

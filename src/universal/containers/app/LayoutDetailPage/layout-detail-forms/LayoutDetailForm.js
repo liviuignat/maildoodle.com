@@ -1,7 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import {reduxForm} from 'redux-form';
 import {layoutDetailFormValidator} from './validators';
-import {FormTextField, RaisedButton} from './../../../../components';
+import {
+  FormTextField,
+  RaisedButton,
+  CodeEditor
+} from './../../../../components';
 
 export const LAYOUT_DETAIL_FORM = 'layoutDetailForm';
 
@@ -44,11 +48,12 @@ export default class LayoutDetailForm extends Component {
           </div>
 
           <div>
-            <FormTextField field={value}
-              type="text"
-              labelText="Layout value"
-              fullWidth
-              disabled={isUpdatingLayout}/>
+            <CodeEditor
+              {...value}
+              readOnly={isUpdatingLayout}
+              lineNumbers
+              matchBrackets
+              height={400} />
           </div>
 
           <span className={styles.LayoutDetailFormErrorMessage}>{valid && updateLayoutError}</span>
