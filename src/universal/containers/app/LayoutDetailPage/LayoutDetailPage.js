@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
 import { pushState } from 'redux-router';
+import {Paper} from './../../../components';
 import {
   getLayoutDetailsAction,
   updateLayoutDetailsAction
@@ -53,6 +54,7 @@ export default class LayoutDetailPage extends Component {
   }
 
   render() {
+    const style = require('./LayoutDetailPage.scss');
     const {
       currentLayout: {
         isUpdatingLayout,
@@ -62,10 +64,12 @@ export default class LayoutDetailPage extends Component {
 
     return (
       <div>
-        <LayoutDetailForm
-          onSubmit={::this.handleLayoutSubmit}
-          isUpdatingLayout={isUpdatingLayout}
-          updateLayoutError={updateLayoutError} />
+        <Paper className={style.LayoutDetailPage}>
+          <LayoutDetailForm
+            onSubmit={::this.handleLayoutSubmit}
+            isUpdatingLayout={isUpdatingLayout}
+            updateLayoutError={updateLayoutError} />
+        </Paper>
       </div>
     );
   }
