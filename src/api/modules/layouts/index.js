@@ -64,7 +64,7 @@ export function setupRoutes(app, prefix = '/api/projects') {
       .catch(err => sendHttpError(res, { code: 400, err }));
   });
 
-  app.del(`${prefix}/:projectId/layouts/:layoutId`, requiredAuthenticated, (req, res) => {
+  app.delete(`${prefix}/:projectId/layouts/:layoutId`, requiredAuthenticated, (req, res) => {
     getProjectById(req.user.objectId, req.params.projectId)
     .then((project) => {
       const indexOfLayout = project.layouts.findIndex((item) => {
