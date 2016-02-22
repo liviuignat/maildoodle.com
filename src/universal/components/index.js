@@ -16,6 +16,7 @@ export {
   List,
   ListItem,
   ListDivider,
+  Divider,
 
   IconButton,
   FontIcon

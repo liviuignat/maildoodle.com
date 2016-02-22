@@ -21,3 +21,7 @@ export const UPDATE_LAYOUT_FAIL = 'email-templates/auth/UPDATE_LAYOUT_LIST_FAIL'
 export const DELETE_LAYOUT = 'email-templates/auth/DELETE_LAYOUT';
 export const DELETE_LAYOUT_SUCCESS = 'email-templates/auth/DELETE_LAYOUT_SUCCESS';
 export const DELETE_LAYOUT_FAIL = 'email-templates/auth/DELETE_LAYOUT_LIST_FAIL';
+
+export const CHANGE_SELECTED_LAYOUT_ID = 'email-templates/auth/CHANGE_SELECTED_LAYOUT_ID';
+export const CHANGE_SELECTED_LANGUAGE_ID = 'email-templates/auth/CHANGE_SELECTED_LANGUAGE_ID';
+

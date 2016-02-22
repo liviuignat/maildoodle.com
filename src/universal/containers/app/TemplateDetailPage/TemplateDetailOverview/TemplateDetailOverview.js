@@ -4,6 +4,7 @@ import {
   RaisedButton,
   Paper,
   SelectField,
+  MenuItem,
   DialogForm
 } from './../../../../components';
 import PromoteTemplateToProductionForm, {FORM_NAME} from './../template-detail-forms/PromoteTemplateToProductionForm';
@@ -17,31 +18,29 @@ export default class TemplateDetailOverview extends Component {
     startSubmit: PropTypes.func.isRequired,
     promoteProductionVersion: PropTypes.func.isRequired,
     loadTemplateVersion: PropTypes.func.isRequired,
-    changeProductionVersion: PropTypes.func.isRequired
+    changeProductionVersion: PropTypes.func.isRequired,
+    selectedLayout: PropTypes.object.isRequired,
+    selectedLanguage: PropTypes.object.isRequired,
+    changeSelectedLanguage: PropTypes.func.isRequired,
+    changeSelectedLayout: PropTypes.func.isRequired
   };
 
-  get languagesSelectItems() {
-    const {languages} = this.props.project;
-    if (!languages) return [];
-
-    return languages.map((language) => {
-      return {
-        value: language.objectId,
-        text: language.name
-      };
-    });
+  getLayoutsSelectItems() {
+    const {layouts} = this.props.project;
+    return (layouts || [])
+      .map((layout) => <MenuItem
+        key={layout.objectId}
+        value={layout.objectId}
+        primaryText={layout.name} />);
   }
 
-  get layoutsSelectItems() {
-    const {layouts} = this.props.project;
-    if (!layouts) return [];
-
-    return layouts.map((project) => {
-      return {
-        value: project.objectId,
-        text: project.name
-      };
-    });
+  getLanguageSelectItems() {
+    const {languages} = this.props.project;
+    return (languages || [])
+      .map((language) => <MenuItem
+        key={language.objectId}
+        value={language.objectId}
+        primaryText={language.name} />);
   }
 
   isViewingOlderVersion(version) {
@@ -54,6 +53,14 @@ export default class TemplateDetailOverview extends Component {
     this.props.startSubmit(FORM_NAME);
   }
 
+  handleLayoutChange(event, index, value) {
+    this.props.changeSelectedLayout(value);
+  }
+
+  handleLanguageChange(event, index, value) {
+    this.props.changeSelectedLanguage(value);
+  }
+
   handleCommitToProduction(formData) {
     const {template} = this.props;
     const prodVersion = Object.assign({}, template.developmentVersion, formData);
@@ -62,12 +69,14 @@ export default class TemplateDetailOverview extends Component {
   }
 
   handlePreviewTemplate() {
-    const {project, template} = this.props;
+    const {project, template, selectedLayout, selectedLanguage} = this.props;
     const {currentVersion} = this.props.template;
     const {sampleJson} = currentVersion;
     const jsonString = JSON.stringify(JSON.parse(sampleJson));
-    const layoutId = this.layoutsSelectItems[1];
-    let url = `/api/projects/${project.objectId}/templates/${template.objectId}/generate?json=${jsonString}&layoutId=${layoutId}`;
+    const layoutId = selectedLayout.objectId;
+    const lang = selectedLanguage.key;
+
+    let url = `/api/projects/${project.objectId}/templates/${template.objectId}/generate?json=${jsonString}&layoutId=${layoutId}&lang=${lang}`;
 
     const viewedVersion =
       template.versions.filter((version) => version.objectId === currentVersion.objectId)[0];
@@ -93,8 +102,17 @@ export default class TemplateDetailOverview extends Component {
 
   render() {
     const style = require('./TemplateDetailOverview.scss');
-    const {project, template, isReadOnly} = this.props;
+    const {
+      project,
+      template,
+      isReadOnly,
+      selectedLayout,
+      selectedLanguage
+    } = this.props;
     const {versions} = template;
+
+    const selectedLayoutId = selectedLayout ? selectedLayout.objectId : '';
+    const selectedLanguageId = selectedLanguage ? selectedLanguage.objectId : '';
 
     return (
       <div className={style.TemplateDetailOverview}>
@@ -120,12 +138,20 @@ export default class TemplateDetailOverview extends Component {
         <div className={style.TemplateDetailOverview_content}>
           <Paper className={style.TemplateDetailOverview_actionButtonGroup}>
             <div>
-              <div>Choose a layout:</div>
-              <SelectField menuItems={this.layoutsSelectItems}/>
+              <div>Choose a layout:{this.state && this.state.selectedLayoutId}</div>
+              <SelectField
+                value={selectedLayoutId}
+                onChange={::this.handleLayoutChange}>
+                {::this.getLayoutsSelectItems()}
+              </SelectField>
             </div>
             <div>
               <div>Choose a language:</div>
-              <SelectField menuItems={this.languagesSelectItems}/>
+              <SelectField
+                value={selectedLanguageId}
+                onChange={::this.handleLanguageChange}>
+                {::this.getLanguageSelectItems()}
+              </SelectField>
             </div>
 
             <div>

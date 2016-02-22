@@ -9,6 +9,8 @@ const initialState = {
   insertTemplateError: '',
   updateTemplateError: '',
   deleteTemplateError: '',
+  selectedLayout: null,
+  selectedLanguage: null,
   project: null
 };
 
@@ -55,6 +57,14 @@ export function reducer(state = initialState, action = {}) {
       state.project.layouts = deleteProjectLayout(state.project.layouts, action);
       return Object.assign({}, state);
 
+    case actions.CHANGE_SELECTED_LAYOUT_ID:
+      const selectedLayout = state.project.layouts.find(layout => layout.objectId === action.result);
+      return Object.assign(state, { selectedLayout });
+
+    case actions.CHANGE_SELECTED_LANGUAGE_ID:
+      const selectedLanguage = state.project.languages.find(language => language.objectId === action.result);
+      return Object.assign(state, { selectedLanguage });
+
     default:
       return Object.assign({}, state);
   }
@@ -74,6 +84,8 @@ function loadProjectDetails(state, action) {
       return immutable
         .set('loadingProject', false)
         .set('loadProjectError', '')
+        .set('selectedLayout', action.result.layouts[0])
+        .set('selectedLanguage', action.result.languages[0])
         .set('project', fromJS(action.result))
         .toJSON();
 

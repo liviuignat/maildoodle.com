@@ -3,7 +3,7 @@ import {
   FloatingActionButton,
   List,
   ListItem,
-  ListDivider,
+  Divider,
   IconButton,
   IconMenu,
   MenuItem,
@@ -52,7 +52,7 @@ export default class GenericList extends Component {
 
     const listItem = (item, index) => (
       <div key={index}>
-        <ListDivider />
+        <Divider />
         <ListItem
           rightIconButton={listItemIconMenu(item)}
           primaryText={(

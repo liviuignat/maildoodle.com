@@ -98,3 +98,17 @@ export function deleteLayoutAction(projectId, layout) {
     }
   };
 }
+
+export function selectPreviewLanguage(languageId) {
+  return {
+    type: actions.CHANGE_SELECTED_LANGUAGE_ID,
+    result: languageId
+  };
+}
+
+export function selectPreviewLayout(layoutId) {
+  return {
+    type: actions.CHANGE_SELECTED_LAYOUT_ID,
+    result: layoutId
+  };
+}
