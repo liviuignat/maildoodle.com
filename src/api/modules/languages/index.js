@@ -63,7 +63,7 @@ export function setupRoutes(app, prefix = '') {
       .catch(err => sendHttpError(res, { code: 400, err }));
   });
 
-  app.del(`${prefix}/:projectId/languages/:languageId`, requiredAuthenticated, (req, res) => {
+  app.delete(`${prefix}/:projectId/languages/:languageId`, requiredAuthenticated, (req, res) => {
     getProjectById(req.user.objectId, req.params.projectId)
     .then((project) => {
       const indexOfLanguage = project.languages.findIndex((item) => {

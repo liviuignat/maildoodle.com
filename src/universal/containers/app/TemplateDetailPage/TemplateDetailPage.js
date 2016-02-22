@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {startSubmit} from 'redux-form';
 import {
-  getProjectDetailByIdAction
+  getProjectDetailByIdAction,
+  selectPreviewLanguage,
+  selectPreviewLayout
 } from './../../../redux/reducers/currentProject';
 import {
   getTemplateDetailByIdAction,
@@ -26,11 +28,15 @@ import TemplateLanguages from './TemplateLanguages/TemplateLanguages';
   state => ({
     template: state.currentTemplate.template,
     versions: state.currentTemplate.template.versions,
-    project: state.currentProject.project
+    project: state.currentProject.project,
+    selectedLayout: state.currentProject.selectedLayout,
+    selectedLanguage: state.currentProject.selectedLanguage
   }), {
     startSubmit,
     updateDevelopmentVersion: updateTemplateDevelopmentVersion,
     promoteProductionVersion: promoteTemplateToProductionVersion,
+    changeSelectedLanguage: selectPreviewLanguage,
+    changeSelectedLayout: selectPreviewLayout,
     loadTemplateVersion,
     changeProductionVersion
   })
@@ -39,11 +45,15 @@ export default class TemplateDetailPage extends Component {
     template: PropTypes.object.isRequired,
     versions: PropTypes.array.isRequired,
     project: PropTypes.object.isRequired,
+    selectedLayout: PropTypes.object.isRequired,
+    selectedLanguage: PropTypes.object.isRequired,
     startSubmit: PropTypes.func.isRequired,
     updateDevelopmentVersion: PropTypes.func.isRequired,
     promoteProductionVersion: PropTypes.func.isRequired,
     loadTemplateVersion: PropTypes.func.isRequired,
-    changeProductionVersion: PropTypes.func.isRequired
+    changeProductionVersion: PropTypes.func.isRequired,
+    changeSelectedLanguage: PropTypes.func.isRequired,
+    changeSelectedLayout: PropTypes.func.isRequired,
   };
 
   static fetchData(getState, dispatch, location, params) {
@@ -113,7 +123,14 @@ export default class TemplateDetailPage extends Component {
 
   render() {
     const style = require('./TemplateDetailPage.scss');
-    const {template, project} = this.props;
+    const {
+      template,
+      project,
+      selectedLayout,
+      selectedLanguage,
+      changeSelectedLanguage,
+      changeSelectedLayout
+    } = this.props;
     const {languages} = project;
 
     return (
@@ -127,6 +144,10 @@ export default class TemplateDetailPage extends Component {
                   isReadOnly={this.isViewingOldVersion}
                   template={template}
                   project={project}
+                  selectedLayout={selectedLayout}
+                  changeSelectedLayout={changeSelectedLayout}
+                  selectedLanguage={selectedLanguage}
+                  changeSelectedLanguage={changeSelectedLanguage}
                   startSubmit={this.props.startSubmit}
                   promoteProductionVersion={::this.promoteProductionVersion}
                   loadTemplateVersion={::this.loadTemplateVersion}

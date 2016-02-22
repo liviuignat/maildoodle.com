@@ -9,6 +9,7 @@ import {
     DashboardPage,
     ProjectListPage,
     ProjectDetailPage,
+    LayoutDetailPage,
     TemplateDetailPage,
     NotFoundPage
   } from './containers';
@@ -58,6 +59,7 @@ export default (store) => {
 
         <Route path="/app/projects" component={ProjectListPage} />
         <Route path="/app/projects/:projectId" component={ProjectDetailPage} />
+        <Route path="/app/projects/:projectId/layouts/:layoutId" component={LayoutDetailPage} />
         <Route path="/app/projects/:projectId/templates/:templateId" component={TemplateDetailPage} />
       </Route>
 

@@ -1,6 +1,6 @@
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
-import customMaterialTheme from './../../theme/materialTheme';
+import {getMuiTheme} from './../../theme/materialTheme';
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
@@ -18,7 +18,7 @@ import { isUserLoaded, loadUserAction } from './../../redux/reducers/auth';
   }),
   { pushState }
 )
-@themeDecorator(ThemeManager.getMuiTheme(customMaterialTheme))
+@themeDecorator(ThemeManager.getMuiTheme(getMuiTheme()))
 export default class AppContainer extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,

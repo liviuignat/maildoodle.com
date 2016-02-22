@@ -14,7 +14,7 @@ import {
   DialogForm,
   List,
   ListItem,
-  ListDivider,
+  Divider,
   IconButton,
   IconMenu,
   MenuItem,
@@ -112,7 +112,7 @@ export default class ProjectListPage extends Component {
 
     const projectItem = (project, index) => (
         <div key={index}>
-          <ListDivider />
+          <Divider />
           <ListItem
             rightIconButton={listItemIconMenu(project)}
             primaryText={(
