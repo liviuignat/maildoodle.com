@@ -25,7 +25,7 @@ export default class LoginPage extends Component {
     initialize: PropTypes.func.isRequired,
     loginAction: PropTypes.func.isRequired,
     pushState: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props, context) {
     super(props, context);

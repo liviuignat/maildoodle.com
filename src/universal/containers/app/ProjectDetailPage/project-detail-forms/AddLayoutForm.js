@@ -1,17 +1,17 @@
 import React, {Component, PropTypes} from 'react';
 import {reduxForm, stopSubmit} from 'redux-form';
 import {FormTextField} from './../../../../components';
-import {promoteTemplateToProductionValidator} from './validators';
+import { addLayoutFormValidator } from './validators';
 
-export const FORM_NAME = 'promoteTemplateToProductionForm';
+export const ADD_LAYOUT_FORM_NAME = 'addLayoutForm';
 
 @reduxForm({
-  form: FORM_NAME,
-  fields: ['commitMessage'],
-  validate: promoteTemplateToProductionValidator,
+  form: ADD_LAYOUT_FORM_NAME,
+  fields: ['objectId', 'name'],
+  validate: addLayoutFormValidator,
   stopSubmit
 })
-export default class PromoteTemplateToProductionForm extends Component {
+export default class AddLayoutForm extends Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -31,12 +31,12 @@ export default class PromoteTemplateToProductionForm extends Component {
 
   submit() {
     this.props.handleSubmit();
-    this.props.dispatch(stopSubmit(FORM_NAME));
+    this.props.dispatch(stopSubmit(ADD_LAYOUT_FORM_NAME));
   }
 
   render() {
     const {
-      fields: {commitMessage},
+      fields: {name},
       handleSubmit,
       isSaving
     } = this.props;
@@ -45,9 +45,9 @@ export default class PromoteTemplateToProductionForm extends Component {
       <form
         onSubmit={handleSubmit}>
         <div>
-          <FormTextField field={commitMessage}
+          <FormTextField field={name}
             type="text"
-            labelText="Commit message"
+            labelText="Layout name"
             fullWidth
             disabled={isSaving}/>
         </div>

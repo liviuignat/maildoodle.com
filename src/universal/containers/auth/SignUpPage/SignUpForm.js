@@ -18,7 +18,7 @@ export default class SignUpForm extends Component {
     pristine: PropTypes.bool.isRequired,
     invalid: PropTypes.bool.isRequired,
     valid: PropTypes.bool.isRequired
-  }
+  };
 
   render() {
     const styles = require('./SignUpPage.scss');

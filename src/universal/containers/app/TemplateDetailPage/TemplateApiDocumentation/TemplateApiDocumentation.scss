@@ -1,0 +1,14 @@
+@import "../../../../theme/variables.scss";
+
+.TemplateApiDocumentation_sampleContent {
+  padding: 16px;
+}
+
+.TemplateApiDocumentation_sampleSubsection {
+  margin-bottom: 16px;
+}
+
+.TemplateApiDocumentation_toggleApi {
+  @include app-link();
+  float: right;
+}

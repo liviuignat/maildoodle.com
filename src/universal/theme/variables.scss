@@ -26,7 +26,19 @@ $text-color: #333;
 $font-size-base: 14px;
 $font-family-sans-serif: "Helvetica Neue", Helvetica, sans-serif;
 
-$drawer-width: 240px;
+$drawer-width-large: 210px;
+$drawer-width-small: 100px;
+$drawer-screen-size-large: 1024px;
+$drawer-screen-size-small: 800px;
+
+@mixin app-link {
+  color: $color-lightBlue400;
+  font-size: $font-size-base;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
 
 @mixin error-message() {
   color: $color-error;
@@ -39,4 +51,10 @@ $drawer-width: 240px;
   width: $size;
   height: $size;
   border-radius: ($size / 2);
+}
+
+body {
+  .cm-invalidchar {
+    color: transparent;
+  }
 }

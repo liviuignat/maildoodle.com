@@ -6,6 +6,7 @@ import {reducer as appLoading} from './appLoading';
 import {reducer as auth} from './auth';
 import {reducer as projects} from './projects';
 import {reducer as currentProject} from './currentProject';
+import {reducer as currentLayout} from './currentLayout';
 import {reducer as currentTemplate} from './currentTemplate';
 
 export default combineReducers({
@@ -14,6 +15,7 @@ export default combineReducers({
   auth,
   projects,
   currentProject,
+  currentLayout,
   currentTemplate,
   form
 });

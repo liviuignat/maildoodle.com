@@ -1,15 +1,10 @@
 @import "../../theme/variables.scss";
 
 .AppLeftNav {
-  @media screen and (min-width: 1025px) {
-    transform: translateX(0);
-  }
-
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   border: none;
-  width: $drawer-width;
   height: 100%;
   max-height: 100%;
   position: absolute;
@@ -30,14 +25,26 @@
   overflow-y: auto;
   z-index: 5;
 
+  width: $drawer-width-small;
+  @media screen and (min-width: $drawer-screen-size-small) {
+    transform: translateX(0);
+  }
+  @media screen and (min-width: $drawer-screen-size-large) {
+    width: $drawer-width-large;
+  }
+
   .AppLeftNav_header {
     box-sizing: border-box;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     background-color: $color-blueGrey500;
     padding: 16px;
-    height: 130px;
+    height: 80px;
+    @media screen and (min-width: $drawer-screen-size-large) {
+      height: 130px;
+    }
   }
 
   .AppLeftNav_avatar {
@@ -48,6 +55,10 @@
     width: 100%;
     padding: 8px 0;
     color: $color-grey100;
+    display: none;
+    @media screen and (min-width: $drawer-screen-size-large) {
+      display: inline-block;
+    }
   }
 
   .AppLeftNav_navigation {
@@ -71,7 +82,20 @@
     font-size: 13px;
 
     &:hover {
-      background-color: $color-grey600
+      background-color: $color-grey600;
+    }
+    & :global(.fa) {
+      position: relative;
+      font-size: 20px;
+      bottom: -2px;
+    }
+  }
+
+  .AppLeftNav_linkText {
+    padding-left: 8px;
+    display: none;
+    @media screen and (min-width: $drawer-screen-size-large) {
+      display: inline-block;
     }
   }
 

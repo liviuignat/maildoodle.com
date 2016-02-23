@@ -34,7 +34,7 @@ export function setupRoutes(app, prefix = '') {
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });
 
-  app.del(`${prefix}/:projectId`, requiredAuthenticated, (req, res) => {
+  app.delete(`${prefix}/:projectId`, requiredAuthenticated, (req, res) => {
     deleteProject(req.params.projectId)
       .then(() => res.json({ response: 'success' }))
       .catch((err) => sendHttpError(res, { code: 400, err }));

@@ -63,12 +63,16 @@ export function setupRoutes(app, prefix = '') {
       .catch(err => sendHttpError(res, { code: 400, err }));
   });
 
-  app.del(`${prefix}/:projectId/languages/:languageId`, requiredAuthenticated, (req, res) => {
+  app.delete(`${prefix}/:projectId/languages/:languageId`, requiredAuthenticated, (req, res) => {
     getProjectById(req.user.objectId, req.params.projectId)
     .then((project) => {
       const indexOfLanguage = project.languages.findIndex((item) => {
         return item.objectId === req.params.languageId;
       });
+
+      if (indexOfLanguage === -1) {
+        throw new Error('Could not delete the language. The language was not found.');
+      }
 
       project.languages.splice(indexOfLanguage, 1);
       return updateProject(project.objectId, project);

@@ -10,7 +10,7 @@ export default class TemplateLanguages extends Component {
     isReadOnly: PropTypes.bool.isRequired,
     template: PropTypes.object.isRequired,
     projectLanguages: PropTypes.array.isRequired
-  }
+  };
 
   renderLanguage(language) {
     const { objectId, name } = language;

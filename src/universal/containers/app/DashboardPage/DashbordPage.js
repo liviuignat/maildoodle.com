@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 export default class DashboardPage extends Component {
   static propTypes = {
     user: PropTypes.object
-  }
+  };
 
   render() {
     const { user } = this.props;

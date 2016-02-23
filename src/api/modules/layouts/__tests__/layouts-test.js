@@ -145,17 +145,23 @@ describe('GIVEN layoutModule tests', () => {
             .get(`/api/projects/${currentProject.objectId}/layouts/${createdLayout.objectId}`)
             .set('Authorization', `Bearer ${currentUser.sessionToken}`);
 
-        let deleteLayoutRequest = () => request
-            .del(`/api/projects/${currentProject.objectId}/layouts/${createdLayout.objectId}`)
+        let deleteLayoutRequest = (objectId) => request
+            .del(`/api/projects/${currentProject.objectId}/layouts/${objectId}`)
             .set('Authorization', `Bearer ${currentUser.sessionToken}`);
 
         it('SHOULD return success', (done) => {
-          deleteLayoutRequest().expect(200).end(done);
+          deleteLayoutRequest(createdLayout.objectId).expect(200).end(done);
         });
 
         it('SHOULD not find the layout in the project', (done) => {
-          deleteLayoutRequest().end(() => {
+          deleteLayoutRequest(createdLayout.objectId).end(() => {
             getDeletedLayoutRequest().expect(404).end(done);
+          });
+        });
+
+        describe('WHEN it does not exist', () => {
+          it('SHOULD return error', (done) => {
+            deleteLayoutRequest(123).expect(400).end(done);
           });
         });
       });

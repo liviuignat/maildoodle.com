@@ -24,8 +24,7 @@ export default class SignUpPage extends Component {
     signUpAction: PropTypes.func.isRequired,
     signingUp: PropTypes.bool,
     singUpError: PropTypes.string
-  }
-
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -38,7 +37,6 @@ export default class SignUpPage extends Component {
   handleSubmit(data) {
     this.props.signUpAction(data.email, data.password);
   }
-
 
   render() {
     const styles = require('./SignUpPage.scss');
