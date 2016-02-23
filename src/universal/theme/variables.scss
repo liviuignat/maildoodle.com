@@ -52,3 +52,9 @@ $drawer-screen-size-small: 800px;
   height: $size;
   border-radius: ($size / 2);
 }
+
+body {
+  .cm-invalidchar {
+    color: transparent;
+  }
+}
