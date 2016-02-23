@@ -32,8 +32,8 @@ export default class MyAccountPage extends Component {
     });
   }
 
-  doNothing() {
-    console.log('Fuck off');
+  doNothing(data) {
+    console.log(data);
   }
 
   render() {
@@ -43,7 +43,7 @@ export default class MyAccountPage extends Component {
       <Paper className={styles.MyAccountPage}>
         <h4>My Account</h4>
         <PersonalInformationForm
-          handleSubmit={::this.doNothing}
+          onSubmit={::this.doNothing}
           />
       </Paper>
     );

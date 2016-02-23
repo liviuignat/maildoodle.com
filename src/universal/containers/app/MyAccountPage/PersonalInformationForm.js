@@ -1,17 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import {reduxForm} from 'redux-form';
-import { FormTextField } from './../../../components';
+import { FormTextField, RaisedButton } from './../../../components';
 
 @reduxForm({
   form: 'PersonalInformationForm',
   fields: [
     'firstName',
     'lastName',
-    'companyName'],
+    'companyName',
+    'location'],
 })
 export default class PersonalInformationForm extends Component {
   static propTypes = {
-    fields: PropTypes.object.isRequired
+    fields: PropTypes.object.isRequired,
+    handleSubmit: PropTypes.func.isRequired
   };
 
   render() {
@@ -21,14 +23,15 @@ export default class PersonalInformationForm extends Component {
         firstName,
         lastName,
         companyName
-      }
+      },
+      handleSubmit
     } = this.props;
 
     const isSaving = false;
 
     return (
       <div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <FormTextField field={firstName}
               type="text"
@@ -45,6 +48,13 @@ export default class PersonalInformationForm extends Component {
               labelText="Company name"
               fullWidth
               disabled={isSaving}/>
+          </div>
+          <div>
+            <RaisedButton
+              labelText="Update profile"
+              fullWidth
+              primary
+              type="submit"/>
           </div>
         </form>
       </div>
