@@ -79,7 +79,7 @@ describe('given we want to CRUD templates', () => {
       });
 
       it('templated should have the same name',
-          () => expect(firstAddedTemplate.name).to.equal(newTemplate.name));
+        () => expect(firstAddedTemplate.name).to.equal(newTemplate.name));
 
       describe('WHEN getting the template by id', () => {
         it('should make the request with success',
@@ -102,6 +102,119 @@ describe('given we want to CRUD templates', () => {
 
           it('should have the correct description',
             () => expect(retreivedTemplate.description).to.equal(newTemplate.description));
+
+          it('templated should have a version',
+            () => expect(retreivedTemplate.versions.length).to.equal(1));
+
+          describe('WHEN adding a layout', () => {
+            let layout = {
+              name: 'New Layout',
+              value: '<html></html>'
+            };
+
+            const createLayoutRequest = () => request
+              .post(`/api/projects/${currentProject.objectId}/layouts`)
+              .set('Content-type', 'application/json')
+              .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+              .send(layout);
+
+            let updateLayoutRequest = (objectId) => request
+              .put(`/api/projects/${currentProject.objectId}/layouts/${objectId}`)
+              .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+              .set('Content-type', 'application/json')
+              .send(layout);
+
+            let deleteLayoutRequest = (objectId) => request
+              .del(`/api/projects/${currentProject.objectId}/layouts/${objectId}`)
+              .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+
+            beforeEach((done) => {
+              createLayoutRequest().end((err, response) => {
+                if(err) return done(err);
+                layout = response.body;
+                return done();
+              });
+            });
+
+            describe('WHEN the layout is updated', () => {
+              beforeEach(done => updateLayoutRequest(layout.objectId).end(done));
+              beforeEach((done) => getTemplateByIdRequest(currentProject.objectId, firstAddedTemplate.objectId).end((err, res) => {
+                if (err) return done(err);
+                retreivedTemplate = res.body;
+                done();
+              }));
+
+              it('SHOULD have a version in the versions list',
+                () => expect(retreivedTemplate.versions.length).to.equal(1));
+            });
+
+            describe('WHEN the layout is deleted', () => {
+              beforeEach(done => deleteLayoutRequest(layout.objectId).end(done));
+              beforeEach((done) => getTemplateByIdRequest(currentProject.objectId, firstAddedTemplate.objectId).end((err, res) => {
+                if (err) return done(err);
+                retreivedTemplate = res.body;
+                done();
+              }));
+
+              it('SHOULD have a version in the versions list',
+                () => expect(retreivedTemplate.versions.length).to.equal(1));
+            });
+          });
+
+          describe('WHEN adding a language', () => {
+            let language = {
+              name: 'Denglish',
+              key: 'de-EN'
+            };
+
+            const createLanguageRequest = () => request
+              .post(`/api/projects/${currentProject.objectId}/languages`)
+              .set('Content-type', 'application/json')
+              .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+              .send(language);
+
+            let updateLanguageRequest = (objectId) => request
+              .put(`/api/projects/${currentProject.objectId}/languages/${objectId}`)
+              .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+              .set('Content-type', 'application/json')
+              .send(language);
+
+            let deleteLanguageRequest = (objectId) => request
+              .del(`/api/projects/${currentProject.objectId}/languages/${objectId}`)
+              .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+
+            beforeEach((done) => {
+              createLanguageRequest().end((err, response) => {
+                if(err) return done(err);
+                language = response.body;
+                return done();
+              });
+            });
+
+            describe('WHEN the language is updated', () => {
+              beforeEach(done => updateLanguageRequest(language.objectId).end(done));
+              beforeEach((done) => getTemplateByIdRequest(currentProject.objectId, firstAddedTemplate.objectId).end((err, res) => {
+                if (err) return done(err);
+                retreivedTemplate = res.body;
+                done();
+              }));
+
+              it('SHOULD have a version in the versions list',
+                () => expect(retreivedTemplate.versions.length).to.equal(1));
+            });
+
+            describe('WHEN the language is deleted', () => {
+              beforeEach(done => deleteLanguageRequest(language.objectId).end(done));
+              beforeEach((done) => getTemplateByIdRequest(currentProject.objectId, firstAddedTemplate.objectId).end((err, res) => {
+                if (err) return done(err);
+                retreivedTemplate = res.body;
+                done();
+              }));
+
+              it('SHOULD have a version in the versions list',
+                () => expect(retreivedTemplate.versions.length).to.equal(1));
+            });
+          });
         });
       });
 
