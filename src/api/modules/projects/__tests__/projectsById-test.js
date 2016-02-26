@@ -76,7 +76,7 @@ describe('projectModule tests', () => {
       });
     });
 
-    describe('WHEN getting the project by id with tmplates and layouts html', () => {
+    describe('WHEN getting the project by id with templates and layouts html', () => {
       let project = null;
 
       beforeEach((done) => createTemplate(currentUser, addedProject.objectId, {
