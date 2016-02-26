@@ -11,6 +11,6 @@ before_script:
 
 script:
   - sleep 5
-  - "npm run test-node"
+  - "make test FILE=./src/api/**/__tests__/*-test.js"
   - "npm run test"
   - "npm run lint"
