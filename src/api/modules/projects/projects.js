@@ -8,12 +8,23 @@ export function getProjects(userId) {
   });
 }
 
-export function getProjectById(userId, projectId) {
+export function getProjectById(userId, projectId, query) {
   return co(function*() {
+    const select = query || {};
+    const projection = {
+      '-templates.developmentVersion': !select.withTemplateHtml,
+      '-layouts.value': !select.withLayoutHtml
+    };
+    const mongooseSelection = Object.keys(projection)
+      .filter(key => projection[key])
+      .join(' ');
+
     const project = yield Project.findOne({
       _id: projectId,
       userId
-    });
+    }).select(mongooseSelection)
+      .exec();
+
     return toJson(project);
   });
 }
