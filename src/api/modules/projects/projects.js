@@ -8,7 +8,17 @@ export function getProjects(userId) {
   });
 }
 
-export function getProjectById(userId, projectId, query) {
+export function getProjectById(userId, projectId) {
+  return co(function*() {
+    const project = yield Project.findOne({
+      _id: projectId,
+      userId
+    });
+    return toJson(project);
+  });
+}
+
+export function getProjectByIdAndQuery(userId, projectId, query) {
   return co(function*() {
     const select = query || {};
     const projection = {

@@ -1,5 +1,6 @@
+import co from 'co';
 import {expect} from 'chai';
-import {request, cleanup, createUser} from './../../../supertest';
+import {request, cleanup, createUser, createTemplate} from './../../../supertest';
 
 describe('projectModule tests', () => {
   let currentUser;
@@ -19,16 +20,14 @@ describe('projectModule tests', () => {
     .set('Authorization', `Bearer ${currentUser.sessionToken}`);
 
   beforeEach((done) => {
-    cleanup()
-      .then(() => createUser())
-      .then((user) => {
-        currentUser = user
-      })
-      .then(() => done())
-      .catch((err) => done(err));
+    co(function*() {
+      yield cleanup();
+      currentUser = yield createUser();
+    }).then(done)
+      .catch(done);
   });
 
-  describe('When inserting a project', () => {
+  describe('WHEN inserting a project', () => {
     beforeEach((done) => {
       addedProject = undefined;
       createProjectRequest().end((err, res) => {
@@ -40,11 +39,11 @@ describe('projectModule tests', () => {
       });
     });
 
-    it('Should make the request with success', () => {
+    it('SHOULD make the request with success', () => {
       expect(addedProject).to.not.be.undefined;
     });
 
-    describe('When getting the project by id', () => {
+    describe('WHEN getting the project by id', () => {
       let project;
       beforeEach((done) => {
         getProjectByIdRequest().end((err, res) => {
@@ -56,24 +55,55 @@ describe('projectModule tests', () => {
         });
       });
 
-      it('Should make the request with success', () => {
+      it('SHOULD make the request with success', () => {
         expect(project).to.not.be.undefined;
       });
 
-      it('Should contain the same name', () => {
+      it('SHOULD contain the same name', () => {
         expect(project.name).to.equal(newProject.name);
       });
 
-      it('Should contain an empty email templates list', () => {
+      it('SHOULD contain an empty email templates list', () => {
         expect(project.templates).to.deep.equal([]);
       });
 
-      it('Should contain item in languages list', () => {
+      it('SHOULD contain item in languages list', () => {
         expect(project.languages.length).to.equal(1);
       });
 
-      it('Should contain one item layouts list', () => {
+      it('SHOULD contain one item layouts list', () => {
         expect(project.layouts.length).to.equal(1);
+      });
+    });
+
+    describe('WHEN getting the project by id with tmplates and layouts html', () => {
+      let project = null;
+
+      beforeEach((done) => createTemplate(currentUser, addedProject.objectId, {
+        name: 'new template',
+        description: 'new template description'
+      }).then(() => done())
+        .catch(done));
+
+      beforeEach((done) => {
+        request.get(`/api/projects/${addedProject.objectId}?with_template_html=true&with_layout_html=true`)
+          .set('Content-type', 'application/json')
+          .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+          .end((err, res) => {
+            if (err) {
+              return done(err);
+            }
+            project = res.body;
+            return done();
+          });
+      });
+
+      it('SHOULD have the template html on the developmentVersion property', () => {
+        expect(project.templates[0].developmentVersion).to.not.be.undefined;
+      });
+
+      it('SHOULD contain the layout html', () => {
+        expect(project.layouts[0].value).to.not.be.undefined;
       });
     });
   });
