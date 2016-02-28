@@ -4,6 +4,7 @@ import {
 } from './../../../components';
 import {initialize} from 'redux-form';
 import { connect } from 'react-redux';
+import { updatePersonalInformationAction } from './../../../redux/reducers/auth';
 /*
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
@@ -17,23 +18,35 @@ import PersonalInformationForm from './PersonalInformationForm';
   state => ({
     user: state.auth.user
   }), {
-    initialize
+    initialize,
+    updatePersonalInformationAction
   })
 export default class MyAccountPage extends Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
     initialize: PropTypes.func.isRequired,
+    updatePersonalInformationAction: PropTypes.func.isRequired
   };
 
   componentWillMount() {
     const {user} = this.props;
-    this.props.initialize('PersonalInformationForm', {
-      firstName: user.email
-    });
+    if (user.name) {
+      this.props.initialize('PersonalInformationForm', {
+        firstName: user.name,
+        lastName: user.lastName,
+        company: user.company
+      });
+    } else {
+      this.props.initialize('PersonalInformationForm', {
+        firstName: user.email
+      });
+    }
   }
 
-  doNothing(data) {
-    console.log(data);
+  doNothing(personalInformation) {
+    let newUserData = Object.assign({}, this.props.user);
+    newUserData = Object.assign(newUserData, personalInformation);
+    this.props.updatePersonalInformationAction(newUserData);
   }
 
   render() {

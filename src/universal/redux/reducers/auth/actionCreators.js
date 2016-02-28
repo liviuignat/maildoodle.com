@@ -61,3 +61,19 @@ export function logoutAction() {
     }
   };
 }
+
+export function updatePersonalInformationAction(user) {
+  return {
+    types: [
+      actions.UPDATE_CURRENT_USER,
+      actions.UPDATE_CURRENT_USER_SUCCESS,
+      actions.UPDATE_CURRENT_USER_FAIL
+    ],
+    promise: (client) => {
+      debugger;
+      return client.put('user/me', {
+        data: { user }
+      });
+    }
+  };
+}
