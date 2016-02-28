@@ -5,18 +5,13 @@ import {
 import {initialize} from 'redux-form';
 import { connect } from 'react-redux';
 import { updatePersonalInformationAction } from './../../../redux/reducers/auth';
-/*
-import { Link } from 'react-router';
-import { connect } from 'react-redux';
-import { initialize } from 'redux-form';
-import { pushState } from 'redux-router';
-*/
-import PersonalInformationForm from './PersonalInformationForm';
+import PersonalInformationForm, {PERSONAL_INFORMATION_FORM_NAME} from './PersonalInformationForm';
 
 
 @connect(
   state => ({
-    user: state.auth.user
+    user: state.auth.user,
+    isUpdatingUser: state.auth.isUpdatingUser,
   }), {
     initialize,
     updatePersonalInformationAction
@@ -24,6 +19,7 @@ import PersonalInformationForm from './PersonalInformationForm';
 export default class MyAccountPage extends Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
+    isUpdatingUser: PropTypes.bool.isRequired,
     initialize: PropTypes.func.isRequired,
     updatePersonalInformationAction: PropTypes.func.isRequired
   };
@@ -37,7 +33,7 @@ export default class MyAccountPage extends Component {
       }
     } = this.props;
 
-    this.props.initialize('PersonalInformationForm', {firstName, lastName, companyName});
+    this.props.initialize(PERSONAL_INFORMATION_FORM_NAME, {firstName, lastName, companyName});
   }
 
   savePersonalInformation(personalInformation) {
@@ -46,11 +42,13 @@ export default class MyAccountPage extends Component {
 
   render() {
     const styles = require('./MyAccountPage.scss');
+    const {isUpdatingUser} = this.props;
 
     return (
       <Paper className={styles.MyAccountPage}>
         <h4>My Account</h4>
         <PersonalInformationForm
+          isUpdatingUser={isUpdatingUser}
           onSubmit={::this.savePersonalInformation}
           />
       </Paper>

@@ -88,14 +88,14 @@ export function reducer(state = initialState, action = {}) {
     case actions.UPDATE_CURRENT_USER:
       return {
         ...state,
-        updatetingUser: true,
+        isUpdatingUser: true,
         updateUserError: ''
       };
 
     case actions.UPDATE_CURRENT_USER_SUCCESS:
       return {
         ...state,
-        updatetingUser: false,
+        isUpdatingUser: false,
         updateUserError: '',
         user: Object.assign({}, getFullUser(action.result))
       };
@@ -103,7 +103,7 @@ export function reducer(state = initialState, action = {}) {
     case actions.UPDATE_CURRENT_USER_FAIL:
       return {
         ...state,
-        updatetingUser: false,
+        isUpdatingUser: false,
         updateUserError: action.error
       };
 

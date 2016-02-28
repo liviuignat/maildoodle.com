@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import {reducer} from './../reducer';
 import * as actions from './../actions';
 
-describe('Projects Reducer tests', () => {
+describe('Auth Reducer tests', () => {
   let currrentState = reducer();
 
   it('SHOULD set the initial state to have an empty user',
@@ -50,7 +50,7 @@ describe('Projects Reducer tests', () => {
     });
 
     it('SHOULD have the update in progress flag set to true',
-      () => expect(currrentState.updatetingUser).to.equal(true));
+      () => expect(currrentState.isUpdatingUser).to.equal(true));
 
     it('SHOULD have the error flag set to false',
       () => expect(currrentState.updateUserError).to.equal(''));
@@ -69,7 +69,7 @@ describe('Projects Reducer tests', () => {
     });
 
     it('SHOULD have the update in progress flag set to false',
-      () => expect(currrentState.updatetingUser).to.equal(false));
+      () => expect(currrentState.isUpdatingUser).to.equal(false));
 
     it('SHOULD have the error set to the correct message',
       () => expect(currrentState.updateUserError).to.equal(updateUser.error));
@@ -92,7 +92,7 @@ describe('Projects Reducer tests', () => {
     });
 
     it('SHOULD have the update in progress flag set to false',
-      () => expect(currrentState.updatetingUser).to.equal(false));
+      () => expect(currrentState.isUpdatingUser).to.equal(false));
 
     it('SHOULD have the error set nothing',
       () => expect(currrentState.updateUserError).to.equal(''));
@@ -126,7 +126,7 @@ describe('Projects Reducer tests', () => {
         () => expect(currrentState.user.apiAccessToken).to.equal(updateUserApiToken.result.apiAccessToken));
 
       it('SHOULD have the update in progress flag set to false',
-      () => expect(currrentState.updatetingUserAPIAccessToken).to.equal(false));
+        () => expect(currrentState.updatetingUserAPIAccessToken).to.equal(false));
 
       it('SHOULD have the error set to nothing',
         () => expect(currrentState.updateAPIAccessTokenError).to.equal(''));

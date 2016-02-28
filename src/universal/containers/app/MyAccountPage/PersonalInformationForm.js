@@ -2,8 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import {reduxForm} from 'redux-form';
 import { FormTextField, RaisedButton } from './../../../components';
 
+export const PERSONAL_INFORMATION_FORM_NAME = 'PersonalInformationForm';
+
 @reduxForm({
-  form: 'PersonalInformationForm',
+  form: PERSONAL_INFORMATION_FORM_NAME,
   fields: [
     'firstName',
     'lastName',
@@ -13,21 +15,20 @@ import { FormTextField, RaisedButton } from './../../../components';
 export default class PersonalInformationForm extends Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    isUpdatingUser: PropTypes.bool.isRequired
   };
 
   render() {
-    // const styles = require('./MyAccount.scss');
     const {
       fields: {
         firstName,
         lastName,
         companyName
       },
-      handleSubmit
+      handleSubmit,
+      isUpdatingUser
     } = this.props;
-
-    const isSaving = false;
 
     return (
       <div>
@@ -37,24 +38,25 @@ export default class PersonalInformationForm extends Component {
               type="text"
               labelText="First name"
               fullWidth
-              disabled={isSaving}/>
+              disabled={isUpdatingUser}/>
             <FormTextField field={lastName}
               type="text"
               labelText="Last name"
               fullWidth
-              disabled={isSaving}/>
+              disabled={isUpdatingUser}/>
             <FormTextField field={companyName}
               type="text"
               labelText="Company name"
               fullWidth
-              disabled={isSaving}/>
+              disabled={isUpdatingUser}/>
           </div>
           <div>
             <RaisedButton
               labelText="Update profile"
               fullWidth
               primary
-              type="submit"/>
+              type="submit"
+              disabled={isUpdatingUser}/>
           </div>
         </form>
       </div>
