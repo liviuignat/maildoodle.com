@@ -46,6 +46,10 @@ export function insertTemplate(userId, projectId, template) {
       userId
     });
 
+    if (!project) {
+      throw new Error(`No project with id ${projectId}`);
+    }
+
     const defaultTemplateVersion = getDefaultVersion();
     defaultTemplateVersion.commitMessage = DEFAULT_COMMIT_MESSAGE;
 
@@ -66,6 +70,10 @@ export function updateTemplate(userId, projectId, templateId, template) {
       _id: projectId,
       userId
     });
+
+    if (!project) {
+      throw new Error(`No project with id ${projectId}`);
+    }
 
     const existingTemplate = project.templates.id(templateId);
     const newTemplate = Object.assign(existingTemplate, template);
@@ -101,6 +109,10 @@ export function deleteTemplate(userId, projectId, templateId) {
       _id: projectId,
       userId
     });
+
+    if (!project) {
+      throw new Error(`No project with id ${projectId}`);
+    }
 
     const existingTemplate = project.templates.id(templateId);
     existingTemplate.remove();

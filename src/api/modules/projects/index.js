@@ -3,6 +3,7 @@ import { sendHttpError } from './../../http';
 import {
   getProjects,
   getProjectById,
+  getProjectByIdAndQuery,
   insertProject,
   updateProject,
   deleteProject
@@ -16,7 +17,11 @@ export function setupRoutes(app, prefix = '') {
   });
 
   app.get(`${prefix}/:projectId`, requiredAuthenticated, (req, res) => {
-    getProjectById(req.user.objectId, req.params.projectId)
+    const withTemplateHtml = req.query.with_template_html === 'true';
+    const withLayoutHtml = req.query.with_layout_html === 'true';
+    const query = {withTemplateHtml, withLayoutHtml};
+
+    getProjectByIdAndQuery(req.user.objectId, req.params.projectId, query)
       .then((response) => res.json(response))
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });
