@@ -97,7 +97,7 @@ export function reducer(state = initialState, action = {}) {
         ...state,
         updatetingUser: false,
         updateUserError: '',
-        user: Object.assign({}, action.result)
+        user: Object.assign({}, getFullUser(action.result))
       };
 
     case actions.UPDATE_CURRENT_USER_FAIL:

@@ -15,8 +15,11 @@ export function setupRoutes(app, prefix = '/api/user') {
   });
 
   app.put(`${prefix}/me`, requiredAuthenticated, (req, res) => {
-    updateUserPersonalData(req.user.objectId, req.body)
-      .then(() => getUserById(req.user.objectId))
+    const userId = req.user.objectId;
+    const payload = req.body;
+
+    updateUserPersonalData(userId, payload)
+      .then(() => getUserById(userId))
       .then((updatedUser) => res.json(updatedUser))
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });

@@ -21,6 +21,11 @@ describe('userModule tests', () => {
   });
 
   describe('WHEN requesting an update on the user\'s personal data', () => {
+    that.getUserDataRequest = (user) => request
+      .get('/api/user/me')
+      .set('Content-type', 'application/json')
+      .set('Authorization', `Bearer ${user.sessionToken}`);
+
     that.updateUserDataRequest = (user) => request
       .put('/api/user/me')
       .set('Content-type', 'application/json')
@@ -44,6 +49,9 @@ describe('userModule tests', () => {
         });
       });
 
+      it('SHOULD contain objectId',
+        () => expect(that.updatedUser.objectId).to.not.be.undefined);
+
       it('SHOULD update the user first name',
         () => expect(that.updatedUser.firstName).to.equal('Alina'));
 
@@ -52,6 +60,20 @@ describe('userModule tests', () => {
 
       it('SHOULD update the user company name',
         () => expect(that.updatedUser.companyName).to.equal('gogule'));
+
+      describe('WHEN getting the user by id', () => {
+        beforeEach(done => {
+          that.getUserDataRequest(that.currentUser).end((err,res) => {
+            if(err) return done(err);
+
+            that.updatedUserGet = res.body;
+            done();
+          });
+        });
+
+        it('SHOULD have the same user as the update response',
+          () => expect(that.updatedUserGet).to.deep.equal(that.updatedUserGet));
+      });
     });
   });
 

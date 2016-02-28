@@ -69,11 +69,6 @@ export function updatePersonalInformationAction(user) {
       actions.UPDATE_CURRENT_USER_SUCCESS,
       actions.UPDATE_CURRENT_USER_FAIL
     ],
-    promise: (client) => {
-      debugger;
-      return client.put('user/me', {
-        data: { user }
-      });
-    }
+    promise: (client) => client.put('user/me', {data: user})
   };
 }

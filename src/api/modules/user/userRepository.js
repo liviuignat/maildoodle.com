@@ -36,14 +36,12 @@ function getUserByQuery(query) {
 }
 
 export function updateUserPersonalData(userId, updatedUserData) {
+  const {firstName, lastName, companyName} = updatedUserData;
+
   return co(function*() {
     return yield User.update({
       _id: userId
-    }, {
-      firstName: updatedUserData.firstName,
-      lastName: updatedUserData.lastName,
-      companyName: updatedUserData.companyName
-    });
+    }, {firstName, lastName, companyName});
   });
 }
 

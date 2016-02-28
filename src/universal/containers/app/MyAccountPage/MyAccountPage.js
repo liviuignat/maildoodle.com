@@ -29,24 +29,19 @@ export default class MyAccountPage extends Component {
   };
 
   componentWillMount() {
-    const {user} = this.props;
-    if (user.name) {
-      this.props.initialize('PersonalInformationForm', {
-        firstName: user.name,
-        lastName: user.lastName,
-        company: user.company
-      });
-    } else {
-      this.props.initialize('PersonalInformationForm', {
-        firstName: user.email
-      });
-    }
+    const {
+      user: {
+        firstName,
+        lastName,
+        companyName
+      }
+    } = this.props;
+
+    this.props.initialize('PersonalInformationForm', {firstName, lastName, companyName});
   }
 
-  doNothing(personalInformation) {
-    let newUserData = Object.assign({}, this.props.user);
-    newUserData = Object.assign(newUserData, personalInformation);
-    this.props.updatePersonalInformationAction(newUserData);
+  savePersonalInformation(personalInformation) {
+    this.props.updatePersonalInformationAction(personalInformation);
   }
 
   render() {
@@ -56,7 +51,7 @@ export default class MyAccountPage extends Component {
       <Paper className={styles.MyAccountPage}>
         <h4>My Account</h4>
         <PersonalInformationForm
-          onSubmit={::this.doNothing}
+          onSubmit={::this.savePersonalInformation}
           />
       </Paper>
     );
