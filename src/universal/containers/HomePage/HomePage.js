@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import {Link} from 'react-router';
 // import { RaisedButton } from './../../components';
 import config from './../../../config';
 
@@ -20,8 +21,8 @@ export default class Home extends Component {
           </div>
 
           <ul className={style.HomePage_actions}>
-            <li><a href="/auth/sign-up" className={style.HomePage_signUpButton}>Sign Up</a></li>
-            <li><a href="#" className={style.HomePage_learnMoreButton}>Learn More</a></li>
+            <li><Link to="/auth/sign-up" className={style.HomePage_signUpButton}>Sign Up</Link></li>
+            <li><Link to="/learn-more" className={style.HomePage_learnMoreButton}>Learn More</Link></li>
           </ul>
         </div>
 
