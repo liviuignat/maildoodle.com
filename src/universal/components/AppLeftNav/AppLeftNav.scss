@@ -1,6 +1,10 @@
 @import "../../theme/variables.scss";
 
 .AppLeftNav {
+  $color: $color-grey50;
+  $header-background-color: $color-blueGrey900;
+  $navigation-background-color: $color-blueGrey800;
+
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -12,7 +16,7 @@
   left: 0;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
   box-sizing: border-box;
-  border-right: 1px solid #e0e0e0;
+  border-right: none;
   background: #fafafa;
   transform: translateX(-250px);
   transform-style: preserve-3d;
@@ -20,7 +24,7 @@
   transition-duration: .2s;
   transition-timing-function: cubic-bezier(.4,0,.2,1);
   transition-property: transform;
-  color: $color-grey800;
+  color: $color;
   overflow: visible;
   overflow-y: auto;
   z-index: 5;
@@ -39,7 +43,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    background-color: $color-blueGrey500;
+    background-color: $header-background-color;
     padding: 16px;
     height: 80px;
     @media screen and (min-width: $drawer-screen-size-large) {
@@ -54,7 +58,7 @@
   .AppLeftNav_displayNameContainer {
     width: 100%;
     padding: 8px 0;
-    color: $color-grey100;
+    color: $color;
     display: none;
     @media screen and (min-width: $drawer-screen-size-large) {
       display: inline-block;
@@ -65,14 +69,14 @@
     flex-grow: 1;
     display: flex;
     flex-wrap: nowrap;
-    background-color: $color-blueGrey800;
+    background-color: $navigation-background-color;
     flex-direction: column;
   }
 
   .AppLeftNav_navigationLink {
     display: flex;
     cursor: pointer;
-    color: $color-grey100;
+    color: $color;
     display: block;
     flex-shrink: 0;
     padding: 16px 40px;
@@ -101,7 +105,7 @@
 
   .AppLeftNav_navigationLinkSpacer {
     content: " ";
-    background-color: $color-grey100;
+    background-color: $color;
     height: 1px;
   }
 

@@ -1,0 +1,115 @@
+@import "../../theme/variables.scss";
+
+.HomePage {
+  $color: $color-grey50;
+  $color-button-sign-up: $color-green700;
+  $color-button-learn-more: $color-indigo700;
+  $card-width: 240px;
+  $card-container-width: $card-width * 4;
+  $card-color: $color-grey900;
+
+  margin: -16px;
+  background: url('./images/black-and-white-man-person-hands.jpg') 0 0 no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  color: $color;
+
+  .logo_font {
+    line-height: 1;
+    font-weight: 300;
+  }
+
+  .HomePage_titleContainer {
+    height: 575px;
+  }
+
+  .HomePage_title {
+    @extend .logo_font;
+    color: #FAD200;
+    font-size: 50px;
+    padding-top: 100px;
+    text-align: center;
+  }
+
+  .HomePage_subTitle {
+    @extend .logo_font;
+    font-size: 30px;
+    padding: 32px 0;
+    text-align: center;
+  }
+
+  .HomePage_actions {
+    padding-top: 32px;
+    text-align: center;
+    cursor: default;
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      display: inline-block;
+      padding: 0 1em 0 0;
+      vertical-align: middle;
+    }
+  }
+
+  .HomePage_learnMoreButton {
+    @include link-button($color-button-learn-more, $color-grey50);
+  }
+
+  .HomePage_signUpButton {
+    @include link-button($color-button-sign-up, $color-grey50);
+  }
+
+  .HomePage_secondSection {
+    width: 100%;
+    background-color: white;
+  }
+
+  .HomePage_secondSection {
+    color: $color-grey700;
+    text-align: center;
+    position: relative;
+    padding: 16px;
+  }
+
+  .HomePage_cardContainer {
+    display: flex;
+    position: relative;
+    width: $card-container-width;
+    color: $card-color;
+    margin: auto;
+    right: 0;
+    left: 0;
+
+    .HomePage_card {
+      position: relative;
+      flex: 1;
+      margin: 8px;
+      width: $card-width;
+      font-weight: 300;
+    }
+
+    .HomePage_cardHeader {
+      width: $card-width;
+    }
+
+    .HomePage_cardContent {
+      padding: 16px;
+      width: $card-width;
+    }
+
+    .HomePage_cardTitle {
+      font-size: 20px;
+      padding-bottom: 16px;
+    }
+
+    .HomePage_cardBody {
+      height: 80px;
+    }
+
+    .HomePage_cardAction {
+      @include mdl-button();
+      color: #7cb342;
+    }
+  }
+}

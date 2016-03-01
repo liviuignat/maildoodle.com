@@ -1,0 +1,86 @@
+@mixin app-link {
+  color: $color-lightBlue400;
+  font-size: $font-size-base;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@mixin error-message() {
+  color: $color-error;
+  font-size: $font-size-error;
+  line-height: $font-size-error;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+}
+
+@mixin avatar($size) {
+  width: $size;
+  height: $size;
+  border-radius: ($size / 2);
+}
+
+@mixin link($text-color) {
+  color: $text-color;
+  text-decoration: none;
+
+  &:hover, &:active {
+    color: lighten($text-color, 10%);
+    text-decoration: underline;
+  }
+}
+
+@mixin link-button($background-color, $text-color) {
+  font-size: 15px;
+  appearance: none;
+  cursor:pointer;
+  transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  transform:translate3d(0, 0, 0);
+  background-color: $background-color;
+  border-radius: 2px;
+  color: $text-color;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+  height: 3em;
+  line-height: 3em;
+  padding: 0 2em;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover, &:active {
+    background-color: lighten($background-color, 10%);
+  }
+}
+
+@mixin mdl-button() {
+  background: 0 0;
+  border: none;
+  border-radius: 2px;
+  color: #000;
+  position: relative;
+  height: 36px;
+  margin: 0;
+  min-width: 64px;
+  padding: 0 16px;
+  display: inline-block;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  overflow: hidden;
+  will-change: box-shadow;
+  transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  line-height: 36px;
+  vertical-align: middle;
+
+  &:hover {
+    background-color: rgba(158,158,158,.2);
+  }
+}

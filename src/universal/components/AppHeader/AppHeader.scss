@@ -2,6 +2,8 @@
 
 .AppHeader {
   $font-size-title: $font-size-x-large;
+  $background-color: $color-blueGrey900;
+  $color: $color-grey50;
 
   display: flex;
   flex-direction: column;
@@ -18,8 +20,8 @@
   transition-duration: .2s;
   transition-timing-function: cubic-bezier(.4,0,.2,1);
   transition-property: max-height,box-shadow;
-  background-color: white;
-  color: $color-grey900;
+  background-color: $background-color;
+  color: $color;
 
   &.AppHeader__isDrawerVisible {
     padding-left: 0;
@@ -46,6 +48,7 @@
 
   .AppHeader_headerTitle {
     flex: 1;
+    color: $color;
     font-size: $font-size-title;
     line-height: 1;
     letter-spacing: .02em;
@@ -57,7 +60,10 @@
     letter-spacing:0;
     font-weight:400;
     text-decoration: none;
-    color: $color-grey900;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: .02em;
+    font-weight: 400;
   }
 
   .AppHeader_navigationContainer {
@@ -85,7 +91,7 @@
     padding: 0 24px;
     cursor: pointer;
     text-transform: uppercase;
-    color: $color-grey600;
+    color: $color;
     font-weight: 700;
     font-size: $font-size-normal;
     display: inline-block;

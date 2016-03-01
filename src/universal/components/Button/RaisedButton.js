@@ -2,7 +2,7 @@ import Colors from 'material-ui/lib/styles/colors';
 import React, { Component, PropTypes } from 'react';
 import {RaisedButton} from 'material-ui';
 
-export default class FormTextField extends Component {
+export default class RaisedButtonExtended extends Component {
   static propTypes = {
     labelText: PropTypes.string.isRequired,
     orange: PropTypes.bool

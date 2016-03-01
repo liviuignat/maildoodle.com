@@ -1,0 +1,19 @@
+@import "../../theme/variables.scss";
+
+.AppFooter {
+  background-color: $color-blueGrey900;
+  color: $color-grey50;
+  padding: 16px;
+  text-align: center;
+  position:absolute;
+  bottom: 0;
+
+  width:100%;
+
+  & a {
+    color: $color-grey50;
+    &:hover {
+      color: $color-grey50;
+    }
+  }
+}
