@@ -4,6 +4,8 @@
   $color: $color-grey50;
   $color-button-sign-up: $color-green700;
   $color-button-learn-more: $color-indigo700;
+  $card-width: 240px;
+  $card-color: $color-grey900;
 
   margin: -16px;
   background: url('./images/black-and-white-man-person-hands.jpg') 0 0 no-repeat;
@@ -61,5 +63,51 @@
     height: 500px;
     width: 100%;
     background-color: white;
+  }
+
+  .HomePage_secondSection {
+    position: relative;
+  }
+
+  .HomePage_cardContainer {
+    display: flex;
+    position: relative;
+    width: $card-width * 3;
+    color: $card-color;
+    padding-top: 16px;
+    margin: auto;
+    right: 0;
+    left: 0;
+
+    .HomePage_card {
+      position: relative;
+      flex: 1;
+      margin: 8px;
+      width: $card-width;
+      font-weight: 300;
+    }
+
+    .HomePage_cardHeader {
+      width: $card-width;
+    }
+
+    .HomePage_cardContent {
+      padding: 16px;
+      width: $card-width;
+    }
+
+    .HomePage_cardTitle {
+      font-size: 20px;
+      padding-bottom: 16px;
+    }
+
+    .HomePage_cardBody {
+      height: 60px;
+    }
+
+    .HomePage_cardAction {
+      @include mdl-button();
+      color: #7cb342;
+    }
   }
 }

@@ -32,6 +32,11 @@ $drawer-width-small: 100px;
 $drawer-screen-size-large: 1024px;
 $drawer-screen-size-small: 800px;
 
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
 body {
   a {
     @include link($color-indigo700);
@@ -39,6 +44,10 @@ body {
 
   .cm-invalidchar {
     color: transparent;
+  }
+
+  .clearfix {
+
   }
 }
 
