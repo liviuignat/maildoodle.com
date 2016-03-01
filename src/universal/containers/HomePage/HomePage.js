@@ -27,6 +27,9 @@ export default class HomePage extends Component {
         </div>
 
         <div className={style.HomePage_secondSection}>
+
+          <h1>We help you increase productivity</h1>
+
           <div className={style.HomePage_cardContainer}>
             <HomePageCard
               imageSrc="http://getmdl.io/templates/android-dot-com/images/more-from-1.png"

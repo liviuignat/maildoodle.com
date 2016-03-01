@@ -65,7 +65,10 @@
   }
 
   .HomePage_secondSection {
+    color: $color-grey700;
+    text-align: center;
     position: relative;
+    padding: 16px;
   }
 
   .HomePage_cardContainer {
@@ -73,7 +76,6 @@
     position: relative;
     width: $card-width * 3;
     color: $card-color;
-    padding: 16px;
     margin: auto;
     right: 0;
     left: 0;
