@@ -84,6 +84,53 @@ export function reducer(state = initialState, action = {}) {
         loggingOut: false,
         logoutError: action.error
       };
+
+    case actions.UPDATE_CURRENT_USER:
+      return {
+        ...state,
+        isUpdatingUser: true,
+        updateUserError: ''
+      };
+
+    case actions.UPDATE_CURRENT_USER_SUCCESS:
+      return {
+        ...state,
+        isUpdatingUser: false,
+        updateUserError: '',
+        user: Object.assign({}, getFullUser(action.result))
+      };
+
+    case actions.UPDATE_CURRENT_USER_FAIL:
+      return {
+        ...state,
+        isUpdatingUser: false,
+        updateUserError: action.error
+      };
+
+    case actions.UPDATE_API_ACCESS_TOKEN_USER:
+      return {
+        ...state,
+        updatetingUserAPIAccessToken: true,
+        updateAPIAccessTokenError: ''
+      };
+
+    case actions.UPDATE_API_ACCESS_TOKEN_USER_FAIL:
+      return {
+        ...state,
+        updatetingUserAPIAccessToken: false,
+        updateAPIAccessTokenError: action.error
+      };
+
+    case actions.UPDATE_API_ACCESS_TOKEN_USER_SUCCESS:
+      return {
+        ...state,
+        updatetingUserAPIAccessToken: false,
+        updateAPIAccessTokenError: '',
+        user: Object.assign(state.user, {
+          apiAccessToken: action.result.apiAccessToken
+        })
+      };
+
     default:
       return state;
   }
@@ -128,4 +175,3 @@ function getUserPhoto(user) {
   const emailMd5 = md5(user.email);
   return `http://www.gravatar.com/avatar/${emailMd5}.jpg?s=200`;
 }
-

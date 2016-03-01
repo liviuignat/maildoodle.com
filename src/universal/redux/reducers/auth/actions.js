@@ -7,6 +7,13 @@ export const LOGIN_FAIL = 'email-templates/auth/LOGIN_FAIL';
 export const LOGOUT = 'email-templates/auth/LOGOUT';
 export const LOGOUT_SUCCESS = 'email-templates/auth/LOGOUT_SUCCESS';
 export const LOGOUT_FAIL = 'email-templates/auth/LOGOUT_FAIL';
-export const SIGN_UP = 'es6-templates/auth/SIGN_UP';
-export const SIGN_UP_SUCCESS = 'es6-templates/auth/SIGN_UP_SUCCESS';
-export const SIGN_UP_FAIL = 'es6-templates/auth/SIGN_UP_FAIL';
+export const SIGN_UP = 'email-templates/auth/SIGN_UP';
+export const SIGN_UP_SUCCESS = 'email-templates/auth/SIGN_UP_SUCCESS';
+export const SIGN_UP_FAIL = 'email-templates/auth/SIGN_UP_FAIL';
+export const UPDATE_CURRENT_USER = 'email-templates/auth/UPDATE_CURRENT_USER';
+export const UPDATE_CURRENT_USER_SUCCESS = 'email-templates/auth/UPDATE_CURRENT_USER_SUCCESS';
+export const UPDATE_CURRENT_USER_FAIL = 'email-templates/auth/UPDATE_CURRENT_USER_FAIL';
+export const UPDATE_API_ACCESS_TOKEN_USER = 'email-templates/auth/UPDATE_API_ACCESS_TOKEN_USER';
+export const UPDATE_API_ACCESS_TOKEN_USER_SUCCESS = 'email-templates/auth/UPDATE_API_ACCESS_TOKEN_USER_SUCCESS';
+export const UPDATE_API_ACCESS_TOKEN_USER_FAIL = 'email-templates/auth/UPDATE_API_ACCESS_TOKEN_USER_FAIL';
+
