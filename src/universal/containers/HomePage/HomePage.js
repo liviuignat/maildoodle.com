@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
 import HomePageCard from './HomePageCard';
+import {AppFooter} from './../../components';
 import config from './../../../config';
 
 export default class HomePage extends Component {
@@ -50,6 +51,8 @@ export default class HomePage extends Component {
               actionText="learn more >"/>
           </div>
         </div>
+
+        <AppFooter />
       </div>
     );
   }
