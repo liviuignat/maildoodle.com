@@ -50,7 +50,7 @@ export default (store) => {
 
   return (
     <Route path="/" component={AppContainer}>
-      <IndexRoute component={HomePage} />
+      <IndexRoute component={HomePage} onEnter={requireNotLogin} />
 
       <Route path="/auth/login" component={LoginPage} onEnter={requireNotLogin} />
       <Route path="/auth/sign-up" component={SignUpPage} onEnter={requireNotLogin} />

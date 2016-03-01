@@ -46,7 +46,7 @@ export default class MyAccountPage extends Component {
 
     return (
       <Paper className={styles.MyAccountPage}>
-        <h4>My Account</h4>
+        <h3>Personal Information</h3>
         <PersonalInformationForm
           isUpdatingUser={isUpdatingUser}
           onSubmit={::this.savePersonalInformation}
