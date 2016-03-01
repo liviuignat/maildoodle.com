@@ -12,19 +12,21 @@ export default class HomePageCard extends Component {
   };
 
   render() {
-    const style = require('./HomePage.scss');
+    const style = require('./HomePageCard.scss');
     const {imageSrc, titleText, bodyText, actionText, actionUrl} = this.props;
 
     return (
-      <Paper className={style.HomePage_card}>
-        <img className={style.HomePage_cardHeader}
-          src={imageSrc} />
-        <div className={style.HomePage_cardContent}>
-          <div className={style.HomePage_cardTitle}>{titleText}</div>
-          <div className={style.HomePage_cardBody}>{bodyText}</div>
-        </div>
-        <Link className={style.HomePage_cardAction} to={actionUrl}>{actionText}</Link>
-      </Paper>
+      <div {...this.props}>
+        <Paper className={style.card}>
+          <img className={style.cardHeader}
+            src={imageSrc} />
+          <div className={style.cardContent}>
+            <div className={style.cardTitle}>{titleText}</div>
+            <div className={style.cardBody}>{bodyText}</div>
+          </div>
+          <Link className={style.cardAction} to={actionUrl}>{actionText}</Link>
+        </Paper>
+      </div>
     );
   }
 }

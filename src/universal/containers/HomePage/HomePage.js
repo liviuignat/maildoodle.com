@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
-import HomePageCard from './HomePageCard';
-import {AppFooter} from './../../components';
+import {AppFooter, HomePageCard} from './../../components';
 import config from './../../../config';
 
 export default class HomePage extends Component {
@@ -31,8 +30,9 @@ export default class HomePage extends Component {
 
           <h1>Have your templates in one place and increase productivity</h1>
 
-          <div className={style.HomePage_cardContainer}>
+          <div className={style.HomePage_cardListContainer}>
             <HomePageCard
+              className={style.HomePage_cardContainer}
               imageSrc="http://getmdl.io/templates/android-dot-com/images/more-from-1.png"
               titleText="Multiple templates"
               bodyText="Easily create multiple HTML and PDF templates, manage and preview them directly in the browser."
@@ -40,6 +40,7 @@ export default class HomePage extends Component {
               actionUrl="/documentation"/>
 
             <HomePageCard
+              className={style.HomePage_cardContainer}
               imageSrc="http://getmdl.io/templates/android-dot-com/images/more-from-4.png"
               titleText="Different layouts"
               bodyText="Create multiple page layouts and handle your different campaigns easily."
@@ -47,6 +48,7 @@ export default class HomePage extends Component {
               actionUrl="/documentation"/>
 
             <HomePageCard
+              className={style.HomePage_cardContainer}
               imageSrc="http://getmdl.io/templates/android-dot-com/images/more-from-2.png"
               titleText="REST APIs"
               bodyText="Generate the content through our rest API, send them with your SMTP server."
@@ -54,6 +56,7 @@ export default class HomePage extends Component {
               actionUrl="/documentation"/>
 
             <HomePageCard
+              className={style.HomePage_cardContainer}
               imageSrc="http://getmdl.io/templates/android-dot-com/images/more-from-3.png"
               titleText="Not an email service"
               bodyText="We don't send emails for you, instead we help you manage all your email content that your app is sending."

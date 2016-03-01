@@ -72,7 +72,7 @@
     padding: 16px;
   }
 
-  .HomePage_cardContainer {
+  .HomePage_cardListContainer {
     display: flex;
     position: relative;
     width: $card-container-width;
@@ -81,35 +81,8 @@
     right: 0;
     left: 0;
 
-    .HomePage_card {
-      position: relative;
-      flex: 1;
-      margin: 8px;
+    .HomePage_cardContainer {
       width: $card-width;
-      font-weight: 300;
-    }
-
-    .HomePage_cardHeader {
-      width: $card-width;
-    }
-
-    .HomePage_cardContent {
-      padding: 16px;
-      width: $card-width;
-    }
-
-    .HomePage_cardTitle {
-      font-size: 20px;
-      padding-bottom: 16px;
-    }
-
-    .HomePage_cardBody {
-      height: 80px;
-    }
-
-    .HomePage_cardAction {
-      @include mdl-button();
-      color: #7cb342;
     }
   }
 }

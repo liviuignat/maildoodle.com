@@ -1,0 +1,31 @@
+@import "../../theme/variables.scss";
+
+.card {
+  position: relative;
+  flex: 1;
+  margin: 8px;
+  font-weight: 300;
+}
+
+.cardHeader {
+  width: 100%;
+}
+
+.cardContent {
+  padding: 16px;
+  width: 100%;
+}
+
+.cardTitle {
+  font-size: 20px;
+  padding-bottom: 16px;
+}
+
+.cardBody {
+  height: 80px;
+}
+
+.cardAction {
+  @include mdl-button();
+  color: #7cb342;
+}
