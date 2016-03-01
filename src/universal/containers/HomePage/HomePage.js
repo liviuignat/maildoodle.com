@@ -18,7 +18,7 @@ export default class HomePage extends Component {
           </div>
 
           <div className={style.HomePage_subTitle}>
-            Handle all your email templates in the cloud and lift the pain out of your developers
+            Handle all your custom email templates in one place and lift the pain out of your developers.<br/>
           </div>
 
           <ul className={style.HomePage_actions}>
@@ -29,25 +29,31 @@ export default class HomePage extends Component {
 
         <div className={style.HomePage_secondSection}>
 
-          <h1>We help you increase productivity</h1>
+          <h1>Have your templates in one place and increase productivity</h1>
 
           <div className={style.HomePage_cardContainer}>
             <HomePageCard
               imageSrc="http://getmdl.io/templates/android-dot-com/images/more-from-1.png"
               titleText="Multiple templates"
-              bodyText="Easily create multiple html templates and edit them directly in the browser."
+              bodyText="Easily create multiple HTML and PDF templates, manage and preview them directly in the browser."
               actionText="learn more >"/>
 
             <HomePageCard
               imageSrc="http://getmdl.io/templates/android-dot-com/images/more-from-4.png"
               titleText="Different layouts"
-              bodyText="Create multiple page layouts and handle your campaign easily."
+              bodyText="Create multiple page layouts and handle your different campaigns easily."
+              actionText="learn more >"/>
+
+            <HomePageCard
+              imageSrc="http://getmdl.io/templates/android-dot-com/images/more-from-2.png"
+              titleText="REST APIs"
+              bodyText="Generate the content through our rest API, send them with your SMTP server."
               actionText="learn more >"/>
 
             <HomePageCard
               imageSrc="http://getmdl.io/templates/android-dot-com/images/more-from-3.png"
-              titleText="Test in the cloud"
-              bodyText="You can test your templates just with one click of the button."
+              titleText="Not an email service"
+              bodyText="We don't send emails for you, instead we help you manage all your email content that your app is sending."
               actionText="learn more >"/>
           </div>
         </div>

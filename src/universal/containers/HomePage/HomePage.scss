@@ -5,6 +5,7 @@
   $color-button-sign-up: $color-green700;
   $color-button-learn-more: $color-indigo700;
   $card-width: 240px;
+  $card-container-width: $card-width * 4;
   $card-color: $color-grey900;
 
   margin: -16px;
@@ -74,7 +75,7 @@
   .HomePage_cardContainer {
     display: flex;
     position: relative;
-    width: $card-width * 3;
+    width: $card-container-width;
     color: $card-color;
     margin: auto;
     right: 0;
