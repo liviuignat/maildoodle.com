@@ -1,28 +1,25 @@
+import co from 'co';
 import { requiredAuthenticated } from './../../middleware';
 import { sendHttpError } from './../../http';
 
-import {
-  getProjectById,
-  updateProject
-} from './../projects/projects';
+import {getProjectById} from './../projects/projects';
 
-import {getLayoutById, updateLayout} from './layouts';
+import {
+  getLayoutById,
+  insertLayout,
+  updateLayout,
+  deleteLayout
+} from './layouts';
 
 export function setupRoutes(app, prefix = '/api/projects') {
   app.post(`${prefix}/:projectId/layouts`, requiredAuthenticated, (req, res) => {
-    getProjectById(req.user.objectId, req.params.projectId)
-      .then((project) => {
-        project.layouts.push(req.body);
-        return updateProject(project.objectId, project);
-      })
-      .then(() => getProjectById(req.user.objectId, req.params.projectId))
-      .then((project) => {
-        const newLayoutName = req.body.name;
-        const addedLayout = project.layouts.find((element) => {
-          return element.name === newLayoutName;
-        });
-        return res.json(addedLayout);
-      })
+    const userId = req.user.objectId;
+    const projectId = req.params.projectId;
+    const newLayout = req.body;
+
+    co(function*() {
+      return yield insertLayout(userId, projectId, newLayout);
+    }).then(layout => res.json(layout))
       .catch((err) => sendHttpError(res, { code: 400, err }));
   });
 
@@ -36,18 +33,18 @@ export function setupRoutes(app, prefix = '/api/projects') {
 
   app.get(`${prefix}/:projectId/layouts/:layoutId`, requiredAuthenticated, (req, res) => {
     getProjectById(req.user.objectId, req.params.projectId)
-    .then((project) => {
-      const result = project.layouts.find((element) => {
-        return element.objectId === req.params.layoutId;
-      });
+      .then((project) => {
+        const result = project.layouts.find((element) => {
+          return element.objectId === req.params.layoutId;
+        });
 
-      if (!result) {
-        return sendHttpError(res, { code: 404 });
-      }
+        if (!result) {
+          return sendHttpError(res, { code: 404 });
+        }
 
-      return res.json(result);
-    })
-    .catch((err) => sendHttpError(res, { code: 400, err }));
+        return res.json(result);
+      })
+      .catch((err) => sendHttpError(res, { code: 400, err }));
   });
 
   app.put(`${prefix}/:projectId/layouts/:layoutId`, requiredAuthenticated, (req, res) => {
@@ -62,19 +59,13 @@ export function setupRoutes(app, prefix = '/api/projects') {
       .catch(err => sendHttpError(res, { code: 400, err }));
   });
 
-  app.del(`${prefix}/:projectId/layouts/:layoutId`, requiredAuthenticated, (req, res) => {
-    getProjectById(req.user.objectId, req.params.projectId)
-    .then((project) => {
-      const indexOfLayout = project.layouts.findIndex((item) => {
-        return item.objectId === req.params.layoutId;
-      });
+  app.delete(`${prefix}/:projectId/layouts/:layoutId`, requiredAuthenticated, (req, res) => {
+    const userId = req.user.objectId;
+    const projectId = req.params.projectId;
+    const layoutId = req.params.layoutId;
 
-      project.layouts.splice(indexOfLayout, 1);
-      return updateProject(project.objectId, project);
-    })
-    .then(() => {
-      return res.sendStatus(200);
-    })
-    .catch((err) => sendHttpError(res, { code: 400, err }));
+    deleteLayout(userId, projectId, layoutId)
+      .then(() => res.sendStatus(200))
+      .catch((err) => sendHttpError(res, { code: 400, err }));
   });
 }

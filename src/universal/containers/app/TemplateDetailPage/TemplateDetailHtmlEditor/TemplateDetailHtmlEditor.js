@@ -9,7 +9,7 @@ export default class TemplateDetailHtmlEditor extends Component {
     isReadOnly: PropTypes.bool.isRequired,
     template: PropTypes.object.isRequired,
     updateDevelopmentVersion: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props, context) {
     super(props, context);

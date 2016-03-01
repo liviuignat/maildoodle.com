@@ -20,13 +20,40 @@ export function getUserBySessionToken(sessionToken) {
 
 function getUserByQuery(query) {
   return co(function *() {
+
     const objectIdQuery = {
       _id: query.objectId
     };
     const search = query.objectId ? Object.assign(query, objectIdQuery) : query;
 
+    if (search.objectId) {
+      delete search.objectId;
+    }
+
     const user = yield User.findOne(search);
     return toJson(user);
+  });
+}
+
+export function updateUserPersonalData(userId, updatedUserData) {
+  const {firstName, lastName, companyName} = updatedUserData;
+
+  return co(function*() {
+    return yield User.update({
+      _id: userId
+    }, {firstName, lastName, companyName});
+  });
+}
+
+export function updateApiAccessToken(userId) {
+  return co(function*() {
+    const newApiAccessToken = md5(Date.now() + 10);
+
+    return yield User.update({
+      _id: userId
+    }, {
+      apiAccessToken: newApiAccessToken
+    });
   });
 }
 
@@ -35,8 +62,10 @@ export function createUser(userData) {
     const data = Date.now();
     const authToken = md5(data);
     const sessionToken = md5(Date.now() + 5);
+    const apiAccessToken = md5(Date.now() + 10);
 
     const newUserAccount = Object.assign(userData, {
+      apiAccessToken,
       authToken,
       sessionToken,
       verified: false,

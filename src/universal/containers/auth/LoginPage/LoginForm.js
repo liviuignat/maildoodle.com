@@ -18,7 +18,7 @@ export default class LoginForm extends Component {
     pristine: PropTypes.bool.isRequired,
     invalid: PropTypes.bool.isRequired,
     valid: PropTypes.bool.isRequired
-  }
+  };
 
   render() {
     const styles = require('./LoginPage.scss');

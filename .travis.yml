@@ -6,9 +6,7 @@ services:
   - mongodb
 
 before_script:
-  - "npm install -g webpack"
-  - "npm install -g eslint"
-  - "npm install -g karma"
+  - "npm install -g webpack eslint karma"
   - "npm install"
 
 script:

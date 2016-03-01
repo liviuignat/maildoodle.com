@@ -35,7 +35,6 @@ export default class DialogForm extends Component {
         ref="formDialog"
         title={this.props.title || ''}
         open={this.state.open}
-        actionFocus="submit"
         autoDetectWindowHeight
         autoScrollBodyContent
         actions={[

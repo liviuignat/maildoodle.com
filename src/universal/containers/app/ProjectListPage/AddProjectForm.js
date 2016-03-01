@@ -20,7 +20,7 @@ export default class AddProjectForm extends Component {
     submitting: PropTypes.bool,
     insertError: PropTypes.string,
     valid: PropTypes.bool.isRequired
-  }
+  };
 
   componentDidUpdate(prevProps) {
     const isNewSubmitRequested = !prevProps.submitting && this.props.submitting;
