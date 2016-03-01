@@ -37,6 +37,29 @@ $drawer-screen-size-small: 800px;
   text-shadow: none;
 }
 
+html {
+  height: 100%;
+}
+
+body {
+  color: $color-dark-grey;
+  background-color: #F3F3F3;
+  font-family: $font-family;
+  font-size: $font-size-normal;
+  line-height: 1.428571429; // 20/14;
+  margin: 0;
+  min-height: 100%;
+
+  #content {
+    min-height: 100%;
+    position: relative;
+  }
+  #content > div {
+    min-height: 100%;
+    position: relative;
+  }
+}
+
 body {
   a {
     @include link($color-indigo700);
