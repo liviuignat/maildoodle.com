@@ -56,8 +56,8 @@ export default class LoginForm extends Component {
               labelText="Login"
               fullWidth
               primary
-              disabled={isLoggingIn}
-              onClick={handleSubmit}/>
+              type="submit"
+              disabled={isLoggingIn}/>
           </div>
         </form>
       </div>

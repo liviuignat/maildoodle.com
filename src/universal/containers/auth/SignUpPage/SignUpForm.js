@@ -56,8 +56,8 @@ export default class SignUpForm extends Component {
               labelText="Create account"
               fullWidth
               primary
-              disabled={isSigningUp}
-              onClick={handleSubmit}/>
+              type="submit"
+              disabled={isSigningUp}/>
           </div>
         </form>
       </div>

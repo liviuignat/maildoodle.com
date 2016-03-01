@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { updatePersonalInformationAction } from './../../../redux/reducers/auth';
 import PersonalInformationForm, {PERSONAL_INFORMATION_FORM_NAME} from './PersonalInformationForm';
 
-
 @connect(
   state => ({
     user: state.auth.user,
