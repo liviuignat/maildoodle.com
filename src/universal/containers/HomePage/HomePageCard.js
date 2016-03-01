@@ -7,12 +7,13 @@ export default class HomePageCard extends Component {
     imageSrc: PropTypes.string.isRequired,
     titleText: PropTypes.string.isRequired,
     bodyText: PropTypes.string.isRequired,
-    actionText: PropTypes.string.isRequired
+    actionText: PropTypes.string.isRequired,
+    actionUrl: PropTypes.string.isRequired
   };
 
   render() {
     const style = require('./HomePage.scss');
-    const {imageSrc, titleText, bodyText, actionText} = this.props;
+    const {imageSrc, titleText, bodyText, actionText, actionUrl} = this.props;
 
     return (
       <Paper className={style.HomePage_card}>
@@ -22,7 +23,7 @@ export default class HomePageCard extends Component {
           <div className={style.HomePage_cardTitle}>{titleText}</div>
           <div className={style.HomePage_cardBody}>{bodyText}</div>
         </div>
-        <Link className={style.HomePage_cardAction} to="/">{actionText}</Link>
+        <Link className={style.HomePage_cardAction} to={actionUrl}>{actionText}</Link>
       </Paper>
     );
   }
