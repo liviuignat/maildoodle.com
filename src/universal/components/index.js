@@ -1,4 +1,5 @@
 export AppHeader from './AppHeader/AppHeader';
+export AppFooter from './AppFooter/AppFooter';
 export AppLeftNav from './AppLeftNav/AppLeftNav';
 export FormTextField from './TextField/FormTextField';
 export RaisedButton from './Button/RaisedButton';

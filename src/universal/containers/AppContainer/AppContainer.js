@@ -8,7 +8,7 @@ import DocumentMeta from 'react-document-meta';
 import { pushState } from 'redux-router';
 import config from './../../../config';
 
-import { AppHeader, AppLeftNav, LinearProgress } from './../../components';
+import { AppHeader, AppFooter, AppLeftNav, LinearProgress } from './../../components';
 import { isUserLoaded, loadUserAction } from './../../redux/reducers/auth';
 
 @connect(
@@ -85,6 +85,8 @@ export default class AppContainer extends Component {
         <div className={::this.getContentClassName(styles, isDrawerVisble)}>
           {this.props.children}
         </div>
+
+        <AppFooter />
       </div>
     );
   }

@@ -60,7 +60,6 @@
   }
 
   .HomePage_secondSection {
-    height: 500px;
     width: 100%;
     background-color: white;
   }
@@ -74,7 +73,7 @@
     position: relative;
     width: $card-width * 3;
     color: $card-color;
-    padding-top: 16px;
+    padding: 16px;
     margin: auto;
     right: 0;
     left: 0;
