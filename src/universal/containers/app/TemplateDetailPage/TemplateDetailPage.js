@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {startSubmit} from 'redux-form';
+import config from './../../../../config';
 import {
   getProjectDetailByIdAction,
   selectPreviewLanguage,
@@ -132,6 +133,7 @@ export default class TemplateDetailPage extends Component {
       changeSelectedLayout
     } = this.props;
     const {languages} = project;
+    const {isTranslationsEnabled} = config.app;
 
     return (
       <div>
@@ -174,7 +176,7 @@ export default class TemplateDetailPage extends Component {
                   updateDevelopmentVersion={::this.updateDevelopmentVersion} />
               </div>
             </Tab>
-            <Tab label="Translations">
+            <Tab label="Translations" style={{visibility: isTranslationsEnabled ? 'visible' : 'hidden'}}>
               <div>
                 <TemplateLanguages
                   isReadOnly={this.isViewingOldVersion}

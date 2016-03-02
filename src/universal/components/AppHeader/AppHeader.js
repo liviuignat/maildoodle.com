@@ -34,6 +34,8 @@ class AppHeader extends Component {
                 !isLoggedIn && <Link className={styles.AppHeader_navigationLink}
                                      to="/auth/login">Login</Link>
               }
+              <Link className={styles.AppHeader_navigationLink}
+                to="/documentation">Documentation</Link>
              </nav>
           </div>
         </div>

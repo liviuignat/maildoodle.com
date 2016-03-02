@@ -38,6 +38,10 @@ export default class AppLeftNav extends Component {
             <i className="fa fa-list"/><span className={styles.AppLeftNav_linkText}>Projects</span>
           </Link>
 
+          <Link className={styles.AppLeftNav_navigationLink} to="/documentation">
+            <i className="fa fa-book"/><span className={styles.AppLeftNav_linkText}>Documentation</span>
+          </Link>
+
           <div className={styles.AppLeftNav_navigationLinkSpacer} />
 
           <AppLeftNavLogoutButton />

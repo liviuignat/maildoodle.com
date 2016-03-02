@@ -21,6 +21,7 @@ module.exports = Object.assign({
   app: {
     title: 'email templates',
     description: 'Generic HTML email templates',
+    isTranslationsEnabled: false,
     meta: {
       charSet: 'utf-8',
       property: {
