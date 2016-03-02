@@ -1,6 +1,7 @@
 export AppContainer from './AppContainer/AppContainer';
 export DevTools from './DevTools/DevTools';
 export HomePage from './HomePage/HomePage';
+export DocumentationPage from './DocumentationPage/DocumentationPage';
 export NotFoundPage from './NotFoundPage/NotFoundPage';
 
 export LoginPage from './auth/LoginPage/LoginPage';

@@ -4,6 +4,7 @@ import { isUserLoaded, loadUserAction } from './redux/reducers/auth';
 import {
     AppContainer,
     HomePage,
+    DocumentationPage,
     LoginPage,
     SignUpPage,
     DashboardPage,
@@ -51,9 +52,10 @@ export default (store) => {
   return (
     <Route path="/" component={AppContainer}>
       <IndexRoute component={HomePage} onEnter={requireNotLogin} />
-
       <Route path="/auth/login" component={LoginPage} onEnter={requireNotLogin} />
       <Route path="/auth/sign-up" component={SignUpPage} onEnter={requireNotLogin} />
+
+      <Route path="/documentation" component={DocumentationPage} />
 
       <Route onEnter={requireLogin}>
         <Route path="/app" component={DashboardPage} />
