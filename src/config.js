@@ -19,7 +19,7 @@ module.exports = Object.assign({
     }
   },
   app: {
-    title: 'email templates',
+    title: 'maildoodle',
     description: 'Generic HTML email templates',
     isTranslationsEnabled: false,
     meta: {
