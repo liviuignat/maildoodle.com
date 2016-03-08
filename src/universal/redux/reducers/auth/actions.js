@@ -13,7 +13,6 @@ export const SIGN_UP_FAIL = 'email-templates/auth/SIGN_UP_FAIL';
 export const UPDATE_CURRENT_USER = 'email-templates/auth/UPDATE_CURRENT_USER';
 export const UPDATE_CURRENT_USER_SUCCESS = 'email-templates/auth/UPDATE_CURRENT_USER_SUCCESS';
 export const UPDATE_CURRENT_USER_FAIL = 'email-templates/auth/UPDATE_CURRENT_USER_FAIL';
-export const UPDATE_API_ACCESS_TOKEN_USER = 'email-templates/auth/UPDATE_API_ACCESS_TOKEN_USER';
-export const UPDATE_API_ACCESS_TOKEN_USER_SUCCESS = 'email-templates/auth/UPDATE_API_ACCESS_TOKEN_USER_SUCCESS';
-export const UPDATE_API_ACCESS_TOKEN_USER_FAIL = 'email-templates/auth/UPDATE_API_ACCESS_TOKEN_USER_FAIL';
-
+export const REFRESH_API_ACCESS_TOKEN_USER = 'email-templates/auth/REFRESH_API_ACCESS_TOKEN_USER';
+export const REFRESH_API_ACCESS_TOKEN_USER_SUCCESS = 'email-templates/auth/REFRESH_API_ACCESS_TOKEN_USER_SUCCESS';
+export const REFRESH_API_ACCESS_TOKEN_USER_FAIL = 'email-templates/auth/REFRESH_API_ACCESS_TOKEN_USER_FAIL';

@@ -10,22 +10,22 @@ describe('Auth Reducer tests', () => {
 
   describe('WHEN updateting user API access token', () => {
     let updateUser = {
-      type: actions.UPDATE_API_ACCESS_TOKEN_USER
+      type: actions.REFRESH_API_ACCESS_TOKEN_USER
     }
     beforeEach(() => {
       currrentState = reducer(currrentState, updateUser);
     });
 
     it('SHOULD have the update in progress flag set to true',
-      () => expect(currrentState.updatetingUserAPIAccessToken).to.equal(true));
+      () => expect(currrentState.isRefreshingAPIAccessToken).to.equal(true));
 
     it('SHOULD have the error to nothing',
-      () => expect(currrentState.updateAPIAccessTokenError).to.equal(''));
+      () => expect(currrentState.refreshAPIAccessTokenError).to.equal(''));
   });
 
    describe('WHEN the user API access token has an error', () => {
     const updateUser = {
-      type: actions.UPDATE_API_ACCESS_TOKEN_USER_FAIL,
+      type: actions.REFRESH_API_ACCESS_TOKEN_USER_FAIL,
       error: 'update did not work'
     };
 
@@ -34,10 +34,10 @@ describe('Auth Reducer tests', () => {
     });
 
     it('SHOULD have the update in progress flag set to false',
-      () => expect(currrentState.updatetingUserAPIAccessToken).to.equal(false));
+      () => expect(currrentState.isRefreshingAPIAccessToken).to.equal(false));
 
     it('SHOULD have the error set to the correct message',
-      () => expect(currrentState.updateAPIAccessTokenError).to.equal(updateUser.error));
+      () => expect(currrentState.refreshAPIAccessTokenError).to.equal(updateUser.error));
   });
 
   describe('WHEN updateting user', () => {
@@ -114,7 +114,7 @@ describe('Auth Reducer tests', () => {
 
     describe('WHEN updateting the user API access token is succesfull', () => {
       const updateUserApiToken = {
-        type: actions.UPDATE_API_ACCESS_TOKEN_USER_SUCCESS,
+        type: actions.REFRESH_API_ACCESS_TOKEN_USER_SUCCESS,
         result: {
           apiAccessToken: 'crappyToken'
         }
@@ -126,10 +126,10 @@ describe('Auth Reducer tests', () => {
         () => expect(currrentState.user.apiAccessToken).to.equal(updateUserApiToken.result.apiAccessToken));
 
       it('SHOULD have the update in progress flag set to false',
-        () => expect(currrentState.updatetingUserAPIAccessToken).to.equal(false));
+        () => expect(currrentState.isRefreshingAPIAccessToken).to.equal(false));
 
       it('SHOULD have the error set to nothing',
-        () => expect(currrentState.updateAPIAccessTokenError).to.equal(''));
+        () => expect(currrentState.refreshAPIAccessTokenError).to.equal(''));
 
       it('SHOULD maintain all other fields', () => {
         expect(currrentState.user.firstName).to.equal(updateUser.result.firstName);

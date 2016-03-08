@@ -6,6 +6,7 @@ const initialState = {
 };
 
 export function reducer(state = initialState, action = {}) {
+  console.log(action.type);
   switch (action.type) {
     case actions.LOAD_CURRENT_USER:
       return {
@@ -107,25 +108,26 @@ export function reducer(state = initialState, action = {}) {
         updateUserError: action.error
       };
 
-    case actions.UPDATE_API_ACCESS_TOKEN_USER:
+    case actions.REFRESH_API_ACCESS_TOKEN_USER:
       return {
         ...state,
-        updatetingUserAPIAccessToken: true,
-        updateAPIAccessTokenError: ''
+        isRefreshingAPIAccessToken: true,
+        refreshAPIAccessTokenError: ''
       };
 
-    case actions.UPDATE_API_ACCESS_TOKEN_USER_FAIL:
+    case actions.REFRESH_API_ACCESS_TOKEN_USER_FAIL:
+      console.log('aaaa');
       return {
         ...state,
-        updatetingUserAPIAccessToken: false,
-        updateAPIAccessTokenError: action.error
+        isRefreshingAPIAccessToken: false,
+        refreshAPIAccessTokenError: action.error
       };
 
-    case actions.UPDATE_API_ACCESS_TOKEN_USER_SUCCESS:
+    case actions.REFRESH_API_ACCESS_TOKEN_USER_SUCCESS:
       return {
         ...state,
-        updatetingUserAPIAccessToken: false,
-        updateAPIAccessTokenError: '',
+        isRefreshingAPIAccessToken: false,
+        refreshAPIAccessTokenError: '',
         user: Object.assign(state.user, {
           apiAccessToken: action.result.apiAccessToken
         })
