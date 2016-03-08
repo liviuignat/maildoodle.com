@@ -6,7 +6,6 @@ const initialState = {
 };
 
 export function reducer(state = initialState, action = {}) {
-  console.log(action.type);
   switch (action.type) {
     case actions.LOAD_CURRENT_USER:
       return {
@@ -116,7 +115,6 @@ export function reducer(state = initialState, action = {}) {
       };
 
     case actions.REFRESH_API_ACCESS_TOKEN_USER_FAIL:
-      console.log('aaaa');
       return {
         ...state,
         isRefreshingAPIAccessToken: false,
