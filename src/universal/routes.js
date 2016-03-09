@@ -55,7 +55,7 @@ export default (store) => {
       <Route path="/auth/login" component={LoginPage} onEnter={requireNotLogin} />
       <Route path="/auth/sign-up" component={SignUpPage} onEnter={requireNotLogin} />
 
-      <Route path="/documentation" component={DocumentationPage} />
+
 
       <Route onEnter={requireLogin}>
         <Route path="/app" component={DashboardPage} />
