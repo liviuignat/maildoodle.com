@@ -1,6 +1,7 @@
-import { combineReducers } from 'redux';
-import { routerStateReducer } from 'redux-router';
+import {combineReducers} from 'redux';
+import {routeReducer} from 'react-router-redux';
 import {reducer as form} from 'redux-form';
+import {reducer as reduxAsyncConnect} from 'redux-async-connect';
 
 import {reducer as appLoading} from './appLoading';
 import {reducer as auth} from './auth';
@@ -10,12 +11,13 @@ import {reducer as currentLayout} from './currentLayout';
 import {reducer as currentTemplate} from './currentTemplate';
 
 export default combineReducers({
-  router: routerStateReducer,
+  routing: routeReducer,
+  reduxAsyncConnect,
+  form,
   appLoading,
   auth,
   projects,
   currentProject,
   currentLayout,
-  currentTemplate,
-  form
+  currentTemplate
 });

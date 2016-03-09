@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
+import {asyncConnect} from 'redux-async-connect';
 import {initialize as initializeForm, startSubmit} from 'redux-form';
-import { pushState } from 'redux-router';
+import {pushState} from 'redux-router';
 import {
   getProjectDetailByIdAction,
   insertTemplateAction,
@@ -15,9 +16,17 @@ import { GenericList } from './../../../components';
 import TemplatesList from './TemplatesList';
 import LayoutsList from './LayoutsList';
 
+@asyncConnect([{
+  promise: ({store: {dispatch}}) => {
+    const promises = [];
+    promises.push(dispatch(getProjectDetailByIdAction('566b1453a3ba8f450ca3bda2')));
+    return Promise.all(promises);
+  }
+}])
 @connect(
   state => ({
-    projectId: state.router.params.projectId,
+    // projectId: state.routing.params.projectId,
+    projectId: '566b1453a3ba8f450ca3bda2',
     project: state.currentProject.project,
     templates: state.currentProject.project.templates,
     layouts: state.currentProject.project.layouts
@@ -49,12 +58,6 @@ export default class ProjectDetailPage extends Component {
     updateLayoutAction: PropTypes.func.isRequired,
     deleteLayoutAction: PropTypes.func.isRequired
   };
-
-  static fetchData(getState, dispatch, location, params) {
-    const promises = [];
-    promises.push(dispatch(getProjectDetailByIdAction(params.projectId)));
-    return Promise.all(promises);
-  }
 
   render() {
     const { project, templates, layouts } = this.props;

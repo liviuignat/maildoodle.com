@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
-import { pushState } from 'redux-router';
+import {asyncConnect} from 'redux-async-connect';
+import {push} from 'react-router-redux';
 import {initialize as initializeForm, startSubmit} from 'redux-form';
 import {
   getProjectsAction,
@@ -21,9 +22,16 @@ import {
   FontIcon
 } from './../../../components';
 
+@asyncConnect([{
+  promise: ({store: {dispatch}}) => {
+    const promises = [];
+    promises.push(dispatch(getProjectsAction()));
+    return Promise.all(promises);
+  }
+}])
 @connect(
   state => ({projects: state.projects.list}), {
-    pushState,
+    push,
     initializeForm,
     startSubmit,
     insertProjectAction,
@@ -32,7 +40,7 @@ import {
   })
 export default class ProjectListPage extends Component {
   static propTypes = {
-    pushState: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired,
     initializeForm: PropTypes.func.isRequired,
     startSubmit: PropTypes.func.isRequired,
     insertProjectAction: PropTypes.func.isRequired,
@@ -48,7 +56,7 @@ export default class ProjectListPage extends Component {
   navigateToDetails(project) {
     return () => {
       const url = `/app/projects/${project.objectId}`;
-      this.props.pushState(null, url);
+      this.props.push(url);
     };
   }
 
@@ -86,12 +94,6 @@ export default class ProjectListPage extends Component {
     return () => {
       this.props.deleteProjectAction(project);
     };
-  }
-
-  static fetchData(getState, dispatch) {
-    const promises = [];
-    promises.push(dispatch(getProjectsAction()));
-    return Promise.all(promises);
   }
 
   render() {
