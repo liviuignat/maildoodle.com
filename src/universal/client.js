@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {Router, browserHistory} from 'react-router';
+import {syncHistoryWithStore} from 'react-router-redux';
 import {ReduxAsyncConnect} from 'redux-async-connect';
 import createStore from './redux/create';
 import ApiClient from './helpers/ApiClient';
@@ -14,14 +15,16 @@ import getRoutes from './routes';
 injectTapEventPlugin();
 
 const client = new ApiClient();
-const history = useScroll(() => browserHistory)();
+// const history = useScroll(() => browserHistory)();
+const store = createStore(browserHistory, client, window.__data);
+const history = syncHistoryWithStore(browserHistory, store);
+const scrollHistory = useScroll(() => history)();
 const dest = document.getElementById('content');
-const store = createStore(history, client, window.__data);
 
 const component = (
   <Router
     render={(props) => <ReduxAsyncConnect {...props} helpers={{client}} filter={item => !item.deferred} />}
-    history={history}>
+    history={scrollHistory}>
     {getRoutes(store)}
   </Router>
 );

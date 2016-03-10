@@ -17,16 +17,12 @@ import TemplatesList from './TemplatesList';
 import LayoutsList from './LayoutsList';
 
 @asyncConnect([{
-  promise: ({store: {dispatch}}) => {
-    const promises = [];
-    promises.push(dispatch(getProjectDetailByIdAction('566b1453a3ba8f450ca3bda2')));
-    return Promise.all(promises);
-  }
+  promise: ({params: {projectId}, store: {dispatch}}) =>
+    dispatch(getProjectDetailByIdAction(projectId))
 }])
 @connect(
   state => ({
-    // projectId: state.routing.params.projectId,
-    projectId: '566b1453a3ba8f450ca3bda2',
+    projectId: state.currentProject.project.objectId,
     project: state.currentProject.project,
     templates: state.currentProject.project.templates,
     layouts: state.currentProject.project.layouts

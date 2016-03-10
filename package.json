@@ -120,7 +120,7 @@
     "react-inline-css": "^2.0.0",
     "react-redux": "^4.0.0",
     "react-router": "^2.0.0",
-    "react-router-redux": "^3.0.0",
+    "react-router-redux": "^4.0.0",
     "react-tap-event-plugin": "^0.2.1",
     "redux": "^3.0.4",
     "redux-async-connect": "^1.0.0-rc2",
