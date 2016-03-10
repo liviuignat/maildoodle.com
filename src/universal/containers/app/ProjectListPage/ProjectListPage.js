@@ -23,14 +23,12 @@ import {
 } from './../../../components';
 
 @asyncConnect([{
-  promise: ({store: {dispatch}}) => {
-    const promises = [];
-    promises.push(dispatch(getProjectsAction()));
-    return Promise.all(promises);
-  }
+  promise: ({store: {dispatch}}) => dispatch(getProjectsAction())
 }])
 @connect(
-  state => ({projects: state.projects.list}), {
+  ({projects: {list}}) => ({
+    projects: list
+  }), {
     push,
     initializeForm,
     startSubmit,

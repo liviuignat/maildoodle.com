@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import {initialize as initializeForm, startSubmit} from 'redux-form';
@@ -21,11 +21,11 @@ import LayoutsList from './LayoutsList';
     dispatch(getProjectDetailByIdAction(projectId))
 }])
 @connect(
-  state => ({
-    projectId: state.currentProject.project.objectId,
-    project: state.currentProject.project,
-    templates: state.currentProject.project.templates,
-    layouts: state.currentProject.project.layouts
+  ({currentProject: {project}}) => ({
+    project,
+    projectId: project.objectId,
+    templates: project.templates,
+    layouts: project.layouts
   }), {
     pushState,
     initializeForm,
