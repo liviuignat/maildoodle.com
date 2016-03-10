@@ -2,19 +2,29 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
 import {getMuiTheme} from './../../theme/materialTheme';
 
+import Helmet from 'react-helmet';
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import DocumentMeta from 'react-document-meta';
-import {pushState} from 'redux-router';
+import {push as pushState} from 'react-router-redux';
 import config from './../../../config';
+
+import {asyncConnect} from 'redux-async-connect';
 
 import {AppHeader, AppLeftNav, LinearProgress} from './../../components';
 import {isUserLoaded, loadUserAction} from './../../redux/reducers/auth';
 
+@asyncConnect([{
+  promise: ({store: {getState, dispatch}}) => {
+    if (!isUserLoaded(getState())) {
+      return dispatch(loadUserAction());
+    }
+    return Promise.resolve();
+  }
+}])
 @connect(
-  state => ({
-    isRouterLoading: state.appLoading.isLoading,
-    user: state.auth.user
+  ({auth, reduxAsyncConnect}) => ({
+    reduxAsyncConnect,
+    user: auth.user
   }),
   { pushState }
 )
@@ -22,8 +32,8 @@ import {isUserLoaded, loadUserAction} from './../../redux/reducers/auth';
 export default class AppContainer extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
+    reduxAsyncConnect: PropTypes.object.isRequired,
     pushState: PropTypes.func.isRequired,
-    isRouterLoading: PropTypes.bool,
     user: PropTypes.object
   };
 
@@ -33,9 +43,9 @@ export default class AppContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.user && nextProps.user) {
-      this.props.pushState(null, '/app');
+      this.props.pushState('/app');
     } else if (this.props.user && !nextProps.user) {
-      this.props.pushState(null, '/auth/login');
+      this.props.pushState('/auth/login');
     }
   }
 
@@ -51,23 +61,16 @@ export default class AppContainer extends Component {
     return !!this.props.user;
   }
 
-  static fetchData(getState, dispatch) {
-    const promises = [];
-
-    if (!isUserLoaded(getState())) {
-      promises.push(dispatch(loadUserAction()));
-    }
-    return Promise.all(promises);
-  }
-
   render() {
     const styles = require('./AppContainer.scss');
-    const{isRouterLoading, user} = this.props;
+    const{user} = this.props;
     const isDrawerVisble = this.isLoggedIn;
+    const {reduxAsyncConnect} = this.props;
+    const isRouterLoading = reduxAsyncConnect && !reduxAsyncConnect.loaded;
 
     return (
       <div className={styles.AppContainer}>
-        <DocumentMeta {...config.app} />
+        <Helmet {...config.app}/>
 
         {<LinearProgress
           style={{

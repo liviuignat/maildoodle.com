@@ -8,17 +8,15 @@ import PrettyError from 'pretty-error';
 
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import {ReduxRouter} from 'redux-router';
-import createHistory from 'history/lib/createMemoryHistory';
-import {reduxReactRouter, match} from 'redux-router/server';
+import {ReduxAsyncConnect, loadOnServer} from 'redux-async-connect';
+import createHistory from 'react-router/lib/createMemoryHistory';
+import {match} from 'react-router';
 import {Provider} from 'react-redux';
-import qs from 'query-string';
 
 import createStore from './redux/create';
-import routes from './routes';
+import getRoutes from './routes';
 import ApiClient from './helpers/ApiClient';
 import Html from './helpers/Html';
-import getStatusFromRoutes from './helpers/getStatusFromRoutes';
 import * as middleware from './../api/middleware';
 
 const pretty = new PrettyError();
@@ -36,17 +34,16 @@ app.use((req, res, next) => {
     return next();
   }
 
-  const userAgent = req.get('user-agent');
-  global.navigator = { userAgent };
-
   if (__DEVELOPMENT__) {
-    // Do not cache webpack stats: the script file would change since
-    // hot module replacement is enabled in the development env
     webpackIsomorphicTools.refresh();
   }
 
+  const userAgent = req.get('user-agent');
+  global.navigator = { userAgent };
+
   const client = new ApiClient(req);
-  const store = createStore(reduxReactRouter, routes, createHistory, client);
+  const history = createHistory(req.originalUrl);
+  const store = createStore(history, client);
 
   function hydrateOnClient() {
     res.send('<!doctype html>\n' +
@@ -58,43 +55,32 @@ app.use((req, res, next) => {
     return null;
   }
 
-  store.dispatch(match(req.originalUrl, (error, redirectLocation, routerState) => {
+  match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(redirectLocation.pathname + redirectLocation.search);
     } else if (error) {
       console.error('ROUTER ERROR:', pretty.render(error));
       res.status(500);
       hydrateOnClient();
-    } else if (!routerState) {
-      res.status(500);
-      hydrateOnClient();
-    } else {
-      // Workaround redux-router query string issue:
-      // https://github.com/rackt/redux-router/issues/106
-      if (routerState.location.search && !routerState.location.query) {
-        routerState.location.query = qs.parse(routerState.location.search);
-      }
-
-      store.getState().router.then(() => {
+    } else if (renderProps) {
+      loadOnServer({...renderProps, store, helpers: {client}}).then(() => {
         const component = (
           <Provider store={store} key="provider">
-            <ReduxRouter/>
+            <ReduxAsyncConnect {...renderProps} />
           </Provider>
         );
 
-        const status = getStatusFromRoutes(routerState.routes);
-        if (status) {
-          res.status(status);
-        }
+        res.status(200);
+
+        global.navigator = {userAgent: req.headers['user-agent']};
+
         res.send('<!doctype html>\n' +
           ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store}/>));
-      }).catch((err) => {
-        console.error('DATA FETCHING ERROR:', pretty.render(err));
-        res.status(500);
-        hydrateOnClient();
       });
+    } else {
+      res.status(404).send('Not found');
     }
-  }));
+  });
 });
 
 app.use(middleware.requestAuthToken);

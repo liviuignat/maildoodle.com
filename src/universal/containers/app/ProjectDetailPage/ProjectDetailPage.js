@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
+import {asyncConnect} from 'redux-async-connect';
 import {initialize as initializeForm, startSubmit} from 'redux-form';
-import { pushState } from 'redux-router';
+import {push as pushState} from 'react-router-redux';
 import config from './../../../../config';
 import {
   getProjectDetailByIdAction,
@@ -16,12 +17,16 @@ import { GenericList } from './../../../components';
 import TemplatesList from './TemplatesList';
 import LayoutsList from './LayoutsList';
 
+@asyncConnect([{
+  promise: ({params: {projectId}, store: {dispatch}}) =>
+    dispatch(getProjectDetailByIdAction(projectId))
+}])
 @connect(
-  state => ({
-    projectId: state.router.params.projectId,
-    project: state.currentProject.project,
-    templates: state.currentProject.project.templates,
-    layouts: state.currentProject.project.layouts
+  ({currentProject: {project}}) => ({
+    project,
+    projectId: project.objectId,
+    templates: project.templates,
+    layouts: project.layouts
   }), {
     pushState,
     initializeForm,
@@ -50,12 +55,6 @@ export default class ProjectDetailPage extends Component {
     updateLayoutAction: PropTypes.func.isRequired,
     deleteLayoutAction: PropTypes.func.isRequired
   };
-
-  static fetchData(getState, dispatch, location, params) {
-    const promises = [];
-    promises.push(dispatch(getProjectDetailByIdAction(params.projectId)));
-    return Promise.all(promises);
-  }
 
   render() {
     const { project, templates, layouts } = this.props;

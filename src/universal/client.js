@@ -2,24 +2,31 @@ import 'babel-core/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import createHistory from 'history/lib/createBrowserHistory';
+import {Router, browserHistory} from 'react-router';
+import {syncHistoryWithStore} from 'react-router-redux';
+import {ReduxAsyncConnect} from 'redux-async-connect';
 import createStore from './redux/create';
 import ApiClient from './helpers/ApiClient';
 import {Provider} from 'react-redux';
-import {reduxReactRouter, ReduxRouter} from 'redux-router';
+import useScroll from 'scroll-behavior/lib/useStandardScroll';
 
 import getRoutes from './routes';
-import makeRouteHooksSafe from './helpers/makeRouteHooksSafe';
 
 injectTapEventPlugin();
 
 const client = new ApiClient();
-
+// const history = useScroll(() => browserHistory)();
+const store = createStore(browserHistory, client, window.__data);
+const history = syncHistoryWithStore(browserHistory, store);
+const scrollHistory = useScroll(() => history)();
 const dest = document.getElementById('content');
-const store = createStore(reduxReactRouter, makeRouteHooksSafe(getRoutes), createHistory, client, window.__data);
 
 const component = (
-  <ReduxRouter routes={getRoutes(store)} />
+  <Router
+    render={(props) => <ReduxAsyncConnect {...props} helpers={{client}} filter={item => !item.deferred} />}
+    history={scrollHistory}>
+    {getRoutes(store)}
+  </Router>
 );
 
 ReactDOM.render(
@@ -36,7 +43,6 @@ if (process.env.NODE_ENV !== 'production') {
     console.error('Server-side React render was discarded. Make sure that your initial render does not contain any client-side code.');
   }
 }
-
 if (__DEVTOOLS__) {
   const { DevTools } = require('./containers');
   ReactDOM.render(

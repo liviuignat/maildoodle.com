@@ -11,7 +11,7 @@ import AppHeader from './../AppHeader';
 const client = new ApiClient();
 
 function createComponent(mockStore, props) {
-  const store = createStore(reduxReactRouter, null, createHistory, client, mockStore);
+  const store = createStore(createHistory, client, mockStore);
   const renderer = ReactTestUtils.renderIntoDocument(
     <Provider store={store} key="provider">
       <AppHeader {...props}/>

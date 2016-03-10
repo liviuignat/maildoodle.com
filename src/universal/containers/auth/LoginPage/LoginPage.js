@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
-import { pushState } from 'redux-router';
+import { push as pushState } from 'react-router-redux';
 import LoginForm from './LoginForm';
 import { loginAction } from './../../../redux/reducers/auth';
 import { Paper } from './../../../components';

@@ -13,16 +13,21 @@ module.exports = Object.assign({
   port: process.env.PORT,
   app: {
     title: 'maildoodle',
+    description: 'Email template made easy.',
     isTranslationsEnabled: false,
-    meta: {
-      charSet: 'utf-8',
-      property: {
-        'og:site_name': 'maildoodle',
-        'og:image': 'https://react-redux.herokuapp.com/logo.jpg',
-        'og:locale': 'en_US',
-        'og:title': 'maildoodle',
-        'og:description': 'email templates have never been easier'
-      }
-    }
+    meta: [
+      {name: 'description', content: 'Email template made easy.'},
+      {charset: 'utf-8'},
+      {property: 'og:site_name', content: 'maildoodle'},
+      {property: 'og:image', content: 'http://maildoodle.com/logo.png'},
+      {property: 'og:locale', content: 'en_US'},
+      {property: 'og:title', content: 'maildoodle'},
+      {property: 'og:description', content: 'Email template made easy.'},
+      {property: 'og:card', content: 'summary'},
+      {property: 'og:site', content: '@maildoodle'},
+      {property: 'og:creator', content: '@maildoodle'},
+      {property: 'og:image:width', content: '200'},
+      {property: 'og:image:height', content: '200'}
+    ]
   }
 }, environment);

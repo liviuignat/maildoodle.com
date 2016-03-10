@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
+import {asyncConnect} from 'redux-async-connect';
 import {startSubmit} from 'redux-form';
 import config from './../../../../config';
 import {
@@ -14,17 +15,21 @@ import {
   loadTemplateVersion,
   changeProductionVersion
 } from './../../../redux/reducers/currentTemplate';
-import {
-  Paper,
-  Tabs,
-  Tab
-} from './../../../components';
+import {Paper, Tabs, Tab} from './../../../components';
 import TemplateDetailOverview from './TemplateDetailOverview/TemplateDetailOverview';
 import TemplateApiDocumentation from './TemplateApiDocumentation/TemplateApiDocumentation';
 import TemplateDetailHtmlEditor from './TemplateDetailHtmlEditor/TemplateDetailHtmlEditor';
 import TemplateDetailTestJsonEditor from './TemplateDetailTestJsonEditor/TemplateDetailTestJsonEditor';
 import TemplateLanguages from './TemplateLanguages/TemplateLanguages';
 
+@asyncConnect([{
+  promise: ({params: {projectId, templateId}, store: {dispatch}}) => {
+    const promises = [];
+    promises.push(dispatch(getProjectDetailByIdAction(projectId)));
+    promises.push(dispatch(getTemplateDetailByIdAction(projectId, templateId)));
+    return Promise.all(promises);
+  }
+}])
 @connect(
   state => ({
     template: state.currentTemplate.template,
@@ -56,13 +61,6 @@ export default class TemplateDetailPage extends Component {
     changeSelectedLanguage: PropTypes.func.isRequired,
     changeSelectedLayout: PropTypes.func.isRequired,
   };
-
-  static fetchData(getState, dispatch, location, params) {
-    const promises = [];
-    promises.push(dispatch(getProjectDetailByIdAction(params.projectId)));
-    promises.push(dispatch(getTemplateDetailByIdAction(params.projectId, params.templateId)));
-    return Promise.all(promises);
-  }
 
   get isViewingOldVersion() {
     const {template} = this.props;
