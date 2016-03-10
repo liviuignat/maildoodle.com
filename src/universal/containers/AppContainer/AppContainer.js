@@ -16,14 +16,15 @@ import {isUserLoaded, loadUserAction} from './../../redux/reducers/auth';
 @asyncConnect([{
   promise: ({store: {getState, dispatch}}) => {
     if (!isUserLoaded(getState())) {
-      dispatch(loadUserAction());
+      return dispatch(loadUserAction());
     }
+    return Promise.resolve();
   }
 }])
 @connect(
-  state => ({
-    isRouterLoading: state.appLoading.isLoading,
-    user: state.auth.user
+  ({auth, reduxAsyncConnect}) => ({
+    reduxAsyncConnect,
+    user: auth.user
   }),
   { pushState }
 )
@@ -31,8 +32,8 @@ import {isUserLoaded, loadUserAction} from './../../redux/reducers/auth';
 export default class AppContainer extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
+    reduxAsyncConnect: PropTypes.object.isRequired,
     pushState: PropTypes.func.isRequired,
-    isRouterLoading: PropTypes.bool,
     user: PropTypes.object
   };
 
@@ -62,8 +63,10 @@ export default class AppContainer extends Component {
 
   render() {
     const styles = require('./AppContainer.scss');
-    const{isRouterLoading, user} = this.props;
+    const{user} = this.props;
     const isDrawerVisble = this.isLoggedIn;
+    const {reduxAsyncConnect} = this.props;
+    const isRouterLoading = reduxAsyncConnect && !reduxAsyncConnect.loaded;
 
     return (
       <div className={styles.AppContainer}>
