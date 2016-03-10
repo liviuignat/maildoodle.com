@@ -2,9 +2,9 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
 import {getMuiTheme} from './../../theme/materialTheme';
 
+import Helmet from 'react-helmet';
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import DocumentMeta from 'react-document-meta';
 import {push as pushState} from 'react-router-redux';
 import config from './../../../config';
 
@@ -67,7 +67,7 @@ export default class AppContainer extends Component {
 
     return (
       <div className={styles.AppContainer}>
-        <DocumentMeta {...config.app} />
+        <Helmet {...config.app}/>
 
         {<LinearProgress
           style={{
