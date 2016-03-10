@@ -15,7 +15,7 @@ export default class LayoutsList extends Component {
 
   navigateToDetails(layout) {
     const url = `/app/projects/${this.props.project.objectId}/layouts/${layout.objectId}`;
-    this.props.pushState(null, url);
+    this.props.pushState(url);
   }
 
   openAddLayoutDialog() {

@@ -9,7 +9,7 @@ export default class AppLeftNav extends Component {
   };
 
   navigateToMyAccount() {
-    this.props.pushState(null, '/app/my-account');
+    this.props.pushState('/app/my-account');
   }
 
   render() {

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
-import { pushState } from 'redux-router';
 import {Paper} from './../../../components';
 import {
   getLayoutDetailsAction,
@@ -15,7 +14,6 @@ import LayoutDetailForm, {LAYOUT_DETAIL_FORM} from './layout-detail-forms/Layout
     layoutId: state.router.params.layoutId,
     currentLayout: state.currentLayout
   }), {
-    pushState,
     initialize,
     getLayoutDetailsAction,
     updateLayoutDetailsAction

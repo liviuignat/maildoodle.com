@@ -5,7 +5,7 @@ import {getMuiTheme} from './../../theme/materialTheme';
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import DocumentMeta from 'react-document-meta';
-import {pushState} from 'redux-router';
+import {push as pushState} from 'react-router-redux';
 import config from './../../../config';
 
 import {AppHeader, AppLeftNav, LinearProgress} from './../../components';
@@ -33,9 +33,9 @@ export default class AppContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.user && nextProps.user) {
-      this.props.pushState(null, '/app');
+      this.props.pushState('/app');
     } else if (this.props.user && !nextProps.user) {
-      this.props.pushState(null, '/auth/login');
+      this.props.pushState('/auth/login');
     }
   }
 
