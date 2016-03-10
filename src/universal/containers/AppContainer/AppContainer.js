@@ -8,9 +8,18 @@ import DocumentMeta from 'react-document-meta';
 import {push as pushState} from 'react-router-redux';
 import config from './../../../config';
 
+import {asyncConnect} from 'redux-async-connect';
+
 import {AppHeader, AppLeftNav, LinearProgress} from './../../components';
 import {isUserLoaded, loadUserAction} from './../../redux/reducers/auth';
 
+@asyncConnect([{
+  promise: ({store: {getState, dispatch}}) => {
+    if (!isUserLoaded(getState())) {
+      dispatch(loadUserAction());
+    }
+  }
+}])
 @connect(
   state => ({
     isRouterLoading: state.appLoading.isLoading,
@@ -49,15 +58,6 @@ export default class AppContainer extends Component {
 
   get isLoggedIn() {
     return !!this.props.user;
-  }
-
-  static fetchData(getState, dispatch) {
-    const promises = [];
-
-    if (!isUserLoaded(getState())) {
-      promises.push(dispatch(loadUserAction()));
-    }
-    return Promise.all(promises);
   }
 
   render() {

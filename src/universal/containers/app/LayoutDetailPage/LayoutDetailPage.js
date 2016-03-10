@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
+import {asyncConnect} from 'redux-async-connect';
 import {Paper} from './../../../components';
 import {
   getLayoutDetailsAction,
@@ -8,10 +9,12 @@ import {
 } from './../../../redux/reducers/currentLayout';
 import LayoutDetailForm, {LAYOUT_DETAIL_FORM} from './layout-detail-forms/LayoutDetailForm';
 
+@asyncConnect([{
+  promise: ({params: {projectId, layoutId}, store: {dispatch}}) =>
+    dispatch(getLayoutDetailsAction(projectId, layoutId))
+}])
 @connect(
   state => ({
-    projectId: state.router.params.projectId,
-    layoutId: state.router.params.layoutId,
     currentLayout: state.currentLayout
   }), {
     initialize,
@@ -20,8 +23,7 @@ import LayoutDetailForm, {LAYOUT_DETAIL_FORM} from './layout-detail-forms/Layout
   })
 export default class LayoutDetailPage extends Component {
   static propTypes = {
-    projectId: PropTypes.string.isRequired,
-    layoutId: PropTypes.string.isRequired,
+    params: PropTypes.object.isRequired,
     currentLayout: PropTypes.object.isRequired,
     initialize: PropTypes.func.isRequired,
     getLayoutDetailsAction: PropTypes.func.isRequired,
@@ -40,14 +42,8 @@ export default class LayoutDetailPage extends Component {
     this.props.initialize(LAYOUT_DETAIL_FORM, {name, value});
   }
 
-  static fetchData(getState, dispatch, location, params) {
-    const promises = [];
-    promises.push(dispatch(getLayoutDetailsAction(params.projectId, params.layoutId)));
-    return Promise.all(promises);
-  }
-
   handleLayoutSubmit(layout) {
-    const {projectId, layoutId} = this.props;
+    const {projectId, layoutId} = this.props.params;
     this.props.updateLayoutDetailsAction(projectId, layoutId, layout);
   }
 
