@@ -5,6 +5,10 @@ import {AppFooter, HomePageCard} from './../../components';
 export default class HomePage extends Component {
   render() {
     const style = require('./HomePage.scss');
+    const more1Image = require('./images/more-from-1.png');
+    const more2Image = require('./images/more-from-2.png');
+    const more3Image = require('./images/more-from-3.png');
+    const more4Image = require('./images/more-from-4.png');
 
     return (
       <div className={style.HomePage}>
@@ -30,7 +34,7 @@ export default class HomePage extends Component {
           <div className={style.HomePage_cardListContainer}>
             <HomePageCard
               className={style.HomePage_cardContainer}
-              imageSrc="http://getmdl.io/templates/android-dot-com/images/more-from-1.png"
+              imageSrc={more1Image}
               titleText="Multiple templates"
               bodyText="Easily create multiple HTML and PDF templates, manage and preview them directly in the browser."
               actionText="learn more >"
@@ -38,7 +42,7 @@ export default class HomePage extends Component {
 
             <HomePageCard
               className={style.HomePage_cardContainer}
-              imageSrc="http://getmdl.io/templates/android-dot-com/images/more-from-4.png"
+              imageSrc={more4Image}
               titleText="Different layouts"
               bodyText="Create multiple page layouts and handle your different campaigns easily."
               actionText="learn more >"
@@ -46,7 +50,7 @@ export default class HomePage extends Component {
 
             <HomePageCard
               className={style.HomePage_cardContainer}
-              imageSrc="http://getmdl.io/templates/android-dot-com/images/more-from-2.png"
+              imageSrc={more2Image}
               titleText="REST APIs"
               bodyText="Generate the content through our rest API, send them with your SMTP server."
               actionText="learn more >"
@@ -54,7 +58,7 @@ export default class HomePage extends Component {
 
             <HomePageCard
               className={style.HomePage_cardContainer}
-              imageSrc="http://getmdl.io/templates/android-dot-com/images/more-from-3.png"
+              imageSrc={more3Image}
               titleText="Not an email service"
               bodyText="We don't send emails for you, instead we help you manage all your email content that your app is sending."
               actionText="learn more >"
