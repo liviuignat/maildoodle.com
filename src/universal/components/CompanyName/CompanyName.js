@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export default class DocumentationPage extends Component {
+export default class CompanyName extends Component {
   render() {
     return <span><strong>mail<i>doodle</i></strong></span>;
   }
