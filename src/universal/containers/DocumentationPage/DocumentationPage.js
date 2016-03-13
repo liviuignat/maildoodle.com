@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppFooter, Paper} from './../../components';
+import {AppFooter, CodeEditor, CompanyName, Paper} from './../../components';
 
 export default class DocumentationPage extends Component {
 
@@ -20,6 +20,39 @@ export default class DocumentationPage extends Component {
         <div className="clearfix" />
       </div>
     );
+  }
+
+  renderApiDocumentation(exampleJson) {
+    const style = require('./DocumentationPage.scss');
+    const json = JSON.stringify(exampleJson, null, 2);
+
+    return (
+      <div className={style.RestApi_codeContainer}>
+        <div className={style.TemplateApiDocumentation_sampleSubsection}>
+          <div><b>Link:</b></div>
+          <code>
+            {`[POST] /app/projects/:projectId/templates/:templateId/generate`}
+          </code>
+        </div>
+        <div className={style.TemplateApiDocumentation_sampleSubsection}>
+          <div><b>Headers:</b></div>
+          <code>
+            <div>Api-Secret:   '[API SECRET FROM MY ACCOUNT]'</div>
+            <div>Content-Type: 'application/json'</div>
+          </code>
+        </div>
+        <div className={style.TemplateApiDocumentation_sampleSubsection}>
+          <div><b>Payload:</b></div>
+          <CodeEditor
+            readOnly
+            theme=""
+            mode={{
+              name: 'javascript',
+              json: true
+            }}
+            value={json} />
+        </div>
+      </div>);
   }
 
   render() {
@@ -79,8 +112,37 @@ export default class DocumentationPage extends Component {
             })}
           </div>
 
-          <div>
-            <div className={style.MainSectionTitle}>REST API access</div>
+          <div className={style.RestApi_container}>
+            <div className={style.MainSectionTitle} id="rest-api-access">REST API access</div>
+
+            <div className={style.RestApi_description}>
+              <CompanyName/> helps you organize, edit and helps in all the process required for you to maintain your email templates.
+              We provide REST API access to those emails, so you can easily create your email content, and use your internal system to send those emails.
+              We don not send any email for you, at least not we do not plan this for the near future.
+              <p>All you need to generate a template is to make a POST API call to a specific url, by passing the JSON payload with the data required to generate that template.
+                Keep in mind that if the data is incorrect or incomplete, the template generator will throw an error.</p>
+            </div>
+
+            <div className={style.RestApi_title}>Basic REST API call</div>
+            <div className={style.RestApi_description}>
+              <p><strong>IMPORTANT</strong>: this endpoint will deliver the template that you marked as <code>production</code> version.
+                It is highly recommended to use this endpoint, so you don't need to handle from your application any versioning.</p>
+            </div>
+            {::this.renderApiDocumentation({
+              json: '{ [JSON DATA NEEDED TO GENERATE THE TEMPLATE] }'
+            })}
+
+            <div className={style.RestApi_title}>REST API call with optional parameters</div>
+            <div className={style.RestApi_description}>
+              <p><strong>IMPORTANT</strong>: the optional parameters are not recommented to be used in you applications.
+                This option is recommended to be used mostly for testing purposes.</p>
+            </div>
+            {::this.renderApiDocumentation({
+              layoutId: '[OPTIONAL LAYOUT ID]',
+              versionId: '[OPTIONAL TEMPLATE ID]',
+              languageKey: '[OPTIONAL LANGUAGE KEY - not implemented yet]',
+              json: '{ [JSON DATA NEEDED TO GENERATE THE TEMPLATE] }'
+            })}
           </div>
         </Paper>
 

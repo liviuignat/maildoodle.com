@@ -4,6 +4,8 @@ $full-page-width: 1000px;
 $image-container-width: 972px;
 $image-description-width: 500px;
 $image-width: 400px;
+$rest-api-section-text-color: $color-grey900;
+$code-container-text-color: $color-grey900;
 
 @mixin screenshot-image() {
   width: $image-width;
@@ -84,4 +86,22 @@ $image-width: 400px;
 .ScreenshotImage_templatestestJsonEdit {
   @include screenshot-image();
   @include align-left();
+}
+
+.RestApi_container {
+  color: $rest-api-section-text-color;
+}
+
+.RestApi_title {
+  font-size: 20px;
+  margin: 16px 0;
+  border-bottom: 1px gray solid;
+}
+
+.RestApi_description {
+  font-size: 16px;
+}
+
+.RestApi_codeContainer {
+  color: $code-container-text-color;
 }
