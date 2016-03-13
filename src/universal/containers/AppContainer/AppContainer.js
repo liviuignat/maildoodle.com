@@ -10,7 +10,7 @@ import config from './../../../config';
 
 import {asyncConnect} from 'redux-async-connect';
 
-import {AppHeader, AppLeftNav, LinearProgress} from './../../components';
+import {AppHeader, AppLeftNav, LinearProgress, GoogleAnalytics} from './../../components';
 import {isUserLoaded, loadUserAction} from './../../redux/reducers/auth';
 
 @asyncConnect([{
@@ -88,6 +88,8 @@ export default class AppContainer extends Component {
         <div className={::this.getContentClassName(styles, isDrawerVisble)}>
           {this.props.children}
         </div>
+
+        <GoogleAnalytics id={config.app.tracking.code} />
       </div>
     );
   }
