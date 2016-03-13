@@ -81,7 +81,7 @@ export default class AppContainer extends Component {
           }}
           mode="indeterminate"/>}
 
-        <AppHeader isLoggedIn={this.isLoggedIn} />
+        {!this.isLoggedIn && <AppHeader isLoggedIn={this.isLoggedIn} /> }
 
         {this.isLoggedIn && <AppLeftNav user={user} pushState={this.props.pushState} />}
 

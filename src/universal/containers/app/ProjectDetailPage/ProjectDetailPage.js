@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import {initialize as initializeForm, startSubmit} from 'redux-form';
 import {push as pushState} from 'react-router-redux';
+import config from './../../../../config';
 import {
   getProjectDetailByIdAction,
   insertTemplateAction,
@@ -57,6 +58,7 @@ export default class ProjectDetailPage extends Component {
 
   render() {
     const { project, templates, layouts } = this.props;
+    const {isTranslationsEnabled} = config.app;
 
     return (
       <div>
@@ -80,14 +82,14 @@ export default class ProjectDetailPage extends Component {
           updateLayoutAction={this.props.updateLayoutAction}
           deleteLayoutAction={this.props.deleteLayoutAction} />
 
-        <GenericList subheader="languages"
+        {isTranslationsEnabled && <GenericList subheader="languages"
           items={project.languages}
           onEditPressed={() => {}}
           onDeletePressed={() => {}}
           onAddPressed={() => {}}
           onRowClick={() => {}}
           primaryText={(item) => item.key}
-          secondaryText={(item) => item.name}/>
+          secondaryText={(item) => item.name}/>}
       </div>
     );
   }

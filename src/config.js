@@ -11,16 +11,10 @@ const environment = {
 
 module.exports = Object.assign({
   port: process.env.PORT,
-  parse: {
-    options: {
-      app_id: 'HrMPFQFNyOPjq8cR9i67xSyAzAggfJYwTetpDUwB',
-      js_key: 'Pm8doOztn0N8iXfNzisX5RrV4r2y1wbbTKHxRoUr',
-      api_key: 'a6It5RhMZ6Fdz7L5uRvWj3cPnGRBIISbYMh9CpX8'
-    }
-  },
   app: {
     title: 'maildoodle',
     description: 'Email template made easy.',
+    isTranslationsEnabled: false,
     meta: [
       {name: 'description', content: 'Email template made easy.'},
       {charset: 'utf-8'},

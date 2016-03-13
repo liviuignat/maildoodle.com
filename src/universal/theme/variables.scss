@@ -22,7 +22,7 @@ $brand-warning: #f0ad4e;
 $brand-danger: #d9534f;
 $brand-info: #5bc0de;
 
-$text-color: #333;
+$text-color: $color-grey900;
 
 $font-size-base: 14px;
 $font-family-sans-serif: "Helvetica Neue", Helvetica, sans-serif;
@@ -42,7 +42,7 @@ html {
 }
 
 body {
-  color: $color-dark-grey;
+  color: $text-color;
   background-color: #F3F3F3;
   font-family: $font-family;
   font-size: $font-size-normal;
