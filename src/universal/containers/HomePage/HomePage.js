@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
 import {AppFooter, HomePageCard} from './../../components';
-import config from './../../../config';
 
 export default class HomePage extends Component {
   render() {
     const style = require('./HomePage.scss');
-    const appName = config.app.title;
-    console.log(appName);
 
     return (
       <div className={style.HomePage}>
