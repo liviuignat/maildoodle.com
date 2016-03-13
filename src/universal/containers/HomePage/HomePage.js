@@ -23,7 +23,7 @@ export default class HomePage extends Component {
 
           <ul className={style.HomePage_actions}>
             <li><Link to="/auth/sign-up" className={style.HomePage_signUpButton}>Sign Up</Link></li>
-            <li><Link to="/documentation" className={style.HomePage_learnMoreButton}>Learn More</Link></li>
+            <li><Link to={{pathname: '/documentation'}} className={style.HomePage_learnMoreButton}>Learn More</Link></li>
           </ul>
         </div>
 
@@ -54,7 +54,7 @@ export default class HomePage extends Component {
               titleText="REST APIs"
               bodyText="Generate the content through our rest API, send them with your SMTP server."
               actionText="learn more >"
-              actionUrl="/documentation"/>
+              actionUrl={{pathname: '/documentation', hash: '#rest-api-access'}}/>
 
             <HomePageCard
               className={style.HomePage_cardContainer}
