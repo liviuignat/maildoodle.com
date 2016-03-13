@@ -108,21 +108,23 @@
     "nodemailer": "^1.10.0",
     "piping": "^0.3.0",
     "pretty-error": "^1.2.0",
-    "query-string": "^3.0.0",
     "react": "^0.14.2",
     "react-addons-create-fragment": "^0.14.2",
     "react-addons-pure-render-mixin": "^0.14.2",
     "react-addons-transition-group": "^0.14.2",
     "react-addons-update": "^0.14.2",
     "react-codemirror": "^0.2.2",
-    "react-document-meta": "^2.0.0",
     "react-dom": "^0.14.1",
+    "react-helmet": "^2.2.0",
     "react-inline-css": "^2.0.0",
     "react-redux": "^4.0.0",
-    "react-router": "^1.0.0-rc3",
+    "react-router": "^2.0.0",
+    "react-router-redux": "^4.0.0",
     "react-tap-event-plugin": "^0.2.1",
     "redux": "^3.0.4",
-    "redux-form": "^3.0.1",
+    "redux-async-connect": "^1.0.0-rc2",
+    "redux-form": "^3.0.12",
+    "scroll-behavior": "^0.3.2",
     "serialize-javascript": "^1.1.2",
     "serve-favicon": "^2.3.0",
     "serve-static": "^1.10.0",
@@ -183,6 +185,6 @@
     "webpack-hot-middleware": "^2.4.1"
   },
   "engines": {
-    "node": "4.1.1"
+    "node": "5.7.1"
   }
 }

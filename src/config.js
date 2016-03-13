@@ -19,17 +19,21 @@ module.exports = Object.assign({
     }
   },
   app: {
-    title: 'email templates',
-    description: 'Generic HTML email templates',
-    meta: {
-      charSet: 'utf-8',
-      property: {
-        'og:site_name': 'Email templates',
-        'og:image': 'https://react-redux.herokuapp.com/logo.jpg',
-        'og:locale': 'en_US',
-        'og:title': 'Email templates',
-        'og:description': 'Generic HTML email templates'
-      }
-    }
+    title: 'maildoodle',
+    description: 'Email template made easy.',
+    meta: [
+      {name: 'description', content: 'Email template made easy.'},
+      {charset: 'utf-8'},
+      {property: 'og:site_name', content: 'maildoodle'},
+      {property: 'og:image', content: 'http://maildoodle.com/logo.png'},
+      {property: 'og:locale', content: 'en_US'},
+      {property: 'og:title', content: 'maildoodle'},
+      {property: 'og:description', content: 'Email template made easy.'},
+      {property: 'og:card', content: 'summary'},
+      {property: 'og:site', content: '@maildoodle'},
+      {property: 'og:creator', content: '@maildoodle'},
+      {property: 'og:image:width', content: '200'},
+      {property: 'og:image:height', content: '200'}
+    ]
   }
 }, environment);
