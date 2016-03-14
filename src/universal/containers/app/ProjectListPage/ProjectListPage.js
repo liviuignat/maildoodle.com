@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import {push} from 'react-router-redux';
@@ -131,6 +132,8 @@ export default class ProjectListPage extends Component {
 
     return (
       <div className={style.ProjectListPage}>
+        <Helmet title={`maildoodle - Projects`} />
+
         <div className={style.ProjectListPage_addButtonContainer}>
           <FloatingActionButton
             primary

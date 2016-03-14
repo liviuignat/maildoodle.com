@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
 import {asyncConnect} from 'redux-async-connect';
@@ -58,6 +59,8 @@ export default class LayoutDetailPage extends Component {
 
     return (
       <div>
+        <Helmet title={`maildoodle - Layout Detail`} />
+
         <Paper className={style.LayoutDetailPage}>
           <LayoutDetailForm
             onSubmit={::this.handleLayoutSubmit}

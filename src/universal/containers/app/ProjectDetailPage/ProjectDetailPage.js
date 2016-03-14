@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import {initialize as initializeForm, startSubmit} from 'redux-form';
@@ -62,6 +63,8 @@ export default class ProjectDetailPage extends Component {
 
     return (
       <div>
+        <Helmet title={`maildoodle - ${project.name} project`} />
+
         <TemplatesList
           project={project}
           templates={templates}

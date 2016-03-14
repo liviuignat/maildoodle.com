@@ -29,6 +29,7 @@ export default class GoogleAnalytics extends Component {
   static propTypes = {
     id: PropTypes.string,
     set: PropTypes.object,
+    user: PropTypes.object
   };
 
   static contextTypes = {
@@ -66,9 +67,8 @@ export default class GoogleAnalytics extends Component {
     }
 
     this.latestUrl = path;
-    // wait for correct title
     setTimeout(() => {
-      GoogleAnalytics.sendPageview(path, document.title);
+      GoogleAnalytics.sendPageview(path, document.title, this.props.user);
     }, 0);
   }
 
@@ -84,8 +84,18 @@ export default class GoogleAnalytics extends Component {
     return GoogleAnalytics.command('send', what, options);
   }
 
-  static sendPageview(page, title = page) {
-    const payload = { page, title };
+  static sendPageview(page, title = page, user = null) {
+    const payload = {page, title};
+    if (user) {
+      payload.user = {
+        id: user.objectId,
+        displayName: user.displayName
+      };
+    }
+    if (__DEVELOPMENT__) {
+      console.log('development analytics disabled: ', payload);
+      return null;
+    }
     return GoogleAnalytics.send('pageview', payload);
   }
 

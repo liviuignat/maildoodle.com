@@ -89,7 +89,7 @@ export default class AppContainer extends Component {
           {this.props.children}
         </div>
 
-        <GoogleAnalytics id={config.app.tracking.code} />
+        <GoogleAnalytics id={config.app.tracking.code} user={user} />
       </div>
     );
   }

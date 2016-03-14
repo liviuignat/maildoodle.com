@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import {startSubmit} from 'redux-form';
@@ -135,6 +136,8 @@ export default class TemplateDetailPage extends Component {
 
     return (
       <div>
+        <Helmet title={`maildoodle - ${template.name} template`} />
+
         {::this.renderTopActions(template)}
         <Paper className={style.TemplateDetailPage}>
           <Tabs>

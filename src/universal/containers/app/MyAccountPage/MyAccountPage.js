@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Helmet from 'react-helmet';
 import {
   Paper
 } from './../../../components';
@@ -45,6 +46,8 @@ export default class MyAccountPage extends Component {
 
     return (
       <Paper className={styles.MyAccountPage}>
+        <Helmet title={`maildoodle - My Account`} />
+
         <h3>Personal Information</h3>
         <PersonalInformationForm
           isUpdatingUser={isUpdatingUser}

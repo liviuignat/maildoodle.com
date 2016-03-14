@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Helmet from 'react-helmet';
 import {AppFooter, CodeEditor, CompanyName, Paper} from './../../components';
 
 export default class DocumentationPage extends Component {
@@ -64,6 +65,7 @@ export default class DocumentationPage extends Component {
 
     return (
       <div className={style.DocumentationPage}>
+        <Helmet title="maildoodle - documentation" />
         <Paper className={style.main_container}>
           <div>
             <div className={style.MainSectionTitle}>Handle and edit your email templates</div>

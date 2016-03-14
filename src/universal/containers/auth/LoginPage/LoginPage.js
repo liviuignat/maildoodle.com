@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Helmet from 'react-helmet';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
@@ -45,6 +46,7 @@ export default class LoginPage extends Component {
 
     return (
       <Paper className={styles.LoginPage}>
+        <Helmet title="maildoodle - Login" />
         <h4>Login</h4>
         <LoginForm
           onSubmit={::this.handleSubmit}
