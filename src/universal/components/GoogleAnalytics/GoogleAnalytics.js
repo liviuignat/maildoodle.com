@@ -100,6 +100,6 @@ export default class GoogleAnalytics extends Component {
   }
 
   render() {
-    return (<span>Google Analytics</span>);
+    return (<span></span>);
   }
 }
