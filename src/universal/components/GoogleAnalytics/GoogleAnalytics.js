@@ -54,7 +54,7 @@ export default class GoogleAnalytics extends Component {
   }
 
   render() {
-    return (<span>Google Analytics</span>);
+    return <span />;
   }
 }
 
@@ -107,5 +107,4 @@ function sendPageview(page, title = page, user = null) {
   }
 
   return send('pageview', payload);
-    return (<span></span>);
 }
