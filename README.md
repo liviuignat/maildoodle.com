@@ -6,13 +6,12 @@
 [![fork this repo](http://githubbadges.com/fork.svg?user=liviuignat&repo=email-templates&style=default)](https://github.com/liviuignat/email-templates/fork)
 
 ### Where to use it?
-View it live here: http://www.maildoodle.com/
+Documentation can be found here: 
+http://www.maildoodle.com/documentation
 
 Create an account and use it here: 
 http://www.maildoodle.com/auth/sign-up
 
-Read more documentation here: 
-http://www.maildoodle.com/documentation
 
 ### How to use it
 - sign up for free and use it in the cloud
