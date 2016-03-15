@@ -8,7 +8,7 @@
 ### Where to use it?
 View it live here: http://www.maildoodle.com/
 
-Create an account and test it here: 
+Create an account and use it here: 
 http://www.maildoodle.com/auth/sign-up
 
 Read more documentation here: 
