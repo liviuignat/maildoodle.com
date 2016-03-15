@@ -20,11 +20,7 @@
   margin: 16px 16px;
 
   &.AppContent__isDrawerVisible {
-    padding-left: 0;
-
-    @media screen and (min-width: $drawer-screen-size-small) {
-      padding-left: $drawer-width-small;
-    }
+    padding-left: $drawer-width-small;
 
     @media screen and (min-width: $drawer-screen-size-large) {
       padding-left: $drawer-width-large;
