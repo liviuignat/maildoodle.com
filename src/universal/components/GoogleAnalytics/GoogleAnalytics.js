@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {initGoogleAnalytics, sendPageview} from 'client';
+import {analyticsService} from 'client';
 
 export default class GoogleAnalytics extends Component {
   static propTypes = {
@@ -15,7 +15,7 @@ export default class GoogleAnalytics extends Component {
   componentDidMount() {
     const {id, set} = this.props;
 
-    initGoogleAnalytics(id, set);
+    analyticsService.initGoogleAnalytics(id, set);
 
     this.historyListener = this.context.router.listen((location) => {
       if (!location) {
@@ -47,7 +47,7 @@ export default class GoogleAnalytics extends Component {
 
     this.latestUrl = path;
     setTimeout(() => {
-      sendPageview(path, document.title, this.props.user);
+      analyticsService.sendPageview(path, document.title, this.props.user);
     }, 0);
   }
 
