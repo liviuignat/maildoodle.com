@@ -3,20 +3,20 @@ import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import {startSubmit} from 'redux-form';
-import config from './../../../../config';
+import config from 'universal/../config';
 import {
   getProjectDetailByIdAction,
   selectPreviewLanguage,
   selectPreviewLayout
-} from './../../../redux/reducers/currentProject';
+} from 'universal/redux/reducers/currentProject';
 import {
   getTemplateDetailByIdAction,
   updateTemplateDevelopmentVersion,
   promoteTemplateToProductionVersion,
   loadTemplateVersion,
   changeProductionVersion
-} from './../../../redux/reducers/currentTemplate';
-import {Paper, Tabs, Tab} from './../../../components';
+} from 'universal/redux/reducers/currentTemplate';
+import {Paper, Tabs, Tab} from 'universal/components';
 import TemplateDetailOverview from './TemplateDetailOverview/TemplateDetailOverview';
 import TemplateApiDocumentation from './TemplateApiDocumentation/TemplateApiDocumentation';
 import TemplateDetailHtmlEditor from './TemplateDetailHtmlEditor/TemplateDetailHtmlEditor';

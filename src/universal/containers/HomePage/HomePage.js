@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
-import {AppFooter, HomePageCard} from './../../components';
+import {AppFooter, HomePageCard} from 'universal/components';
 
 export default class HomePage extends Component {
   render() {

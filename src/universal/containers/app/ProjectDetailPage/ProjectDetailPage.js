@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import {initialize as initializeForm, startSubmit} from 'redux-form';
 import {push as pushState} from 'react-router-redux';
-import config from './../../../../config';
+import config from 'universal/../config';
 import {
   getProjectDetailByIdAction,
   insertTemplateAction,
@@ -13,8 +13,8 @@ import {
   insertLayoutAction,
   updateLayoutAction,
   deleteLayoutAction
-} from './../../../redux/reducers/currentProject';
-import { GenericList } from './../../../components';
+} from 'universal/redux/reducers/currentProject';
+import { GenericList } from 'universal/components';
 import TemplatesList from './TemplatesList';
 import LayoutsList from './LayoutsList';
 

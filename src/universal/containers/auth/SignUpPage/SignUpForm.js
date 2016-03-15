@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import {reduxForm} from 'redux-form';
 import {signUpFormValidator} from './signUpFormValidator';
-import {FormTextField, RaisedButton} from './../../../components';
+import {FormTextField, RaisedButton} from 'universal/components';
 
 @reduxForm({
   form: 'signUp',

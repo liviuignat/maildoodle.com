@@ -9,7 +9,7 @@ import {
   insertProjectAction,
   updateProjectAction,
   deleteProjectAction
-} from './../../../redux/reducers/projects';
+} from 'universal/redux/reducers/projects';
 import AddProjectForm, {ADD_PROJECT_FORM_NAME} from './AddProjectForm';
 import {
   FloatingActionButton,
@@ -21,7 +21,7 @@ import {
   IconMenu,
   MenuItem,
   FontIcon
-} from './../../../components';
+} from 'universal/components';
 
 @asyncConnect([{
   promise: ({store: {dispatch}}) => dispatch(getProjectsAction())

@@ -7,7 +7,7 @@ import {
   IconMenu,
   MenuItem,
   FontIcon
-} from './../../../../components';
+} from 'universal/components';
 
 export default class TemplateVersionsList extends Component {
   static propTypes = {

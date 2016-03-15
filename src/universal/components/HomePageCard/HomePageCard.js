@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {Paper} from './../../components';
+import {Paper} from 'universal/components';
 import {Link} from 'react-router';
 
 export default class HomePageCard extends Component {

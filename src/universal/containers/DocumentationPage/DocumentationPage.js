@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Helmet from 'react-helmet';
-import {AppFooter, CodeEditor, CompanyName, Paper} from './../../components';
+import {AppFooter, CodeEditor, CompanyName, Paper} from 'universal/components';
 
 export default class DocumentationPage extends Component {
 

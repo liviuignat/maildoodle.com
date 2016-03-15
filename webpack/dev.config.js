@@ -77,7 +77,7 @@ module.exports = {
   progress: true,
   resolve: {
     modulesDirectories: [
-      'src/universal',
+      'src',
       'node_modules'
     ],
     extensions: ['', '.json', '.js']

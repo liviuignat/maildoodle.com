@@ -4,8 +4,8 @@ import {expect} from 'chai';
 import {Provider} from 'react-redux';
 import {reduxReactRouter} from 'redux-router';
 import createHistory from 'history/lib/createMemoryHistory';
-import createStore from '../../../redux/create';
-import ApiClient from './../../../helpers/ApiClient';
+import createStore from 'universal/redux/create';
+import ApiClient from 'universal/helpers/ApiClient';
 import AppHeader from './../AppHeader';
 
 const client = new ApiClient();

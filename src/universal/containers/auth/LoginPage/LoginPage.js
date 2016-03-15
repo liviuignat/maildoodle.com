@@ -5,8 +5,8 @@ import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
 import { push as pushState } from 'react-router-redux';
 import LoginForm from './LoginForm';
-import { loginAction } from './../../../redux/reducers/auth';
-import { Paper } from './../../../components';
+import { loginAction } from 'universal/redux/reducers/auth';
+import { Paper } from 'universal/components';
 
 @connect(
   state => ({

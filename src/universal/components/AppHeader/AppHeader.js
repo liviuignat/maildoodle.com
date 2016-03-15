@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import config from './../../../config';
+import config from 'universal/../config';
 import {Link} from 'react-router';
 import {Logo} from './../index';
 

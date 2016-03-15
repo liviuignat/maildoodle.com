@@ -3,11 +3,11 @@ import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
 import {asyncConnect} from 'redux-async-connect';
-import {Paper} from './../../../components';
+import {Paper} from 'universal/components';
 import {
   getLayoutDetailsAction,
   updateLayoutDetailsAction
-} from './../../../redux/reducers/currentLayout';
+} from 'universal/redux/reducers/currentLayout';
 import LayoutDetailForm, {LAYOUT_DETAIL_FORM} from './layout-detail-forms/LayoutDetailForm';
 
 @asyncConnect([{

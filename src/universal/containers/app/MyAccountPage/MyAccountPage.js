@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import {
   Paper
-} from './../../../components';
+} from 'universal/components';
 import {initialize} from 'redux-form';
 import { connect } from 'react-redux';
-import { updatePersonalInformationAction } from './../../../redux/reducers/auth';
+import { updatePersonalInformationAction } from 'universal/redux/reducers/auth';
 import PersonalInformationForm, {PERSONAL_INFORMATION_FORM_NAME} from './PersonalInformationForm';
 
 @connect(
