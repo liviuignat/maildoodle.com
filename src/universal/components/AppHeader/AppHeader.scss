@@ -4,6 +4,7 @@
   $font-size-title: $font-size-x-large;
   $background-color: $color-blueGrey900;
   $color: $color-grey50;
+  $title-text-color: #7cb342;
 
   display: flex;
   flex-direction: column;
@@ -48,7 +49,7 @@
 
   .AppHeader_headerTitle {
     flex: 1;
-    color: $color;
+    color: $title-text-color;
     font-size: $font-size-title;
     line-height: 1;
     letter-spacing: .02em;
@@ -57,13 +58,16 @@
     text-overflow:ellipsis;
     margin:0;
     padding-top:0;
+    padding-left:4px;
     letter-spacing:0;
-    font-weight:400;
     text-decoration: none;
     font-size: 20px;
     line-height: 1;
     letter-spacing: .02em;
-    font-weight: 400;
+    font-weight: 500;
+    &:hover {
+      color: lighten($title-text-color, 20);
+    }
   }
 
   .AppHeader_navigationContainer {

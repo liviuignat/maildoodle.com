@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import config from './../../../config';
-import { Link } from 'react-router';
+import config from 'universal/../config';
+import {Link} from 'react-router';
+import {Logo} from './../index';
 
 class AppHeader extends Component {
   static propTypes = {
@@ -27,6 +28,7 @@ class AppHeader extends Component {
     return (
       <header className={::this.getAppHeaderClassName(styles, isDrawerVisble)}>
         <div className={styles.AppHeader_row}>
+          <Logo size={25} />
           <Link className={styles.AppHeader_headerTitle} to={this.homeLink}>{config.app.title}</Link>
           <div className={styles.AppHeader_navigationContainer}>
             <nav>

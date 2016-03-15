@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
-import {AppFooter, HomePageCard} from './../../components';
+import {AppFooter, HomePageCard} from 'universal/components';
 
 export default class HomePage extends Component {
   render() {
@@ -14,11 +14,11 @@ export default class HomePage extends Component {
       <div className={style.HomePage}>
         <div className={style.HomePage_titleContainer}>
           <div className={style.HomePage_title}>
-            Email templates will never be the same.
+            Email templates for your apps in the cloud.
           </div>
 
           <div className={style.HomePage_subTitle}>
-            Handle all your custom email templates in one place and lift the pain out of your developers.<br/>
+            Handle all your custom email templates in one place and lift the pain out of your software.<br/>
           </div>
 
           <ul className={style.HomePage_actions}>

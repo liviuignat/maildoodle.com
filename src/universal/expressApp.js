@@ -17,7 +17,7 @@ import createStore from './redux/create';
 import getRoutes from './routes';
 import ApiClient from './helpers/ApiClient';
 import Html from './helpers/Html';
-import * as middleware from './../api/middleware';
+import * as middleware from 'api/middleware';
 
 const pretty = new PrettyError();
 const app = new Express();

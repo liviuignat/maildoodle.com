@@ -98,6 +98,7 @@
     "immutable": "^3.7.5",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
+    "lodash": "^4.6.1",
     "lru-memoize": "^1.0.0",
     "map-props": "^1.0.0",
     "material-ui": "^0.14.4",

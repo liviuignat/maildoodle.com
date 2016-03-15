@@ -2,7 +2,8 @@ import md5 from 'md5';
 import * as actions from './actions';
 
 const initialState = {
-  loaded: false
+  loaded: false,
+  isUpdatingUser: false
 };
 
 export function reducer(state = initialState, action = {}) {

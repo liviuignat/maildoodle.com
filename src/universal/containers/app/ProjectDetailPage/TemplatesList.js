@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { GenericList, DialogForm } from './../../../components';
+import { GenericList, DialogForm } from 'universal/components';
 import AddTemplateForm, {ADD_TEMPLATE_FORM_NAME} from './project-detail-forms/AddTemplateForm';
 
 export default class TemplatesList extends Component {

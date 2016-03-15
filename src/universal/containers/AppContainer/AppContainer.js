@@ -1,17 +1,17 @@
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
-import {getMuiTheme} from './../../theme/materialTheme';
+import {getMuiTheme} from 'universal/theme/materialTheme';
 
 import Helmet from 'react-helmet';
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {push as pushState} from 'react-router-redux';
-import config from './../../../config';
+import config from 'universal/../config';
 
 import {asyncConnect} from 'redux-async-connect';
 
-import {AppHeader, AppLeftNav, LinearProgress} from './../../components';
-import {isUserLoaded, loadUserAction} from './../../redux/reducers/auth';
+import {AppHeader, AppLeftNav, LinearProgress, GoogleAnalytics} from 'universal/components';
+import {isUserLoaded, loadUserAction} from 'universal/redux/reducers/auth';
 
 @asyncConnect([{
   promise: ({store: {getState, dispatch}}) => {
@@ -88,6 +88,8 @@ export default class AppContainer extends Component {
         <div className={::this.getContentClassName(styles, isDrawerVisble)}>
           {this.props.children}
         </div>
+
+        <GoogleAnalytics id={config.app.tracking.code} user={user} />
       </div>
     );
   }

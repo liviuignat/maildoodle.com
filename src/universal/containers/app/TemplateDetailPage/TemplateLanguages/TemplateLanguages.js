@@ -3,7 +3,7 @@ import {
   Tabs,
   Tab,
   CodeEditor
-} from './../../../../components';
+} from 'universal/components';
 
 export default class TemplateLanguages extends Component {
   static propTypes = {

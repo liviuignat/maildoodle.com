@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
 import {push} from 'react-router-redux';
@@ -8,7 +9,7 @@ import {
   insertProjectAction,
   updateProjectAction,
   deleteProjectAction
-} from './../../../redux/reducers/projects';
+} from 'universal/redux/reducers/projects';
 import AddProjectForm, {ADD_PROJECT_FORM_NAME} from './AddProjectForm';
 import {
   FloatingActionButton,
@@ -20,7 +21,7 @@ import {
   IconMenu,
   MenuItem,
   FontIcon
-} from './../../../components';
+} from 'universal/components';
 
 @asyncConnect([{
   promise: ({store: {dispatch}}) => dispatch(getProjectsAction())
@@ -131,6 +132,8 @@ export default class ProjectListPage extends Component {
 
     return (
       <div className={style.ProjectListPage}>
+        <Helmet title={`maildoodle - Projects`} />
+
         <div className={style.ProjectListPage_addButtonContainer}>
           <FloatingActionButton
             primary
