@@ -1,0 +1,107 @@
+@import "../../theme/variables.scss";
+
+$full-page-width: 1000px;
+$image-container-width: 972px;
+$image-description-width: 500px;
+$image-width: 400px;
+$rest-api-section-text-color: $color-grey900;
+$code-container-text-color: $color-grey900;
+
+@mixin screenshot-image() {
+  width: $image-width;
+  margin-right: 36px;
+}
+
+@mixin align-left() {
+  float: left;
+}
+
+@mixin align-right() {
+  float: right;
+}
+
+.DocumentationPage {
+  margin: -16px;
+  color: $color-grey700;
+
+  .main_container {
+    padding: 16px 32px;
+    width: $full-page-width;
+    margin: 0 auto;
+  }
+}
+
+.MainSectionTitle {
+  font-size: 32px;
+  padding-top: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px gray solid;
+  color: $color-grey900;
+}
+
+.ScreenshotImage_container {
+  width: $image-container-width;
+  margin-bottom: 50px;
+}
+
+.ScreenshotImage_description {
+  width: $image-description-width;
+  margin-right: 36px;
+  padding-top: 18px;
+}
+
+.ScreenshotImage_description__left {
+  @extend .ScreenshotImage_description;
+  @include align-left();
+}
+
+.ScreenshotImage_description__right {
+  @extend .ScreenshotImage_description;
+  @include align-right();
+}
+
+.ScreenshotImage_title {
+  font-size: 26px;
+}
+
+.ScreenshotImage_text {
+  font-size: 17px;
+}
+
+.ScreenshotImage_templatesList {
+  @include screenshot-image();
+  @include align-left();
+}
+
+.ScreenshotImage_templatesOverview {
+  @include screenshot-image();
+  @include align-left();
+}
+
+.ScreenshotImage_templatesHtmlEdit {
+  @include screenshot-image();
+  @include align-left();
+}
+
+.ScreenshotImage_templatestestJsonEdit {
+  @include screenshot-image();
+  @include align-left();
+}
+
+.RestApi_container {
+  color: $rest-api-section-text-color;
+}
+
+.RestApi_title {
+  font-size: 20px;
+  margin: 16px 0;
+  border-bottom: 1px gray solid;
+}
+
+.RestApi_description {
+  font-size: 16px;
+}
+
+.RestApi_codeContainer {
+  color: $code-container-text-color;
+}

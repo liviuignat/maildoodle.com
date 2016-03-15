@@ -8,7 +8,7 @@ export default class HomePageCard extends Component {
     titleText: PropTypes.string.isRequired,
     bodyText: PropTypes.string.isRequired,
     actionText: PropTypes.string.isRequired,
-    actionUrl: PropTypes.string.isRequired
+    actionUrl: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired
   };
 
   render() {
