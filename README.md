@@ -51,7 +51,7 @@ make test FILE=[complete_path_to_file]
 ```
 
 ### Maintainers
-Liviu Ignat - http://www.ignat.email
-Laurentiu Ilici - https://github.com/KamikazeBVB
+- Liviu Ignat - http://www.ignat.email
+- Laurentiu Ilici - https://github.com/KamikazeBVB
 
 Contact us if you use want to use it on premises. We accept pull requests.
