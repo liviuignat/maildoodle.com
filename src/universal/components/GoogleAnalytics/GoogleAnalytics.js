@@ -13,10 +13,6 @@ export default class GoogleAnalytics extends Component {
   };
 
   componentDidMount() {
-    if (__DEVELOPMENT__) {
-      return;
-    }
-
     const {id, set} = this.props;
 
     initGoogleAnalytics(id, set);

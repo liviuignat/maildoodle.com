@@ -1,5 +1,7 @@
-import { currentUserService } from './../../../../client';
+import {currentUserService, analyticsService} from 'client';
 import * as actions from './actions';
+
+const ANALYTICS_ENVET_CATEGORY = 'AUTH';
 
 export function isUserLoaded(globalState) {
   return globalState.auth && globalState.auth.loaded;
@@ -27,7 +29,17 @@ export function loginAction(email, password) {
           data: { email, password }
         });
       }
-      return currentUserService.logIn(email, password);
+
+      return currentUserService.logIn(email, password)
+        .then(user => {
+          const {objectId, displayName} = user;
+          analyticsService.sendEvent({
+            eventCategory: ANALYTICS_ENVET_CATEGORY,
+            eventAction: actions.LOGIN_SUCCESS,
+            eventLabel: JSON.stringify({user: {objectId, displayName}})
+          });
+          return user;
+        });
     }
   };
 }
@@ -43,7 +55,17 @@ export function signUpAction(email, password) {
           currentUserService.setUserInCache(user);
         }
 
-        return client.get('/user/me');
+        return client.get('/user/me')
+          .then(exitingUser => {
+            const {objectId, displayName} = exitingUser;
+
+            analyticsService.sendEvent({
+              eventCategory: ANALYTICS_ENVET_CATEGORY,
+              eventAction: actions.LOGIN_SUCCESS,
+              eventLabel: JSON.stringify({user: {objectId, displayName}})
+            });
+            return exitingUser;
+          });
       });
     }
   };

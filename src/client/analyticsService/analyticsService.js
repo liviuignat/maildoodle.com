@@ -1,6 +1,10 @@
 import forOwn from 'lodash/forOwn';
 
 export function command(...args) {
+  if (!isAnaliticsAllowed()) {
+    return null;
+  }
+
   if (!window.ga) {
     throw new Error('Google analytics is not initialized');
   }
@@ -27,7 +31,16 @@ export function sendPageview(page, title = page, user = null) {
   return send('pageview', payload);
 }
 
+export function sendEvent({eventCategory, eventAction, eventLabel}) {
+  const hitType = 'event';
+  command('send', {hitType, eventCategory, eventAction, eventLabel});
+}
+
 export function initGoogleAnalytics(id, sets = {}) {
+  if (!isAnaliticsAllowed()) {
+    return;
+  }
+
   if (window.ga || !id) {
     return;
   }
@@ -49,4 +62,16 @@ export function initGoogleAnalytics(id, sets = {}) {
   forOwn(sets, (value, key) => {
     set(key, value);
   });
+}
+
+function isAnaliticsAllowed() {
+  if (__DEVELOPMENT__) {
+    return false;
+  }
+
+  if (__SERVER__) {
+    return false;
+  }
+
+  return true;
 }
