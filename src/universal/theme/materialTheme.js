@@ -21,6 +21,6 @@ export function getMuiTheme() {
       disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),
       pickerHeaderColor: Colors.cyan800,
     },
-    userAgent: global.navigator
+    userAgent: 'all'
   };
 }

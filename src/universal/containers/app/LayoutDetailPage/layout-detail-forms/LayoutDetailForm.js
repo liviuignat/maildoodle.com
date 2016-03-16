@@ -5,7 +5,7 @@ import {
   FormTextField,
   RaisedButton,
   CodeEditor
-} from './../../../../components';
+} from 'universal/components';
 
 export const LAYOUT_DETAIL_FORM = 'layoutDetailForm';
 

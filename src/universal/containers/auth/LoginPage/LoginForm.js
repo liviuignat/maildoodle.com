@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import {reduxForm} from 'redux-form';
 import { loginFormValidator } from './loginFormValidator';
-import { FormTextField, RaisedButton } from './../../../components';
+import { FormTextField, RaisedButton } from 'universal/components';
 
 @reduxForm({
   form: 'login',

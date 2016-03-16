@@ -25,6 +25,7 @@
 
   .HomePage_title {
     @extend .logo_font;
+    font-weight: 500;
     color: #FAD200;
     font-size: 50px;
     padding-top: 100px;
@@ -36,6 +37,7 @@
     font-size: 30px;
     padding: 32px 0;
     text-align: center;
+    font-weight: 500;
   }
 
   .HomePage_actions {

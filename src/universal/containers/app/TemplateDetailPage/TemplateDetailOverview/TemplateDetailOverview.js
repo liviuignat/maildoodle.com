@@ -6,7 +6,7 @@ import {
   SelectField,
   MenuItem,
   DialogForm
-} from './../../../../components';
+} from 'universal/components';
 import PromoteTemplateToProductionForm, {FORM_NAME} from './../template-detail-forms/PromoteTemplateToProductionForm';
 import TemplateVersionsList from './../TemplateVersionsList/TemplateVersionsList';
 

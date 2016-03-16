@@ -4,7 +4,7 @@ import {
   required,
   minLength,
   email
-} from './../../../helpers/validation';
+} from 'universal/helpers/validation';
 
 export const loginFormValidator = memoize(10)(createValidator({
   email: [required, email],

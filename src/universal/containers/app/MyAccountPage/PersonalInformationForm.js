@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {reduxForm} from 'redux-form';
-import { FormTextField, RaisedButton } from './../../../components';
+import { FormTextField, RaisedButton } from 'universal/components';
 
 export const PERSONAL_INFORMATION_FORM_NAME = 'PersonalInformationForm';
 
