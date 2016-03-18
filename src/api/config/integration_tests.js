@@ -1,5 +1,5 @@
 export default {
   mongodb: {
-    url: 'mongodb://localhost:27017/emailtemplates-tests'
+    url: process.env.MONGO_URI || 'mongodb://localhost:27017/maildoodle-tests'
   }
 };
