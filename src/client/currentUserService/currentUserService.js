@@ -1,34 +1,14 @@
-import { cookieService } from './../cookieService/cookieService';
-import { getItem, setItem, removeItem } from './../storageService/storageService';
+import {cookieService} from './../cookieService/cookieService';
 import ApiClient from './../../universal/helpers/ApiClient';
 
 const COOKIE_NAME = 'auth_token';
-const STORAGE_ITEM_NAME = 'email-templates/current_user';
 
 export function getCurrentUser() {
   const cookie = cookieService.getCookie(COOKIE_NAME);
   if (!cookie) {
     return logOut();
   }
-
-  const storageUser = getItem(STORAGE_ITEM_NAME);
-
-  if (!storageUser) {
-    // const client = new ApiClient();
-    // return new Promise((resolve, reject) => {
-    //   client.get('/user/me').then((user) => {
-    //     setItem(STORAGE_ITEM_NAME, user);
-    //     resolve(user);
-    //   }).catch((err) => {
-    //     removeUserInCache();
-    //     reject(err);
-    //   });
-    // });
-    removeUserInCache();
-    return Promise.resolve();
-  }
-
-  return Promise.resolve(storageUser);
+  return Promise.resolve(getUserFromStore());
 }
 
 export function getCurrentAuthSession() {
@@ -45,9 +25,9 @@ export function logIn(email, password) {
 
   return new Promise((resolve, reject) => {
     client.post('/auth/login', {
-      data: { email, password }
+      data: {email, password}
     }).then((user) => {
-      setUserInCache(user);
+      setUserCookie(user);
       return resolve(user);
     }, () => {
       return reject('Login parameters are invalid');
@@ -56,18 +36,12 @@ export function logIn(email, password) {
 }
 
 export function logOut() {
-  removeUserInCache();
+  removeUserCookie();
   return Promise.resolve();
 }
 
-export function setUserInCache(user) {
-  setUserCookie(user);
-  setItem(STORAGE_ITEM_NAME, user);
-}
-
-export function removeUserInCache() {
+export function removeUserCookie() {
   cookieService.deleteCookie(COOKIE_NAME);
-  removeItem(STORAGE_ITEM_NAME);
 }
 
 export function setUserCookie(user) {
@@ -81,4 +55,13 @@ export function setUserCookie(user) {
     value: cvalue,
     expires: expires
   });
+}
+
+function getStore() {
+  return window.__data;
+}
+
+function getUserFromStore() {
+  const store = getStore();
+  return store && store.auth && store.auth.user;
 }
