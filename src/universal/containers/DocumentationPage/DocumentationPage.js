@@ -98,7 +98,7 @@ export default class DocumentationPage extends Component {
               description: (
               <ul>
                 <li>Edit your emails using the online editor</li>
-                <li>Control the production changes by chosing when to put them in production</li>
+                <li>Control the production changes by choosing when to put them in production</li>
                 <li>Safely preview your changes and choose when they are live</li>
               </ul>)
             })}
@@ -136,7 +136,7 @@ export default class DocumentationPage extends Component {
 
             <div className={style.RestApi_title}>REST API call with optional parameters</div>
             <div className={style.RestApi_description}>
-              <p><strong>IMPORTANT</strong>: the optional parameters are not recommented to be used in you applications.
+              <p><strong>IMPORTANT</strong>: the optional parameters are not recommended to be used in you applications.
                 This option is recommended to be used mostly for testing purposes.</p>
             </div>
             {::this.renderApiDocumentation({
