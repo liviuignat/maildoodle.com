@@ -15,7 +15,6 @@ import getRoutes from './routes';
 injectTapEventPlugin();
 
 const client = new ApiClient();
-// const history = useScroll(() => browserHistory)();
 const store = createStore(browserHistory, client, window.__data);
 const history = syncHistoryWithStore(browserHistory, store);
 const scrollHistory = useScroll(() => history)();

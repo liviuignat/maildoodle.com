@@ -84,7 +84,7 @@ app.use((req, res, next) => {
 });
 
 app.use(middleware.requestAuthToken);
-app.use(middleware.userFromParse);
+app.use(middleware.userFromAuthToken);
 require('./../api').setupRoutes(app);
 
 export default app;

@@ -1,5 +1,5 @@
 import superagent from 'superagent';
-import { currentUserService } from './../../client';
+import {currentUserService} from './../../client';
 
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 
@@ -28,9 +28,7 @@ class _ApiClient {
           }
 
           if (__SERVER__) {
-            // Copy all headers to the new request
-            Object.keys(req.headers || {})
-              .forEach((key) => request.set(key, req.headers[key]));
+            copyHeadersToRequest({request, headers: req.headers});
           } else {
             const authSession = currentUserService.getCurrentAuthSession();
             if (authSession) {
@@ -42,15 +40,24 @@ class _ApiClient {
             request.send(data);
           }
 
-          request.end((err, { body } = {}) => {
+          request.end((err, {status, body} = {}) => {
+            if (status === 401) {
+              return reject({status: 401});
+            }
+
             if (err) {
               return reject(body || err);
             }
+
             resolve(body);
           });
         });
       });
   }
+}
+
+function copyHeadersToRequest({request, headers}) {
+  Object.keys(headers || {}).forEach(key => request.set(key, headers[key]));
 }
 
 const ApiClient = _ApiClient;
