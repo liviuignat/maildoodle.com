@@ -1,0 +1,12 @@
+@import "../../theme/variables.scss";
+
+.breadcrumbs {
+  color: $color-grey600;
+  font-weight: 500;
+}
+
+.link {
+    @include link($color-lightBlue400);
+    highlight-color: transparent;
+    font-weight: 500;
+}

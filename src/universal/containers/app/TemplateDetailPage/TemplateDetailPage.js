@@ -16,7 +16,7 @@ import {
   loadTemplateVersion,
   changeProductionVersion
 } from 'universal/redux/reducers/currentTemplate';
-import {Paper, Tabs, Tab} from 'universal/components';
+import {Paper, Tabs, Tab, Breadcrumbs} from 'universal/components';
 import TemplateDetailOverview from './TemplateDetailOverview/TemplateDetailOverview';
 import TemplateApiDocumentation from './TemplateApiDocumentation/TemplateApiDocumentation';
 import TemplateDetailHtmlEditor from './TemplateDetailHtmlEditor/TemplateDetailHtmlEditor';
@@ -137,6 +137,15 @@ export default class TemplateDetailPage extends Component {
     return (
       <div>
         <Helmet title={`maildoodle - ${template.name} template`} />
+        <Breadcrumbs style={{padding: '0 0 16px 0'}} links={[{
+          text: `projects`,
+          href: `/app/projects`
+        }, {
+          text: `project details`,
+          href: `/app/projects/${project.objectId}`
+        }, {
+          text: `template details`
+        }]}/>
 
         {::this.renderTopActions(template)}
         <Paper className={style.TemplateDetailPage}>

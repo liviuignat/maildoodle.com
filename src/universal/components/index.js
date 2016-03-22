@@ -9,6 +9,7 @@ export CodeEditor from './CodeEditor/CodeEditor';
 export HomePageCard from './HomePageCard/HomePageCard';
 export CompanyName from './CompanyName/CompanyName';
 export GoogleAnalytics from './GoogleAnalytics/GoogleAnalytics';
+export Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 export Logo from './Logo/Logo';
 
 export {

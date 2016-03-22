@@ -14,7 +14,7 @@ import {
   updateLayoutAction,
   deleteLayoutAction
 } from 'universal/redux/reducers/currentProject';
-import { GenericList } from 'universal/components';
+import {GenericList, Breadcrumbs} from 'universal/components';
 import TemplatesList from './TemplatesList';
 import LayoutsList from './LayoutsList';
 
@@ -64,6 +64,12 @@ export default class ProjectDetailPage extends Component {
     return (
       <div>
         <Helmet title={`maildoodle - ${project.name} project`} />
+        <Breadcrumbs links={[{
+          text: `projects`,
+          href: `/app/projects`
+        }, {
+          text: `project details`
+        }]}/>
 
         <TemplatesList
           project={project}
