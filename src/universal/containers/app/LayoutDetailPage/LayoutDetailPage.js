@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
 import {asyncConnect} from 'redux-async-connect';
-import {Paper} from 'universal/components';
+import {Paper, Breadcrumbs} from 'universal/components';
 import {
   getLayoutDetailsAction,
   updateLayoutDetailsAction
@@ -60,6 +60,12 @@ export default class LayoutDetailPage extends Component {
     return (
       <div>
         <Helmet title={`maildoodle - Layout Detail`} />
+        <Breadcrumbs style={{padding: '0 0 16px 0'}} links={[{
+          text: `projects`,
+          href: `/app/projects`
+        }, {
+          text: `layout details`
+        }]}/>
 
         <Paper className={style.LayoutDetailPage}>
           <LayoutDetailForm
