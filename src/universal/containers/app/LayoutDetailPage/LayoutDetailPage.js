@@ -1,29 +1,30 @@
 import React, { Component, PropTypes } from 'react';
+import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
-import { pushState } from 'redux-router';
-import {Paper} from './../../../components';
+import {asyncConnect} from 'redux-async-connect';
+import {Paper} from 'universal/components';
 import {
   getLayoutDetailsAction,
   updateLayoutDetailsAction
-} from './../../../redux/reducers/currentLayout';
+} from 'universal/redux/reducers/currentLayout';
 import LayoutDetailForm, {LAYOUT_DETAIL_FORM} from './layout-detail-forms/LayoutDetailForm';
 
+@asyncConnect([{
+  promise: ({params: {projectId, layoutId}, store: {dispatch}}) =>
+    dispatch(getLayoutDetailsAction(projectId, layoutId))
+}])
 @connect(
   state => ({
-    projectId: state.router.params.projectId,
-    layoutId: state.router.params.layoutId,
     currentLayout: state.currentLayout
   }), {
-    pushState,
     initialize,
     getLayoutDetailsAction,
     updateLayoutDetailsAction
   })
 export default class LayoutDetailPage extends Component {
   static propTypes = {
-    projectId: PropTypes.string.isRequired,
-    layoutId: PropTypes.string.isRequired,
+    params: PropTypes.object.isRequired,
     currentLayout: PropTypes.object.isRequired,
     initialize: PropTypes.func.isRequired,
     getLayoutDetailsAction: PropTypes.func.isRequired,
@@ -42,14 +43,8 @@ export default class LayoutDetailPage extends Component {
     this.props.initialize(LAYOUT_DETAIL_FORM, {name, value});
   }
 
-  static fetchData(getState, dispatch, location, params) {
-    const promises = [];
-    promises.push(dispatch(getLayoutDetailsAction(params.projectId, params.layoutId)));
-    return Promise.all(promises);
-  }
-
   handleLayoutSubmit(layout) {
-    const {projectId, layoutId} = this.props;
+    const {projectId, layoutId} = this.props.params;
     this.props.updateLayoutDetailsAction(projectId, layoutId, layout);
   }
 
@@ -64,6 +59,8 @@ export default class LayoutDetailPage extends Component {
 
     return (
       <div>
+        <Helmet title={`maildoodle - Layout Detail`} />
+
         <Paper className={style.LayoutDetailPage}>
           <LayoutDetailForm
             onSubmit={::this.handleLayoutSubmit}

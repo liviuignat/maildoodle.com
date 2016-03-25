@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
 
 @connect(
@@ -18,6 +19,8 @@ export default class DashboardPage extends Component {
 
     return (
       <div>
+        <Helmet title={`maildoodle - Dashboard`} />
+
         <h2> Hi {user.displayName} </h2>
       </div>
     );

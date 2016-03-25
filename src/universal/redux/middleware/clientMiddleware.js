@@ -1,3 +1,5 @@
+import {logoutAction} from 'universal/redux/reducers/auth';
+
 export default function clientMiddleware(client) {
   return ({dispatch, getState}) => {
     return next => action => {
@@ -14,7 +16,13 @@ export default function clientMiddleware(client) {
       next({...rest, type: REQUEST});
       return promise(client).then(
         (result) => next({...rest, result, type: SUCCESS}),
-        (error) => next({...rest, error, type: FAILURE})
+        (error) => {
+          if (error && error.status && error.status === 401) {
+            console.log('Status 401. Server is not authorizing requests!');
+            dispatch(logoutAction());
+          }
+          return next({...rest, error, type: FAILURE});
+        }
       ).catch((error)=> {
         console.error('MIDDLEWARE ERROR:', error);
         next({...rest, error, type: FAILURE});

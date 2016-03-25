@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { GenericList, DialogForm } from './../../../components';
+import { GenericList, DialogForm } from 'universal/components';
 import AddTemplateForm, {ADD_TEMPLATE_FORM_NAME} from './project-detail-forms/AddTemplateForm';
 
 export default class TemplatesList extends Component {
@@ -16,7 +16,7 @@ export default class TemplatesList extends Component {
 
   navigateToDetails(template) {
     const url = `/app/projects/${this.props.project.objectId}/templates/${template.objectId}`;
-    this.props.pushState(null, url);
+    this.props.pushState(url);
   }
 
   openAddTemplateDialog() {

@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {reduxForm, stopSubmit} from 'redux-form';
-import {FormTextField} from './../../../../components';
+import {FormTextField} from 'universal/components';
 import { addTemplateFormValidator } from './validators';
 
 export const ADD_TEMPLATE_FORM_NAME = 'addTemplateForm';

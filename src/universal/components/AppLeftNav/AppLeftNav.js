@@ -9,7 +9,7 @@ export default class AppLeftNav extends Component {
   };
 
   navigateToMyAccount() {
-    this.props.pushState(null, '/app/my-account');
+    this.props.pushState('/app/my-account');
   }
 
   render() {
@@ -36,6 +36,10 @@ export default class AppLeftNav extends Component {
 
           <Link className={styles.AppLeftNav_navigationLink} to="/app/projects">
             <i className="fa fa-list"/><span className={styles.AppLeftNav_linkText}>Projects</span>
+          </Link>
+
+          <Link className={styles.AppLeftNav_navigationLink} to="/documentation">
+            <i className="fa fa-book"/><span className={styles.AppLeftNav_linkText}>Documentation</span>
           </Link>
 
           <div className={styles.AppLeftNav_navigationLinkSpacer} />

@@ -1,7 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
+import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
+import {asyncConnect} from 'redux-async-connect';
 import {initialize as initializeForm, startSubmit} from 'redux-form';
-import { pushState } from 'redux-router';
+import {push as pushState} from 'react-router-redux';
+import config from 'universal/../config';
 import {
   getProjectDetailByIdAction,
   insertTemplateAction,
@@ -10,17 +13,21 @@ import {
   insertLayoutAction,
   updateLayoutAction,
   deleteLayoutAction
-} from './../../../redux/reducers/currentProject';
-import { GenericList } from './../../../components';
+} from 'universal/redux/reducers/currentProject';
+import { GenericList } from 'universal/components';
 import TemplatesList from './TemplatesList';
 import LayoutsList from './LayoutsList';
 
+@asyncConnect([{
+  promise: ({params: {projectId}, store: {dispatch}}) =>
+    dispatch(getProjectDetailByIdAction(projectId))
+}])
 @connect(
-  state => ({
-    projectId: state.router.params.projectId,
-    project: state.currentProject.project,
-    templates: state.currentProject.project.templates,
-    layouts: state.currentProject.project.layouts
+  ({currentProject: {project}}) => ({
+    project,
+    projectId: project.objectId,
+    templates: project.templates,
+    layouts: project.layouts
   }), {
     pushState,
     initializeForm,
@@ -50,17 +57,14 @@ export default class ProjectDetailPage extends Component {
     deleteLayoutAction: PropTypes.func.isRequired
   };
 
-  static fetchData(getState, dispatch, location, params) {
-    const promises = [];
-    promises.push(dispatch(getProjectDetailByIdAction(params.projectId)));
-    return Promise.all(promises);
-  }
-
   render() {
     const { project, templates, layouts } = this.props;
+    const {isTranslationsEnabled} = config.app;
 
     return (
       <div>
+        <Helmet title={`maildoodle - ${project.name} project`} />
+
         <TemplatesList
           project={project}
           templates={templates}
@@ -81,14 +85,14 @@ export default class ProjectDetailPage extends Component {
           updateLayoutAction={this.props.updateLayoutAction}
           deleteLayoutAction={this.props.deleteLayoutAction} />
 
-        <GenericList subheader="languages"
+        {isTranslationsEnabled && <GenericList subheader="languages"
           items={project.languages}
           onEditPressed={() => {}}
           onDeletePressed={() => {}}
           onAddPressed={() => {}}
           onRowClick={() => {}}
           primaryText={(item) => item.key}
-          secondaryText={(item) => item.name}/>
+          secondaryText={(item) => item.name}/>}
       </div>
     );
   }

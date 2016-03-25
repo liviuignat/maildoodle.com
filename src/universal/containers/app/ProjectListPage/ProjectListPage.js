@@ -1,13 +1,15 @@
 import React, { Component, PropTypes } from 'react';
+import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
-import { pushState } from 'redux-router';
+import {asyncConnect} from 'redux-async-connect';
+import {push} from 'react-router-redux';
 import {initialize as initializeForm, startSubmit} from 'redux-form';
 import {
   getProjectsAction,
   insertProjectAction,
   updateProjectAction,
   deleteProjectAction
-} from './../../../redux/reducers/projects';
+} from 'universal/redux/reducers/projects';
 import AddProjectForm, {ADD_PROJECT_FORM_NAME} from './AddProjectForm';
 import {
   FloatingActionButton,
@@ -19,11 +21,16 @@ import {
   IconMenu,
   MenuItem,
   FontIcon
-} from './../../../components';
+} from 'universal/components';
 
+@asyncConnect([{
+  promise: ({store: {dispatch}}) => dispatch(getProjectsAction())
+}])
 @connect(
-  state => ({projects: state.projects.list}), {
-    pushState,
+  ({projects: {list}}) => ({
+    projects: list
+  }), {
+    push,
     initializeForm,
     startSubmit,
     insertProjectAction,
@@ -32,7 +39,7 @@ import {
   })
 export default class ProjectListPage extends Component {
   static propTypes = {
-    pushState: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired,
     initializeForm: PropTypes.func.isRequired,
     startSubmit: PropTypes.func.isRequired,
     insertProjectAction: PropTypes.func.isRequired,
@@ -48,7 +55,7 @@ export default class ProjectListPage extends Component {
   navigateToDetails(project) {
     return () => {
       const url = `/app/projects/${project.objectId}`;
-      this.props.pushState(null, url);
+      this.props.push(url);
     };
   }
 
@@ -88,12 +95,6 @@ export default class ProjectListPage extends Component {
     };
   }
 
-  static fetchData(getState, dispatch) {
-    const promises = [];
-    promises.push(dispatch(getProjectsAction()));
-    return Promise.all(promises);
-  }
-
   render() {
     const style = require('./ProjectListPage.scss');
     const { projects } = this.props;
@@ -131,6 +132,8 @@ export default class ProjectListPage extends Component {
 
     return (
       <div className={style.ProjectListPage}>
+        <Helmet title={`maildoodle - Projects`} />
+
         <div className={style.ProjectListPage_addButtonContainer}>
           <FloatingActionButton
             primary

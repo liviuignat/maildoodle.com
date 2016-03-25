@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { GenericList, DialogForm } from './../../../components';
+import { GenericList, DialogForm } from 'universal/components';
 import AddLayoutForm, {ADD_LAYOUT_FORM_NAME} from './project-detail-forms/AddLayoutForm';
 
 export default class LayoutsList extends Component {
@@ -15,7 +15,7 @@ export default class LayoutsList extends Component {
 
   navigateToDetails(layout) {
     const url = `/app/projects/${this.props.project.objectId}/layouts/${layout.objectId}`;
-    this.props.pushState(null, url);
+    this.props.pushState(url);
   }
 
   openAddLayoutDialog() {

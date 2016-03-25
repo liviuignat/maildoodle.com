@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   Paper,
   CodeEditor
-} from './../../../../components';
+} from 'universal/components';
 
 export default class TemplateDetailHtmlEditor extends Component {
   static propTypes = {

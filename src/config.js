@@ -11,25 +11,26 @@ const environment = {
 
 module.exports = Object.assign({
   port: process.env.PORT,
-  parse: {
-    options: {
-      app_id: 'HrMPFQFNyOPjq8cR9i67xSyAzAggfJYwTetpDUwB',
-      js_key: 'Pm8doOztn0N8iXfNzisX5RrV4r2y1wbbTKHxRoUr',
-      api_key: 'a6It5RhMZ6Fdz7L5uRvWj3cPnGRBIISbYMh9CpX8'
-    }
-  },
   app: {
-    title: 'email templates',
-    description: 'Generic HTML email templates',
-    meta: {
-      charSet: 'utf-8',
-      property: {
-        'og:site_name': 'Email templates',
-        'og:image': 'https://react-redux.herokuapp.com/logo.jpg',
-        'og:locale': 'en_US',
-        'og:title': 'Email templates',
-        'og:description': 'Generic HTML email templates'
-      }
-    }
+    title: 'maildoodle',
+    description: 'Email templates for your software managed in cloud. Templating engine for emails stored in the cloud - edit, test and manage all your software business emails in one place.',
+    tracking: {
+      code: 'UA-75042452-1'
+    },
+    isTranslationsEnabled: false,
+    meta: [
+      {name: 'description', content: 'Email templates for your software managed in cloud. Templating engine for emails stored in the cloud - edit, test and manage all your software business emails in one place.'},
+      {charset: 'utf-8'},
+      {property: 'og:site_name', content: 'maildoodle'},
+      {property: 'og:image', content: 'http://maildoodle.com/logo.png'},
+      {property: 'og:locale', content: 'en_US'},
+      {property: 'og:title', content: 'maildoodle'},
+      {property: 'og:description', content: 'Email templates for your software managed in cloud. Templating engine for emails stored in the cloud - edit, test and manage all your software business emails in one place.'},
+      {property: 'og:card', content: 'summary'},
+      {property: 'og:site', content: '@maildoodle'},
+      {property: 'og:creator', content: '@maildoodle'},
+      {property: 'og:image:width', content: '200'},
+      {property: 'og:image:height', content: '200'}
+    ]
   }
 }, environment);

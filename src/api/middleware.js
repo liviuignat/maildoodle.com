@@ -11,7 +11,7 @@ export function requestAuthToken(req, res, next) {
   next();
 }
 
-export function userFromParse(req, res, next) {
+export function userFromAuthToken(req, res, next) {
   if (req.authToken) {
     getUserFromSession(req.authToken).then((user) => {
       req.user = getUserResponse(user);

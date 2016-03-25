@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
-import { pushState } from 'redux-router';
-import { Paper } from './../../../components';
-import { signUpAction } from './../../../redux/reducers/auth';
+import { push as pushState } from 'react-router-redux';
+import { Paper } from 'universal/components';
+import { signUpAction } from 'universal/redux/reducers/auth';
 import SignUpForm from './SignUpForm';
 
 @connect(

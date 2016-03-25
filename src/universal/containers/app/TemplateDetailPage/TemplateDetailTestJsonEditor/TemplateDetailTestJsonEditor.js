@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import ExecuteOnce from './../../../../helpers/ExecuteOnce';
+import ExecuteOnce from 'universal/helpers/ExecuteOnce';
 import {
   CodeEditor,
-} from './../../../../components';
+} from 'universal/components';
 
 export default class TemplateDetailTestJsonEditor extends Component {
   static propTypes = {

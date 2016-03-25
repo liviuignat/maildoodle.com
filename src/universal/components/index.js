@@ -7,6 +7,9 @@ export DialogForm from './DialogForm/DialogForm';
 export GenericList from './GenericList/GenericList';
 export CodeEditor from './CodeEditor/CodeEditor';
 export HomePageCard from './HomePageCard/HomePageCard';
+export CompanyName from './CompanyName/CompanyName';
+export GoogleAnalytics from './GoogleAnalytics/GoogleAnalytics';
+export Logo from './Logo/Logo';
 
 export {
   Dialog,

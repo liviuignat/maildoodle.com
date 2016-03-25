@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {reduxForm, stopSubmit} from 'redux-form';
-import {FormTextField} from './../../../../components';
+import {FormTextField} from 'universal/components';
 import { addLayoutFormValidator } from './validators';
 
 export const ADD_LAYOUT_FORM_NAME = 'addLayoutForm';

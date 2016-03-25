@@ -8,7 +8,7 @@ export default class AppFooter extends Component {
 
     return (
       <footer className={style.AppFooter}>
-        <Link to="/">{currentYear} © emailtemplates.com</Link>
+        <Link to="/">{currentYear} © maildoodle.com</Link>
       </footer>
     );
   }
