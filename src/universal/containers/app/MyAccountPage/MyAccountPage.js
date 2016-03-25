@@ -4,9 +4,8 @@ import {
   Paper
 } from 'universal/components';
 import {initialize} from 'redux-form';
-import { connect } from 'react-redux';
-import { updatePersonalInformationAction, refreshAPIAccessTokenAction } from './../../../redux/reducers/auth';
-import { updatePersonalInformationAction } from 'universal/redux/reducers/auth';
+import {connect} from 'react-redux';
+import {updatePersonalInformationAction, refreshAPIAccessTokenAction} from 'universal/redux/reducers/auth';
 import PersonalInformationForm, {PERSONAL_INFORMATION_FORM_NAME} from './PersonalInformationForm';
 import RefreshAPIAccessTokenForm, {REFRESH_API_ACCESS_TOKEN_FORM_NAME} from './RefreshAPIAccessTokenForm';
 
@@ -59,9 +58,9 @@ export default class MyAccountPage extends Component {
 
     return (
       <div className={styles.MyAccountPage}>
-        <Paper className={styles.PersonalInformationSection}>
         <Helmet title={`maildoodle - My Account`} />
 
+        <Paper className={styles.PersonalInformationSection}>
           <h3>Personal Information</h3>
           <PersonalInformationForm
             isUpdatingUser={isUpdatingUser}
