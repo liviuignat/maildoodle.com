@@ -39,7 +39,7 @@ export function loginAction(email, password) {
       actions.LOGIN_FAIL
     ],
     promise: (client) => new Promise((resolve, reject) => {
-      client.post('/auth/login', payload).then(user => {
+      return client.post('/auth/login', payload).then(user => {
         if (!__SERVER__) {
           currentUserService.setUserCookie(user);
         }
@@ -76,12 +76,12 @@ export function signUpAction(email, password) {
       actions.SIGN_UP_FAIL
     ],
     promise: (client) => new Promise((resolve, reject) => {
-      client.post('/auth/signup', payload).then(user => {
+      return client.post('/auth/signup', payload).then(user => {
         if (!__SERVER__) {
           currentUserService.setUserCookie(user);
         }
 
-        client.get('/user/me').then(exitingUser => {
+        return client.get('/user/me').then(exitingUser => {
           const {objectId, displayName} = exitingUser;
 
           analyticsService.sendEvent({
@@ -91,7 +91,8 @@ export function signUpAction(email, password) {
           });
           return exitingUser;
         });
-      }).then(user => resolve(user))
+      })
+      .then(user => resolve(user))
       .catch(() => reject('Email is already registered.'));
     })
   };
