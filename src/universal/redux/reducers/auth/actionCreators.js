@@ -10,7 +10,11 @@ export function isUserLoaded(globalState) {
 
 export function loadUserAction() {
   return {
-    types: [actions.LOAD_CURRENT_USER, actions.LOAD_CURRENT_USER_SUCCESS, actions.LOAD_CURRENT_USER_FAIL],
+    types: [
+      actions.LOAD_CURRENT_USER,
+      actions.LOAD_CURRENT_USER_SUCCESS,
+      actions.LOAD_CURRENT_USER_FAIL
+    ],
     promise: (client) => {
       if (__SERVER__) {
         return client.get('/user/me');
@@ -21,57 +25,86 @@ export function loadUserAction() {
 }
 
 export function loginAction(email, password) {
-  const payload = {data: { email, password: md5(password) }};
-
+  const payload = {
+    data: {
+      email,
+      password: md5(password)
+    }
+  };
 
   return {
-    types: [actions.LOGIN, actions.LOGIN_SUCCESS, actions.LOGIN_FAIL],
-    promise: (client) => client.post('/auth/login', payload).then(user => {
-      if (!__SERVER__) {
-        currentUserService.setUserCookie(user);
-      }
+    types: [
+      actions.LOGIN,
+      actions.LOGIN_SUCCESS,
+      actions.LOGIN_FAIL
+    ],
+    promise: (client) => new Promise((resolve, reject) => {
+      return client.post('/auth/login', payload).then(user => {
+        if (!__SERVER__) {
+          currentUserService.setUserCookie(user);
+        }
 
-      return client.get('/user/me').then(exitingUser => {
-        const {objectId, displayName} = exitingUser;
+        return client.get('/user/me').then(exitingUser => {
+          const {objectId, displayName} = exitingUser;
 
-        analyticsService.sendEvent({
-          eventCategory: ANALYTICS_ENVET_CATEGORY,
-          eventAction: actions.LOGIN_SUCCESS,
-          eventLabel: JSON.stringify({user: {objectId, displayName}})
+          analyticsService.sendEvent({
+            eventCategory: ANALYTICS_ENVET_CATEGORY,
+            eventAction: actions.LOGIN_SUCCESS,
+            eventLabel: JSON.stringify({user: {objectId, displayName}})
+          });
+          return exitingUser;
         });
-        return exitingUser;
-      });
+      })
+      .then(user => resolve(user))
+      .catch(() => reject('User or password does not exist.'));
     })
   };
 }
 
 export function signUpAction(email, password) {
-  const payload = {data: { email, password: md5(password) }};
+  const payload = {
+    data: {
+      email,
+      password: md5(password)
+    }
+  };
 
   return {
-    types: [actions.SIGN_UP, actions.SIGN_UP_SUCCESS, actions.SIGN_UP_FAIL],
-    promise: (client) => client.post('/auth/signup', payload).then(user => {
-      if (!__SERVER__) {
-        currentUserService.setUserCookie(user);
-      }
+    types: [
+      actions.SIGN_UP,
+      actions.SIGN_UP_SUCCESS,
+      actions.SIGN_UP_FAIL
+    ],
+    promise: (client) => new Promise((resolve, reject) => {
+      return client.post('/auth/signup', payload).then(user => {
+        if (!__SERVER__) {
+          currentUserService.setUserCookie(user);
+        }
 
-      client.get('/user/me').then(exitingUser => {
-        const {objectId, displayName} = exitingUser;
+        return client.get('/user/me').then(exitingUser => {
+          const {objectId, displayName} = exitingUser;
 
-        analyticsService.sendEvent({
-          eventCategory: ANALYTICS_ENVET_CATEGORY,
-          eventAction: actions.SIGN_UP_SUCCESS,
-          eventLabel: JSON.stringify({user: {objectId, displayName}})
+          analyticsService.sendEvent({
+            eventCategory: ANALYTICS_ENVET_CATEGORY,
+            eventAction: actions.SIGN_UP_SUCCESS,
+            eventLabel: JSON.stringify({user: {objectId, displayName}})
+          });
+          return exitingUser;
         });
-        return exitingUser;
-      });
+      })
+      .then(user => resolve(user))
+      .catch(() => reject('Email is already registered.'));
     })
   };
 }
 
 export function logoutAction() {
   return {
-    types: [actions.LOGOUT, actions.LOGOUT_SUCCESS, actions.LOGOUT_FAIL],
+    types: [
+      actions.LOGOUT,
+      actions.LOGOUT_SUCCESS,
+      actions.LOGOUT_FAIL
+    ],
     promise: () => {
       if (__SERVER__) {
         return Promise.resolve();
@@ -89,5 +122,16 @@ export function updatePersonalInformationAction(user) {
       actions.UPDATE_CURRENT_USER_FAIL
     ],
     promise: (client) => client.put('user/me', {data: user})
+  };
+}
+
+export function refreshAPIAccessTokenAction() {
+  return {
+    types: [
+      actions.REFRESH_API_ACCESS_TOKEN_USER,
+      actions.REFRESH_API_ACCESS_TOKEN_USER_SUCCESS,
+      actions.REFRESH_API_ACCESS_TOKEN_USER_FAIL
+    ],
+    promise: (client) => client.put('user/me/apiaccesstoken')
   };
 }

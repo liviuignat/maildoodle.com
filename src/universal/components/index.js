@@ -10,6 +10,7 @@ export HomePageCard from './HomePageCard/HomePageCard';
 export CompanyName from './CompanyName/CompanyName';
 export GoogleAnalytics from './GoogleAnalytics/GoogleAnalytics';
 export Breadcrumbs from './Breadcrumbs/Breadcrumbs';
+export ConfirmDialog from './ConfirmDialog/ConfirmDialog';
 export Logo from './Logo/Logo';
 
 export {

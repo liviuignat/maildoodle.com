@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import Helmet from 'react-helmet';
 import {reduxForm} from 'redux-form';
 import {signUpFormValidator} from './signUpFormValidator';
@@ -50,7 +50,6 @@ export default class SignUpForm extends Component {
               fullWidth
               disabled={isSigningUp}/>
           </div>
-
           <span className={styles.SignUpPageErrorMessage}>{valid && signUpError}</span>
 
           <div>
