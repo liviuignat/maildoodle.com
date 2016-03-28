@@ -8,7 +8,6 @@ export const REFRESH_API_ACCESS_TOKEN_FORM_NAME = 'RefreshAPIAccessTokenForm';
   form: REFRESH_API_ACCESS_TOKEN_FORM_NAME,
   fields: ['apiAccessToken']
 })
-
 export default class RefreshAPIAccessTokenForm extends Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
@@ -33,7 +32,7 @@ export default class RefreshAPIAccessTokenForm extends Component {
               type="text"
               labelText="Api token"
               fullWidth
-              disabled/>
+              readOnly/>
           </div>
           <div>
             <RaisedButton

@@ -1,9 +1,12 @@
 import md5 from 'md5';
+import {fromJS} from 'immutable';
 import * as actions from './actions';
 
 const initialState = {
   loaded: false,
-  isUpdatingUser: false
+  isUpdatingUser: false,
+  isRefreshingAPIAccessToken: false,
+  refreshAPIAccessTokenError: ''
 };
 
 export function reducer(state = initialState, action = {}) {
@@ -109,28 +112,38 @@ export function reducer(state = initialState, action = {}) {
       };
 
     case actions.REFRESH_API_ACCESS_TOKEN_USER:
-      return {
-        ...state,
-        isRefreshingAPIAccessToken: true,
-        refreshAPIAccessTokenError: ''
-      };
+    case actions.REFRESH_API_ACCESS_TOKEN_USER_FAIL:
+    case actions.REFRESH_API_ACCESS_TOKEN_USER_SUCCESS:
+      return refreshAccessTokenReducer(state, action);
+
+    default:
+      return state;
+  }
+}
+
+function refreshAccessTokenReducer(state, action) {
+  const immutable = fromJS(state);
+  const user = immutable.get('user');
+
+  switch (action.type) {
+    case actions.REFRESH_API_ACCESS_TOKEN_USER:
+      return immutable
+        .set('isRefreshingAPIAccessToken', true)
+        .set('refreshAPIAccessTokenError', '')
+        .toJSON();
 
     case actions.REFRESH_API_ACCESS_TOKEN_USER_FAIL:
-      return {
-        ...state,
-        isRefreshingAPIAccessToken: false,
-        refreshAPIAccessTokenError: action.error
-      };
+      return immutable
+        .set('isRefreshingAPIAccessToken', false)
+        .set('refreshAPIAccessTokenError', action.error)
+        .toJSON();
 
     case actions.REFRESH_API_ACCESS_TOKEN_USER_SUCCESS:
-      return {
-        ...state,
-        isRefreshingAPIAccessToken: false,
-        refreshAPIAccessTokenError: '',
-        user: Object.assign(state.user, {
-          apiAccessToken: action.result.apiAccessToken
-        })
-      };
+      return immutable
+        .set('isRefreshingAPIAccessToken', false)
+        .set('refreshAPIAccessTokenError', '')
+        .set('user', user.set('apiAccessToken', action.result.apiAccessToken))
+        .toJSON();
 
     default:
       return state;

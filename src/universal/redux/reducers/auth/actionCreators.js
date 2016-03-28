@@ -125,13 +125,13 @@ export function updatePersonalInformationAction(user) {
   };
 }
 
-export function refreshAPIAccessTokenAction(user) {
+export function refreshAPIAccessTokenAction() {
   return {
     types: [
       actions.REFRESH_API_ACCESS_TOKEN_USER,
       actions.REFRESH_API_ACCESS_TOKEN_USER_SUCCESS,
       actions.REFRESH_API_ACCESS_TOKEN_USER_FAIL
     ],
-    promise: (client) => client.put('user/me/apiaccesstoken', {data: user})
+    promise: (client) => client.put('user/me/apiaccesstoken')
   };
 }
