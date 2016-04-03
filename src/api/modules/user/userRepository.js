@@ -14,6 +14,10 @@ export function getUserByToken(authToken) {
   return getUserByQuery({ authToken });
 }
 
+export function getUserByApiToken(apiAccessToken) {
+  return getUserByQuery({ apiAccessToken });
+}
+
 export function getUserBySessionToken(sessionToken) {
   return getUserByQuery({ sessionToken });
 }
