@@ -63,7 +63,7 @@ export default class TemplateDetailHtmlEditor extends Component {
           <div className={style.TemplateApiDocumentation_sampleSubsection}>
             <div><b>Headers:</b></div>
             <code>
-              <div>Api-Secret:   '[API SECRET FROM MY ACCOUNT]'</div>
+              <div>X-Api-Token:   '[API SECRET FROM MY ACCOUNT]'</div>
               <div>Content-Type: 'application/json'</div>
             </code>
           </div>
@@ -99,7 +99,7 @@ export default class TemplateDetailHtmlEditor extends Component {
           <div className={style.TemplateApiDocumentation_sampleSubsection}>
             <div><b>Headers:</b></div>
             <code>
-              <div>Api-Secret:   '[API SECRET FROM MY ACCOUNT]'</div>
+              <div>X-Api-Token:   '[API SECRET FROM MY ACCOUNT]'</div>
               <div>Content-Type: 'application/json'</div>
             </code>
           </div>

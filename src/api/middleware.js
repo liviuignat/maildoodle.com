@@ -1,27 +1,42 @@
-import {getUserBySessionToken} from './modules/user/userRepository';
+import co from 'co';
+import {getUserByAuthToken, getUserByApiToken} from './modules/user/userRepository';
 
 export function requestAuthToken(req, res, next) {
   const fromCookie = req.cookies.auth_token;
   const fromUrl = req.query.auth_token;
   const authHeader = req.get('Authorization');
+  const apiTokenHeader = req.get('x-api-token');
   const fromHeader = authHeader ? authHeader.replace('Bearer ', '') : '';
 
   req.authToken = fromCookie || fromUrl || fromHeader;
+  req.apiToken = apiTokenHeader;
 
   next();
 }
 
 export function userFromAuthToken(req, res, next) {
-  if (req.authToken) {
-    getUserFromSession(req.authToken).then((user) => {
-      req.user = getUserResponse(user);
-    }).catch(() => {
-    }).then(() => {
+  co(function*() {
+    try {
+      const {authToken, apiToken} = req;
+      let user = null;
+
+      if (authToken) {
+        user = yield getUserFromAuthToken(req.authToken);
+      }
+
+      if (apiToken) {
+        user = yield getUserFromApiToken(req.apiToken);
+      }
+
+      if (user) {
+        req.user = getUserResponse(user);
+      }
+
       return next();
-    });
-  } else {
-    return next();
-  }
+    } catch (err) {
+      return next();
+    }
+  });
 }
 
 export function requiredAuthenticated(req, res, next) {
@@ -34,8 +49,12 @@ export function requiredAuthenticated(req, res, next) {
   return next();
 }
 
-function getUserFromSession(sessionToken) {
-  return getUserBySessionToken(sessionToken);
+function getUserFromAuthToken(authToken) {
+  return getUserByAuthToken(authToken);
+}
+
+function getUserFromApiToken(apiToken) {
+  return getUserByApiToken(apiToken);
 }
 
 function getUserResponse(user) {
@@ -46,7 +65,6 @@ function getUserResponse(user) {
   const response = Object.assign({}, user);
 
   delete response.password;
-  delete response.authToken;
 
   return response;
 }

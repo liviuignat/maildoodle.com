@@ -24,12 +24,12 @@ describe('userModule tests', () => {
     that.getUserDataRequest = (user) => request
       .get('/api/user/me')
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${user.sessionToken}`);
+      .set('Authorization', `Bearer ${user.authToken}`);
 
     that.updateUserDataRequest = (user) => request
       .put('/api/user/me')
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${user.sessionToken}`)
+      .set('Authorization', `Bearer ${user.authToken}`)
       .send(user);
 
     it('SHOULD return status okay (200)',
@@ -81,7 +81,7 @@ describe('userModule tests', () => {
     const newApiAccessTokenRequest = (user) => request
       .put('/api/user/me/apiaccesstoken')
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${user.sessionToken}`);
+      .set('Authorization', `Bearer ${user.authToken}`);
 
     it('SHOULD return status okay (200)',
       (done) => newApiAccessTokenRequest(that.currentUser).expect(200).end(done));

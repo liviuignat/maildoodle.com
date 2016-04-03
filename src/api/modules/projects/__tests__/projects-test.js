@@ -22,7 +22,7 @@ describe('projectModule tests', () => {
 
     let createProjectRequest = () => request.post('/api/projects')
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .set('Authorization', `Bearer ${currentUser.authToken}`)
       .send(newProject);
 
     it('Should create the project with success', (done) => {
@@ -35,7 +35,7 @@ describe('projectModule tests', () => {
 
       beforeEach ((done) => {
         getProjectRequest = request.get('/api/projects')
-          .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+          .set('Authorization', `Bearer ${currentUser.authToken}`)
 
         createProjectRequest().end((err, response) => {
           if (err) {
@@ -65,7 +65,7 @@ describe('projectModule tests', () => {
 
         beforeEach(() => {
           getProjectByIdRequest = request.get('/api/projects/' + addedProject.objectId)
-            .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+            .set('Authorization', `Bearer ${currentUser.authToken}`)
         });
 
         it('Should get the project with success', (done) => {
@@ -102,7 +102,7 @@ describe('projectModule tests', () => {
         beforeEach(() => {
           deleteProjectRequest = request
             .del('/api/projects/' + addedProject.objectId)
-            .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+            .set('Authorization', `Bearer ${currentUser.authToken}`);
         });
 
         it('Should delete the project with success', (done) =>  {
@@ -133,7 +133,7 @@ describe('projectModule tests', () => {
           updateProjectRequest = request
             .put('/api/projects/' + addedProject.objectId)
             .set('Content-type', 'application/json')
-            .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+            .set('Authorization', `Bearer ${currentUser.authToken}`)
             .send(updateValues);
         });
 

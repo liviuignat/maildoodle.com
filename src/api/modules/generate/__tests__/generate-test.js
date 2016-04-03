@@ -24,7 +24,7 @@ describe('GIVEN we want generate a template from the API', () => {
     return request
       .get(url)
       .set('Content-type', 'text/html')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+      .set('Authorization', `Bearer ${currentUser.authToken}`);
   };
 
   const postHtmlRequest = (json) => {
@@ -33,7 +33,7 @@ describe('GIVEN we want generate a template from the API', () => {
     return request
       .post(url)
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .set('Authorization', `Bearer ${currentUser.authToken}`)
       .send(payload);
   };
 

@@ -15,7 +15,7 @@ describe('languageModule tests', () => {
         request
           .post('/api/projects')
           .set('Content-type', 'application/json')
-          .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+          .set('Authorization', `Bearer ${currentUser.authToken}`)
           .send(currentProject)
           .end((err, response) => {
             if (err) {
@@ -37,7 +37,7 @@ describe('languageModule tests', () => {
     const createLanguageRequest = () => request
         .post(`/api/projects/${currentProject.objectId}/languages`)
         .set('Content-type', 'application/json')
-        .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+        .set('Authorization', `Bearer ${currentUser.authToken}`)
         .send(newLanguage);
 
     it('Should create the language with success', (done) => {
@@ -49,7 +49,7 @@ describe('languageModule tests', () => {
 
       const getLanguageByIdRequest = () => request
         .get(`/api/projects/${currentProject.objectId}/languages/${createdLanguage.objectId}`)
-        .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+        .set('Authorization', `Bearer ${currentUser.authToken}`);
 
       beforeEach((done) => {
         createLanguageRequest().end((err, response) => {
@@ -74,7 +74,7 @@ describe('languageModule tests', () => {
 
         let updateLanguageRequest = (languageId) => request
           .put(`/api/projects/${currentProject.objectId}/languages/${languageId}`)
-          .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+          .set('Authorization', `Bearer ${currentUser.authToken}`)
           .set('Content-type', 'application/json')
           .send(languageUpdate);
 
@@ -97,7 +97,7 @@ describe('languageModule tests', () => {
       describe('When getting all languages', () => {
         let getAllLanguagesRequest = () => request
           .get(`/api/projects/${currentProject.objectId}/languages`)
-          .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+          .set('Authorization', `Bearer ${currentUser.authToken}`);
 
         it('Should return success', (done) => {
           getAllLanguagesRequest().expect(200).end(done);
@@ -132,7 +132,7 @@ describe('languageModule tests', () => {
         describe('When the language does not exist', () => {
           const getBogusLanguageByIdRequest = () => request
             .get(`/api/projects/${currentProject.objectId}/languages/123`)
-            .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+            .set('Authorization', `Bearer ${currentUser.authToken}`);
 
           it('Should return not found', (done) => {
             getBogusLanguageByIdRequest().expect(404).end(done);
@@ -143,11 +143,11 @@ describe('languageModule tests', () => {
       describe('When deleting a language', () => {
         const getDeletedLanguageRequest = () => request
             .get(`/api/projects/${currentProject.objectId}/languages/${createdLanguage.objectId}`)
-            .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+            .set('Authorization', `Bearer ${currentUser.authToken}`);
 
         let deleteLanguageRequest = (objectId) => request
             .del(`/api/projects/${currentProject.objectId}/languages/${objectId}`)
-            .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+            .set('Authorization', `Bearer ${currentUser.authToken}`);
 
         it('Should return success', (done) => {
           deleteLanguageRequest(createdLanguage.objectId).expect(200).end(done);

@@ -51,7 +51,7 @@ export function createProject(currentUser, newProject) {
   return new Promise((resolve, reject) => {
     request.post('/api/projects')
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .set('Authorization', `Bearer ${currentUser.authToken}`)
       .send(newProject)
       .end((err, res) => {
         if (err) {
@@ -67,7 +67,7 @@ export function getTemplatesByProjectId(currentUser, projectId) {
     request
       .get(`/api/projects/${projectId}/templates`)
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .set('Authorization', `Bearer ${currentUser.authToken}`)
       .end((err, res) => {
         if (err) {
           return reject(err);
@@ -82,7 +82,7 @@ export function getTemplateById(currentUser, projectId, templateId) {
     request
       .get(`/api/projects/${projectId}/templates/${templateId}`)
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .set('Authorization', `Bearer ${currentUser.authToken}`)
       .end((err, res) => {
         if (err) {
           return reject(err);
@@ -97,7 +97,7 @@ export function createTemplate(currentUser, projectId, template) {
     request
       .post(`/api/projects/${projectId}/templates`)
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .set('Authorization', `Bearer ${currentUser.authToken}`)
       .send(template)
       .end((err, res) => {
         if (err) {

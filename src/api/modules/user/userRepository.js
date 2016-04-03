@@ -10,12 +10,12 @@ export function getUserByEmail(email) {
   return getUserByQuery({ email });
 }
 
-export function getUserByToken(authToken) {
+export function getUserByAuthToken(authToken) {
   return getUserByQuery({ authToken });
 }
 
-export function getUserBySessionToken(sessionToken) {
-  return getUserByQuery({ sessionToken });
+export function getUserByApiToken(apiAccessToken) {
+  return getUserByQuery({ apiAccessToken });
 }
 
 function getUserByQuery(query) {
@@ -61,13 +61,11 @@ export function createUser(userData) {
   return co(function*() {
     const data = Date.now();
     const authToken = md5(data);
-    const sessionToken = md5(Date.now() + 5);
     const apiAccessToken = md5(Date.now() + 10);
 
     const newUserAccount = Object.assign(userData, {
       apiAccessToken,
       authToken,
-      sessionToken,
       verified: false,
       createdAt: new Date()
     });

@@ -12,12 +12,12 @@ describe('projectModule tests', () => {
 
   const createProjectRequest = () => request.post('/api/projects')
     .set('Content-type', 'application/json')
-    .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+    .set('Authorization', `Bearer ${currentUser.authToken}`)
     .send(newProject);
 
   const getProjectByIdRequest = () => request.get(`/api/projects/${addedProject.objectId}`)
     .set('Content-type', 'application/json')
-    .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+    .set('Authorization', `Bearer ${currentUser.authToken}`);
 
   beforeEach((done) => {
     co(function*() {
@@ -88,7 +88,7 @@ describe('projectModule tests', () => {
       beforeEach((done) => {
         request.get(`/api/projects/${addedProject.objectId}?with_template_html=true&with_layout_html=true`)
           .set('Content-type', 'application/json')
-          .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+          .set('Authorization', `Bearer ${currentUser.authToken}`)
           .end((err, res) => {
             if (err) {
               return done(err);

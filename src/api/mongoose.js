@@ -15,7 +15,6 @@ const userSchema = new Schema({
   lastName: { type: String },
   companyName: { type: String },
   authToken: { type: String, index: true },
-  sessionToken: { type: String, index: true },
   apiAccessToken: { type: String, index: true },
   verified: { type: Boolean },
   createdAt: { type: Date }
