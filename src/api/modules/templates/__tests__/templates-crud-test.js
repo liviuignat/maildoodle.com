@@ -24,30 +24,30 @@ describe('given we want to CRUD templates', () => {
   const getTemplatesRequest = (projectId) => request
     .get(`/api/projects/${projectId}/templates`)
     .set('Content-type', 'application/json')
-    .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+    .set('Authorization', `Bearer ${currentUser.authToken}`);
 
   const getTemplateByIdRequest = (projectId, templateId) => request
       .get(`/api/projects/${projectId}/templates/${templateId}`)
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+      .set('Authorization', `Bearer ${currentUser.authToken}`);
 
   const addTemplateRequest = (projectId, template) => request
     .post(`/api/projects/${projectId}/templates`)
     .set('Content-type', 'application/json')
-    .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+    .set('Authorization', `Bearer ${currentUser.authToken}`)
     .send(newTemplate);
 
   const updateTemplateRequest = (projectId, templateId, template) => {
     return request
     .put(`/api/projects/${projectId}/templates/${templateId}`)
     .set('Content-type', 'application/json')
-    .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+    .set('Authorization', `Bearer ${currentUser.authToken}`)
     .send(template); }
 
   const deleteTemplateRequest = (projectId, templateId) => request
     .delete(`/api/projects/${projectId}/templates/${templateId}`)
     .set('Content-type', 'application/json')
-    .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+    .set('Authorization', `Bearer ${currentUser.authToken}`);
 
   beforeEach((done) => {
     cleanup()
@@ -115,18 +115,18 @@ describe('given we want to CRUD templates', () => {
             const createLayoutRequest = () => request
               .post(`/api/projects/${currentProject.objectId}/layouts`)
               .set('Content-type', 'application/json')
-              .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+              .set('Authorization', `Bearer ${currentUser.authToken}`)
               .send(layout);
 
             let updateLayoutRequest = (objectId) => request
               .put(`/api/projects/${currentProject.objectId}/layouts/${objectId}`)
-              .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+              .set('Authorization', `Bearer ${currentUser.authToken}`)
               .set('Content-type', 'application/json')
               .send(layout);
 
             let deleteLayoutRequest = (objectId) => request
               .del(`/api/projects/${currentProject.objectId}/layouts/${objectId}`)
-              .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+              .set('Authorization', `Bearer ${currentUser.authToken}`);
 
             beforeEach((done) => {
               createLayoutRequest().end((err, response) => {
@@ -170,18 +170,18 @@ describe('given we want to CRUD templates', () => {
             const createLanguageRequest = () => request
               .post(`/api/projects/${currentProject.objectId}/languages`)
               .set('Content-type', 'application/json')
-              .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+              .set('Authorization', `Bearer ${currentUser.authToken}`)
               .send(language);
 
             let updateLanguageRequest = (objectId) => request
               .put(`/api/projects/${currentProject.objectId}/languages/${objectId}`)
-              .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+              .set('Authorization', `Bearer ${currentUser.authToken}`)
               .set('Content-type', 'application/json')
               .send(language);
 
             let deleteLanguageRequest = (objectId) => request
               .del(`/api/projects/${currentProject.objectId}/languages/${objectId}`)
-              .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+              .set('Authorization', `Bearer ${currentUser.authToken}`);
 
             beforeEach((done) => {
               createLanguageRequest().end((err, response) => {

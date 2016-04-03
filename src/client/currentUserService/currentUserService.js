@@ -16,7 +16,7 @@ export function getCurrentAuthSession() {
     if (!user) {
       return null;
     }
-    return user.sessionToken;
+    return user.authToken;
   });
 }
 
@@ -47,7 +47,7 @@ export function removeUserCookie() {
 export function setUserCookie(user) {
   const exdays = 10000;
   const cname = COOKIE_NAME;
-  const cvalue = user.sessionToken;
+  const cvalue = user.authToken;
   const expires = exdays * 24 * 60 * 60 * 1000;
 
   cookieService.setCookie({

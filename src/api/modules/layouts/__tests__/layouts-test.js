@@ -15,7 +15,7 @@ describe('GIVEN layoutModule tests', () => {
         request
           .post('/api/projects')
           .set('Content-type', 'application/json')
-          .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+          .set('Authorization', `Bearer ${currentUser.authToken}`)
           .send(currentProject)
           .end((err, response) => {
             if (err) {
@@ -37,7 +37,7 @@ describe('GIVEN layoutModule tests', () => {
     const createLayoutRequest = () => request
       .post(`/api/projects/${currentProject.objectId}/layouts`)
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .set('Authorization', `Bearer ${currentUser.authToken}`)
       .send(newLayout);
 
     it('SHOULD create the layout with success', (done) => {
@@ -49,7 +49,7 @@ describe('GIVEN layoutModule tests', () => {
 
       const getLayoutByIdRequest = () => request
         .get(`/api/projects/${currentProject.objectId}/layouts/${createdLayout.objectId}`)
-        .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+        .set('Authorization', `Bearer ${currentUser.authToken}`);
 
       beforeEach((done) => {
         createLayoutRequest().end((err, response) => {
@@ -74,7 +74,7 @@ describe('GIVEN layoutModule tests', () => {
 
         let updateLayoutRequest = (layoutId) => request
           .put(`/api/projects/${currentProject.objectId}/layouts/${layoutId}`)
-          .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+          .set('Authorization', `Bearer ${currentUser.authToken}`)
           .set('Content-type', 'application/json')
           .send(layoutUpdate);
 
@@ -97,7 +97,7 @@ describe('GIVEN layoutModule tests', () => {
       describe('WHEN getting all layouts', () => {
         let getAllLayoutsRequest = () => request
           .get(`/api/projects/${currentProject.objectId}/layouts`)
-          .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+          .set('Authorization', `Bearer ${currentUser.authToken}`);
 
         it('SHOULD return success', (done) => {
           getAllLayoutsRequest().expect(200).end(done);
@@ -132,7 +132,7 @@ describe('GIVEN layoutModule tests', () => {
         describe('WHEN the layout does not exist', () => {
           const getBogusLayoutByIdRequest = () => request
             .get(`/api/projects/${currentProject.objectId}/layouts/123`)
-            .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+            .set('Authorization', `Bearer ${currentUser.authToken}`);
 
           it('SHOULD return not found', (done) => {
             getBogusLayoutByIdRequest().expect(404).end(done);
@@ -143,11 +143,11 @@ describe('GIVEN layoutModule tests', () => {
       describe('WHEN deleting a layout', () => {
         const getDeletedLayoutRequest = () => request
             .get(`/api/projects/${currentProject.objectId}/layouts/${createdLayout.objectId}`)
-            .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+            .set('Authorization', `Bearer ${currentUser.authToken}`);
 
         let deleteLayoutRequest = (objectId) => request
             .del(`/api/projects/${currentProject.objectId}/layouts/${objectId}`)
-            .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+            .set('Authorization', `Bearer ${currentUser.authToken}`);
 
         it('SHOULD return success', (done) => {
           deleteLayoutRequest(createdLayout.objectId).expect(200).end(done);

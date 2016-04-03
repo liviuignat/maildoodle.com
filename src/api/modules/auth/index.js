@@ -7,7 +7,7 @@ export function setupRoutes(app, prefix = '') {
 
     login(email, password)
       .then((response) => res.json(response))
-      .catch((err) => sendHttpError(res, { code: 401, err }));
+      .catch((err) => sendHttpError(res, { code: 400, err }));
   });
 
   app.post(`${prefix}/signup`, (req, res) => {

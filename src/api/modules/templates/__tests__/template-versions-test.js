@@ -25,30 +25,30 @@ describe('given we want to modify templates', () => {
   const getTemplatesRequest = (projectId) => request
     .get(`/api/projects/${projectId}/templates`)
     .set('Content-type', 'application/json')
-    .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+    .set('Authorization', `Bearer ${currentUser.authToken}`);
 
   const getTemplateByIdRequest = (projectId, templateId) => request
       .get(`/api/projects/${projectId}/templates/${templateId}`)
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+      .set('Authorization', `Bearer ${currentUser.authToken}`);
 
   const addTemplateRequest = (projectId, template) => request
     .post(`/api/projects/${projectId}/templates`)
     .set('Content-type', 'application/json')
-    .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+    .set('Authorization', `Bearer ${currentUser.authToken}`)
     .send(newTemplate);
 
   const deleteTemplateRequest = (projectId, templateId) => request
     .delete(`/api/projects/${projectId}/templates/${templateId}`)
     .set('Content-type', 'application/json')
-    .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+    .set('Authorization', `Bearer ${currentUser.authToken}`);
 
   const updateTemplateDevVersionRequest = (projectId, templateId, data) => {
     const url = `/api/projects/${projectId}/templates/${templateId}/versions/development`;
     return request
       .post(url)
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .set('Authorization', `Bearer ${currentUser.authToken}`)
       .send(data);
   }
 
@@ -57,7 +57,7 @@ describe('given we want to modify templates', () => {
     return request
       .post(url)
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`)
+      .set('Authorization', `Bearer ${currentUser.authToken}`)
       .send(data);
   }
 
@@ -66,7 +66,7 @@ describe('given we want to modify templates', () => {
     return request
       .get(url)
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+      .set('Authorization', `Bearer ${currentUser.authToken}`);
   }
 
   const updateVersionToProdRequest = (projectId, templateId, versionId) => {
@@ -74,7 +74,7 @@ describe('given we want to modify templates', () => {
     return request
       .put(url)
       .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${currentUser.sessionToken}`);
+      .set('Authorization', `Bearer ${currentUser.authToken}`);
   }
 
   beforeEach((done) => {

@@ -13,7 +13,6 @@ export function login(email, password) {
     }
 
     delete user.password;
-    delete user.authToken;
 
     return user;
   });
@@ -36,7 +35,6 @@ export function signUp(email, password) {
     }
 
     delete user.password;
-    delete user.authToken;
 
     return user;
   });

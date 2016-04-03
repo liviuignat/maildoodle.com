@@ -1,5 +1,5 @@
 import co from 'co';
-import {getUserBySessionToken, getUserByApiToken} from './modules/user/userRepository';
+import {getUserByAuthToken, getUserByApiToken} from './modules/user/userRepository';
 
 export function requestAuthToken(req, res, next) {
   const fromCookie = req.cookies.auth_token;
@@ -21,7 +21,7 @@ export function userFromAuthToken(req, res, next) {
       let user = null;
 
       if (authToken) {
-        user = yield getUserFromSession(req.authToken);
+        user = yield getUserFromAuthToken(req.authToken);
       }
 
       if (apiToken) {
@@ -49,8 +49,8 @@ export function requiredAuthenticated(req, res, next) {
   return next();
 }
 
-function getUserFromSession(sessionToken) {
-  return getUserBySessionToken(sessionToken);
+function getUserFromAuthToken(authToken) {
+  return getUserByAuthToken(authToken);
 }
 
 function getUserFromApiToken(apiToken) {
@@ -65,7 +65,6 @@ function getUserResponse(user) {
   const response = Object.assign({}, user);
 
   delete response.password;
-  delete response.authToken;
 
   return response;
 }
