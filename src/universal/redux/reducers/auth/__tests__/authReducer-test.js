@@ -3,24 +3,24 @@ import {reducer} from './../reducer';
 import * as actions from './../actions';
 
 describe('Auth Reducer tests', () => {
-  let currrentState = reducer();
+  let currentState = reducer();
 
   it('SHOULD set the initial state to have an empty user',
     () => expect(reducer().user).to.be.undefined);
 
-  describe('WHEN updateting user API access token', () => {
+  describe('WHEN updating user API access token', () => {
     let updateUser = {
       type: actions.REFRESH_API_ACCESS_TOKEN_USER
     }
     beforeEach(() => {
-      currrentState = reducer(currrentState, updateUser);
+      currentState = reducer(currentState, updateUser);
     });
 
     it('SHOULD have the update in progress flag set to true',
-      () => expect(currrentState.isRefreshingAPIAccessToken).to.equal(true));
+      () => expect(currentState.isRefreshingAPIAccessToken).to.equal(true));
 
     it('SHOULD have the error to nothing',
-      () => expect(currrentState.refreshAPIAccessTokenError).to.equal(''));
+      () => expect(currentState.refreshAPIAccessTokenError).to.equal(''));
   });
 
    describe('WHEN the user API access token has an error', () => {
@@ -30,52 +30,69 @@ describe('Auth Reducer tests', () => {
     };
 
     beforeEach(() => {
-      currrentState = reducer(currrentState, updateUser);
+      currentState = reducer(currentState, updateUser);
     });
 
     it('SHOULD have the update in progress flag set to false',
-      () => expect(currrentState.isRefreshingAPIAccessToken).to.equal(false));
+      () => expect(currentState.isRefreshingAPIAccessToken).to.equal(false));
 
     it('SHOULD have the error set to the correct message',
-      () => expect(currrentState.refreshAPIAccessTokenError).to.equal(updateUser.error));
+      () => expect(currentState.refreshAPIAccessTokenError).to.equal(updateUser.error));
   });
 
-  describe('WHEN updateting user', () => {
+  describe('WHEN updating user', () => {
     const updateUser = {
       type: actions.UPDATE_CURRENT_USER
     };
 
     beforeEach(() => {
-      currrentState = reducer(currrentState, updateUser);
+      currentState = reducer(currentState, updateUser);
     });
 
     it('SHOULD have the update in progress flag set to true',
-      () => expect(currrentState.isUpdatingUser).to.equal(true));
+      () => expect(currentState.isUpdatingUser).to.equal(true));
 
     it('SHOULD have the error flag set to false',
-      () => expect(currrentState.updateUserError).to.equal(''));
+      () => expect(currentState.updateUserError).to.equal(''));
 
   });
 
 
-  describe('WHEN updateting user returns error', () => {
+  describe('WHEN updating user returns error', () => {
     const updateUser = {
       type: actions.UPDATE_CURRENT_USER_FAIL,
       error: 'update did not work'
     };
 
     beforeEach(() => {
-      currrentState = reducer(currrentState, updateUser);
+      currentState = reducer(currentState, updateUser);
     });
 
     it('SHOULD have the update in progress flag set to false',
-      () => expect(currrentState.isUpdatingUser).to.equal(false));
+      () => expect(currentState.isUpdatingUser).to.equal(false));
 
     it('SHOULD have the error set to the correct message',
-      () => expect(currrentState.updateUserError).to.equal(updateUser.error));
+      () => expect(currentState.updateUserError).to.equal(updateUser.error));
   });
 
-  describe('WHEN updateting the user details is succesfull', () => {
+  describe('WHEN changing user password with success', () => {
+    const changePassword = {type: actions.CHANGE_USER_PASSWORD_SUCCESS};
+    beforeEach(() => {currentState = reducer(currentState, changePassword)});
+    it('SHOULD have isChangingPassword false',
+      () => expect(currentState.isChangingPassword).to.equal(false));
+  });
+
+  describe('WHEN changing user password with and fails', () => {
+    const changePassword = {
+      type: actions.CHANGE_USER_PASSWORD_FAIL,
+      error: 'error'
+    };
+    beforeEach(() => {currentState = reducer(currentState, changePassword)});
+    it('SHOULD have changePasswordError to have the correct value',
+      () => expect(currentState.changePasswordError).to.equal(changePassword.error));
+  });
+
+  describe('WHEN updating the user details is succesfull', () => {
     const updateUser = {
       type: actions.UPDATE_CURRENT_USER_SUCCESS,
       result: {
@@ -88,31 +105,31 @@ describe('Auth Reducer tests', () => {
     };
 
     beforeEach(() => {
-      currrentState = reducer(currrentState, updateUser);
+      currentState = reducer(currentState, updateUser);
     });
 
     it('SHOULD have the update in progress flag set to false',
-      () => expect(currrentState.isUpdatingUser).to.equal(false));
+      () => expect(currentState.isUpdatingUser).to.equal(false));
 
     it('SHOULD have the error set nothing',
-      () => expect(currrentState.updateUserError).to.equal(''));
+      () => expect(currentState.updateUserError).to.equal(''));
 
     it('SHOULD correct first name',
-      () => expect(currrentState.user.firstName).to.equal(updateUser.result.firstName));
+      () => expect(currentState.user.firstName).to.equal(updateUser.result.firstName));
 
     it('SHOULD correct last name',
-      () => expect(currrentState.user.lastName).to.equal(updateUser.result.lastName));
+      () => expect(currentState.user.lastName).to.equal(updateUser.result.lastName));
 
     it('SHOULD correct company name',
-      () => expect(currrentState.user.companyName).to.equal(updateUser.result.companyName));
+      () => expect(currentState.user.companyName).to.equal(updateUser.result.companyName));
 
     it('SHOULD correct email',
-      () => expect(currrentState.user.email).to.equal(updateUser.result.email));
+      () => expect(currentState.user.email).to.equal(updateUser.result.email));
 
     it('SHOULD correct company password',
-      () => expect(currrentState.user.password).to.equal(updateUser.result.password));
+      () => expect(currentState.user.password).to.equal(updateUser.result.password));
 
-    describe('WHEN updateting the user API access token is succesfull', () => {
+    describe('WHEN updating the user API access token is succesfull', () => {
       const updateUserApiToken = {
         type: actions.REFRESH_API_ACCESS_TOKEN_USER_SUCCESS,
         result: {
@@ -120,21 +137,21 @@ describe('Auth Reducer tests', () => {
         }
       };
 
-      beforeEach(() => currrentState = reducer(currrentState, updateUserApiToken));
+      beforeEach(() => currentState = reducer(currentState, updateUserApiToken));
 
       it('SHOULD update the token correctly',
-        () => expect(currrentState.user.apiAccessToken).to.equal(updateUserApiToken.result.apiAccessToken));
+        () => expect(currentState.user.apiAccessToken).to.equal(updateUserApiToken.result.apiAccessToken));
 
       it('SHOULD have the update in progress flag set to false',
-        () => expect(currrentState.isRefreshingAPIAccessToken).to.equal(false));
+        () => expect(currentState.isRefreshingAPIAccessToken).to.equal(false));
 
       it('SHOULD have the error set to nothing',
-        () => expect(currrentState.refreshAPIAccessTokenError).to.equal(''));
+        () => expect(currentState.refreshAPIAccessTokenError).to.equal(''));
 
       it('SHOULD maintain all other fields', () => {
-        expect(currrentState.user.firstName).to.equal(updateUser.result.firstName);
-        expect(currrentState.user.companyName).to.equal(updateUser.result.companyName);
-        expect(currrentState.user.lastName).to.equal(updateUser.result.lastName);
+        expect(currentState.user.firstName).to.equal(updateUser.result.firstName);
+        expect(currentState.user.companyName).to.equal(updateUser.result.companyName);
+        expect(currentState.user.lastName).to.equal(updateUser.result.lastName);
       });
     });
   });
@@ -145,15 +162,15 @@ describe('Auth Reducer tests', () => {
       type: actions.SIGN_UP,
     };
     beforeEach(() => {
-      currrentState = reducer(currrentState, signUp);
+      currentState = reducer(currentState, signUp);
     });
 
     it('SHOULD have signing up flag true', () => {
-      expect(currrentState.signingUp).to.equal(true);
+      expect(currentState.signingUp).to.equal(true);
     });
 
     it('SHOULD set error to empty', () => {
-      expect(currrentState.signUpError).to.equal('');
+      expect(currentState.signUpError).to.equal('');
     });
   });
 
@@ -164,15 +181,15 @@ describe('Auth Reducer tests', () => {
     };
 
     beforeEach(() => {
-      currrentState = reducer(currrentState, signUp);
+      currentState = reducer(currentState, signUp);
     });
 
     it('SHOULD set the error message', () => {
-      expect(currrentState.signUpError).to.equal(signUp.error);
+      expect(currentState.signUpError).to.equal(signUp.error);
     });
 
     it('SHOULD have signing up flag false', () => {
-      expect(currrentState.signingUp).to.equal(false);
+      expect(currentState.signingUp).to.equal(false);
     });
   });
 
@@ -185,22 +202,22 @@ describe('Auth Reducer tests', () => {
       }
     };
     beforeEach(() => {
-      currrentState = reducer(currrentState, signUp);
+      currentState = reducer(currentState, signUp);
     });
 
     it('SHOULD return the new user',
-      () => expect(currrentState.user).to.not.be.undefined);
+      () => expect(currentState.user).to.not.be.undefined);
 
     it('SHOULD set error to empty', () => {
-      expect(currrentState.signUpError).to.equal('');
+      expect(currentState.signUpError).to.equal('');
     });
 
     it('SHOULD have signingUp flag set to false', () => {
-      expect(currrentState.signingUp).to.equal(false);
+      expect(currentState.signingUp).to.equal(false);
     });
 
     it('SHOULD have the same email', () => {
-      expect(currrentState.user.email).to.equal(signUp.result.email);
+      expect(currentState.user.email).to.equal(signUp.result.email);
     });
   });
 });

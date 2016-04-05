@@ -54,6 +54,15 @@ export function match(field) {
   };
 }
 
+export function repeatPasswordValidation(passwordFieldName) {
+  return (value, formData) => {
+    const passwordValue = formData[passwordFieldName];
+    if (passwordValue && value !== passwordValue) {
+      return 'Please retype correct password.';
+    }
+  };
+}
+
 export function createValidator(rules) {
   return (data = {}) => {
     const errors = {};

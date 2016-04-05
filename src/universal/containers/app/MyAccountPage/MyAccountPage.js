@@ -6,29 +6,42 @@ import {
 } from 'universal/components';
 import {initialize} from 'redux-form';
 import {connect} from 'react-redux';
-import {updatePersonalInformationAction, refreshAPIAccessTokenAction} from 'universal/redux/reducers/auth';
+import {
+  updatePersonalInformationAction,
+  refreshAPIAccessTokenAction,
+  changePasswordAction
+} from 'universal/redux/reducers/auth';
 import PersonalInformationForm, {PERSONAL_INFORMATION_FORM_NAME} from './PersonalInformationForm';
 import RefreshAPIAccessTokenForm, {REFRESH_API_ACCESS_TOKEN_FORM_NAME} from './RefreshAPIAccessTokenForm';
+import ChangePasswordForm, {CHANGE_PASSWORD_FORM_NAME} from './ChangePasswordForm';
 
 @connect(
   state => ({
     user: state.auth.user,
     isUpdatingUser: state.auth.isUpdatingUser,
-    isRefreshingAPIAccessToken: state.auth.isRefreshingAPIAccessToken
+    isRefreshingAPIAccessToken: state.auth.isRefreshingAPIAccessToken,
+    isChangingPassword: state.auth.isChangingPassword,
+    changePasswordError: state.auth.changePasswordError,
+    changedPasswordSuccess: state.auth.changedPasswordSuccess
   }), {
     initialize,
     updatePersonalInformationAction,
-    refreshAPIAccessTokenAction
+    refreshAPIAccessTokenAction,
+    changePasswordAction
   })
 
 export default class MyAccountPage extends Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
     isUpdatingUser: PropTypes.bool.isRequired,
+    isChangingPassword: PropTypes.bool.isRequired,
+    changePasswordError: PropTypes.string.isRequired,
+    changedPasswordSuccess: PropTypes.bool.isRequired,
     isRefreshingAPIAccessToken: PropTypes.bool.isRequired,
     initialize: PropTypes.func.isRequired,
     updatePersonalInformationAction: PropTypes.func.isRequired,
-    refreshAPIAccessTokenAction: PropTypes.func.isRequired
+    refreshAPIAccessTokenAction: PropTypes.func.isRequired,
+    changePasswordAction: PropTypes.func.isRequired
   };
 
   constructor(props, context) {
@@ -47,6 +60,7 @@ export default class MyAccountPage extends Component {
 
     this.props.initialize(PERSONAL_INFORMATION_FORM_NAME, {firstName, lastName, companyName});
     this.props.initialize(REFRESH_API_ACCESS_TOKEN_FORM_NAME, {apiAccessToken});
+    this.props.initialize(CHANGE_PASSWORD_FORM_NAME, {});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -75,9 +89,21 @@ export default class MyAccountPage extends Component {
     this.refs.refreshConfirmDialog.show();
   }
 
+  changePassword(passwordInformation) {
+    const {user: {email}} = this.props;
+    const {oldPassword, newPassword} = passwordInformation;
+    this.props.changePasswordAction({email, oldPassword, newPassword});
+  }
+
   render() {
     const styles = require('./MyAccountPage.scss');
-    const {isUpdatingUser, isRefreshingAPIAccessToken} = this.props;
+    const {
+      isUpdatingUser,
+      isRefreshingAPIAccessToken,
+      isChangingPassword,
+      changePasswordError,
+      changedPasswordSuccess
+    } = this.props;
 
     return (
       <div className={styles.MyAccountPage}>
@@ -88,7 +114,7 @@ export default class MyAccountPage extends Component {
           text="Are you sure you want to refresh your API token? Your old token will not work anymore."
           onConfirm={::this.onRefreshConfirm}/>
 
-        <Paper className={styles.PersonalInformationSection}>
+        <Paper className={styles.PersonalInformation_section}>
           <h3>Personal Information</h3>
           <PersonalInformationForm
             isUpdatingUser={isUpdatingUser}
@@ -96,7 +122,17 @@ export default class MyAccountPage extends Component {
             />
         </Paper>
 
-        <Paper className={styles.RefreshApiTokenSection}>
+        <Paper className={styles.ChangePassword_section}>
+          <h3>Change password</h3>
+          <ChangePasswordForm
+            isChangingPassword={isChangingPassword}
+            changePasswordError={changePasswordError}
+            changedPasswordSuccess={changedPasswordSuccess}
+            onSubmit={::this.changePassword}
+            />
+        </Paper>
+
+        <Paper className={styles.RefreshApiToken_section}>
           <h3>Refresh API access token</h3>
           <RefreshAPIAccessTokenForm
             isRefreshingAPIAccessToken={isRefreshingAPIAccessToken}

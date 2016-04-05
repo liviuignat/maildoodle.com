@@ -5,11 +5,24 @@
   margin: 0 auto;
 }
 
-.PersonalInformationSection {
+.PersonalInformation_section {
   padding: 16px;
 }
 
-.RefreshApiTokenSection {
+.RefreshApiToken_section {
   padding: 16px;
   margin-top: 16px;
+}
+
+.ChangePassword_section {
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.ChangePassword_errorMessage {
+  @include error-message();
+}
+
+.ChangePassword_successMessage {
+  @include success-message();
 }
