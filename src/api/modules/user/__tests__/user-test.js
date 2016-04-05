@@ -3,35 +3,40 @@ import {expect} from 'chai';
 import {
   request,
   cleanup,
-  createUser
+  createUser,
+  loginRequest
 } from './../../../supertest';
 
 describe('userModule tests', () => {
   const that = {};
+  const email = 'liviu@ignat.email';
+  const password = 'password';
+  that.getUserDataRequest = (user) => request
+      .get('/api/user/me')
+      .set('Content-type', 'application/json')
+      .set('Authorization', `Bearer ${user.authToken}`);
+
+  that.updateUserDataRequest = (user) => request
+    .put('/api/user/me')
+    .set('Content-type', 'application/json')
+    .set('Authorization', `Bearer ${user.authToken}`)
+    .send(user);
+
+  that.updateUserPasswordRequest = (user, password) => request
+    .put('/api/user/me/password')
+    .set('Content-type', 'application/json')
+    .set('Authorization', `Bearer ${user.authToken}`)
+    .send({password});
 
   beforeEach((done) => {
     co(function*() {
       yield cleanup();
-      that.currentUser = yield createUser({
-        email: 'alina@mail.com',
-        password: 'password'
-      });
+      that.currentUser = yield createUser({email, password});
     }).then(done)
       .catch(done);
   });
 
   describe('WHEN requesting an update on the user\'s personal data', () => {
-    that.getUserDataRequest = (user) => request
-      .get('/api/user/me')
-      .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${user.authToken}`);
-
-    that.updateUserDataRequest = (user) => request
-      .put('/api/user/me')
-      .set('Content-type', 'application/json')
-      .set('Authorization', `Bearer ${user.authToken}`)
-      .send(user);
-
     it('SHOULD return status okay (200)',
       (done) => that.updateUserDataRequest(that.currentUser).expect(200).end(done));
 
@@ -43,7 +48,6 @@ describe('userModule tests', () => {
 
         that.updateUserDataRequest(that.currentUser).end((err,res) => {
           if(err) return done(err);
-
           that.updatedUser = res.body;
           done();
         });
@@ -65,7 +69,6 @@ describe('userModule tests', () => {
         beforeEach(done => {
           that.getUserDataRequest(that.currentUser).end((err,res) => {
             if(err) return done(err);
-
             that.updatedUserGet = res.body;
             done();
           });
@@ -74,6 +77,23 @@ describe('userModule tests', () => {
         it('SHOULD have the same user as the update response',
           () => expect(that.updatedUserGet).to.deep.equal(that.updatedUserGet));
       });
+    });
+  });
+
+  describe('WHEN requesting an update on the user\'s password', () => {
+    const newPassword = 'newUserPassword';
+
+    it('SHOULD return status okay (200)',
+      done => that.updateUserPasswordRequest(that.currentUser, newPassword).expect(200).end(done));
+
+    describe('WHEN the update password request is finished', () => {
+      beforeEach(done => that.updateUserPasswordRequest(that.currentUser, newPassword).end(done));
+
+      it('SHOULD not be able to login with the old password',
+        done => loginRequest(email, password).expect(400).end(done))
+
+      it('SHOULD be able to login with the new password',
+        done => loginRequest(email, newPassword).expect(200).end(done))
     });
   });
 
