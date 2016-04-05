@@ -8,7 +8,7 @@ export function login(email, password) {
       throw new Error('User does not exist.');
     }
 
-    if (!user.password === password) {
+    if (user.password !== password) {
       throw new Error('Incorrect password.');
     }
 

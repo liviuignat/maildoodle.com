@@ -6,7 +6,10 @@ const initialState = {
   loaded: false,
   isUpdatingUser: false,
   isRefreshingAPIAccessToken: false,
-  refreshAPIAccessTokenError: ''
+  refreshAPIAccessTokenError: '',
+  isChangingPassword: false,
+  changedPasswordSuccess: false,
+  changePasswordError: ''
 };
 
 export function reducer(state = initialState, action = {}) {
@@ -115,6 +118,41 @@ export function reducer(state = initialState, action = {}) {
     case actions.REFRESH_API_ACCESS_TOKEN_USER_FAIL:
     case actions.REFRESH_API_ACCESS_TOKEN_USER_SUCCESS:
       return refreshAccessTokenReducer(state, action);
+
+    case actions.CHANGE_USER_PASSWORD:
+    case actions.CHANGE_USER_PASSWORD_FAIL:
+    case actions.CHANGE_USER_PASSWORD_SUCCESS:
+      return changeUserPasswordReducer(state, action);
+
+    default:
+      return state;
+  }
+}
+
+function changeUserPasswordReducer(state, action) {
+  const immutable = fromJS(state);
+
+  switch (action.type) {
+    case actions.CHANGE_USER_PASSWORD:
+      return immutable
+        .set('isChangingPassword', true)
+        .set('changedPasswordSuccess', false)
+        .set('changePasswordError', '')
+        .toJSON();
+
+    case actions.CHANGE_USER_PASSWORD_FAIL:
+      return immutable
+        .set('isChangingPassword', false)
+        .set('changedPasswordSuccess', false)
+        .set('changePasswordError', action.error)
+        .toJSON();
+
+    case actions.CHANGE_USER_PASSWORD_SUCCESS:
+      return immutable
+        .set('isChangingPassword', false)
+        .set('changedPasswordSuccess', true)
+        .set('changePasswordError', '')
+        .toJSON();
 
     default:
       return state;

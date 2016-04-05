@@ -21,6 +21,11 @@ export function deleteMongoDb() {
   });
 }
 
+export const loginRequest = (email, password) => request
+  .post('/api/auth/login')
+  .set('Content-type', 'application/json')
+  .send({email, password});
+
 export function createUser(user) {
   const newAccount = user || {
     email: 'liviu@emaileditor.com',
@@ -44,6 +49,17 @@ export function createUser(user) {
           });
 
       });
+  });
+}
+
+export function loginUser(email, password) {
+  return new Promise((resolve, reject) => {
+    loginRequest(email, password).end((err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res.body);
+    });
   });
 }
 

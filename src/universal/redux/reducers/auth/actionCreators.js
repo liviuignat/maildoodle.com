@@ -135,3 +135,34 @@ export function refreshAPIAccessTokenAction() {
     promise: (client) => client.put('user/me/apiaccesstoken')
   };
 }
+
+export function changePasswordAction({email, oldPassword, newPassword}) {
+  const loginPayload = {
+    data: {
+      email,
+      password: md5(oldPassword)
+    }
+  };
+  const changePasswordPayload = {
+    data: {
+      password: md5(newPassword)
+    }
+  };
+
+  return {
+    types: [
+      actions.CHANGE_USER_PASSWORD,
+      actions.CHANGE_USER_PASSWORD_SUCCESS,
+      actions.CHANGE_USER_PASSWORD_FAIL
+    ],
+    promise: client => new Promise((resolve, reject) => {
+      client.post('/auth/login', loginPayload)
+        .then(() => {
+
+          client.put('user/me/password', changePasswordPayload)
+            .then(() => resolve())
+            .catch(() => reject('An error occured trying to change the password'));
+        }).catch(() => reject('Old password does not match'));
+    })
+  };
+}

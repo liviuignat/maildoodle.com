@@ -45,6 +45,14 @@ export function updateUserPersonalData(userId, updatedUserData) {
   });
 }
 
+export function updateUserPassword(userId, password) {
+  return co(function*() {
+    return yield User.update({
+      _id: userId
+    }, {password});
+  });
+}
+
 export function updateApiAccessToken(userId) {
   return co(function*() {
     const newApiAccessToken = md5(Date.now() + 10);
