@@ -16,12 +16,15 @@ import {
     NotFoundPage
   } from './containers';
 
+const REDIRECT_URL_LOGGED_IN = '/app/projects';
+const REDIRECT_URL_LOGGED_OUT = '/auth/login';
+
 export default (store) => {
   const requireLogin = (nextState, replaceState, cb) => {
     function checkAuth() {
       const { auth: { user }} = store.getState();
       if (!user) {
-        replaceState(null, '/auth/login');
+        replaceState(null, REDIRECT_URL_LOGGED_OUT);
       }
       cb();
     }
@@ -37,7 +40,7 @@ export default (store) => {
     function checkAuth() {
       const { auth: { user }} = store.getState();
       if (user) {
-        replaceState(null, '/app');
+        replaceState(null, REDIRECT_URL_LOGGED_IN);
       }
       cb();
     }
