@@ -26,7 +26,8 @@ export {
   Divider,
 
   IconButton,
-  FontIcon
+  FontIcon,
+  TextField
 } from 'material-ui';
 
 export SelectField from 'material-ui/lib/select-field';

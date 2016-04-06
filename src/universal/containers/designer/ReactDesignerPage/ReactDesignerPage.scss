@@ -1,0 +1,17 @@
+@import "../../../theme/variables.scss";
+
+.ReactDesignerPage_container {
+  display: flex;
+}
+
+.ReactDesignerPage_editor {
+  flex: 1;
+}
+
+.ReactDesignerPage_properties {
+  padding: 16px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.ReactDesignerPage_results {}

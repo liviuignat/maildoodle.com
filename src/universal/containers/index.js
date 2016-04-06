@@ -16,3 +16,5 @@ export LayoutDetailPage from './app/LayoutDetailPage/LayoutDetailPage';
 export TemplateDetailPage from './app/TemplateDetailPage/TemplateDetailPage';
 
 export MyAccountPage from './app/MyAccountPage/MyAccountPage';
+
+export ReactDesignerPage from './designer/ReactDesignerPage/ReactDesignerPage';

@@ -11,6 +11,7 @@ const environment = {
 
 module.exports = Object.assign({
   port: process.env.PORT,
+  componentProxyUrl: process.env.COMPONENT_PROXY_URL || 'http://localhost:4000/api/component',
   app: {
     title: 'maildoodle',
     description: 'Email templates for your software managed in cloud. Templating engine for emails stored in the cloud - edit, test and manage all your software business emails in one place.',

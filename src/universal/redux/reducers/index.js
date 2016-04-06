@@ -8,6 +8,7 @@ import {reducer as projects} from './projects';
 import {reducer as currentProject} from './currentProject';
 import {reducer as currentLayout} from './currentLayout';
 import {reducer as currentTemplate} from './currentTemplate';
+import {reducer as currentDesigner} from './currentDesigner';
 
 export default combineReducers({
   routing,
@@ -17,5 +18,6 @@ export default combineReducers({
   projects,
   currentProject,
   currentLayout,
-  currentTemplate
+  currentTemplate,
+  currentDesigner
 });

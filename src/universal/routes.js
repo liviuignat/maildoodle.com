@@ -13,7 +13,8 @@ import {
     LayoutDetailPage,
     TemplateDetailPage,
     MyAccountPage,
-    NotFoundPage
+    NotFoundPage,
+    ReactDesignerPage
   } from './containers';
 
 const REDIRECT_URL_LOGGED_IN = '/app/projects';
@@ -53,23 +54,25 @@ export default (store) => {
   };
 
   return (
-    <Route name="test" path="/" component={AppContainer}>
-      <IndexRoute name="test" component={HomePage} onEnter={requireNotLogin} />
-      <Route name="test" path="auth/login" component={LoginPage} onEnter={requireNotLogin} />
-      <Route name="test" path="auth/sign-up" component={SignUpPage} onEnter={requireNotLogin} />
-      <Route name="test" path="documentation" component={DocumentationPage} />
+    <Route path="/" component={AppContainer}>
+      <IndexRoute component={HomePage} onEnter={requireNotLogin} />
+      <Route path="auth/login" component={LoginPage} onEnter={requireNotLogin} />
+      <Route path="auth/sign-up" component={SignUpPage} onEnter={requireNotLogin} />
+      <Route path="documentation" component={DocumentationPage} />
 
-      <Route name="test" onEnter={requireLogin}>
-        <Route name="test" path="app" component={DashboardPage} />
-        <Route name="test" path="app/my-account" component={MyAccountPage}/>
+      <Route onEnter={requireLogin}>
+        <Route path="app" component={DashboardPage} />
+        <Route path="app/my-account" component={MyAccountPage}/>
 
-        <Route name="test" path="app/projects" component={ProjectListPage} />
-        <Route name="test" path="app/projects/:projectId" component={ProjectDetailPage} />
-        <Route name="test" path="app/projects/:projectId/layouts/:layoutId" component={LayoutDetailPage} />
-        <Route name="test" path="app/projects/:projectId/templates/:templateId" component={TemplateDetailPage} />
+        <Route path="app/projects" component={ProjectListPage} />
+        <Route path="app/projects/:projectId" component={ProjectDetailPage} />
+        <Route path="app/projects/:projectId/layouts/:layoutId" component={LayoutDetailPage} />
+        <Route path="app/projects/:projectId/templates/:templateId" component={TemplateDetailPage} />
+
+        <Route path="app/designer" component={ReactDesignerPage} />
       </Route>
 
-      <Route name="test" path="*" component={NotFoundPage} status={404} />
+      <Route path="*" component={NotFoundPage} status={404} />
     </Route>
   );
 };

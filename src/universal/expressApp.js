@@ -1,3 +1,4 @@
+import httpProxy from 'http-proxy';
 import Express from 'express';
 import path from 'path';
 import favicon from 'serve-favicon';
@@ -13,6 +14,7 @@ import createHistory from 'react-router/lib/createMemoryHistory';
 import {match} from 'react-router';
 import {Provider} from 'react-redux';
 
+import {componentProxyUrl} from 'config';
 import createStore from './redux/create';
 import getRoutes from './routes';
 import ApiClient from './helpers/ApiClient';
@@ -21,6 +23,18 @@ import * as middleware from 'api/middleware';
 
 const pretty = new PrettyError();
 const app = new Express();
+const proxy = httpProxy.createProxyServer({});
+proxy.on('error', (error, req, res) => {
+  if (error.code !== 'ECONNRESET') {
+    console.error('proxy error', error);
+  }
+  if (!res.headersSent) {
+    res.writeHead(500, {'content-type': 'application/json'});
+  }
+
+  const json = {error: 'proxy_error', reason: error.message};
+  res.end(JSON.stringify(json));
+});
 
 app.use(cookieParser());
 app.use(bodyParser.json());
