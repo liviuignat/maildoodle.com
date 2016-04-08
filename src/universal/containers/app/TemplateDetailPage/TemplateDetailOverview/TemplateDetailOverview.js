@@ -7,6 +7,7 @@ import {
   MenuItem,
   DialogForm
 } from 'universal/components';
+import {tryParse} from 'universal/helpers/json';
 import PromoteTemplateToProductionForm, {FORM_NAME} from './../template-detail-forms/PromoteTemplateToProductionForm';
 import TemplateVersionsList from './../TemplateVersionsList/TemplateVersionsList';
 
@@ -72,7 +73,7 @@ export default class TemplateDetailOverview extends Component {
     const {project, template, selectedLayout, selectedLanguage} = this.props;
     const {currentVersion} = this.props.template;
     const {sampleJson} = currentVersion;
-    const jsonString = JSON.stringify(JSON.parse(sampleJson));
+    const jsonString = JSON.stringify(tryParse({value: sampleJson}));
     const layoutId = selectedLayout.objectId;
     const lang = selectedLanguage.key;
 

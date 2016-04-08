@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import {tryParse} from 'universal/helpers/json';
 import {
   Paper,
   CodeEditor
@@ -28,7 +29,7 @@ export default class TemplateDetailHtmlEditor extends Component {
     const style = require('./TemplateApiDocumentation.scss');
     const {project, template} = this.props;
     const currentVersionJsonString = template.currentVersion.sampleJson;
-    const currentVersionJson = JSON.parse(currentVersionJsonString);
+    const currentVersionJson = tryParse({value: currentVersionJsonString});
     const exampleJson = JSON.stringify({
       layoutId: '[OPTIONAL LAYOUT ID]',
       versionId: '[OPTIONAL TEMPLATE ID]',
