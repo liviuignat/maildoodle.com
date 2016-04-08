@@ -73,7 +73,7 @@ export default class TemplateDetailOverview extends Component {
     const {project, template, selectedLayout, selectedLanguage} = this.props;
     const {currentVersion} = this.props.template;
     const {sampleJson} = currentVersion;
-    const jsonString = JSON.stringify(tryParse(sampleJson));
+    const jsonString = JSON.stringify(tryParse({value: sampleJson}));
     const layoutId = selectedLayout.objectId;
     const lang = selectedLanguage.key;
 

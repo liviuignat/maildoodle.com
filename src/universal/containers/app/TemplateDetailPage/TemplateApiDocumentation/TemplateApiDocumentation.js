@@ -29,7 +29,7 @@ export default class TemplateDetailHtmlEditor extends Component {
     const style = require('./TemplateApiDocumentation.scss');
     const {project, template} = this.props;
     const currentVersionJsonString = template.currentVersion.sampleJson;
-    const currentVersionJson = tryParse(currentVersionJsonString);
+    const currentVersionJson = tryParse({value: currentVersionJsonString});
     const exampleJson = JSON.stringify({
       layoutId: '[OPTIONAL LAYOUT ID]',
       versionId: '[OPTIONAL TEMPLATE ID]',
