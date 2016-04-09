@@ -51,6 +51,7 @@ export default class LayoutDetailPage extends Component {
   render() {
     const style = require('./LayoutDetailPage.scss');
     const {
+      params: {projectId},
       currentLayout: {
         isUpdatingLayout,
         updateLayoutError
@@ -63,6 +64,9 @@ export default class LayoutDetailPage extends Component {
         <Breadcrumbs style={{padding: '0 0 16px 0'}} links={[{
           text: `projects`,
           href: `/app/projects`
+        }, {
+          text: `project details`,
+          href: `/app/projects/${projectId}`
         }, {
           text: `layout details`
         }]}/>

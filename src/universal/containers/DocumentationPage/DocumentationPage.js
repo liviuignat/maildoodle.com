@@ -32,7 +32,7 @@ export default class DocumentationPage extends Component {
         <div className={style.TemplateApiDocumentation_sampleSubsection}>
           <div><b>Link:</b></div>
           <code>
-            {`[POST] /app/projects/:projectId/templates/:templateId/generate`}
+            {`[POST] /api/projects/:projectId/templates/:templateId/generate`}
           </code>
         </div>
         <div className={style.TemplateApiDocumentation_sampleSubsection}>

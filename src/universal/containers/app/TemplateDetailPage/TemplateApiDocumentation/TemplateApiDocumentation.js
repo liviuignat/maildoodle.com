@@ -58,7 +58,7 @@ export default class TemplateDetailHtmlEditor extends Component {
           <div className={style.TemplateApiDocumentation_sampleSubsection}>
             <div><b>Link:</b></div>
             <code>
-              {`[POST] /app/projects/:projectId/templates/:templateId/generate`}
+              {`[POST] /api/projects/:projectId/templates/:templateId/generate`}
             </code>
           </div>
           <div className={style.TemplateApiDocumentation_sampleSubsection}>
@@ -94,7 +94,7 @@ export default class TemplateDetailHtmlEditor extends Component {
           <div className={style.TemplateApiDocumentation_sampleSubsection}>
             <div><b>Link:</b></div>
             <code>
-              {`[POST] /app/projects/${project.objectId}/templates/${template.objectId}/generate`}
+              {`[POST] /api/projects/${project.objectId}/templates/${template.objectId}/generate`}
             </code>
           </div>
           <div className={style.TemplateApiDocumentation_sampleSubsection}>
