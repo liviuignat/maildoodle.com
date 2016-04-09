@@ -14,7 +14,6 @@ import createHistory from 'react-router/lib/createMemoryHistory';
 import {match} from 'react-router';
 import {Provider} from 'react-redux';
 
-import {componentProxyUrl} from 'config';
 import createStore from './redux/create';
 import getRoutes from './routes';
 import ApiClient from './helpers/ApiClient';

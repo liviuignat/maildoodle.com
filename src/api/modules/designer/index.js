@@ -1,6 +1,5 @@
 import superagent from 'superagent';
 import config from 'api/config';
-import {sendHttpError} from 'api/http';
 
 const URL = config.componentsApiUrl;
 
