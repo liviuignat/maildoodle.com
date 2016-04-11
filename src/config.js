@@ -34,8 +34,8 @@ module.exports = Object.assign({
       {property: 'og:locale', content: 'en_US'},
       {property: 'og:title', content: 'maildoodle'},
       {property: 'og:description', content: 'Email templates for your software managed in cloud. Templating engine for emails stored in the cloud - edit, test and manage all your software business emails in one place.'},
-      {property: 'og:image:width', content: '150'},
-      {property: 'og:image:height', content: '150'}
+      {property: 'og:image:width', content: '200'},
+      {property: 'og:image:height', content: '200'}
     ],
     link: [
       {rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico'},
