@@ -28,6 +28,7 @@ module.exports = Object.assign({
       {name: 'Content-Type', content: 'text/html; charset=utf-8'},
       {'http-equiv': 'X-UA-Compatible', content: 'IE=edge'},
       {name: 'apple-mobile-web-app-capable', content: 'yes'},
+      {name: 'fb:app_id', content: '532161856908809'},
       {property: 'og:site_name', content: 'maildoodle.com'},
       {property: 'og:image', content: 'http://maildoodle.com/images/logo144x144.png'},
       {property: 'og:locale', content: 'en_US'},
