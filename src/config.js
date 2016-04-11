@@ -29,15 +29,15 @@ module.exports = Object.assign({
       {'http-equiv': 'X-UA-Compatible', content: 'IE=edge'},
       {name: 'apple-mobile-web-app-capable', content: 'yes'},
       {property: 'og:site_name', content: 'maildoodle.com'},
-      {property: 'og:image', content: 'http://maildoodle.com/images/logo.png'},
+      {property: 'og:image', content: 'http://maildoodle.com/images/logo144x144.png'},
       {property: 'og:locale', content: 'en_US'},
       {property: 'og:title', content: 'maildoodle'},
       {property: 'og:description', content: 'Email templates for your software managed in cloud. Templating engine for emails stored in the cloud - edit, test and manage all your software business emails in one place.'},
       {property: 'og:card', content: 'summary'},
       {property: 'og:site', content: '@maildoodle'},
       {property: 'og:creator', content: '@maildoodle'},
-      {property: 'og:image:width', content: '200'},
-      {property: 'og:image:height', content: '200'}
+      {property: 'og:image:width', content: '50'},
+      {property: 'og:image:height', content: '50'}
     ],
     link: [
       {rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico'},
