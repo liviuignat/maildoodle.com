@@ -30,7 +30,7 @@ module.exports = Object.assign({
       {name: 'apple-mobile-web-app-capable', content: 'yes'},
       {name: 'fb:app_id', content: '532161856908809'},
       {property: 'og:site_name', content: 'maildoodle.com'},
-      {property: 'og:image', content: 'http://maildoodle.com/images/logo144x144.png'},
+      {property: 'og:image', content: 'http://maildoodle.com/images/logo600x600.png'},
       {property: 'og:locale', content: 'en_US'},
       {property: 'og:title', content: 'maildoodle'},
       {property: 'og:description', content: 'Email templates for your software managed in cloud. Templating engine for emails stored in the cloud - edit, test and manage all your software business emails in one place.'},
