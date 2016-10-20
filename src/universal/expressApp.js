@@ -2,6 +2,7 @@ import Express from 'express';
 import path from 'path';
 import favicon from 'serve-favicon';
 import compression from 'compression';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import PrettyError from 'pretty-error';
@@ -22,6 +23,7 @@ import * as middleware from 'api/middleware';
 const pretty = new PrettyError();
 const app = new Express();
 
+app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
