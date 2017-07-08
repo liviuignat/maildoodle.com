@@ -32,7 +32,7 @@
     "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\"",
     "test": "karma start",
     "test-node": "node ./node_modules/better-npm-run test-node",
-    "jest": "jest"
+    "jest": "jest --runInBand"
   },
   "betterScripts": {
     "start-prod": {

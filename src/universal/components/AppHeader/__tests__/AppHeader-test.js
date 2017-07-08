@@ -1,3 +1,5 @@
+describe('WHEN fake test', () => it('SHOULD true', expect(true).toBe(true)));
+
 // import React from 'react';
 // import * as ReactTestUtils from 'react-addons-test-utils';
 // import {Provider} from 'react-redux';
