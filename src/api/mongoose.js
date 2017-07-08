@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose';
+import mongoose from 'mongoose';
 
 const schemaSettings = {
   transform: function(doc, ret) {
@@ -8,7 +8,7 @@ const schemaSettings = {
   }
 };
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   email: { type: String, required: true, index: true },
   password: { type: String, required: true },
   firstName: { type: String },
@@ -20,12 +20,12 @@ const userSchema = new Schema({
   createdAt: { type: Date }
 });
 
-const languageSchema = new Schema({
+const languageSchema = new mongoose.Schema({
   key: { type: String },
   name: { type: String }
 });
 
-const layoutSchema = new Schema({
+const layoutSchema = new mongoose.Schema({
   name: { type: String },
   value: { type: String }
 });
@@ -35,19 +35,19 @@ const templateVersionSchemaBase = {
   sampleJson: { type: String },
   translations: [],
 };
-const templateVersionSchema = new Schema(Object.assign({}, templateVersionSchemaBase, {
+const templateVersionSchema = new mongoose.Schema(Object.assign({}, templateVersionSchemaBase, {
   templateId: { type: String, required: true, index: true },
   isProduction: { type: Boolean, required: true, index: true },
   commitMessage: { type: String, required: true, index: true },
   createdAt: { type: Date }
 }));
-const templateSchema = new Schema({
+const templateSchema = new mongoose.Schema({
   name: { type: String },
   description: { type: String },
   developmentVersion: templateVersionSchemaBase
 });
 
-const projectSchema = new Schema({
+const projectSchema = new mongoose.Schema({
   userId: { type: String, required: true, index: true },
   name: { type: String, required: true },
   description: { type: String },
@@ -90,7 +90,7 @@ export function toJson(entityOrArray) {
   return mapEntity(entityOrArray);
 }
 
-export const User = model('User', userSchema);
-export const Project = model('Project', projectSchema);
-export const Template = model('Template', templateSchema);
-export const TemplateVersion = model('TemplateVersion', templateVersionSchema);
+export const User = mongoose.model('User', userSchema);
+export const Project = mongoose.model('Project', projectSchema);
+export const Template = mongoose.model('Template', templateSchema);
+export const TemplateVersion = mongoose.model('TemplateVersion', templateVersionSchema);

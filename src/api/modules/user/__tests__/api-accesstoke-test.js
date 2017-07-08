@@ -1,5 +1,4 @@
 import co from 'co';
-import {expect} from 'chai';
 import {
   request,
   cleanup,
@@ -26,7 +25,7 @@ describe('WEHN api access token tests', () => {
   });
 
   it('SHOULD have the apiAccessToken in the user',
-    () => expect(that.currentUser.apiAccessToken).not.to.be.undefined);
+    () => expect(that.currentUser.apiAccessToken).toBeDefined());
 
   describe('WHEN requesting user data with a correct apiAccessToken', () => {
     it('SHOULD make the request with success',

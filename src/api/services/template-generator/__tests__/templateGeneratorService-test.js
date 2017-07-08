@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import {layouts, translations, versions} from './templateGeneratorService-mocks';
 import {getHtml} from './../templateGeneratorService';
 
@@ -24,7 +23,7 @@ describe('GIVEN a templateGeneratorService', () => {
     beforeEach(() => html = getHtml(options));
 
     it('should get the correct html',
-      () => expect(html).to.equal(expectation));
+      () => expect(html).toEqual(expectation));
   });
 
   describe('WHEN passing a version id as the second version', () => {
@@ -37,7 +36,7 @@ describe('GIVEN a templateGeneratorService', () => {
     beforeEach(() => html = getHtml(options));
 
     it('should use the second version and get the correct html',
-      () => expect(html).to.equal(expectation));
+      () => expect(html).toEqual(expectation));
   });
 
   describe('WHEN passing no versionId but the second version is production', () => {
@@ -49,7 +48,7 @@ describe('GIVEN a templateGeneratorService', () => {
     beforeEach(() => html = getHtml(options));
 
     it('should use the production version and get the correct html',
-      () => expect(html).to.equal(expectation));
+      () => expect(html).toEqual(expectation));
   });
 
   describe('WHEN passing a layout id as the second layout', () => {
@@ -62,7 +61,7 @@ describe('GIVEN a templateGeneratorService', () => {
     beforeEach(() => html = getHtml(options));
 
     it('should use the second version and get the correct html',
-      () => expect(html).to.equal(expectation));
+      () => expect(html).toEqual(expectation));
   });
 });
 

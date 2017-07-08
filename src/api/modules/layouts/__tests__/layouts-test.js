@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import {request, cleanup, createUser} from './../../../supertest';
 
 describe('GIVEN layoutModule tests', () => {
@@ -63,7 +62,7 @@ describe('GIVEN layoutModule tests', () => {
       });
 
       it('SHOULD contain the new layout', () => {
-        expect(createdLayout.name).to.equal(newLayout.name);
+        expect(createdLayout.name).toEqual(newLayout.name);
       });
 
       describe('WHEN updating the layout', () => {
@@ -87,7 +86,7 @@ describe('GIVEN layoutModule tests', () => {
 
           it('SHOULD have the layout updated', (done) => {
             getLayoutByIdRequest().end((err, res) => {
-              expect(res.body.name).to.equal(layoutUpdate.name);
+              expect(res.body.name).toEqual(layoutUpdate.name);
               done(err);
             });
           })
@@ -108,7 +107,7 @@ describe('GIVEN layoutModule tests', () => {
             if(err){
               return done(err);
             }
-            expect(response.body.length).to.equal(2);
+            expect(response.body.length).toEqual(2);
             return done();
           });
         });
@@ -124,7 +123,7 @@ describe('GIVEN layoutModule tests', () => {
               return  done(err);
             }
 
-            expect(response.body.name).to.equal(createdLayout.name);
+            expect(response.body.name).toEqual(createdLayout.name);
             return done();
           });
         });

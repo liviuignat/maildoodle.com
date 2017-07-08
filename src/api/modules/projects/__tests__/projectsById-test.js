@@ -1,5 +1,4 @@
 import co from 'co';
-import {expect} from 'chai';
 import {request, cleanup, createUser, createTemplate} from './../../../supertest';
 
 describe('projectModule tests', () => {
@@ -40,7 +39,7 @@ describe('projectModule tests', () => {
     });
 
     it('SHOULD make the request with success', () => {
-      expect(addedProject).to.not.be.undefined;
+      expect(addedProject).toBeDefined();
     });
 
     describe('WHEN getting the project by id', () => {
@@ -56,23 +55,23 @@ describe('projectModule tests', () => {
       });
 
       it('SHOULD make the request with success', () => {
-        expect(project).to.not.be.undefined;
+        expect(project).toBeDefined();
       });
 
       it('SHOULD contain the same name', () => {
-        expect(project.name).to.equal(newProject.name);
+        expect(project.name).toEqual(newProject.name);
       });
 
       it('SHOULD contain an empty email templates list', () => {
-        expect(project.templates).to.deep.equal([]);
+        expect(project.templates).toEqual([]);
       });
 
       it('SHOULD contain item in languages list', () => {
-        expect(project.languages.length).to.equal(1);
+        expect(project.languages.length).toEqual(1);
       });
 
       it('SHOULD contain one item layouts list', () => {
-        expect(project.layouts.length).to.equal(1);
+        expect(project.layouts.length).toEqual(1);
       });
     });
 
@@ -99,11 +98,11 @@ describe('projectModule tests', () => {
       });
 
       it('SHOULD have the template html on the developmentVersion property', () => {
-        expect(project.templates[0].developmentVersion).to.not.be.undefined;
+        expect(project.templates[0].developmentVersion).toBeDefined();
       });
 
       it('SHOULD contain the layout html', () => {
-        expect(project.layouts[0].value).to.not.be.undefined;
+        expect(project.layouts[0].value).toBeDefined();
       });
     });
   });

@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import {request, cleanup, createUser} from './../../../supertest';
 
 describe('projectModule tests', () => {
@@ -55,7 +54,7 @@ describe('projectModule tests', () => {
           if(err){
             return done(err);
           }
-          expect(response.body.length).to.equal(1);
+          expect(response.body.length).toEqual(1);
           done();
         });
       });
@@ -87,11 +86,11 @@ describe('projectModule tests', () => {
           });
 
           it('Should have the same name', () => {
-            expect(loadedProject.name).to.equal(addedProject.name);
+            expect(loadedProject.name).toEqual(addedProject.name);
           });
 
           it('Should have the same description', () => {
-            expect(loadedProject.description).to.equal(addedProject.description);
+            expect(loadedProject.description).toEqual(addedProject.description);
           });
         });
       });
@@ -115,7 +114,7 @@ describe('projectModule tests', () => {
               if(err){
                 return done(err);
               }
-              expect(response.body.length).to.equal(0);
+              expect(response.body.length).toEqual(0);
               done();
             });
           });
@@ -157,11 +156,11 @@ describe('projectModule tests', () => {
           });
 
           it('Should update the project description', () => {
-            expect(actualUpdatedProject.description).to.equal(updateValues.description);
+            expect(actualUpdatedProject.description).toEqual(updateValues.description);
           });
 
           it('Should update the project name', () => {
-            expect(actualUpdatedProject.name).to.equal(updateValues.name);
+            expect(actualUpdatedProject.name).toEqual(updateValues.name);
           });
         });
       });

@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import {reducer} from './../reducer';
 import * as actions from './../actions';
 
@@ -36,10 +35,10 @@ describe('GIVEN project detail reducer tests', () => {
       beforeEach(() => currrentState = reducer(currrentState, action));
 
       it('should have one template in the list',
-        () => expect(currrentState.project.templates.length).to.equal(1));
+        () => expect(currrentState.project.templates.length).toEqual(1));
 
       it('should have the correct template',
-        () => expect(currrentState.project.templates[0]).to.deep.equal(action.result.template));
+        () => expect(currrentState.project.templates[0]).toEqual(action.result.template));
 
       describe('WHEN updating a template with success', () => {
         let action = {
@@ -54,11 +53,11 @@ describe('GIVEN project detail reducer tests', () => {
         beforeEach(() => currrentState = reducer(currrentState, action));
 
         it('should have only one template in the list',
-          () => expect(currrentState.project.templates.length).to.equal(1));
+          () => expect(currrentState.project.templates.length).toEqual(1));
 
         it('should have the correct template name',
           () => expect(currrentState.project.templates[0].name)
-            .to.deep.equal(action.result.template.name));
+            .toEqual(action.result.template.name));
       });
 
       describe('WHEN deleting a template with success', () => {
@@ -72,7 +71,7 @@ describe('GIVEN project detail reducer tests', () => {
         beforeEach(() => currrentState = reducer(currrentState, action));
 
         it('should have no item in the list',
-          () => expect(currrentState.project.templates.length).to.equal(0));
+          () => expect(currrentState.project.templates.length).toEqual(0));
       });
     });
   });

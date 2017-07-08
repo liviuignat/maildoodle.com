@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import co from 'co';
 import {
   request,
@@ -106,7 +105,7 @@ describe('given we want to modify templates', () => {
       });
 
       it('templated should have the same name',
-        () => expect(firstAddedTemplate.name).to.equal(newTemplate.name));
+        () => expect(firstAddedTemplate.name).toEqual(newTemplate.name));
 
       describe('WHEN getting the template by id', () => {
         it('should make the request with success',
@@ -122,31 +121,31 @@ describe('given we want to modify templates', () => {
           }));
 
           it('should have an object id',
-            () => expect(retreivedTemplate.objectId).not.to.be.undefined);
+            () => expect(retreivedTemplate.objectId).toBeDefined());
 
           it('should have the correct name',
-            () => expect(retreivedTemplate.name).to.equal(newTemplate.name));
+            () => expect(retreivedTemplate.name).toEqual(newTemplate.name));
 
           it('should have the correct description',
-            () => expect(retreivedTemplate.description).to.equal(newTemplate.description));
+            () => expect(retreivedTemplate.description).toEqual(newTemplate.description));
 
           it('should have the one development version property`',
-            () => expect(retreivedTemplate.developmentVersion).not.to.be.undefined);
+            () => expect(retreivedTemplate.developmentVersion).toBeDefined());
 
           it('should have the default html development version `<div><%= model.title %><div>`',
-            () => expect(retreivedTemplate.developmentVersion.html).to.equal('<div><%= model.title %><div>'));
+            () => expect(retreivedTemplate.developmentVersion.html).toEqual('<div><%= model.title %><div>'));
 
           it('should have the sample json development version `{"title": "Welcome"}}`',
-            () => expect(retreivedTemplate.developmentVersion.sampleJson).to.equal('{"title": "Welcome"}'));
+            () => expect(retreivedTemplate.developmentVersion.sampleJson).toEqual('{"title": "Welcome"}'));
 
           it('should have the one template version in versions array`',
-            () => expect(retreivedTemplate.versions.length).to.equal(1));
+            () => expect(retreivedTemplate.versions.length).toEqual(1));
 
           it('should have the default html in the first version `<div><%= model.title %><div>`',
-            () => expect(retreivedTemplate.versions[0].html).to.equal('<div><%= model.title %><div>'));
+            () => expect(retreivedTemplate.versions[0].html).toEqual('<div><%= model.title %><div>'));
 
           it('should have the sample json in the first version `{"title": "Welcome"}}`',
-            () => expect(retreivedTemplate.versions[0].sampleJson).to.equal('{"title": "Welcome"}'));
+            () => expect(retreivedTemplate.versions[0].sampleJson).toEqual('{"title": "Welcome"}'));
         });
       });
 
@@ -172,10 +171,10 @@ describe('given we want to modify templates', () => {
           }));
 
           it('should have the updated dev version html',
-            () => expect(retreivedTemplate.developmentVersion.html).to.equal(devVersion.html));
+            () => expect(retreivedTemplate.developmentVersion.html).toEqual(devVersion.html));
 
           it('should have the updated dev version sample json',
-            () => expect(retreivedTemplate.developmentVersion.sampleJson).to.equal(devVersion.sampleJson));
+            () => expect(retreivedTemplate.developmentVersion.sampleJson).toEqual(devVersion.sampleJson));
         });
       });
 
@@ -202,19 +201,19 @@ describe('given we want to modify templates', () => {
           }));
 
           it('should have 2 versions',
-            () => expect(retreivedTemplate.versions.length).to.equal(2));
+            () => expect(retreivedTemplate.versions.length).toEqual(2));
 
           it('should have initial html in first version',
-            () => expect(retreivedTemplate.versions[0].html).to.equal('<div><%= model.title %><div>'));
+            () => expect(retreivedTemplate.versions[0].html).toEqual('<div><%= model.title %><div>'));
 
           it('should have `new version of html` in second version html',
-            () => expect(retreivedTemplate.versions[1].html).to.equal('new version of html'));
+            () => expect(retreivedTemplate.versions[1].html).toEqual('new version of html'));
 
           it('should have `new version json` in second version sample json',
-            () => expect(retreivedTemplate.versions[1].sampleJson).to.equal('new version json'));
+            () => expect(retreivedTemplate.versions[1].sampleJson).toEqual('new version json'));
 
           it('should have `new update to production` in second version commit message',
-            () => expect(retreivedTemplate.versions[1].commitMessage).to.equal('new update to production'));
+            () => expect(retreivedTemplate.versions[1].commitMessage).toEqual('new update to production'));
         });
       });
 
@@ -246,7 +245,7 @@ describe('given we want to modify templates', () => {
         }));
 
         it('should have 6 versions',
-          () => expect(retreivedTemplate.versions.length).to.equal(6));
+          () => expect(retreivedTemplate.versions.length).toEqual(6));
 
         describe('WHEN deleting the template', () => {
           let existingTemplateVersions = [];
@@ -262,14 +261,14 @@ describe('given we want to modify templates', () => {
           it('should not have the template in the list anymore', (done) => {
             getTemplatesByProjectId(currentUser, currentProject.objectId)
               .then((templates) => {
-                expect(templates.length).to.equal(0);
+                expect(templates.length).toEqual(0);
                 done();
               })
               .catch(done);
           });
 
           it('should not have any template version anymore',
-            () => expect(existingTemplateVersions.length).to.equal(0));
+            () => expect(existingTemplateVersions.length).toEqual(0));
         });
 
         describe('WHEN getting the 3d version', () => {
@@ -290,10 +289,10 @@ describe('given we want to modify templates', () => {
               }));
 
             it('should have correct html',
-              () => expect(requestTemplate.html).to.equal(version.html));
+              () => expect(requestTemplate.html).toEqual(version.html));
 
             it('should have correct sampleJson',
-              () => expect(requestTemplate.sampleJson).to.equal(version.sampleJson));
+              () => expect(requestTemplate.sampleJson).toEqual(version.sampleJson));
           });
         });
 
@@ -317,7 +316,7 @@ describe('given we want to modify templates', () => {
             }));
 
             it('should have production set to true',
-              () => expect(template.versions[2].isProduction).to.equal(true));
+              () => expect(template.versions[2].isProduction).toEqual(true));
 
             describe('WHEN the 4d version is promoted to production', () => {
               let version;
@@ -334,10 +333,10 @@ describe('given we want to modify templates', () => {
               }));
 
               it('should have the 3d version is production set to false',
-                () => expect(template.versions[2].isProduction).to.equal(false));
+                () => expect(template.versions[2].isProduction).toEqual(false));
 
               it('should have production set to true',
-                () => expect(template.versions[3].isProduction).to.equal(true));
+                () => expect(template.versions[3].isProduction).toEqual(true));
             });
           });
         });

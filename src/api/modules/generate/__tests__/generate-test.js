@@ -1,5 +1,4 @@
 import co from 'co';
-import {expect} from 'chai';
 import {
   request,
   cleanup,
@@ -61,7 +60,7 @@ describe('GIVEN we want generate a template from the API', () => {
           return done();
         }));
       it('should have the expected html template',
-        () => expect(that.returnedHtml).to.equal('<html> <head> </head> <body> <div>Hello<div> </body> </html>'));
+        () => expect(that.returnedHtml).toEqual('<html> <head> </head> <body> <div>Hello<div> </body> </html>'));
     });
   });
 
@@ -79,7 +78,7 @@ describe('GIVEN we want generate a template from the API', () => {
           return done();
         }));
       it('should have the expected html template',
-        () => expect(that.returnedHtml).to.equal('<html> <head> </head> <body> <div>Hello<div> </body> </html>'));
+        () => expect(that.returnedHtml).toEqual('<html> <head> </head> <body> <div>Hello<div> </body> </html>'));
     });
   });
 });

@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import {reducer} from './../reducer';
 import * as actions from './../actions';
 
@@ -6,7 +5,7 @@ describe('Projects Reducer tests', () => {
   let currrentState = reducer();
 
   it('Initial state should have an empty list', () => {
-    expect(reducer().list).to.deep.equal([]);
+    expect(reducer().list).toEqual([]);
   });
 
   describe('When successfuly loading projects', () => {
@@ -23,7 +22,7 @@ describe('Projects Reducer tests', () => {
     });
 
     it('Should have that project in the list', () => {
-      expect(currrentState.list).to.deep.equal(loadAction.result);
+      expect(currrentState.list).toEqual(loadAction.result);
     });
 
     describe('When successfuly adding a project', () => {
@@ -40,12 +39,12 @@ describe('Projects Reducer tests', () => {
       });
 
       it('Should have 2 items', () => {
-        expect(currrentState.list.length).to.equal(2);
+        expect(currrentState.list.length).toEqual(2);
       });
 
       it('Should have that project in the list', () => {
         const project = currrentState.list[1];
-        expect(project).to.deep.equal(addAction.result);
+        expect(project).toEqual(addAction.result);
       });
 
       describe('When successfuly updating the first project', () => {
@@ -62,12 +61,12 @@ describe('Projects Reducer tests', () => {
         });
 
         it('Should have 2 items', () => {
-          expect(currrentState.list.length).to.equal(2);
+          expect(currrentState.list.length).toEqual(2);
         });
 
         it('Should have the updated values', () => {
           const project = currrentState.list[0];
-          expect(project).to.deep.equal(updateAction.result);
+          expect(project).toEqual(updateAction.result);
         });
       });
 
@@ -85,12 +84,12 @@ describe('Projects Reducer tests', () => {
         });
 
         it('Should have 2 items', () => {
-          expect(currrentState.list.length).to.equal(2);
+          expect(currrentState.list.length).toEqual(2);
         });
 
         it('Should have the updated values', () => {
           const project = currrentState.list[1];
-          expect(project).to.deep.equal(updateAction.result);
+          expect(project).toEqual(updateAction.result);
         });
       });
 
@@ -108,12 +107,12 @@ describe('Projects Reducer tests', () => {
         });
 
         it('Should have 2 items', () => {
-          expect(currrentState.list.length).to.equal(2);
+          expect(currrentState.list.length).toEqual(2);
         });
 
         it('Should NOT have the updated values', () => {
           const project = currrentState.list[1];
-          expect(project).to.not.deep.equal(updateAction.result);
+          expect(project).not.toEqual(updateAction.result);
         });
       });
 
@@ -130,12 +129,12 @@ describe('Projects Reducer tests', () => {
         });
 
         it('Should have 1 item', () => {
-          expect(currrentState.list.length).to.equal(1);
+          expect(currrentState.list.length).toEqual(1);
         });
 
         it('Should still have the first item', () => {
           const project = currrentState.list[0];
-          expect(project.objectId).to.deep.equal('iodas');
+          expect(project.objectId).toEqual('iodas');
         });
       });
 
@@ -152,7 +151,7 @@ describe('Projects Reducer tests', () => {
         });
 
         it('Should have 2 items', () => {
-          expect(currrentState.list.length).to.equal(2);
+          expect(currrentState.list.length).toEqual(2);
         });
       });
     });

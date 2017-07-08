@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import {reducer} from './../reducer';
 import * as actions from './../actions';
 
@@ -6,7 +5,7 @@ describe('Auth Reducer tests', () => {
   let currentState = reducer();
 
   it('SHOULD set the initial state to have an empty user',
-    () => expect(reducer().user).to.be.undefined);
+    () => expect(reducer().user).toBeUndefined());
 
   describe('WHEN updating user API access token', () => {
     let updateUser = {
@@ -17,10 +16,10 @@ describe('Auth Reducer tests', () => {
     });
 
     it('SHOULD have the update in progress flag set to true',
-      () => expect(currentState.isRefreshingAPIAccessToken).to.equal(true));
+      () => expect(currentState.isRefreshingAPIAccessToken).toEqual(true));
 
     it('SHOULD have the error to nothing',
-      () => expect(currentState.refreshAPIAccessTokenError).to.equal(''));
+      () => expect(currentState.refreshAPIAccessTokenError).toEqual(''));
   });
 
    describe('WHEN the user API access token has an error', () => {
@@ -34,10 +33,10 @@ describe('Auth Reducer tests', () => {
     });
 
     it('SHOULD have the update in progress flag set to false',
-      () => expect(currentState.isRefreshingAPIAccessToken).to.equal(false));
+      () => expect(currentState.isRefreshingAPIAccessToken).toEqual(false));
 
     it('SHOULD have the error set to the correct message',
-      () => expect(currentState.refreshAPIAccessTokenError).to.equal(updateUser.error));
+      () => expect(currentState.refreshAPIAccessTokenError).toEqual(updateUser.error));
   });
 
   describe('WHEN updating user', () => {
@@ -50,10 +49,10 @@ describe('Auth Reducer tests', () => {
     });
 
     it('SHOULD have the update in progress flag set to true',
-      () => expect(currentState.isUpdatingUser).to.equal(true));
+      () => expect(currentState.isUpdatingUser).toEqual(true));
 
     it('SHOULD have the error flag set to false',
-      () => expect(currentState.updateUserError).to.equal(''));
+      () => expect(currentState.updateUserError).toEqual(''));
 
   });
 
@@ -69,17 +68,17 @@ describe('Auth Reducer tests', () => {
     });
 
     it('SHOULD have the update in progress flag set to false',
-      () => expect(currentState.isUpdatingUser).to.equal(false));
+      () => expect(currentState.isUpdatingUser).toEqual(false));
 
     it('SHOULD have the error set to the correct message',
-      () => expect(currentState.updateUserError).to.equal(updateUser.error));
+      () => expect(currentState.updateUserError).toEqual(updateUser.error));
   });
 
   describe('WHEN changing user password with success', () => {
     const changePassword = {type: actions.CHANGE_USER_PASSWORD_SUCCESS};
     beforeEach(() => {currentState = reducer(currentState, changePassword)});
     it('SHOULD have isChangingPassword false',
-      () => expect(currentState.isChangingPassword).to.equal(false));
+      () => expect(currentState.isChangingPassword).toEqual(false));
   });
 
   describe('WHEN changing user password with and fails', () => {
@@ -89,7 +88,7 @@ describe('Auth Reducer tests', () => {
     };
     beforeEach(() => {currentState = reducer(currentState, changePassword)});
     it('SHOULD have changePasswordError to have the correct value',
-      () => expect(currentState.changePasswordError).to.equal(changePassword.error));
+      () => expect(currentState.changePasswordError).toEqual(changePassword.error));
   });
 
   describe('WHEN updating the user details is succesfull', () => {
@@ -109,25 +108,25 @@ describe('Auth Reducer tests', () => {
     });
 
     it('SHOULD have the update in progress flag set to false',
-      () => expect(currentState.isUpdatingUser).to.equal(false));
+      () => expect(currentState.isUpdatingUser).toEqual(false));
 
     it('SHOULD have the error set nothing',
-      () => expect(currentState.updateUserError).to.equal(''));
+      () => expect(currentState.updateUserError).toEqual(''));
 
     it('SHOULD correct first name',
-      () => expect(currentState.user.firstName).to.equal(updateUser.result.firstName));
+      () => expect(currentState.user.firstName).toEqual(updateUser.result.firstName));
 
     it('SHOULD correct last name',
-      () => expect(currentState.user.lastName).to.equal(updateUser.result.lastName));
+      () => expect(currentState.user.lastName).toEqual(updateUser.result.lastName));
 
     it('SHOULD correct company name',
-      () => expect(currentState.user.companyName).to.equal(updateUser.result.companyName));
+      () => expect(currentState.user.companyName).toEqual(updateUser.result.companyName));
 
     it('SHOULD correct email',
-      () => expect(currentState.user.email).to.equal(updateUser.result.email));
+      () => expect(currentState.user.email).toEqual(updateUser.result.email));
 
     it('SHOULD correct company password',
-      () => expect(currentState.user.password).to.equal(updateUser.result.password));
+      () => expect(currentState.user.password).toEqual(updateUser.result.password));
 
     describe('WHEN updating the user API access token is succesfull', () => {
       const updateUserApiToken = {
@@ -140,18 +139,18 @@ describe('Auth Reducer tests', () => {
       beforeEach(() => currentState = reducer(currentState, updateUserApiToken));
 
       it('SHOULD update the token correctly',
-        () => expect(currentState.user.apiAccessToken).to.equal(updateUserApiToken.result.apiAccessToken));
+        () => expect(currentState.user.apiAccessToken).toEqual(updateUserApiToken.result.apiAccessToken));
 
       it('SHOULD have the update in progress flag set to false',
-        () => expect(currentState.isRefreshingAPIAccessToken).to.equal(false));
+        () => expect(currentState.isRefreshingAPIAccessToken).toEqual(false));
 
       it('SHOULD have the error set to nothing',
-        () => expect(currentState.refreshAPIAccessTokenError).to.equal(''));
+        () => expect(currentState.refreshAPIAccessTokenError).toEqual(''));
 
       it('SHOULD maintain all other fields', () => {
-        expect(currentState.user.firstName).to.equal(updateUser.result.firstName);
-        expect(currentState.user.companyName).to.equal(updateUser.result.companyName);
-        expect(currentState.user.lastName).to.equal(updateUser.result.lastName);
+        expect(currentState.user.firstName).toEqual(updateUser.result.firstName);
+        expect(currentState.user.companyName).toEqual(updateUser.result.companyName);
+        expect(currentState.user.lastName).toEqual(updateUser.result.lastName);
       });
     });
   });
@@ -166,11 +165,11 @@ describe('Auth Reducer tests', () => {
     });
 
     it('SHOULD have signing up flag true', () => {
-      expect(currentState.signingUp).to.equal(true);
+      expect(currentState.signingUp).toEqual(true);
     });
 
     it('SHOULD set error to empty', () => {
-      expect(currentState.signUpError).to.equal('');
+      expect(currentState.signUpError).toEqual('');
     });
   });
 
@@ -185,11 +184,11 @@ describe('Auth Reducer tests', () => {
     });
 
     it('SHOULD set the error message', () => {
-      expect(currentState.signUpError).to.equal(signUp.error);
+      expect(currentState.signUpError).toEqual(signUp.error);
     });
 
     it('SHOULD have signing up flag false', () => {
-      expect(currentState.signingUp).to.equal(false);
+      expect(currentState.signingUp).toEqual(false);
     });
   });
 
@@ -206,18 +205,18 @@ describe('Auth Reducer tests', () => {
     });
 
     it('SHOULD return the new user',
-      () => expect(currentState.user).to.not.be.undefined);
+      () => expect(currentState.user).toBeDefined());
 
     it('SHOULD set error to empty', () => {
-      expect(currentState.signUpError).to.equal('');
+      expect(currentState.signUpError).toEqual('');
     });
 
     it('SHOULD have signingUp flag set to false', () => {
-      expect(currentState.signingUp).to.equal(false);
+      expect(currentState.signingUp).toEqual(false);
     });
 
     it('SHOULD have the same email', () => {
-      expect(currentState.user.email).to.equal(signUp.result.email);
+      expect(currentState.user.email).toEqual(signUp.result.email);
     });
   });
 });
