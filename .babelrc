@@ -1,26 +1,29 @@
 {
-  "stage": 0,
-  "optional": "runtime",
-  "loose": "all",
+  "presets": ["react", "es2015", "stage-0"],
+
   "plugins": [
-    "typecheck"
+    "react-hot-loader/babel",
+    "transform-runtime",
+    "add-module-exports",
+    "syntax-async-functions",
+    "transform-regenerator",
+    "transform-decorators-legacy",
+    "transform-react-display-name",
+    "transform-proto-to-assign",
+    "transform-flow-strip-types"
   ],
+
   "env": {
     "development": {
       "plugins": [
-        "react-transform"
-      ],
-      "extra": {
-        "react-transform": {
-          "transforms": [{
-            "transform": "react-transform-catch-errors",
-            "imports": [
-              "react",
-              "redbox-react"
+        ["react-transform", {
+            "transforms": [{
+                "transform": "react-transform-catch-errors",
+                "imports": ["react", "redbox-react"]
+              }
             ]
-          }]
-        }
-      }
+        }]
+      ]
     }
   }
 }

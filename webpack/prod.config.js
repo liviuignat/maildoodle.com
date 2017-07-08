@@ -1,5 +1,5 @@
 // Webpack config for creating the production bundle.
-require('babel-core/polyfill');
+require('babel-polyfill');
 var path = require('path');
 var webpack = require('webpack');
 var CleanPlugin = require('clean-webpack-plugin');
@@ -77,12 +77,11 @@ module.exports = {
     // optimizations
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-          warnings: false
-        }
-    }),
-
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //       warnings: false
+    //     }
+    // }),
     webpackIsomorphicToolsPlugin
   ]
 };

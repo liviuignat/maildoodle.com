@@ -1,4 +1,5 @@
 import Express from 'express';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import path from 'path';
 import favicon from 'serve-favicon';
 import compression from 'compression';
@@ -18,6 +19,8 @@ import getRoutes from './routes';
 import ApiClient from './helpers/ApiClient';
 import Html from './helpers/Html';
 import * as middleware from 'api/middleware';
+
+injectTapEventPlugin();
 
 const pretty = new PrettyError();
 const app = new Express();
