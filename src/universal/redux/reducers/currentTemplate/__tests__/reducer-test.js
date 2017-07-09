@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import {reducer} from './../reducer';
 import * as actions from './../actions';
 
@@ -23,14 +22,14 @@ describe('GIVEN template detail reducer tests', () => {
   };
 
   it('initial state should a null template',
-    () => expect(reducer().template).to.deep.equal(null));
+    () => expect(reducer().template).toEqual(null));
 
   describe('WHEN starting to load a template', () => {
     let action = { type: actions.LOAD_TEMPLATE_DETAIL };
     beforeEach(() => currentState = reducer(currentState, action));
 
     it('should be loading the template',
-      () => expect(currentState.loadingTemplate).to.equal(true));
+      () => expect(currentState.loadingTemplate).toEqual(true));
 
     describe('WHEN loaded template with success', () => {
       let action = {
@@ -40,16 +39,16 @@ describe('GIVEN template detail reducer tests', () => {
       beforeEach(() => currentState = reducer(currentState, action));
 
       it('should not be loading the template',
-        () => expect(currentState.loadingTemplate).to.equal(false));
+        () => expect(currentState.loadingTemplate).toEqual(false));
 
       it('should have a template',
-        () => expect(currentState.template).not.to.equal(null));
+        () => expect(currentState.template).not.toEqual(null));
 
       it('should the current version as the developmentVersion', () => {
         const expectation = Object.assign({}, currentState.template.developmentVersion, {
           isDevelopment: true
         });
-        expect(currentState.template.currentVersion).to.deep.equal(expectation);
+        expect(currentState.template.currentVersion).toEqual(expectation);
       });
 
       describe('WHEN updated development version html and sampleJSon with success', () => {
@@ -70,14 +69,14 @@ describe('GIVEN template detail reducer tests', () => {
           const expectation = Object.assign({}, currentState.template.developmentVersion, {
             isDevelopment: true
           });
-          expect(currentState.template.currentVersion).to.deep.equal(expectation);
+          expect(currentState.template.currentVersion).toEqual(expectation);
         });
 
         it('should have the new html',
-          () => expect(currentState.template.developmentVersion.html).to.equal(newVersion.html));
+          () => expect(currentState.template.developmentVersion.html).toEqual(newVersion.html));
 
         it('should have the new sample json',
-          () => expect(currentState.template.developmentVersion.sampleJson).to.equal(newVersion.sampleJson));
+          () => expect(currentState.template.developmentVersion.sampleJson).toEqual(newVersion.sampleJson));
 
         describe('WHEN promoting the development version to production versions with success', () => {
           let action = {
@@ -96,13 +95,13 @@ describe('GIVEN template detail reducer tests', () => {
           beforeEach(() => currentState = reducer(currentState, action));
 
           it('should have 2 versions',
-            () => expect(currentState.template.versions.length).to.equal(2));
+            () => expect(currentState.template.versions.length).toEqual(2));
 
           it('should have the dev version html',
-            () => expect(currentState.template.versions[0].html).to.equal(action.result.html));
+            () => expect(currentState.template.versions[0].html).toEqual(action.result.html));
 
           it('should have the dev version of json',
-            () => expect(currentState.template.versions[0].sampleJson).to.equal(action.result.sampleJson));
+            () => expect(currentState.template.versions[0].sampleJson).toEqual(action.result.sampleJson));
 
           describe('WHEN willing to view the second version', () => {
             let action = {
@@ -115,13 +114,13 @@ describe('GIVEN template detail reducer tests', () => {
             beforeEach(() => currentState = reducer(currentState, action));
 
             it('should have currentVersion html from the second version',
-              () => expect(currentState.template.currentVersion.html).to.equal(currentState.template.versions[1].html));
+              () => expect(currentState.template.currentVersion.html).toEqual(currentState.template.versions[1].html));
 
             it('should have currentVersion sampleJson from the second version',
-              () => expect(currentState.template.currentVersion.html).to.equal(currentState.template.versions[1].html));
+              () => expect(currentState.template.currentVersion.html).toEqual(currentState.template.versions[1].html));
 
             it('should have currentVersion isDevelopment to false',
-              () => expect(currentState.template.currentVersion.isDevelopment).to.equal(false));
+              () => expect(currentState.template.currentVersion.isDevelopment).toEqual(false));
           });
 
           describe('WHEN changing the production version to the second initial version', () => {
@@ -135,10 +134,10 @@ describe('GIVEN template detail reducer tests', () => {
             beforeEach(() => currentState = reducer(currentState, action));
 
             it('should have the id of "567c2e24464efd1c0770uyiedhas"',
-              () => expect(currentState.template.versions[1].objectId).to.equal('567c2e24464efd1c0770uyiedhas'));
+              () => expect(currentState.template.versions[1].objectId).toEqual('567c2e24464efd1c0770uyiedhas'));
 
             it('should have the first version marked as production',
-              () => expect(currentState.template.versions[1].isProduction).to.equal(true));
+              () => expect(currentState.template.versions[1].isProduction).toEqual(true));
           });
         });
       });

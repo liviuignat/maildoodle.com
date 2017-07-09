@@ -8,14 +8,14 @@ import {
   getProjectDetailByIdAction,
   selectPreviewLanguage,
   selectPreviewLayout
-} from 'universal/redux/reducers/currentProject';
+} from 'universal/redux/reducers/currentProject/actionCreators';
 import {
   getTemplateDetailByIdAction,
   updateTemplateDevelopmentVersion,
   promoteTemplateToProductionVersion,
   loadTemplateVersion,
   changeProductionVersion
-} from 'universal/redux/reducers/currentTemplate';
+} from 'universal/redux/reducers/currentTemplate/actionCreators';
 import {Paper, Tabs, Tab, Breadcrumbs} from 'universal/components';
 import TemplateDetailOverview from './TemplateDetailOverview/TemplateDetailOverview';
 import TemplateApiDocumentation from './TemplateApiDocumentation/TemplateApiDocumentation';

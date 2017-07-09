@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import {request, cleanup} from './../../../supertest';
 
 describe('authModule tests', () => {
@@ -50,7 +49,7 @@ describe('authModule tests', () => {
 
 
         it('SHOULD create an initial API key',
-          () => expect(newUser.apiAccessToken).not.to.be.undefined);
+          () => expect(newUser.apiAccessToken).toBeDefined());
 
         describe('WHEN trying to login', () => {
           it('SHOULD login successfully', (done) => {

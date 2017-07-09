@@ -7,7 +7,7 @@ import {Paper, Breadcrumbs} from 'universal/components';
 import {
   getLayoutDetailsAction,
   updateLayoutDetailsAction
-} from 'universal/redux/reducers/currentLayout';
+} from 'universal/redux/reducers/currentLayout/actionCreators';
 import LayoutDetailForm, {LAYOUT_DETAIL_FORM} from './layout-detail-forms/LayoutDetailForm';
 
 @asyncConnect([{

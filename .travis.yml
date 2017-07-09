@@ -1,16 +1,14 @@
 language: node_js
 node_js:
-  - "v5.7.1"
+  - "v6.10.0"
 
 services:
   - mongodb
 
 before_script:
-  - "npm install -g webpack eslint karma"
-  - "npm install"
+  - "yarn install"
 
 script:
   - sleep 5
-  - "make test FILE=./src/api/**/__tests__/*-test.js"
-  - "npm run test"
-  - "npm run lint"
+  - "yarn run lint"
+  - "yarn run test"

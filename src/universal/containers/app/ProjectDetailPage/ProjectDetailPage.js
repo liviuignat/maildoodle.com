@@ -13,7 +13,7 @@ import {
   insertLayoutAction,
   updateLayoutAction,
   deleteLayoutAction
-} from 'universal/redux/reducers/currentProject';
+} from 'universal/redux/reducers/currentProject/actionCreators';
 import {GenericList, Breadcrumbs} from 'universal/components';
 import TemplatesList from './TemplatesList';
 import LayoutsList from './LayoutsList';

@@ -1,5 +1,4 @@
 import co from 'co';
-import {expect} from 'chai';
 import {
   request,
   cleanup,
@@ -54,16 +53,16 @@ describe('userModule tests', () => {
       });
 
       it('SHOULD contain objectId',
-        () => expect(that.updatedUser.objectId).to.not.be.undefined);
+        () => expect(that.updatedUser.objectId).toBeDefined());
 
       it('SHOULD update the user first name',
-        () => expect(that.updatedUser.firstName).to.equal('Alina'));
+        () => expect(that.updatedUser.firstName).toEqual('Alina'));
 
       it('SHOULD update the user last name',
-        () => expect(that.updatedUser.lastName).to.equal('Ignat'));
+        () => expect(that.updatedUser.lastName).toEqual('Ignat'));
 
       it('SHOULD update the user company name',
-        () => expect(that.updatedUser.companyName).to.equal('gogule'));
+        () => expect(that.updatedUser.companyName).toEqual('gogule'));
 
       describe('WHEN getting the user by id', () => {
         beforeEach(done => {
@@ -75,7 +74,7 @@ describe('userModule tests', () => {
         });
 
         it('SHOULD have the same user as the update response',
-          () => expect(that.updatedUserGet).to.deep.equal(that.updatedUserGet));
+          () => expect(that.updatedUserGet).toEqual(that.updatedUserGet));
       });
     });
   });
@@ -114,15 +113,15 @@ describe('userModule tests', () => {
       }));
 
       it('SHOULD have a user in the update response', () => {
-        expect(that.updatedUser).not.to.be.undefined;
-        expect(that.updatedUser).not.to.equal(null);
+        expect(that.updatedUser).toBeDefined();
+        expect(that.updatedUser).not.toEqual(null);
       });
 
       it('SHOULD have an existing access token',
-        () => expect(that.updatedUser.apiAccessToken).not.to.be.undefined);
+        () => expect(that.updatedUser.apiAccessToken).toBeDefined());
 
       it('SHOULD have a new api access',
-        () => expect(that.updatedUser.apiAccessToken).not.to.equal(that.currentUser.apiAccessToken));
+        () => expect(that.updatedUser.apiAccessToken).not.toEqual(that.currentUser.apiAccessToken));
     });
   });
 });

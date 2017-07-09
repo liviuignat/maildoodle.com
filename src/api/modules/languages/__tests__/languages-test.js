@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import {request, cleanup, createUser} from './../../../supertest';
 
 describe('languageModule tests', () => {
@@ -63,7 +62,7 @@ describe('languageModule tests', () => {
       });
 
       it('Should contain the new language', () => {
-        expect(createdLanguage.key).to.equal(newLanguage.key);
+        expect(createdLanguage.key).toEqual(newLanguage.key);
       });
 
       describe('When updating the language', () => {
@@ -87,7 +86,7 @@ describe('languageModule tests', () => {
 
           it('Should have the language updated', (done) => {
             getLanguageByIdRequest().end((err, res) => {
-              expect(res.body.key).to.equal(languageUpdate.key);
+              expect(res.body.key).toEqual(languageUpdate.key);
               done(err);
             });
           })
@@ -108,7 +107,7 @@ describe('languageModule tests', () => {
             if(err){
               return done(err);
             }
-            expect(response.body.length).to.equal(2);
+            expect(response.body.length).toEqual(2);
             return done();
           });
         });
@@ -124,7 +123,7 @@ describe('languageModule tests', () => {
               return  done(err);
             }
 
-            expect(response.body.key).to.equal(createdLanguage.key);
+            expect(response.body.key).toEqual(createdLanguage.key);
             return done();
           });
         });

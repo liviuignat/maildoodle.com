@@ -10,7 +10,7 @@ import {
   updatePersonalInformationAction,
   refreshAPIAccessTokenAction,
   changePasswordAction
-} from 'universal/redux/reducers/auth';
+} from 'universal/redux/reducers/auth/actionCreators';
 import PersonalInformationForm, {PERSONAL_INFORMATION_FORM_NAME} from './PersonalInformationForm';
 import RefreshAPIAccessTokenForm, {REFRESH_API_ACCESS_TOKEN_FORM_NAME} from './RefreshAPIAccessTokenForm';
 import ChangePasswordForm, {CHANGE_PASSWORD_FORM_NAME} from './ChangePasswordForm';

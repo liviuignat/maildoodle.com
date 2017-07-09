@@ -1,4 +1,4 @@
-import {cookieService} from './../cookieService/cookieService';
+import * as cookieService from './../cookieService/cookieService';
 import ApiClient from './../../universal/helpers/ApiClient';
 
 const COOKIE_NAME = 'auth_token';

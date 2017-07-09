@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {initialize} from 'redux-form';
 import {push as pushState} from 'react-router-redux';
 import {Paper} from 'universal/components';
-import {signUpAction} from 'universal/redux/reducers/auth';
+import {signUpAction} from 'universal/redux/reducers/auth/actionCreators';
 import SignUpForm from './SignUpForm';
 
 @connect(

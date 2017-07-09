@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import {
   request,
   cleanup,
@@ -79,7 +78,7 @@ describe('given we want to CRUD templates', () => {
       });
 
       it('templated should have the same name',
-        () => expect(firstAddedTemplate.name).to.equal(newTemplate.name));
+        () => expect(firstAddedTemplate.name).toEqual(newTemplate.name));
 
       describe('WHEN getting the template by id', () => {
         it('should make the request with success',
@@ -95,16 +94,16 @@ describe('given we want to CRUD templates', () => {
           }));
 
           it('should have an object id',
-            () => expect(retreivedTemplate.objectId).not.to.be.undefined);
+            () => expect(retreivedTemplate.objectId).toBeDefined());
 
           it('should have the correct name',
-            () => expect(retreivedTemplate.name).to.equal(newTemplate.name));
+            () => expect(retreivedTemplate.name).toEqual(newTemplate.name));
 
           it('should have the correct description',
-            () => expect(retreivedTemplate.description).to.equal(newTemplate.description));
+            () => expect(retreivedTemplate.description).toEqual(newTemplate.description));
 
           it('templated should have a version',
-            () => expect(retreivedTemplate.versions.length).to.equal(1));
+            () => expect(retreivedTemplate.versions.length).toEqual(1));
 
           describe('WHEN adding a layout', () => {
             let layout = {
@@ -145,7 +144,7 @@ describe('given we want to CRUD templates', () => {
               }));
 
               it('SHOULD have a version in the versions list',
-                () => expect(retreivedTemplate.versions.length).to.equal(1));
+                () => expect(retreivedTemplate.versions.length).toEqual(1));
             });
 
             describe('WHEN the layout is deleted', () => {
@@ -157,7 +156,7 @@ describe('given we want to CRUD templates', () => {
               }));
 
               it('SHOULD have a version in the versions list',
-                () => expect(retreivedTemplate.versions.length).to.equal(1));
+                () => expect(retreivedTemplate.versions.length).toEqual(1));
             });
           });
 
@@ -200,7 +199,7 @@ describe('given we want to CRUD templates', () => {
               }));
 
               it('SHOULD have a version in the versions list',
-                () => expect(retreivedTemplate.versions.length).to.equal(1));
+                () => expect(retreivedTemplate.versions.length).toEqual(1));
             });
 
             describe('WHEN the language is deleted', () => {
@@ -212,7 +211,7 @@ describe('given we want to CRUD templates', () => {
               }));
 
               it('SHOULD have a version in the versions list',
-                () => expect(retreivedTemplate.versions.length).to.equal(1));
+                () => expect(retreivedTemplate.versions.length).toEqual(1));
             });
           });
         });
@@ -225,13 +224,13 @@ describe('given we want to CRUD templates', () => {
           .catch(done));
 
         it('should have one template',
-          () => expect(currentProject.templates.length).to.equal(1));
+          () => expect(currentProject.templates.length).toEqual(1));
 
         it('should have the name',
-          () => expect(currentProject.templates[0].name).to.equal(newTemplate.name));
+          () => expect(currentProject.templates[0].name).toEqual(newTemplate.name));
 
         it('should have the description',
-          () => expect(currentProject.templates[0].description).to.equal(newTemplate.description));
+          () => expect(currentProject.templates[0].description).toEqual(newTemplate.description));
       });
 
       describe('WHEN updating the template', () => {
@@ -254,13 +253,13 @@ describe('given we want to CRUD templates', () => {
             .catch(done));
 
           it('should have one template',
-            () => expect(currentProject.templates.length).to.equal(1));
+            () => expect(currentProject.templates.length).toEqual(1));
 
           it('should have the name',
-            () => expect(currentProject.templates[0].name).to.equal(updatedTemplate.name));
+            () => expect(currentProject.templates[0].name).toEqual(updatedTemplate.name));
 
           it('should have the description',
-            () => expect(currentProject.templates[0].description).to.equal(updatedTemplate.description));
+            () => expect(currentProject.templates[0].description).toEqual(updatedTemplate.description));
         });
       });
 
@@ -276,7 +275,7 @@ describe('given we want to CRUD templates', () => {
           it('should not have the template in the list anymore', (done) => {
             getTemplatesByProjectId(currentUser, currentProject.objectId)
               .then((templates) => {
-                expect(templates.length).to.equal(0);
+                expect(templates.length).toEqual(0);
                 done();
               })
               .catch(done);

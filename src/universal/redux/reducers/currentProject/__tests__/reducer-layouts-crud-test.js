@@ -1,4 +1,3 @@
-import {expect} from 'chai';
 import {reducer} from './../reducer';
 import * as actions from './../actions';
 
@@ -40,10 +39,10 @@ describe('GIVEN project detail reducer tests', () => {
       beforeEach(() => currrentState = reducer(currrentState, action));
 
       it('should have 2 layouts in the list',
-        () => expect(currrentState.project.layouts.length).to.equal(2));
+        () => expect(currrentState.project.layouts.length).toEqual(2));
 
       it('should have the correct layout',
-        () => expect(currrentState.project.layouts[1]).to.deep.equal(action.result.layout));
+        () => expect(currrentState.project.layouts[1]).toEqual(action.result.layout));
 
       describe('WHEN updating a layout with success', () => {
         let action = {
@@ -59,11 +58,11 @@ describe('GIVEN project detail reducer tests', () => {
         beforeEach(() => currrentState = reducer(currrentState, action));
 
         it('should have 2 layouts layout in the list',
-          () => expect(currrentState.project.layouts.length).to.equal(2));
+          () => expect(currrentState.project.layouts.length).toEqual(2));
 
         it('should have the correct layout name',
           () => expect(currrentState.project.layouts[1].name)
-            .to.deep.equal(action.result.layout.name));
+            .toEqual(action.result.layout.name));
       });
 
       describe('WHEN deleting a layout with success', () => {
@@ -77,10 +76,10 @@ describe('GIVEN project detail reducer tests', () => {
         beforeEach(() => currrentState = reducer(currrentState, action));
 
         it('should have one layout in the list',
-          () => expect(currrentState.project.layouts.length).to.equal(1));
+          () => expect(currrentState.project.layouts.length).toEqual(1));
 
         it('should have a layout with name default',
-          () => expect(currrentState.project.layouts[0].name).to.equal('default'));
+          () => expect(currrentState.project.layouts[0].name).toEqual('default'));
       });
     });
   });
