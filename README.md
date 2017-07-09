@@ -25,6 +25,19 @@ http://www.maildoodle.com/auth/sign-up
 - ability to access the output through APIs and also to test your APIs from the UI
 - more to come ...
 
+### Dependencies
+- NodeJS
+- Yarn
+- Docker (required to install MongoDb)
+- Mongo Db:
+
+```
+docker run -d \
+  -p 27017:27017 \
+  -v $HOME/docker/mongo:/data/db \
+  --name mongo mongo \
+```
+
 ### Technical details
 Technical awesomeness with Node.js and React. Created by developers to make software better.
 Inspired from Redux Universal Hot Example repo: 
@@ -47,6 +60,6 @@ yarn run test
 
 ### Maintainers
 - Liviu Ignat - http://www.ignat.email
-- Laurentiu Ilici - https://github.com/KamikazeBVB
+- Laurentiu Ilici - https://github.com/laurentiu-ilici
 
 Contact us if you use want to use it on premises. We accept pull requests.
