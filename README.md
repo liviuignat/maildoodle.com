@@ -31,22 +31,18 @@ Inspired from Redux Universal Hot Example repo:
 https://github.com/erikras/react-redux-universal-hot-example
 
 ```
-npm install
+yarn install
 
 //dev
-npm run dev
+yarn run dev
 
 //prod
-npm run build
-npm run start
+yarn run build
+yarn run start
 
 //run test
-npm run lint
-npm run test
-npm run test-node
-
-//run REST API sigle test
-make test FILE=[complete_path_to_file]
+yarn run lint
+yarn run test
 ```
 
 ### Maintainers
