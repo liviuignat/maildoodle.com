@@ -1,23 +1,16 @@
 {
-  "passPerPreset": true,
+  "presets": ["react", "es2015", "stage-0"],
+
   "plugins": [
-    "transform-decorators-legacy",
     "react-hot-loader/babel",
+    "transform-runtime",
     "add-module-exports",
     "syntax-async-functions",
     "transform-regenerator",
+    "transform-decorators-legacy",
     "transform-react-display-name",
     "transform-proto-to-assign",
     "transform-flow-strip-types"
-  ],
-  "presets": [
-    {
-      "plugins": ["transform-runtime"]
-    },
-    {
-      "passPerPreset": false,
-      "presets": ["react", "es2015", "stage-0"]
-    }
   ],
 
   "env": {

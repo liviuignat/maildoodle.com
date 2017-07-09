@@ -1,4 +1,4 @@
-import forOwn from 'lodash/forOwn';
+// import forOwn from 'lodash/forOwn';
 
 export function command(...args) {
   if (!isAnaliticsAllowed()) {
@@ -59,9 +59,9 @@ export function initGoogleAnalytics(id, sets = {}) {
 
   window.ga('create', id, 'auto');
 
-  forOwn(sets, (value, key) => {
-    set(key, value);
-  });
+  // forOwn(sets, (value, key) => {
+  //   set(key, value);
+  // });
 }
 
 function isAnaliticsAllowed() {

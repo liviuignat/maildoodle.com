@@ -1,6 +1,6 @@
 import React from 'react';
 import {IndexRoute, Route} from 'react-router';
-import { isUserLoaded, loadUserAction } from './redux/reducers/auth';
+import { isUserLoaded, loadUserAction } from './redux/reducers/auth/actionCreators';
 import {
     AppContainer,
     HomePage,

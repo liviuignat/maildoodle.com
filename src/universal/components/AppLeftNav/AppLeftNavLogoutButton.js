@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { logoutAction } from 'universal/redux/reducers/auth';
+import { logoutAction } from 'universal/redux/reducers/auth/actionCreators';
 
 @connect(
   state => ({user: state.auth.user}),

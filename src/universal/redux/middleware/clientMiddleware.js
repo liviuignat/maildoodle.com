@@ -1,4 +1,4 @@
-import {logoutAction} from 'universal/redux/reducers/auth';
+import {logoutAction} from 'universal/redux/reducers/auth/actionCreators';
 
 export default function clientMiddleware(client) {
   return ({dispatch, getState}) => {

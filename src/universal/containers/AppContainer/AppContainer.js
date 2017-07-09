@@ -11,7 +11,7 @@ import config from 'universal/../config';
 import {asyncConnect} from 'redux-async-connect';
 
 import {AppHeader, AppLeftNav, LinearProgress, GoogleAnalytics} from 'universal/components';
-import {isUserLoaded, loadUserAction} from 'universal/redux/reducers/auth';
+import {isUserLoaded, loadUserAction} from 'universal/redux/reducers/auth/actionCreators';
 
 @asyncConnect([{
   promise: ({store: {getState, dispatch}}) => {

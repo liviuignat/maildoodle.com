@@ -18,7 +18,6 @@ module.exports = {
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
-      'bootstrap-sass!./src/universal/theme/bootstrap.config.prod.js',
       'font-awesome-webpack!./src/universal/theme/font-awesome.config.prod.js',
       './src/universal/client.js'
     ]

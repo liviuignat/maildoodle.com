@@ -9,7 +9,7 @@ import {
   insertProjectAction,
   updateProjectAction,
   deleteProjectAction
-} from 'universal/redux/reducers/projects';
+} from 'universal/redux/reducers/projects/actionCreators';
 import AddProjectForm, {ADD_PROJECT_FORM_NAME} from './AddProjectForm';
 import {
   FloatingActionButton,
